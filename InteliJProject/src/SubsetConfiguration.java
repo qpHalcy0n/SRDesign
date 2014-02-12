@@ -6,7 +6,6 @@ public class SubsetConfiguration {
 	private double endZ;
     File amfFile;
     File gCodeFile;
-    private PrinterConfiguration printerConfiguration;
     private PrintConfiguration printConfiguration;
     private List<FileConfiguration> fileConfigurations;
 
