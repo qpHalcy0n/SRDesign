@@ -22,7 +22,8 @@ public class PrinterConfiguration {
 	private double printCenterY;
 	
 	/**
-	 * 
+	 * The zOffset of the print bed surfaces.  Used if the bed does not
+	 * sit exactly at z = 0.
 	 */
 	private double zOffset;
 	
@@ -32,7 +33,7 @@ public class PrinterConfiguration {
 	private String gCodeFlavor;
 	
 	/**
-	 * When true, uses relative E values (required by some firmwares)
+	 * When true, uses relative E values (required by some firmwares).
 	 */
 	private boolean useRelativeEDistances;
 	
@@ -43,7 +44,8 @@ public class PrinterConfiguration {
 	
 	/**
 	 * The limit of vibrations (in Hz) where movements will be slowed.
-	 * If a move hits the specified vibration frequency, the 
+	 * If a move hits the specified vibration frequency, the extruder
+	 * will slow.
 	 */
 	private double vibrationLimit;
 }

@@ -7,10 +7,10 @@ public class SupportMaterialConfiguration {
 	private boolean generateSupportMaterial;
 	
 	/**
-	 * The overhang threshold in degress.  Support material will not be
+	 * The overhang threshold in degrees.  Support material will not be
 	 * extruded for overhangs whose slope angle is above this threshold.
 	 */
-	private int overhandThreshold;
+	private int overhangThreshold;
 	
 	/**
 	 * Forces support material on the first n layers.

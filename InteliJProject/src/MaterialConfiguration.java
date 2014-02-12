@@ -10,7 +10,7 @@ public class MaterialConfiguration {
 	 * Flow rate multiplier.  This changes the flow rate proportionally.
 	 * 0.9 will be 90% flow rate, while 1.1 will be 110% flow rate.
 	 */
-    private double extruionMultiplier;
+    private double extrusionMultiplier;
     
     /**
      * The temperature (in degrees C) the extruder needs to be to extrude the first layer

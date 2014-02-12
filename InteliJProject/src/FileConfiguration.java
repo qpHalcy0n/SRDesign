@@ -4,7 +4,7 @@ import java.io.File;
  * Created by daniellain on 2/8/14.
  */
 public class FileConfiguration {
-    private File rawSTLFile;
+    private File parentSTLFile;
     private File subsetSTL;
 
     private ExtruderConfiguration extruderConfiguration;

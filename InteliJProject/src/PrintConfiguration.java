@@ -4,6 +4,8 @@
  */
 public class PrintConfiguration {
     private InfillConfiguration infillConfiguration;
+	private LayerAndPermimeterConfiguration;
+	private SpeedConfiguration;
     private SkirtAndBrimConfiguration skirtAndBrimConfiguration;
     private SupportMaterialConfiguration supportMaterialConfiguration;
 }

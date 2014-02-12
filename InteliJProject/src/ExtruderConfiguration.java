@@ -19,4 +19,9 @@ public class ExtruderConfiguration {
 	 * The y offset in respect to the first extruder.
 	 */
 	private double yOffset;
+	
+	/**
+	 * The z offset in respect to the first extruder.
+	 */
+	private double zOffset;
 }

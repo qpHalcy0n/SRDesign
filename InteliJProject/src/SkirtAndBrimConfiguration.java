@@ -10,7 +10,7 @@ public class SkirtAndBrimConfiguration {
 	 * The distance from the object the skirt will be extruded at in mm >= 0.
 	 * Setting this to 0 will essentially turn the skirt into brim.
 	 */
-	private int skirtDistanceFromObject;
+	private double skirtDistanceFromObject;
 	
 	/**
 	 * The height of the skirt in layers >= 1.
@@ -20,10 +20,10 @@ public class SkirtAndBrimConfiguration {
 	/**
 	 * The minimum extrusion length of the skirt in mm >= 0.
 	 */
-	private int skirtMinimumExtrusionLength;
+	private double skirtMinimumExtrusionLength;
 	
 	/**
 	 * The width of the brim in mm (0 will extrude no brim).
 	 */
-	private int brimWidth;
+	private double brimWidth;
 }
