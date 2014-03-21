@@ -3,7 +3,11 @@ package ink3d.ConfigurationObjects;
 /**
  * Created by daniellain on 2/8/14.
  */
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class PrintConfiguration {
+    private String name;
     private InfillConfiguration infillConfiguration;
     private LayerAndPerimeterConfiguration layerPerimiterConfiguration;
     private SpeedConfiguration speedConfiguration;
@@ -49,6 +53,12 @@ public class PrintConfiguration {
     public void setSupportMaterialConfiguration(SupportMaterialConfiguration supportMaterialConfiguration) {
         this.supportMaterialConfiguration = supportMaterialConfiguration;
     }
-    
-    
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }        
 }

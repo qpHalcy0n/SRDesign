@@ -1,33 +1,36 @@
 package ink3d.ConfigurationObjects;
 
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class SkirtAndBrimConfiguration {
+    private String name;
 	
-	/**
-	 * The number loops of skirt to extrude (0 will extrude no skirt).
-	 */
-	private int skirtLoops;
-	
-	/**
-	 * The distance from the object the skirt will be extruded at in mm >= 0.
-	 * Setting this to 0 will essentially turn the skirt into brim.
-	 */
-	private double skirtDistanceFromObject;
-	
-	/**
-	 * The height of the skirt in layers >= 1.
-	 */
-	private int skirtHeight;
-	
-	/**
-	 * The minimum extrusion length of the skirt in mm >= 0.
-	 */
-	private double skirtMinimumExtrusionLength;
-	
-	/**
-	 * The width of the brim in mm (0 will extrude no brim).
-	 */
-	private double brimWidth;
+    /**
+     * The number loops of skirt to extrude (0 will extrude no skirt).
+     */
+    private int skirtLoops;
+
+    /**
+     * The distance from the object the skirt will be extruded at in mm >= 0.
+     * Setting this to 0 will essentially turn the skirt into brim.
+     */
+    private double skirtDistanceFromObject;
+
+    /**
+     * The height of the skirt in layers >= 1.
+     */
+    private int skirtHeight;
+
+    /**
+     * The minimum extrusion length of the skirt in mm >= 0.
+     */
+    private double skirtMinimumExtrusionLength;
+
+    /**
+     * The width of the brim in mm (0 will extrude no brim).
+     */
+    private double brimWidth;
 
     public int getSkirtLoops() {
         return skirtLoops;
@@ -68,6 +71,12 @@ public class SkirtAndBrimConfiguration {
     public void setBrimWidth(double brimWidth) {
         this.brimWidth = brimWidth;
     }
-        
-        
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }                
 }

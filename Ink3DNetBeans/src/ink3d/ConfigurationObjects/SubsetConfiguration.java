@@ -2,8 +2,11 @@ package ink3d.ConfigurationObjects;
 
 import java.io.File;
 import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class SubsetConfiguration {
+    private String name;
     private double bottomZ;
     private double topZ;
     File amfFile;
@@ -59,6 +62,11 @@ public class SubsetConfiguration {
         this.fileConfigurations = fileConfigurations;
     }
 
-    
-}
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+}

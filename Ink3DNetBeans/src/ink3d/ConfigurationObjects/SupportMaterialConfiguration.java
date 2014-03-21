@@ -1,8 +1,10 @@
 package ink3d.ConfigurationObjects;
 
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class SupportMaterialConfiguration {
-	
+    private String name;
     /**
      * When set to true, G-code for support material will be generated.
      */
@@ -120,6 +122,12 @@ public class SupportMaterialConfiguration {
     public void setInterfacePatternSpacing(double interfacePatternSpacing) {
         this.interfacePatternSpacing = interfacePatternSpacing;
     }
-	
-        
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

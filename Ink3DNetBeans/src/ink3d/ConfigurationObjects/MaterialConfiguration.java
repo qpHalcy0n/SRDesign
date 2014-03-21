@@ -1,17 +1,20 @@
 package ink3d.ConfigurationObjects;
 
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class MaterialConfiguration {
+    private String name;
     private SpeedConfiguration speedConfiguration;
-	/**
-	 * Diameter in mm of the filament.
-	 */
-	private double filamentDiameter;
-	
-	/**
-	 * Flow rate multiplier.  This changes the flow rate proportionally.
-	 * 0.9 will be 90% flow rate, while 1.1 will be 110% flow rate.
-	 */
+    /**
+     * Diameter in mm of the filament.
+     */
+    private double filamentDiameter;
+
+    /**
+     * Flow rate multiplier.  This changes the flow rate proportionally.
+     * 0.9 will be 90% flow rate, while 1.1 will be 110% flow rate.
+     */
     private double extrusionMultiplier;
     
     /**
@@ -305,6 +308,12 @@ public class MaterialConfiguration {
     public void setMinPrintSpeed(int minPrintSpeed) {
         this.minPrintSpeed = minPrintSpeed;
     }
-    
-    
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }        
 }

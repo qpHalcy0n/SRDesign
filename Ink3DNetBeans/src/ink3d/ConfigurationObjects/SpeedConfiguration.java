@@ -1,8 +1,10 @@
 package ink3d.ConfigurationObjects;
 
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class SpeedConfiguration {
-	
+    private String name;
     /**
      * Speed for perimeters (mm/s)
      */
@@ -197,6 +199,12 @@ public class SpeedConfiguration {
     public void setDefaultAcceleration(double defaultAcceleration) {
         this.defaultAcceleration = defaultAcceleration;
     }
-        
-        
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

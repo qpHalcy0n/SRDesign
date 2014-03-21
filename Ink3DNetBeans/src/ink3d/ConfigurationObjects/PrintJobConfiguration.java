@@ -2,9 +2,11 @@ package ink3d.ConfigurationObjects;
 
 import java.io.File;
 import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
 
-
+@XmlRootElement
 public class PrintJobConfiguration {
+    private String name;
     private PrinterConfiguration printerConfiguration;
     private List <SubsetConfiguration> subsetConfigurationList;
 
@@ -23,6 +25,12 @@ public class PrintJobConfiguration {
     public void setSubsetConfigurationList(List<SubsetConfiguration> subsetConfigurationList) {
         this.subsetConfigurationList = subsetConfigurationList;
     }
-    
-    
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }        
 }
