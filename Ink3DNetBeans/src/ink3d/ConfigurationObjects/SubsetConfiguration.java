@@ -2,6 +2,7 @@ package ink3d.ConfigurationObjects;
 
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -69,4 +70,46 @@ public class SubsetConfiguration {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SubsetConfiguration other = (SubsetConfiguration) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.bottomZ) != Double.doubleToLongBits(other.bottomZ)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.topZ) != Double.doubleToLongBits(other.topZ)) {
+            return false;
+        }
+        if (!Objects.equals(this.amfFile, other.amfFile)) {
+            return false;
+        }
+        if (!Objects.equals(this.gCodeFile, other.gCodeFile)) {
+            return false;
+        }
+        if (!Objects.equals(this.printConfiguration, other.printConfiguration)) {
+            return false;
+        }
+        if (!Objects.equals(this.fileConfigurations, other.fileConfigurations)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

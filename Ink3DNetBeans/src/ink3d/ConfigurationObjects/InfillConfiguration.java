@@ -1,4 +1,5 @@
 package ink3d.ConfigurationObjects;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -147,5 +148,58 @@ public class InfillConfiguration {
 
     public void setName(String name) {
         this.name = name;
-    }	    
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 53 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final InfillConfiguration other = (InfillConfiguration) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.infillDensity) != Double.doubleToLongBits(other.infillDensity)) {
+            return false;
+        }
+        if (!Objects.equals(this.infillPattern, other.infillPattern)) {
+            return false;
+        }
+        if (!Objects.equals(this.topBottomInfillPattern, other.topBottomInfillPattern)) {
+            return false;
+        }
+        if (this.infillEveryNLayers != other.infillEveryNLayers) {
+            return false;
+        }
+        if (this.onlyInfillWhereNeeded != other.onlyInfillWhereNeeded) {
+            return false;
+        }
+        if (this.solidInfillEveryNLayers != other.solidInfillEveryNLayers) {
+            return false;
+        }
+        if (this.infillAngle != other.infillAngle) {
+            return false;
+        }
+        if (this.solidInfillThresholdArea != other.solidInfillThresholdArea) {
+            return false;
+        }
+        if (this.onlyRetractInfillWhenCrossingPerimeters != other.onlyRetractInfillWhenCrossingPerimeters) {
+            return false;
+        }
+        if (this.infillBeforePerimeters != other.infillBeforePerimeters) {
+            return false;
+        }
+        return true;
+    }
+    
 }

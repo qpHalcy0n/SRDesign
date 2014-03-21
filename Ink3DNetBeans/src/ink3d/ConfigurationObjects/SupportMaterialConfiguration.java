@@ -1,5 +1,6 @@
 package ink3d.ConfigurationObjects;
 
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -130,4 +131,54 @@ public class SupportMaterialConfiguration {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SupportMaterialConfiguration other = (SupportMaterialConfiguration) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (this.generateSupportMaterial != other.generateSupportMaterial) {
+            return false;
+        }
+        if (this.overhangThreshold != other.overhangThreshold) {
+            return false;
+        }
+        if (this.enforceSupportForFirstNLayers != other.enforceSupportForFirstNLayers) {
+            return false;
+        }
+        if (this.raftLayers != other.raftLayers) {
+            return false;
+        }
+        if (!Objects.equals(this.supportMaterialPattern, other.supportMaterialPattern)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.supportPatternSpacing) != Double.doubleToLongBits(other.supportPatternSpacing)) {
+            return false;
+        }
+        if (this.supportPatternAngle != other.supportPatternAngle) {
+            return false;
+        }
+        if (this.interfaceLayers != other.interfaceLayers) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.interfacePatternSpacing) != Double.doubleToLongBits(other.interfacePatternSpacing)) {
+            return false;
+        }
+        return true;
+    }
+    
 }

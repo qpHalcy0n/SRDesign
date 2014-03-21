@@ -6,7 +6,7 @@
 
 package ink3d.UserInterface.Database.XmlDatabase;
 
-import ink3d.ConfigurationObjects.ExtruderConfiguration;
+import ink3d.ConfigurationObjects.PrintConfiguration;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,13 +21,13 @@ import javax.xml.namespace.QName;
  *
  * @author daniellain
  */
-public class SaveExtruderConfigurationCommand extends ink3d.UserInterface.Database.CommandStructure{
-    private ExtruderConfiguration config;
-    private static String xmlHeadName = "extruder";
-    private static String path = "./Extruders";
+public class SavePrintConfigurationCommand extends ink3d.UserInterface.Database.CommandStructure{
+    private PrintConfiguration config;
+    private static String xmlHeadName = "print";
+    private static String path = "./Prints";
     private static String extention =".xml";
     
-    public SaveExtruderConfigurationCommand(ExtruderConfiguration config){
+    public SavePrintConfigurationCommand(PrintConfiguration config){
         this.config = config;
     }
     
@@ -38,8 +38,8 @@ public class SaveExtruderConfigurationCommand extends ink3d.UserInterface.Databa
             file.mkdir();
             file = new File(path+config.getName()+extention);
             file.createNewFile();
-            JAXBContext jc = JAXBContext.newInstance(ExtruderConfiguration.class);
-            JAXBElement<ExtruderConfiguration> je = new JAXBElement<ExtruderConfiguration>(new QName(xmlHeadName), ExtruderConfiguration.class, config);
+            JAXBContext jc = JAXBContext.newInstance(PrintConfiguration.class);
+            JAXBElement<PrintConfiguration> je = new JAXBElement<PrintConfiguration>(new QName(xmlHeadName), PrintConfiguration.class, config);
             Marshaller marshaller = jc.createMarshaller();
             OutputStream os = new FileOutputStream( path+config.getName()+extention );
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);

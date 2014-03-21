@@ -3,6 +3,7 @@ package ink3d.ConfigurationObjects;
 /**
  * Created by daniellain on 2/8/14.
  */
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -60,5 +61,44 @@ public class PrintConfiguration {
 
     public void setName(String name) {
         this.name = name;
-    }        
+    }   
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PrintConfiguration other = (PrintConfiguration) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.infillConfiguration, other.infillConfiguration)) {
+            return false;
+        }
+        if (!Objects.equals(this.layerPerimiterConfiguration, other.layerPerimiterConfiguration)) {
+            return false;
+        }
+        if (!Objects.equals(this.speedConfiguration, other.speedConfiguration)) {
+            return false;
+        }
+        if (!Objects.equals(this.skirtAndBrimConfiguration, other.skirtAndBrimConfiguration)) {
+            return false;
+        }
+        if (!Objects.equals(this.supportMaterialConfiguration, other.supportMaterialConfiguration)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

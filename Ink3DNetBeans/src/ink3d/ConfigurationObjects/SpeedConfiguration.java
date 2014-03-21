@@ -1,5 +1,6 @@
 package ink3d.ConfigurationObjects;
 
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -207,4 +208,73 @@ public class SpeedConfiguration {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 13 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SpeedConfiguration other = (SpeedConfiguration) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.perimetersSpeed) != Double.doubleToLongBits(other.perimetersSpeed)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.smallPerimetersSpeed) != Double.doubleToLongBits(other.smallPerimetersSpeed)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.externalPerimetersSpeed) != Double.doubleToLongBits(other.externalPerimetersSpeed)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.infillSpeed) != Double.doubleToLongBits(other.infillSpeed)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.solidInfillSpeed) != Double.doubleToLongBits(other.solidInfillSpeed)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.topSolidInfillSpeed) != Double.doubleToLongBits(other.topSolidInfillSpeed)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.supportMaterialSpeed) != Double.doubleToLongBits(other.supportMaterialSpeed)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.bridgesSpeed) != Double.doubleToLongBits(other.bridgesSpeed)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.gapFillSpeed) != Double.doubleToLongBits(other.gapFillSpeed)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.nonPrintMovesSpeed) != Double.doubleToLongBits(other.nonPrintMovesSpeed)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.firstLayerSpeed) != Double.doubleToLongBits(other.firstLayerSpeed)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.perimetersAcceleration) != Double.doubleToLongBits(other.perimetersAcceleration)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.infillAcceleration) != Double.doubleToLongBits(other.infillAcceleration)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.bridgeAcceleration) != Double.doubleToLongBits(other.bridgeAcceleration)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.defaultAcceleration) != Double.doubleToLongBits(other.defaultAcceleration)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

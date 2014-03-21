@@ -1,5 +1,6 @@
 package ink3d.ConfigurationObjects;
 
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -131,5 +132,56 @@ public class PrinterConfiguration {
 
     public void setName(String name) {
         this.name = name;
-    }                
+    }        
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PrinterConfiguration other = (PrinterConfiguration) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.bedX) != Double.doubleToLongBits(other.bedX)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.bedY) != Double.doubleToLongBits(other.bedY)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.printCenterX) != Double.doubleToLongBits(other.printCenterX)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.printCenterY) != Double.doubleToLongBits(other.printCenterY)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.zOffset) != Double.doubleToLongBits(other.zOffset)) {
+            return false;
+        }
+        if (!Objects.equals(this.gCodeFlavor, other.gCodeFlavor)) {
+            return false;
+        }
+        if (this.useRelativeEDistances != other.useRelativeEDistances) {
+            return false;
+        }
+        if (this.numExtruders != other.numExtruders) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.vibrationLimit) != Double.doubleToLongBits(other.vibrationLimit)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

@@ -6,7 +6,7 @@
 
 package ink3d.UserInterface.Database.XmlDatabase;
 
-import ink3d.ConfigurationObjects.ExtruderConfiguration;
+import ink3d.ConfigurationObjects.MaterialConfiguration;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,25 +21,25 @@ import javax.xml.namespace.QName;
  *
  * @author daniellain
  */
-public class SaveExtruderConfigurationCommand extends ink3d.UserInterface.Database.CommandStructure{
-    private ExtruderConfiguration config;
-    private static String xmlHeadName = "extruder";
-    private static String path = "./Extruders";
+public class SaveMaterialConfigurationCommand extends ink3d.UserInterface.Database.CommandStructure{
+    private MaterialConfiguration config;
+    private static String xmlHeadName = "material";
+    private static String path = "./Materials";
     private static String extention =".xml";
     
-    public SaveExtruderConfigurationCommand(ExtruderConfiguration config){
+    public SaveMaterialConfigurationCommand(MaterialConfiguration config){
         this.config = config;
     }
     
-   @Override
+    @Override
     public void execute() {
         try {
             File file = new File(path);
             file.mkdir();
             file = new File(path+config.getName()+extention);
             file.createNewFile();
-            JAXBContext jc = JAXBContext.newInstance(ExtruderConfiguration.class);
-            JAXBElement<ExtruderConfiguration> je = new JAXBElement<ExtruderConfiguration>(new QName(xmlHeadName), ExtruderConfiguration.class, config);
+            JAXBContext jc = JAXBContext.newInstance(MaterialConfiguration.class);
+            JAXBElement<MaterialConfiguration> je = new JAXBElement<MaterialConfiguration>(new QName(xmlHeadName), MaterialConfiguration.class, config);
             Marshaller marshaller = jc.createMarshaller();
             OutputStream os = new FileOutputStream( path+config.getName()+extention );
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);

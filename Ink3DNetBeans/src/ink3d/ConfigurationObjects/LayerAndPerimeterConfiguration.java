@@ -1,4 +1,5 @@
 package ink3d.ConfigurationObjects;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -110,5 +111,50 @@ public class LayerAndPerimeterConfiguration {
 
     public void setName(String name) {
         this.name = name;
-    }                
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final LayerAndPerimeterConfiguration other = (LayerAndPerimeterConfiguration) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.layerHeight) != Double.doubleToLongBits(other.layerHeight)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.firstLayerHeight) != Double.doubleToLongBits(other.firstLayerHeight)) {
+            return false;
+        }
+        if (this.perimeters != other.perimeters) {
+            return false;
+        }
+        if (this.randomizedStartingPoints != other.randomizedStartingPoints) {
+            return false;
+        }
+        if (this.generateExtraPerimetersWhenNeeded != other.generateExtraPerimetersWhenNeeded) {
+            return false;
+        }
+        if (this.solidTopLayers != other.solidTopLayers) {
+            return false;
+        }
+        if (this.solidBottomLayers != other.solidBottomLayers) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

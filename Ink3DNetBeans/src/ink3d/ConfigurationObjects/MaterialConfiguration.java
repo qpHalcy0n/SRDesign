@@ -1,5 +1,6 @@
 package ink3d.ConfigurationObjects;
 
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -315,5 +316,96 @@ public class MaterialConfiguration {
 
     public void setName(String name) {
         this.name = name;
-    }        
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final MaterialConfiguration other = (MaterialConfiguration) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.speedConfiguration, other.speedConfiguration)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.filamentDiameter) != Double.doubleToLongBits(other.filamentDiameter)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.extrusionMultiplier) != Double.doubleToLongBits(other.extrusionMultiplier)) {
+            return false;
+        }
+        if (this.firstLayerExtrusionTemperature != other.firstLayerExtrusionTemperature) {
+            return false;
+        }
+        if (this.extrusionTemperature != other.extrusionTemperature) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.retractionLength) != Double.doubleToLongBits(other.retractionLength)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.retractionLiftZ) != Double.doubleToLongBits(other.retractionLiftZ)) {
+            return false;
+        }
+        if (this.retractionSpeed != other.retractionSpeed) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.extraLengthAfterRetraction) != Double.doubleToLongBits(other.extraLengthAfterRetraction)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.minimumTravelAfterRetraction) != Double.doubleToLongBits(other.minimumTravelAfterRetraction)) {
+            return false;
+        }
+        if (this.retractOnLayerChange != other.retractOnLayerChange) {
+            return false;
+        }
+        if (this.wipeBeforeRetract != other.wipeBeforeRetract) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.retractionLengthBeforeToolChange) != Double.doubleToLongBits(other.retractionLengthBeforeToolChange)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.extraLengthOnToolReenable) != Double.doubleToLongBits(other.extraLengthOnToolReenable)) {
+            return false;
+        }
+        if (this.fanAlwaysOn != other.fanAlwaysOn) {
+            return false;
+        }
+        if (this.enableAutoCooling != other.enableAutoCooling) {
+            return false;
+        }
+        if (this.minFanSpeed != other.minFanSpeed) {
+            return false;
+        }
+        if (this.maxFanSpeed != other.maxFanSpeed) {
+            return false;
+        }
+        if (this.bridgeFanSpeedPercent != other.bridgeFanSpeedPercent) {
+            return false;
+        }
+        if (this.disableFanForFirstNLayers != other.disableFanForFirstNLayers) {
+            return false;
+        }
+        if (this.enableFanTimeThreshold != other.enableFanTimeThreshold) {
+            return false;
+        }
+        if (this.slowDownTimeTreshold != other.slowDownTimeTreshold) {
+            return false;
+        }
+        if (this.minPrintSpeed != other.minPrintSpeed) {
+            return false;
+        }
+        return true;
+    }
 }

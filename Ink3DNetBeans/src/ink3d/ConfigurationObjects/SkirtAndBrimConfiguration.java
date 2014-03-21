@@ -1,5 +1,6 @@
 package ink3d.ConfigurationObjects;
 
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -78,5 +79,44 @@ public class SkirtAndBrimConfiguration {
 
     public void setName(String name) {
         this.name = name;
-    }                
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 83 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SkirtAndBrimConfiguration other = (SkirtAndBrimConfiguration) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (this.skirtLoops != other.skirtLoops) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.skirtDistanceFromObject) != Double.doubleToLongBits(other.skirtDistanceFromObject)) {
+            return false;
+        }
+        if (this.skirtHeight != other.skirtHeight) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.skirtMinimumExtrusionLength) != Double.doubleToLongBits(other.skirtMinimumExtrusionLength)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.brimWidth) != Double.doubleToLongBits(other.brimWidth)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }
