@@ -1,3 +1,5 @@
+package ink3d.ConfigurationObjects;
+
 
 public class MaterialConfiguration {
     private SpeedConfiguration speedConfiguration;

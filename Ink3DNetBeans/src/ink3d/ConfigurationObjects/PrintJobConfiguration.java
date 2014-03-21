@@ -1,3 +1,5 @@
+package ink3d.ConfigurationObjects;
+
 import java.io.File;
 import java.util.List;
 
