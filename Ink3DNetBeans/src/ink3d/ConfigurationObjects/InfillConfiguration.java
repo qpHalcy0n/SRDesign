@@ -58,5 +58,86 @@ public class InfillConfiguration {
 	 * perimeters are extruded.
 	 */
 	private boolean infillBeforePerimeters;
+
+    public double getInfillDensity() {
+        return infillDensity;
+    }
+
+    public void setInfillDensity(double infillDensity) {
+        this.infillDensity = infillDensity;
+    }
+
+    public String getInfillPattern() {
+        return infillPattern;
+    }
+
+    public void setInfillPattern(String infillPattern) {
+        this.infillPattern = infillPattern;
+    }
+
+    public String getTopBottomInfillPattern() {
+        return topBottomInfillPattern;
+    }
+
+    public void setTopBottomInfillPattern(String topBottomInfillPattern) {
+        this.topBottomInfillPattern = topBottomInfillPattern;
+    }
+
+    public int getInfillEveryNLayers() {
+        return infillEveryNLayers;
+    }
+
+    public void setInfillEveryNLayers(int infillEveryNLayers) {
+        this.infillEveryNLayers = infillEveryNLayers;
+    }
+
+    public boolean isOnlyInfillWhereNeeded() {
+        return onlyInfillWhereNeeded;
+    }
+
+    public void setOnlyInfillWhereNeeded(boolean onlyInfillWhereNeeded) {
+        this.onlyInfillWhereNeeded = onlyInfillWhereNeeded;
+    }
+
+    public int getSolidInfillEveryNLayers() {
+        return solidInfillEveryNLayers;
+    }
+
+    public void setSolidInfillEveryNLayers(int solidInfillEveryNLayers) {
+        this.solidInfillEveryNLayers = solidInfillEveryNLayers;
+    }
+
+    public int getInfillAngle() {
+        return infillAngle;
+    }
+
+    public void setInfillAngle(int infillAngle) {
+        this.infillAngle = infillAngle;
+    }
+
+    public int getSolidInfillThresholdArea() {
+        return solidInfillThresholdArea;
+    }
+
+    public void setSolidInfillThresholdArea(int solidInfillThresholdArea) {
+        this.solidInfillThresholdArea = solidInfillThresholdArea;
+    }
+
+    public boolean isOnlyRetractInfillWhenCrossingPerimeters() {
+        return onlyRetractInfillWhenCrossingPerimeters;
+    }
+
+    public void setOnlyRetractInfillWhenCrossingPerimeters(boolean onlyRetractInfillWhenCrossingPerimeters) {
+        this.onlyRetractInfillWhenCrossingPerimeters = onlyRetractInfillWhenCrossingPerimeters;
+    }
+
+    public boolean isInfillBeforePerimeters() {
+        return infillBeforePerimeters;
+    }
+
+    public void setInfillBeforePerimeters(boolean infillBeforePerimeters) {
+        this.infillBeforePerimeters = infillBeforePerimeters;
+    }
 	
+        
 }

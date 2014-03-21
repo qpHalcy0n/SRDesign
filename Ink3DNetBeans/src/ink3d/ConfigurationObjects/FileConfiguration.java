@@ -11,4 +11,38 @@ public class FileConfiguration {
 
     private ExtruderConfiguration extruderConfiguration;
     private MaterialConfiguration materialConfiguration;
+
+    public File getParentSTLFile() {
+        return parentSTLFile;
+    }
+
+    public void setParentSTLFile(File parentSTLFile) {
+        this.parentSTLFile = parentSTLFile;
+    }
+
+    public File getSubsetSTL() {
+        return subsetSTL;
+    }
+
+    public void setSubsetSTL(File subsetSTL) {
+        this.subsetSTL = subsetSTL;
+    }
+
+    public ExtruderConfiguration getExtruderConfiguration() {
+        return extruderConfiguration;
+    }
+
+    public void setExtruderConfiguration(ExtruderConfiguration extruderConfiguration) {
+        this.extruderConfiguration = extruderConfiguration;
+    }
+
+    public MaterialConfiguration getMaterialConfiguration() {
+        return materialConfiguration;
+    }
+
+    public void setMaterialConfiguration(MaterialConfiguration materialConfiguration) {
+        this.materialConfiguration = materialConfiguration;
+    }
+    
+    
 }

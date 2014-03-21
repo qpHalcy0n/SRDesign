@@ -121,4 +121,190 @@ public class MaterialConfiguration {
      * The move speed will not be scaled down below this speed (in mm/s).
      */
     private int minPrintSpeed;
+
+    public SpeedConfiguration getSpeedConfiguration() {
+        return speedConfiguration;
+    }
+
+    public void setSpeedConfiguration(SpeedConfiguration speedConfiguration) {
+        this.speedConfiguration = speedConfiguration;
+    }
+
+    public double getFilamentDiameter() {
+        return filamentDiameter;
+    }
+
+    public void setFilamentDiameter(double filamentDiameter) {
+        this.filamentDiameter = filamentDiameter;
+    }
+
+    public double getExtrusionMultiplier() {
+        return extrusionMultiplier;
+    }
+
+    public void setExtrusionMultiplier(double extrusionMultiplier) {
+        this.extrusionMultiplier = extrusionMultiplier;
+    }
+
+    public int getFirstLayerExtrusionTemperature() {
+        return firstLayerExtrusionTemperature;
+    }
+
+    public void setFirstLayerExtrusionTemperature(int firstLayerExtrusionTemperature) {
+        this.firstLayerExtrusionTemperature = firstLayerExtrusionTemperature;
+    }
+
+    public int getExtrusionTemperature() {
+        return extrusionTemperature;
+    }
+
+    public void setExtrusionTemperature(int extrusionTemperature) {
+        this.extrusionTemperature = extrusionTemperature;
+    }
+
+    public double getRetractionLength() {
+        return retractionLength;
+    }
+
+    public void setRetractionLength(double retractionLength) {
+        this.retractionLength = retractionLength;
+    }
+
+    public double getRetractionLiftZ() {
+        return retractionLiftZ;
+    }
+
+    public void setRetractionLiftZ(double retractionLiftZ) {
+        this.retractionLiftZ = retractionLiftZ;
+    }
+
+    public int getRetractionSpeed() {
+        return retractionSpeed;
+    }
+
+    public void setRetractionSpeed(int retractionSpeed) {
+        this.retractionSpeed = retractionSpeed;
+    }
+
+    public double getExtraLengthAfterRetraction() {
+        return extraLengthAfterRetraction;
+    }
+
+    public void setExtraLengthAfterRetraction(double extraLengthAfterRetraction) {
+        this.extraLengthAfterRetraction = extraLengthAfterRetraction;
+    }
+
+    public double getMinimumTravelAfterRetraction() {
+        return minimumTravelAfterRetraction;
+    }
+
+    public void setMinimumTravelAfterRetraction(double minimumTravelAfterRetraction) {
+        this.minimumTravelAfterRetraction = minimumTravelAfterRetraction;
+    }
+
+    public boolean isRetractOnLayerChange() {
+        return retractOnLayerChange;
+    }
+
+    public void setRetractOnLayerChange(boolean retractOnLayerChange) {
+        this.retractOnLayerChange = retractOnLayerChange;
+    }
+
+    public boolean isWipeBeforeRetract() {
+        return wipeBeforeRetract;
+    }
+
+    public void setWipeBeforeRetract(boolean wipeBeforeRetract) {
+        this.wipeBeforeRetract = wipeBeforeRetract;
+    }
+
+    public double getRetractionLengthBeforeToolChange() {
+        return retractionLengthBeforeToolChange;
+    }
+
+    public void setRetractionLengthBeforeToolChange(double retractionLengthBeforeToolChange) {
+        this.retractionLengthBeforeToolChange = retractionLengthBeforeToolChange;
+    }
+
+    public double getExtraLengthOnToolReenable() {
+        return extraLengthOnToolReenable;
+    }
+
+    public void setExtraLengthOnToolReenable(double extraLengthOnToolReenable) {
+        this.extraLengthOnToolReenable = extraLengthOnToolReenable;
+    }
+
+    public boolean isFanAlwaysOn() {
+        return fanAlwaysOn;
+    }
+
+    public void setFanAlwaysOn(boolean fanAlwaysOn) {
+        this.fanAlwaysOn = fanAlwaysOn;
+    }
+
+    public boolean isEnableAutoCooling() {
+        return enableAutoCooling;
+    }
+
+    public void setEnableAutoCooling(boolean enableAutoCooling) {
+        this.enableAutoCooling = enableAutoCooling;
+    }
+
+    public int getMinFanSpeed() {
+        return minFanSpeed;
+    }
+
+    public void setMinFanSpeed(int minFanSpeed) {
+        this.minFanSpeed = minFanSpeed;
+    }
+
+    public int getMaxFanSpeed() {
+        return maxFanSpeed;
+    }
+
+    public void setMaxFanSpeed(int maxFanSpeed) {
+        this.maxFanSpeed = maxFanSpeed;
+    }
+
+    public int getBridgeFanSpeedPercent() {
+        return bridgeFanSpeedPercent;
+    }
+
+    public void setBridgeFanSpeedPercent(int bridgeFanSpeedPercent) {
+        this.bridgeFanSpeedPercent = bridgeFanSpeedPercent;
+    }
+
+    public int getDisableFanForFirstNLayers() {
+        return disableFanForFirstNLayers;
+    }
+
+    public void setDisableFanForFirstNLayers(int disableFanForFirstNLayers) {
+        this.disableFanForFirstNLayers = disableFanForFirstNLayers;
+    }
+
+    public int getEnableFanTimeThreshold() {
+        return enableFanTimeThreshold;
+    }
+
+    public void setEnableFanTimeThreshold(int enableFanTimeThreshold) {
+        this.enableFanTimeThreshold = enableFanTimeThreshold;
+    }
+
+    public int getSlowDownTimeTreshold() {
+        return slowDownTimeTreshold;
+    }
+
+    public void setSlowDownTimeTreshold(int slowDownTimeTreshold) {
+        this.slowDownTimeTreshold = slowDownTimeTreshold;
+    }
+
+    public int getMinPrintSpeed() {
+        return minPrintSpeed;
+    }
+
+    public void setMinPrintSpeed(int minPrintSpeed) {
+        this.minPrintSpeed = minPrintSpeed;
+    }
+    
+    
 }

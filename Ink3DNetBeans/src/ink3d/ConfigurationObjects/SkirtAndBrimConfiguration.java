@@ -28,4 +28,46 @@ public class SkirtAndBrimConfiguration {
 	 * The width of the brim in mm (0 will extrude no brim).
 	 */
 	private double brimWidth;
+
+    public int getSkirtLoops() {
+        return skirtLoops;
+    }
+
+    public void setSkirtLoops(int skirtLoops) {
+        this.skirtLoops = skirtLoops;
+    }
+
+    public double getSkirtDistanceFromObject() {
+        return skirtDistanceFromObject;
+    }
+
+    public void setSkirtDistanceFromObject(double skirtDistanceFromObject) {
+        this.skirtDistanceFromObject = skirtDistanceFromObject;
+    }
+
+    public int getSkirtHeight() {
+        return skirtHeight;
+    }
+
+    public void setSkirtHeight(int skirtHeight) {
+        this.skirtHeight = skirtHeight;
+    }
+
+    public double getSkirtMinimumExtrusionLength() {
+        return skirtMinimumExtrusionLength;
+    }
+
+    public void setSkirtMinimumExtrusionLength(double skirtMinimumExtrusionLength) {
+        this.skirtMinimumExtrusionLength = skirtMinimumExtrusionLength;
+    }
+
+    public double getBrimWidth() {
+        return brimWidth;
+    }
+
+    public void setBrimWidth(double brimWidth) {
+        this.brimWidth = brimWidth;
+    }
+        
+        
 }

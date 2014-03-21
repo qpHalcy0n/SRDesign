@@ -44,4 +44,62 @@ public class LayerAndPerimeterConfiguration {
 	 * The number of solid layers to generate on the bottom of the print.
 	 */
 	private int solidBottomLayers;
+
+    public double getLayerHeight() {
+        return layerHeight;
+    }
+
+    public void setLayerHeight(double layerHeight) {
+        this.layerHeight = layerHeight;
+    }
+
+    public double getFirstLayerHeight() {
+        return firstLayerHeight;
+    }
+
+    public void setFirstLayerHeight(double firstLayerHeight) {
+        this.firstLayerHeight = firstLayerHeight;
+    }
+
+    public int getPerimeters() {
+        return perimeters;
+    }
+
+    public void setPerimeters(int perimeters) {
+        this.perimeters = perimeters;
+    }
+
+    public boolean isRandomizedStartingPoints() {
+        return randomizedStartingPoints;
+    }
+
+    public void setRandomizedStartingPoints(boolean randomizedStartingPoints) {
+        this.randomizedStartingPoints = randomizedStartingPoints;
+    }
+
+    public boolean isGenerateExtraPerimetersWhenNeeded() {
+        return generateExtraPerimetersWhenNeeded;
+    }
+
+    public void setGenerateExtraPerimetersWhenNeeded(boolean generateExtraPerimetersWhenNeeded) {
+        this.generateExtraPerimetersWhenNeeded = generateExtraPerimetersWhenNeeded;
+    }
+
+    public int getSolidTopLayers() {
+        return solidTopLayers;
+    }
+
+    public void setSolidTopLayers(int solidTopLayers) {
+        this.solidTopLayers = solidTopLayers;
+    }
+
+    public int getSolidBottomLayers() {
+        return solidBottomLayers;
+    }
+
+    public void setSolidBottomLayers(int solidBottomLayers) {
+        this.solidBottomLayers = solidBottomLayers;
+    }
+        
+        
 }

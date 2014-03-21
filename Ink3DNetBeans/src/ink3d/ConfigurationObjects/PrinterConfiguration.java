@@ -50,4 +50,78 @@ public class PrinterConfiguration {
 	 * will slow.
 	 */
 	private double vibrationLimit;
+
+    public double getBedX() {
+        return bedX;
+    }
+
+    public void setBedX(double bedX) {
+        this.bedX = bedX;
+    }
+
+    public double getBedY() {
+        return bedY;
+    }
+
+    public void setBedY(double bedY) {
+        this.bedY = bedY;
+    }
+
+    public double getPrintCenterX() {
+        return printCenterX;
+    }
+
+    public void setPrintCenterX(double printCenterX) {
+        this.printCenterX = printCenterX;
+    }
+
+    public double getPrintCenterY() {
+        return printCenterY;
+    }
+
+    public void setPrintCenterY(double printCenterY) {
+        this.printCenterY = printCenterY;
+    }
+
+    public double getzOffset() {
+        return zOffset;
+    }
+
+    public void setzOffset(double zOffset) {
+        this.zOffset = zOffset;
+    }
+
+    public String getgCodeFlavor() {
+        return gCodeFlavor;
+    }
+
+    public void setgCodeFlavor(String gCodeFlavor) {
+        this.gCodeFlavor = gCodeFlavor;
+    }
+
+    public boolean isUseRelativeEDistances() {
+        return useRelativeEDistances;
+    }
+
+    public void setUseRelativeEDistances(boolean useRelativeEDistances) {
+        this.useRelativeEDistances = useRelativeEDistances;
+    }
+
+    public int getNumExtruders() {
+        return numExtruders;
+    }
+
+    public void setNumExtruders(int numExtruders) {
+        this.numExtruders = numExtruders;
+    }
+
+    public double getVibrationLimit() {
+        return vibrationLimit;
+    }
+
+    public void setVibrationLimit(double vibrationLimit) {
+        this.vibrationLimit = vibrationLimit;
+    }
+        
+        
 }
