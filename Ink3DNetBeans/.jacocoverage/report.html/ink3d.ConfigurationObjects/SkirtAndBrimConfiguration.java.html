@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SkirtAndBrimConfiguration.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ink3d.ConfigurationObjects</a> &gt; <span class="el_source">SkirtAndBrimConfiguration.java</span></div><h1>SkirtAndBrimConfiguration.java</h1><pre class="source lang-java linenums">package ink3d.ConfigurationObjects;
+
+import java.util.Objects;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+<span class="nc" id="L7">public class SkirtAndBrimConfiguration {</span>
+    private String name;
+	
+    /**
+     * The number loops of skirt to extrude (0 will extrude no skirt).
+     */
+    private int skirtLoops;
+
+    /**
+     * The distance from the object the skirt will be extruded at in mm &gt;= 0.
+     * Setting this to 0 will essentially turn the skirt into brim.
+     */
+    private double skirtDistanceFromObject;
+
+    /**
+     * The height of the skirt in layers &gt;= 1.
+     */
+    private int skirtHeight;
+
+    /**
+     * The minimum extrusion length of the skirt in mm &gt;= 0.
+     */
+    private double skirtMinimumExtrusionLength;
+
+    /**
+     * The width of the brim in mm (0 will extrude no brim).
+     */
+    private double brimWidth;
+
+    public int getSkirtLoops() {
+<span class="nc" id="L37">        return skirtLoops;</span>
+    }
+
+    public void setSkirtLoops(int skirtLoops) {
+<span class="nc" id="L41">        this.skirtLoops = skirtLoops;</span>
+<span class="nc" id="L42">    }</span>
+
+    public double getSkirtDistanceFromObject() {
+<span class="nc" id="L45">        return skirtDistanceFromObject;</span>
+    }
+
+    public void setSkirtDistanceFromObject(double skirtDistanceFromObject) {
+<span class="nc" id="L49">        this.skirtDistanceFromObject = skirtDistanceFromObject;</span>
+<span class="nc" id="L50">    }</span>
+
+    public int getSkirtHeight() {
+<span class="nc" id="L53">        return skirtHeight;</span>
+    }
+
+    public void setSkirtHeight(int skirtHeight) {
+<span class="nc" id="L57">        this.skirtHeight = skirtHeight;</span>
+<span class="nc" id="L58">    }</span>
+
+    public double getSkirtMinimumExtrusionLength() {
+<span class="nc" id="L61">        return skirtMinimumExtrusionLength;</span>
+    }
+
+    public void setSkirtMinimumExtrusionLength(double skirtMinimumExtrusionLength) {
+<span class="nc" id="L65">        this.skirtMinimumExtrusionLength = skirtMinimumExtrusionLength;</span>
+<span class="nc" id="L66">    }</span>
+
+    public double getBrimWidth() {
+<span class="nc" id="L69">        return brimWidth;</span>
+    }
+
+    public void setBrimWidth(double brimWidth) {
+<span class="nc" id="L73">        this.brimWidth = brimWidth;</span>
+<span class="nc" id="L74">    }</span>
+
+    public String getName() {
+<span class="nc" id="L77">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L81">        this.name = name;</span>
+<span class="nc" id="L82">    }</span>
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L86">        int hash = 3;</span>
+<span class="nc" id="L87">        hash = 83 * hash + Objects.hashCode(this.name);</span>
+<span class="nc" id="L88">        return hash;</span>
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="nc bnc" id="L93" title="All 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L94">            return false;</span>
+        }
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L97">            return false;</span>
+        }
+<span class="nc" id="L99">        final SkirtAndBrimConfiguration other = (SkirtAndBrimConfiguration) obj;</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
+<span class="nc" id="L101">            return false;</span>
+        }
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        if (this.skirtLoops != other.skirtLoops) {</span>
+<span class="nc" id="L104">            return false;</span>
+        }
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.skirtDistanceFromObject) != Double.doubleToLongBits(other.skirtDistanceFromObject)) {</span>
+<span class="nc" id="L107">            return false;</span>
+        }
+<span class="nc bnc" id="L109" title="All 2 branches missed.">        if (this.skirtHeight != other.skirtHeight) {</span>
+<span class="nc" id="L110">            return false;</span>
+        }
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.skirtMinimumExtrusionLength) != Double.doubleToLongBits(other.skirtMinimumExtrusionLength)) {</span>
+<span class="nc" id="L113">            return false;</span>
+        }
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.brimWidth) != Double.doubleToLongBits(other.brimWidth)) {</span>
+<span class="nc" id="L116">            return false;</span>
+        }
+<span class="nc" id="L118">        return true;</span>
+    }
+    
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

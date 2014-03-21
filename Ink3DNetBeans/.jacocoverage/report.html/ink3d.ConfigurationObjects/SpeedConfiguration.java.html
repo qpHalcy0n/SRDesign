@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SpeedConfiguration.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ink3d.ConfigurationObjects</a> &gt; <span class="el_source">SpeedConfiguration.java</span></div><h1>SpeedConfiguration.java</h1><pre class="source lang-java linenums">package ink3d.ConfigurationObjects;
+
+import java.util.Objects;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+<span class="nc" id="L7">public class SpeedConfiguration {</span>
+    private String name;
+    /**
+     * Speed for perimeters (mm/s)
+     */
+    private double perimetersSpeed;
+
+    /**
+     * Speed for small perimeters (mm/s)
+     */
+    private double smallPerimetersSpeed;
+
+    /**
+     * Speed for external perimeters (mm/s)
+     */
+    private double externalPerimetersSpeed;
+
+    /**
+     * Speed for infill (mm/s)
+     */
+    private double infillSpeed;
+
+    /**
+     * Speed for solid infill (mm/s)
+     */
+    private double solidInfillSpeed;
+
+    /**
+     * Speed for top solid infil (mm/s)
+     */
+    private double topSolidInfillSpeed;
+
+    /**
+     * Speed for support material (mm/s)
+     */
+    private double supportMaterialSpeed;
+
+    /**
+     * Speed for bridges (mm/s)
+     */
+    private double bridgesSpeed;
+
+    /**
+     * Speed for gap fill (mm/s)
+     */
+    private double gapFillSpeed;
+
+    /**
+     * Speed for non prdouble movements (mm/s)
+     */
+    private double nonPrintMovesSpeed;
+
+    /**
+     * Speed for the first layer (mm/s)
+     */
+    private double firstLayerSpeed;
+
+    /**
+     * Acceleration for perimeters (mm/s^2)
+     */
+    private double perimetersAcceleration;
+
+    /**
+     * Acceleration for infill (mm/s^2)
+     */
+    private double infillAcceleration;
+
+    /**
+     * Acceleration for bridges (mm/s^2)
+     */
+    private double bridgeAcceleration;
+
+    /**
+     * Default Acceleration (mm/s^2)
+     */
+    private double defaultAcceleration;
+
+    public double getPerimetersSpeed() {
+<span class="nc" id="L85">        return perimetersSpeed;</span>
+    }
+
+    public void setPerimetersSpeed(double perimetersSpeed) {
+<span class="nc" id="L89">        this.perimetersSpeed = perimetersSpeed;</span>
+<span class="nc" id="L90">    }</span>
+
+    public double getSmallPerimetersSpeed() {
+<span class="nc" id="L93">        return smallPerimetersSpeed;</span>
+    }
+
+    public void setSmallPerimetersSpeed(double smallPerimetersSpeed) {
+<span class="nc" id="L97">        this.smallPerimetersSpeed = smallPerimetersSpeed;</span>
+<span class="nc" id="L98">    }</span>
+
+    public double getExternalPerimetersSpeed() {
+<span class="nc" id="L101">        return externalPerimetersSpeed;</span>
+    }
+
+    public void setExternalPerimetersSpeed(double externalPerimetersSpeed) {
+<span class="nc" id="L105">        this.externalPerimetersSpeed = externalPerimetersSpeed;</span>
+<span class="nc" id="L106">    }</span>
+
+    public double getInfillSpeed() {
+<span class="nc" id="L109">        return infillSpeed;</span>
+    }
+
+    public void setInfillSpeed(double infillSpeed) {
+<span class="nc" id="L113">        this.infillSpeed = infillSpeed;</span>
+<span class="nc" id="L114">    }</span>
+
+    public double getSolidInfillSpeed() {
+<span class="nc" id="L117">        return solidInfillSpeed;</span>
+    }
+
+    public void setSolidInfillSpeed(double solidInfillSpeed) {
+<span class="nc" id="L121">        this.solidInfillSpeed = solidInfillSpeed;</span>
+<span class="nc" id="L122">    }</span>
+
+    public double getTopSolidInfillSpeed() {
+<span class="nc" id="L125">        return topSolidInfillSpeed;</span>
+    }
+
+    public void setTopSolidInfillSpeed(double topSolidInfillSpeed) {
+<span class="nc" id="L129">        this.topSolidInfillSpeed = topSolidInfillSpeed;</span>
+<span class="nc" id="L130">    }</span>
+
+    public double getSupportMaterialSpeed() {
+<span class="nc" id="L133">        return supportMaterialSpeed;</span>
+    }
+
+    public void setSupportMaterialSpeed(double supportMaterialSpeed) {
+<span class="nc" id="L137">        this.supportMaterialSpeed = supportMaterialSpeed;</span>
+<span class="nc" id="L138">    }</span>
+
+    public double getBridgesSpeed() {
+<span class="nc" id="L141">        return bridgesSpeed;</span>
+    }
+
+    public void setBridgesSpeed(double bridgesSpeed) {
+<span class="nc" id="L145">        this.bridgesSpeed = bridgesSpeed;</span>
+<span class="nc" id="L146">    }</span>
+
+    public double getGapFillSpeed() {
+<span class="nc" id="L149">        return gapFillSpeed;</span>
+    }
+
+    public void setGapFillSpeed(double gapFillSpeed) {
+<span class="nc" id="L153">        this.gapFillSpeed = gapFillSpeed;</span>
+<span class="nc" id="L154">    }</span>
+
+    public double getNonPrintMovesSpeed() {
+<span class="nc" id="L157">        return nonPrintMovesSpeed;</span>
+    }
+
+    public void setNonPrintMovesSpeed(double nonPrintMovesSpeed) {
+<span class="nc" id="L161">        this.nonPrintMovesSpeed = nonPrintMovesSpeed;</span>
+<span class="nc" id="L162">    }</span>
+
+    public double getFirstLayerSpeed() {
+<span class="nc" id="L165">        return firstLayerSpeed;</span>
+    }
+
+    public void setFirstLayerSpeed(double firstLayerSpeed) {
+<span class="nc" id="L169">        this.firstLayerSpeed = firstLayerSpeed;</span>
+<span class="nc" id="L170">    }</span>
+
+    public double getPerimetersAcceleration() {
+<span class="nc" id="L173">        return perimetersAcceleration;</span>
+    }
+
+    public void setPerimetersAcceleration(double perimetersAcceleration) {
+<span class="nc" id="L177">        this.perimetersAcceleration = perimetersAcceleration;</span>
+<span class="nc" id="L178">    }</span>
+
+    public double getInfillAcceleration() {
+<span class="nc" id="L181">        return infillAcceleration;</span>
+    }
+
+    public void setInfillAcceleration(double infillAcceleration) {
+<span class="nc" id="L185">        this.infillAcceleration = infillAcceleration;</span>
+<span class="nc" id="L186">    }</span>
+
+    public double getBridgeAcceleration() {
+<span class="nc" id="L189">        return bridgeAcceleration;</span>
+    }
+
+    public void setBridgeAcceleration(double bridgeAcceleration) {
+<span class="nc" id="L193">        this.bridgeAcceleration = bridgeAcceleration;</span>
+<span class="nc" id="L194">    }</span>
+
+    public double getDefaultAcceleration() {
+<span class="nc" id="L197">        return defaultAcceleration;</span>
+    }
+
+    public void setDefaultAcceleration(double defaultAcceleration) {
+<span class="nc" id="L201">        this.defaultAcceleration = defaultAcceleration;</span>
+<span class="nc" id="L202">    }</span>
+
+    public String getName() {
+<span class="nc" id="L205">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L209">        this.name = name;</span>
+<span class="nc" id="L210">    }</span>
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L214">        int hash = 7;</span>
+<span class="nc" id="L215">        hash = 13 * hash + Objects.hashCode(this.name);</span>
+<span class="nc" id="L216">        return hash;</span>
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="nc bnc" id="L221" title="All 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L222">            return false;</span>
+        }
+<span class="nc bnc" id="L224" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L225">            return false;</span>
+        }
+<span class="nc" id="L227">        final SpeedConfiguration other = (SpeedConfiguration) obj;</span>
+<span class="nc bnc" id="L228" title="All 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
+<span class="nc" id="L229">            return false;</span>
+        }
+<span class="nc bnc" id="L231" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.perimetersSpeed) != Double.doubleToLongBits(other.perimetersSpeed)) {</span>
+<span class="nc" id="L232">            return false;</span>
+        }
+<span class="nc bnc" id="L234" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.smallPerimetersSpeed) != Double.doubleToLongBits(other.smallPerimetersSpeed)) {</span>
+<span class="nc" id="L235">            return false;</span>
+        }
+<span class="nc bnc" id="L237" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.externalPerimetersSpeed) != Double.doubleToLongBits(other.externalPerimetersSpeed)) {</span>
+<span class="nc" id="L238">            return false;</span>
+        }
+<span class="nc bnc" id="L240" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.infillSpeed) != Double.doubleToLongBits(other.infillSpeed)) {</span>
+<span class="nc" id="L241">            return false;</span>
+        }
+<span class="nc bnc" id="L243" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.solidInfillSpeed) != Double.doubleToLongBits(other.solidInfillSpeed)) {</span>
+<span class="nc" id="L244">            return false;</span>
+        }
+<span class="nc bnc" id="L246" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.topSolidInfillSpeed) != Double.doubleToLongBits(other.topSolidInfillSpeed)) {</span>
+<span class="nc" id="L247">            return false;</span>
+        }
+<span class="nc bnc" id="L249" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.supportMaterialSpeed) != Double.doubleToLongBits(other.supportMaterialSpeed)) {</span>
+<span class="nc" id="L250">            return false;</span>
+        }
+<span class="nc bnc" id="L252" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.bridgesSpeed) != Double.doubleToLongBits(other.bridgesSpeed)) {</span>
+<span class="nc" id="L253">            return false;</span>
+        }
+<span class="nc bnc" id="L255" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.gapFillSpeed) != Double.doubleToLongBits(other.gapFillSpeed)) {</span>
+<span class="nc" id="L256">            return false;</span>
+        }
+<span class="nc bnc" id="L258" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.nonPrintMovesSpeed) != Double.doubleToLongBits(other.nonPrintMovesSpeed)) {</span>
+<span class="nc" id="L259">            return false;</span>
+        }
+<span class="nc bnc" id="L261" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.firstLayerSpeed) != Double.doubleToLongBits(other.firstLayerSpeed)) {</span>
+<span class="nc" id="L262">            return false;</span>
+        }
+<span class="nc bnc" id="L264" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.perimetersAcceleration) != Double.doubleToLongBits(other.perimetersAcceleration)) {</span>
+<span class="nc" id="L265">            return false;</span>
+        }
+<span class="nc bnc" id="L267" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.infillAcceleration) != Double.doubleToLongBits(other.infillAcceleration)) {</span>
+<span class="nc" id="L268">            return false;</span>
+        }
+<span class="nc bnc" id="L270" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.bridgeAcceleration) != Double.doubleToLongBits(other.bridgeAcceleration)) {</span>
+<span class="nc" id="L271">            return false;</span>
+        }
+<span class="nc bnc" id="L273" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.defaultAcceleration) != Double.doubleToLongBits(other.defaultAcceleration)) {</span>
+<span class="nc" id="L274">            return false;</span>
+        }
+<span class="nc" id="L276">        return true;</span>
+    }
+    
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

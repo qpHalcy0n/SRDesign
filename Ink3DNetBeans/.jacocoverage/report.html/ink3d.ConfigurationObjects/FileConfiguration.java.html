@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>FileConfiguration.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ink3d.ConfigurationObjects</a> &gt; <span class="el_source">FileConfiguration.java</span></div><h1>FileConfiguration.java</h1><pre class="source lang-java linenums">package ink3d.ConfigurationObjects;
+
+import java.io.File;
+import java.util.Objects;
+
+/**
+ * Created by daniellain on 2/8/14.
+ */
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+<span class="nc" id="L12">public class FileConfiguration {</span>
+    private String name;
+    private File parentSTLFile;
+    private File subsetSTL;
+
+    private ExtruderConfiguration extruderConfiguration;
+    private MaterialConfiguration materialConfiguration;
+
+    public void setParentSTLFile(File parentSTLFile) {
+<span class="nc" id="L21">        this.parentSTLFile = parentSTLFile;</span>
+<span class="nc" id="L22">    }</span>
+    
+    public void setSubsetSTL(File subsetSTL) {
+<span class="nc" id="L25">        this.subsetSTL = subsetSTL;</span>
+<span class="nc" id="L26">    }</span>
+
+    public void setExtruderConfiguration(ExtruderConfiguration extruderConfiguration) {
+<span class="nc" id="L29">        this.extruderConfiguration = extruderConfiguration;</span>
+<span class="nc" id="L30">    }</span>
+    
+    public void setMaterialConfiguration(MaterialConfiguration materialConfiguration) {
+<span class="nc" id="L33">        this.materialConfiguration = materialConfiguration;</span>
+<span class="nc" id="L34">    }</span>
+    
+    public MaterialConfiguration getMaterialConfiguration() {
+<span class="nc" id="L37">        return materialConfiguration;</span>
+    }
+    
+    public ExtruderConfiguration getExtruderConfiguration() {
+<span class="nc" id="L41">        return extruderConfiguration;</span>
+    }
+    
+    public File getSubsetSTL() {
+<span class="nc" id="L45">        return subsetSTL;</span>
+    }
+    
+    public File getParentSTLFile() {
+<span class="nc" id="L49">        return parentSTLFile;</span>
+    }
+
+    public String getName() {
+<span class="nc" id="L53">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L57">        this.name = name;</span>
+<span class="nc" id="L58">    }</span>
+    
+    @Override
+    public int hashCode() {
+<span class="nc" id="L62">        int hash = 3;</span>
+<span class="nc" id="L63">        hash = 89 * hash + Objects.hashCode(this.name);</span>
+<span class="nc" id="L64">        return hash;</span>
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L70">            return false;</span>
+        }
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L73">            return false;</span>
+        }
+<span class="nc" id="L75">        final FileConfiguration other = (FileConfiguration) obj;</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
+<span class="nc" id="L77">            return false;</span>
+        }
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        if (!Objects.equals(this.parentSTLFile, other.parentSTLFile)) {</span>
+<span class="nc" id="L80">            return false;</span>
+        }
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        if (!Objects.equals(this.subsetSTL, other.subsetSTL)) {</span>
+<span class="nc" id="L83">            return false;</span>
+        }
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (!Objects.equals(this.extruderConfiguration, other.extruderConfiguration)) {</span>
+<span class="nc" id="L86">            return false;</span>
+        }
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (!Objects.equals(this.materialConfiguration, other.materialConfiguration)) {</span>
+<span class="nc" id="L89">            return false;</span>
+        }
+<span class="nc" id="L91">        return true;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SavePrinterConfigurationCommand.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ink3d.UserInterface.Database.XmlDatabase</a> &gt; <span class="el_source">SavePrinterConfigurationCommand.java</span></div><h1>SavePrinterConfigurationCommand.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package ink3d.UserInterface.Database.XmlDatabase;
+
+import ink3d.ConfigurationObjects.PrinterConfiguration;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.bind.*;
+import javax.xml.namespace.QName;
+
+/**
+ *
+ * @author daniellain
+ */
+public class SavePrinterConfigurationCommand extends ink3d.UserInterface.Database.CommandStructure{
+    private PrinterConfiguration config;
+<span class="nc" id="L26">    private static String xmlHeadName = &quot;printer&quot;;</span>
+<span class="nc" id="L27">    private static String path = &quot;./Printers&quot;;</span>
+<span class="nc" id="L28">    private static String extention =&quot;.xml&quot;;</span>
+    
+<span class="nc" id="L30">    public SavePrinterConfigurationCommand(PrinterConfiguration config){</span>
+<span class="nc" id="L31">        this.config = config;</span>
+<span class="nc" id="L32">    }</span>
+    
+   @Override
+    public void execute() {
+        try {
+<span class="nc" id="L37">            File file = new File(path);</span>
+<span class="nc" id="L38">            file.mkdir();</span>
+<span class="nc" id="L39">            file = new File(path+config.getName()+extention);</span>
+<span class="nc" id="L40">            file.createNewFile();</span>
+<span class="nc" id="L41">            JAXBContext jc = JAXBContext.newInstance(PrinterConfiguration.class);</span>
+<span class="nc" id="L42">            JAXBElement&lt;PrinterConfiguration&gt; je = new JAXBElement&lt;PrinterConfiguration&gt;(new QName(xmlHeadName), PrinterConfiguration.class, config);</span>
+<span class="nc" id="L43">            Marshaller marshaller = jc.createMarshaller();</span>
+<span class="nc" id="L44">            OutputStream os = new FileOutputStream( path+config.getName()+extention );</span>
+<span class="nc" id="L45">            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);</span>
+<span class="nc" id="L46">            marshaller.marshal(je, os);</span>
+<span class="nc" id="L47">            result = Boolean.TRUE;</span>
+<span class="nc" id="L48">        } catch (JAXBException ex) {</span>
+<span class="nc" id="L49">            Logger.getLogger(SaveExtruderConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L50">            result = Boolean.FALSE;</span>
+<span class="nc" id="L51">        } catch (FileNotFoundException ex) {</span>
+<span class="nc" id="L52">            Logger.getLogger(SaveExtruderConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L53">            result = Boolean.FALSE;</span>
+<span class="nc" id="L54">        } catch (IOException ex) {</span>
+<span class="nc" id="L55">            Logger.getLogger(SaveExtruderConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L56">            result = Boolean.FALSE;</span>
+<span class="nc" id="L57">        }</span>
+<span class="nc" id="L58">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

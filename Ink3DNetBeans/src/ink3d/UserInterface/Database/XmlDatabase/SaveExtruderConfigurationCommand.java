@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 public class SaveExtruderConfigurationCommand extends ink3d.UserInterface.Database.CommandStructure{
     private ExtruderConfiguration config;
     private static String xmlHeadName = "extruder";
-    private static String path = "./Extruders";
+    private static String path = "./Extruders/";
     private static String extention =".xml";
     
     public SaveExtruderConfigurationCommand(ExtruderConfiguration config){
@@ -45,13 +45,7 @@ public class SaveExtruderConfigurationCommand extends ink3d.UserInterface.Databa
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(je, os);
             result = Boolean.TRUE;
-        } catch (JAXBException ex) {
-            Logger.getLogger(SaveExtruderConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
-            result = Boolean.FALSE;
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(SaveExtruderConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
-            result = Boolean.FALSE;
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(SaveExtruderConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
             result = Boolean.FALSE;
         }

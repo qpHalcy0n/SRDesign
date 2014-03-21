@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SupportMaterialConfiguration.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ink3d.ConfigurationObjects</a> &gt; <span class="el_source">SupportMaterialConfiguration.java</span></div><h1>SupportMaterialConfiguration.java</h1><pre class="source lang-java linenums">package ink3d.ConfigurationObjects;
+
+import java.util.Objects;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+<span class="nc" id="L7">public class SupportMaterialConfiguration {</span>
+    private String name;
+    /**
+     * When set to true, G-code for support material will be generated.
+     */
+    private boolean generateSupportMaterial;
+
+    /**
+     * The overhang threshold in degrees.  Support material will not be
+     * extruded for overhangs whose slope angle is above this threshold.
+     */
+    private int overhangThreshold;
+
+    /**
+     * Forces support material on the first n layers.
+     */
+    private int enforceSupportForFirstNLayers;
+
+    /**
+     * Number of raft layers to print below the object.
+     */
+    private int raftLayers;
+
+    /**
+     * Pattern used to generate support material.
+     */
+    private String supportMaterialPattern;
+
+    /**
+     * The spacing in mm between support lines.
+     */
+    private double supportPatternSpacing;
+
+    /**
+     * The angle the support pattern is extruded at (between 0 and 359).
+     */
+    private int supportPatternAngle;
+
+    /**
+     * The number of interface layers to print between the raft and object.
+     */
+    private int interfaceLayers;
+
+    /**
+     * The spacing in mm between support lines.
+     */
+    private double interfacePatternSpacing;
+
+    public boolean isGenerateSupportMaterial() {
+<span class="nc" id="L56">        return generateSupportMaterial;</span>
+    }
+
+    public void setGenerateSupportMaterial(boolean generateSupportMaterial) {
+<span class="nc" id="L60">        this.generateSupportMaterial = generateSupportMaterial;</span>
+<span class="nc" id="L61">    }</span>
+
+    public int getOverhangThreshold() {
+<span class="nc" id="L64">        return overhangThreshold;</span>
+    }
+
+    public void setOverhangThreshold(int overhangThreshold) {
+<span class="nc" id="L68">        this.overhangThreshold = overhangThreshold;</span>
+<span class="nc" id="L69">    }</span>
+
+    public int getEnforceSupportForFirstNLayers() {
+<span class="nc" id="L72">        return enforceSupportForFirstNLayers;</span>
+    }
+
+    public void setEnforceSupportForFirstNLayers(int enforceSupportForFirstNLayers) {
+<span class="nc" id="L76">        this.enforceSupportForFirstNLayers = enforceSupportForFirstNLayers;</span>
+<span class="nc" id="L77">    }</span>
+
+    public int getRaftLayers() {
+<span class="nc" id="L80">        return raftLayers;</span>
+    }
+
+    public void setRaftLayers(int raftLayers) {
+<span class="nc" id="L84">        this.raftLayers = raftLayers;</span>
+<span class="nc" id="L85">    }</span>
+
+    public String getSupportMaterialPattern() {
+<span class="nc" id="L88">        return supportMaterialPattern;</span>
+    }
+
+    public void setSupportMaterialPattern(String supportMaterialPattern) {
+<span class="nc" id="L92">        this.supportMaterialPattern = supportMaterialPattern;</span>
+<span class="nc" id="L93">    }</span>
+
+    public double getSupportPatternSpacing() {
+<span class="nc" id="L96">        return supportPatternSpacing;</span>
+    }
+
+    public void setSupportPatternSpacing(double supportPatternSpacing) {
+<span class="nc" id="L100">        this.supportPatternSpacing = supportPatternSpacing;</span>
+<span class="nc" id="L101">    }</span>
+
+    public int getSupportPatternAngle() {
+<span class="nc" id="L104">        return supportPatternAngle;</span>
+    }
+
+    public void setSupportPatternAngle(int supportPatternAngle) {
+<span class="nc" id="L108">        this.supportPatternAngle = supportPatternAngle;</span>
+<span class="nc" id="L109">    }</span>
+
+    public int getInterfaceLayers() {
+<span class="nc" id="L112">        return interfaceLayers;</span>
+    }
+
+    public void setInterfaceLayers(int interfaceLayers) {
+<span class="nc" id="L116">        this.interfaceLayers = interfaceLayers;</span>
+<span class="nc" id="L117">    }</span>
+
+    public double getInterfacePatternSpacing() {
+<span class="nc" id="L120">        return interfacePatternSpacing;</span>
+    }
+
+    public void setInterfacePatternSpacing(double interfacePatternSpacing) {
+<span class="nc" id="L124">        this.interfacePatternSpacing = interfacePatternSpacing;</span>
+<span class="nc" id="L125">    }</span>
+
+    public String getName() {
+<span class="nc" id="L128">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L132">        this.name = name;</span>
+<span class="nc" id="L133">    }</span>
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L137">        int hash = 7;</span>
+<span class="nc" id="L138">        hash = 59 * hash + Objects.hashCode(this.name);</span>
+<span class="nc" id="L139">        return hash;</span>
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="nc bnc" id="L144" title="All 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L145">            return false;</span>
+        }
+<span class="nc bnc" id="L147" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L148">            return false;</span>
+        }
+<span class="nc" id="L150">        final SupportMaterialConfiguration other = (SupportMaterialConfiguration) obj;</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
+<span class="nc" id="L152">            return false;</span>
+        }
+<span class="nc bnc" id="L154" title="All 2 branches missed.">        if (this.generateSupportMaterial != other.generateSupportMaterial) {</span>
+<span class="nc" id="L155">            return false;</span>
+        }
+<span class="nc bnc" id="L157" title="All 2 branches missed.">        if (this.overhangThreshold != other.overhangThreshold) {</span>
+<span class="nc" id="L158">            return false;</span>
+        }
+<span class="nc bnc" id="L160" title="All 2 branches missed.">        if (this.enforceSupportForFirstNLayers != other.enforceSupportForFirstNLayers) {</span>
+<span class="nc" id="L161">            return false;</span>
+        }
+<span class="nc bnc" id="L163" title="All 2 branches missed.">        if (this.raftLayers != other.raftLayers) {</span>
+<span class="nc" id="L164">            return false;</span>
+        }
+<span class="nc bnc" id="L166" title="All 2 branches missed.">        if (!Objects.equals(this.supportMaterialPattern, other.supportMaterialPattern)) {</span>
+<span class="nc" id="L167">            return false;</span>
+        }
+<span class="nc bnc" id="L169" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.supportPatternSpacing) != Double.doubleToLongBits(other.supportPatternSpacing)) {</span>
+<span class="nc" id="L170">            return false;</span>
+        }
+<span class="nc bnc" id="L172" title="All 2 branches missed.">        if (this.supportPatternAngle != other.supportPatternAngle) {</span>
+<span class="nc" id="L173">            return false;</span>
+        }
+<span class="nc bnc" id="L175" title="All 2 branches missed.">        if (this.interfaceLayers != other.interfaceLayers) {</span>
+<span class="nc" id="L176">            return false;</span>
+        }
+<span class="nc bnc" id="L178" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.interfacePatternSpacing) != Double.doubleToLongBits(other.interfacePatternSpacing)) {</span>
+<span class="nc" id="L179">            return false;</span>
+        }
+<span class="nc" id="L181">        return true;</span>
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MaterialConfiguration.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ink3d.ConfigurationObjects</a> &gt; <span class="el_source">MaterialConfiguration.java</span></div><h1>MaterialConfiguration.java</h1><pre class="source lang-java linenums">package ink3d.ConfigurationObjects;
+
+import java.util.Objects;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+<span class="nc" id="L7">public class MaterialConfiguration {</span>
+    private String name;
+    private SpeedConfiguration speedConfiguration;
+    /**
+     * Diameter in mm of the filament.
+     */
+    private double filamentDiameter;
+
+    /**
+     * Flow rate multiplier.  This changes the flow rate proportionally.
+     * 0.9 will be 90% flow rate, while 1.1 will be 110% flow rate.
+     */
+    private double extrusionMultiplier;
+    
+    /**
+     * The temperature (in degrees C) the extruder needs to be to extrude the first layer
+     * of this material.
+     */
+    private int firstLayerExtrusionTemperature;
+    
+    /**
+     * The temperature (in degrees C) the extruder needs to be to extrude this material.
+     */
+    private int extrusionTemperature;
+    
+    /**
+     * Length (in mm) to retract during retraction. 0 to disable retraction.
+     */
+    private double retractionLength;
+    
+    /**
+     * The (positive) z value to quickly lift the extruder by during a retraction.
+     */
+    private double retractionLiftZ;
+    
+    /**
+     * The speed (in mm/s) at which to retract the filament during retraction
+     * (extruder motor speed).
+     */
+    private int retractionSpeed;
+    
+    /**
+     * The extra length of filament to push out during the first extrude after a retraction.
+     */
+    private double extraLengthAfterRetraction;
+    
+    /**
+     * Retraction is not triggered when travel moves shorter than this distance.
+     */
+    private double minimumTravelAfterRetraction;
+    
+    /**
+     * When set to true, retraction will be triggered on each layer change.
+     */
+    private boolean retractOnLayerChange;
+    
+    /**
+     * When set to true, the nozzle will be moved while retracting to reduce blob.
+     */
+    private boolean wipeBeforeRetract;
+    
+    /**
+     * Length (in mm) to retract when the tool is disabled.
+     */
+    private double retractionLengthBeforeToolChange;
+    
+    /**
+     * The extra length of filament to push out during the first extrude 
+     * after the tool is re-enabled.
+     */
+    private double extraLengthOnToolReenable;
+    
+    /**
+     * When set to true, fan will always run at at least minimum speed.
+     */
+    private boolean fanAlwaysOn;
+    
+    /**
+     * When set to true, fan speed will automatically be set based on
+     * printing time.
+     */
+    private boolean enableAutoCooling;
+    
+    /**
+     * The minimum fan speed in PWM.
+     */
+    private int minFanSpeed;
+    
+    /**
+     * The maximum fan speed in PWM.
+     */
+    private int maxFanSpeed;
+    
+    /**
+     * The percentage of default fan speed used for bridges
+     * expressed as an int (100 = 100%)
+     */
+    private int bridgeFanSpeedPercent;
+    
+    /**
+     * The number of first layers to disable the fan for.
+     */
+    private int disableFanForFirstNLayers;
+    
+    /**
+     * If the print time of a layer is below this threshold (in seconds),
+     * the fan will be activated.
+     */
+    private int enableFanTimeThreshold;
+    
+    /**
+     * If the print time of a layer is below this threshold (in seconds),
+     * the move speed will be slowed to attempt to get the
+     * layer print time up to this threshold.
+     */
+    private int slowDownTimeTreshold;
+    
+    /**
+     * The move speed will not be scaled down below this speed (in mm/s).
+     */
+    private int minPrintSpeed;
+
+    public SpeedConfiguration getSpeedConfiguration() {
+<span class="nc" id="L130">        return speedConfiguration;</span>
+    }
+
+    public void setSpeedConfiguration(SpeedConfiguration speedConfiguration) {
+<span class="nc" id="L134">        this.speedConfiguration = speedConfiguration;</span>
+<span class="nc" id="L135">    }</span>
+
+    public double getFilamentDiameter() {
+<span class="nc" id="L138">        return filamentDiameter;</span>
+    }
+
+    public void setFilamentDiameter(double filamentDiameter) {
+<span class="nc" id="L142">        this.filamentDiameter = filamentDiameter;</span>
+<span class="nc" id="L143">    }</span>
+
+    public double getExtrusionMultiplier() {
+<span class="nc" id="L146">        return extrusionMultiplier;</span>
+    }
+
+    public void setExtrusionMultiplier(double extrusionMultiplier) {
+<span class="nc" id="L150">        this.extrusionMultiplier = extrusionMultiplier;</span>
+<span class="nc" id="L151">    }</span>
+
+    public int getFirstLayerExtrusionTemperature() {
+<span class="nc" id="L154">        return firstLayerExtrusionTemperature;</span>
+    }
+
+    public void setFirstLayerExtrusionTemperature(int firstLayerExtrusionTemperature) {
+<span class="nc" id="L158">        this.firstLayerExtrusionTemperature = firstLayerExtrusionTemperature;</span>
+<span class="nc" id="L159">    }</span>
+
+    public int getExtrusionTemperature() {
+<span class="nc" id="L162">        return extrusionTemperature;</span>
+    }
+
+    public void setExtrusionTemperature(int extrusionTemperature) {
+<span class="nc" id="L166">        this.extrusionTemperature = extrusionTemperature;</span>
+<span class="nc" id="L167">    }</span>
+
+    public double getRetractionLength() {
+<span class="nc" id="L170">        return retractionLength;</span>
+    }
+
+    public void setRetractionLength(double retractionLength) {
+<span class="nc" id="L174">        this.retractionLength = retractionLength;</span>
+<span class="nc" id="L175">    }</span>
+
+    public double getRetractionLiftZ() {
+<span class="nc" id="L178">        return retractionLiftZ;</span>
+    }
+
+    public void setRetractionLiftZ(double retractionLiftZ) {
+<span class="nc" id="L182">        this.retractionLiftZ = retractionLiftZ;</span>
+<span class="nc" id="L183">    }</span>
+
+    public int getRetractionSpeed() {
+<span class="nc" id="L186">        return retractionSpeed;</span>
+    }
+
+    public void setRetractionSpeed(int retractionSpeed) {
+<span class="nc" id="L190">        this.retractionSpeed = retractionSpeed;</span>
+<span class="nc" id="L191">    }</span>
+
+    public double getExtraLengthAfterRetraction() {
+<span class="nc" id="L194">        return extraLengthAfterRetraction;</span>
+    }
+
+    public void setExtraLengthAfterRetraction(double extraLengthAfterRetraction) {
+<span class="nc" id="L198">        this.extraLengthAfterRetraction = extraLengthAfterRetraction;</span>
+<span class="nc" id="L199">    }</span>
+
+    public double getMinimumTravelAfterRetraction() {
+<span class="nc" id="L202">        return minimumTravelAfterRetraction;</span>
+    }
+
+    public void setMinimumTravelAfterRetraction(double minimumTravelAfterRetraction) {
+<span class="nc" id="L206">        this.minimumTravelAfterRetraction = minimumTravelAfterRetraction;</span>
+<span class="nc" id="L207">    }</span>
+
+    public boolean isRetractOnLayerChange() {
+<span class="nc" id="L210">        return retractOnLayerChange;</span>
+    }
+
+    public void setRetractOnLayerChange(boolean retractOnLayerChange) {
+<span class="nc" id="L214">        this.retractOnLayerChange = retractOnLayerChange;</span>
+<span class="nc" id="L215">    }</span>
+
+    public boolean isWipeBeforeRetract() {
+<span class="nc" id="L218">        return wipeBeforeRetract;</span>
+    }
+
+    public void setWipeBeforeRetract(boolean wipeBeforeRetract) {
+<span class="nc" id="L222">        this.wipeBeforeRetract = wipeBeforeRetract;</span>
+<span class="nc" id="L223">    }</span>
+
+    public double getRetractionLengthBeforeToolChange() {
+<span class="nc" id="L226">        return retractionLengthBeforeToolChange;</span>
+    }
+
+    public void setRetractionLengthBeforeToolChange(double retractionLengthBeforeToolChange) {
+<span class="nc" id="L230">        this.retractionLengthBeforeToolChange = retractionLengthBeforeToolChange;</span>
+<span class="nc" id="L231">    }</span>
+
+    public double getExtraLengthOnToolReenable() {
+<span class="nc" id="L234">        return extraLengthOnToolReenable;</span>
+    }
+
+    public void setExtraLengthOnToolReenable(double extraLengthOnToolReenable) {
+<span class="nc" id="L238">        this.extraLengthOnToolReenable = extraLengthOnToolReenable;</span>
+<span class="nc" id="L239">    }</span>
+
+    public boolean isFanAlwaysOn() {
+<span class="nc" id="L242">        return fanAlwaysOn;</span>
+    }
+
+    public void setFanAlwaysOn(boolean fanAlwaysOn) {
+<span class="nc" id="L246">        this.fanAlwaysOn = fanAlwaysOn;</span>
+<span class="nc" id="L247">    }</span>
+
+    public boolean isEnableAutoCooling() {
+<span class="nc" id="L250">        return enableAutoCooling;</span>
+    }
+
+    public void setEnableAutoCooling(boolean enableAutoCooling) {
+<span class="nc" id="L254">        this.enableAutoCooling = enableAutoCooling;</span>
+<span class="nc" id="L255">    }</span>
+
+    public int getMinFanSpeed() {
+<span class="nc" id="L258">        return minFanSpeed;</span>
+    }
+
+    public void setMinFanSpeed(int minFanSpeed) {
+<span class="nc" id="L262">        this.minFanSpeed = minFanSpeed;</span>
+<span class="nc" id="L263">    }</span>
+
+    public int getMaxFanSpeed() {
+<span class="nc" id="L266">        return maxFanSpeed;</span>
+    }
+
+    public void setMaxFanSpeed(int maxFanSpeed) {
+<span class="nc" id="L270">        this.maxFanSpeed = maxFanSpeed;</span>
+<span class="nc" id="L271">    }</span>
+
+    public int getBridgeFanSpeedPercent() {
+<span class="nc" id="L274">        return bridgeFanSpeedPercent;</span>
+    }
+
+    public void setBridgeFanSpeedPercent(int bridgeFanSpeedPercent) {
+<span class="nc" id="L278">        this.bridgeFanSpeedPercent = bridgeFanSpeedPercent;</span>
+<span class="nc" id="L279">    }</span>
+
+    public int getDisableFanForFirstNLayers() {
+<span class="nc" id="L282">        return disableFanForFirstNLayers;</span>
+    }
+
+    public void setDisableFanForFirstNLayers(int disableFanForFirstNLayers) {
+<span class="nc" id="L286">        this.disableFanForFirstNLayers = disableFanForFirstNLayers;</span>
+<span class="nc" id="L287">    }</span>
+
+    public int getEnableFanTimeThreshold() {
+<span class="nc" id="L290">        return enableFanTimeThreshold;</span>
+    }
+
+    public void setEnableFanTimeThreshold(int enableFanTimeThreshold) {
+<span class="nc" id="L294">        this.enableFanTimeThreshold = enableFanTimeThreshold;</span>
+<span class="nc" id="L295">    }</span>
+
+    public int getSlowDownTimeTreshold() {
+<span class="nc" id="L298">        return slowDownTimeTreshold;</span>
+    }
+
+    public void setSlowDownTimeTreshold(int slowDownTimeTreshold) {
+<span class="nc" id="L302">        this.slowDownTimeTreshold = slowDownTimeTreshold;</span>
+<span class="nc" id="L303">    }</span>
+
+    public int getMinPrintSpeed() {
+<span class="nc" id="L306">        return minPrintSpeed;</span>
+    }
+
+    public void setMinPrintSpeed(int minPrintSpeed) {
+<span class="nc" id="L310">        this.minPrintSpeed = minPrintSpeed;</span>
+<span class="nc" id="L311">    }</span>
+
+    public String getName() {
+<span class="nc" id="L314">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L318">        this.name = name;</span>
+<span class="nc" id="L319">    }</span>
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L323">        int hash = 5;</span>
+<span class="nc" id="L324">        hash = 53 * hash + Objects.hashCode(this.name);</span>
+<span class="nc" id="L325">        return hash;</span>
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="nc bnc" id="L330" title="All 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L331">            return false;</span>
+        }
+<span class="nc bnc" id="L333" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L334">            return false;</span>
+        }
+<span class="nc" id="L336">        final MaterialConfiguration other = (MaterialConfiguration) obj;</span>
+<span class="nc bnc" id="L337" title="All 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
+<span class="nc" id="L338">            return false;</span>
+        }
+<span class="nc bnc" id="L340" title="All 2 branches missed.">        if (!Objects.equals(this.speedConfiguration, other.speedConfiguration)) {</span>
+<span class="nc" id="L341">            return false;</span>
+        }
+<span class="nc bnc" id="L343" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.filamentDiameter) != Double.doubleToLongBits(other.filamentDiameter)) {</span>
+<span class="nc" id="L344">            return false;</span>
+        }
+<span class="nc bnc" id="L346" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.extrusionMultiplier) != Double.doubleToLongBits(other.extrusionMultiplier)) {</span>
+<span class="nc" id="L347">            return false;</span>
+        }
+<span class="nc bnc" id="L349" title="All 2 branches missed.">        if (this.firstLayerExtrusionTemperature != other.firstLayerExtrusionTemperature) {</span>
+<span class="nc" id="L350">            return false;</span>
+        }
+<span class="nc bnc" id="L352" title="All 2 branches missed.">        if (this.extrusionTemperature != other.extrusionTemperature) {</span>
+<span class="nc" id="L353">            return false;</span>
+        }
+<span class="nc bnc" id="L355" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.retractionLength) != Double.doubleToLongBits(other.retractionLength)) {</span>
+<span class="nc" id="L356">            return false;</span>
+        }
+<span class="nc bnc" id="L358" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.retractionLiftZ) != Double.doubleToLongBits(other.retractionLiftZ)) {</span>
+<span class="nc" id="L359">            return false;</span>
+        }
+<span class="nc bnc" id="L361" title="All 2 branches missed.">        if (this.retractionSpeed != other.retractionSpeed) {</span>
+<span class="nc" id="L362">            return false;</span>
+        }
+<span class="nc bnc" id="L364" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.extraLengthAfterRetraction) != Double.doubleToLongBits(other.extraLengthAfterRetraction)) {</span>
+<span class="nc" id="L365">            return false;</span>
+        }
+<span class="nc bnc" id="L367" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.minimumTravelAfterRetraction) != Double.doubleToLongBits(other.minimumTravelAfterRetraction)) {</span>
+<span class="nc" id="L368">            return false;</span>
+        }
+<span class="nc bnc" id="L370" title="All 2 branches missed.">        if (this.retractOnLayerChange != other.retractOnLayerChange) {</span>
+<span class="nc" id="L371">            return false;</span>
+        }
+<span class="nc bnc" id="L373" title="All 2 branches missed.">        if (this.wipeBeforeRetract != other.wipeBeforeRetract) {</span>
+<span class="nc" id="L374">            return false;</span>
+        }
+<span class="nc bnc" id="L376" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.retractionLengthBeforeToolChange) != Double.doubleToLongBits(other.retractionLengthBeforeToolChange)) {</span>
+<span class="nc" id="L377">            return false;</span>
+        }
+<span class="nc bnc" id="L379" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.extraLengthOnToolReenable) != Double.doubleToLongBits(other.extraLengthOnToolReenable)) {</span>
+<span class="nc" id="L380">            return false;</span>
+        }
+<span class="nc bnc" id="L382" title="All 2 branches missed.">        if (this.fanAlwaysOn != other.fanAlwaysOn) {</span>
+<span class="nc" id="L383">            return false;</span>
+        }
+<span class="nc bnc" id="L385" title="All 2 branches missed.">        if (this.enableAutoCooling != other.enableAutoCooling) {</span>
+<span class="nc" id="L386">            return false;</span>
+        }
+<span class="nc bnc" id="L388" title="All 2 branches missed.">        if (this.minFanSpeed != other.minFanSpeed) {</span>
+<span class="nc" id="L389">            return false;</span>
+        }
+<span class="nc bnc" id="L391" title="All 2 branches missed.">        if (this.maxFanSpeed != other.maxFanSpeed) {</span>
+<span class="nc" id="L392">            return false;</span>
+        }
+<span class="nc bnc" id="L394" title="All 2 branches missed.">        if (this.bridgeFanSpeedPercent != other.bridgeFanSpeedPercent) {</span>
+<span class="nc" id="L395">            return false;</span>
+        }
+<span class="nc bnc" id="L397" title="All 2 branches missed.">        if (this.disableFanForFirstNLayers != other.disableFanForFirstNLayers) {</span>
+<span class="nc" id="L398">            return false;</span>
+        }
+<span class="nc bnc" id="L400" title="All 2 branches missed.">        if (this.enableFanTimeThreshold != other.enableFanTimeThreshold) {</span>
+<span class="nc" id="L401">            return false;</span>
+        }
+<span class="nc bnc" id="L403" title="All 2 branches missed.">        if (this.slowDownTimeTreshold != other.slowDownTimeTreshold) {</span>
+<span class="nc" id="L404">            return false;</span>
+        }
+<span class="nc bnc" id="L406" title="All 2 branches missed.">        if (this.minPrintSpeed != other.minPrintSpeed) {</span>
+<span class="nc" id="L407">            return false;</span>
+        }
+<span class="nc" id="L409">        return true;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>XmlPersistenceFramework.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ink3d.UserInterface.Database.XmlDatabase</a> &gt; <span class="el_source">XmlPersistenceFramework.java</span></div><h1>XmlPersistenceFramework.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package ink3d.UserInterface.Database.XmlDatabase;
+
+import ink3d.ConfigurationObjects.ExtruderConfiguration;
+import ink3d.ConfigurationObjects.MaterialConfiguration;
+import ink3d.ConfigurationObjects.PrintConfiguration;
+import ink3d.ConfigurationObjects.PrintJobConfiguration;
+import ink3d.ConfigurationObjects.PrinterConfiguration;
+import java.util.ArrayList;
+
+/**
+ *
+ * @author daniellain
+ */
+<span class="nc" id="L20">public class XmlPersistenceFramework extends ink3d.UserInterface.Database.PersistenceFramework{</span>
+
+    @Override
+    public ArrayList&lt;String&gt; getPrinterConfigurations() {
+<span class="nc" id="L24">        GetPrinterConfigurationsCommand get = new GetPrinterConfigurationsCommand();</span>
+<span class="nc" id="L25">        get.execute();</span>
+<span class="nc" id="L26">        return (ArrayList&lt;String&gt;)get.getResult();</span>
+    }
+
+    @Override
+    public ArrayList&lt;String&gt; getExtruderConfigurations() {
+<span class="nc" id="L31">        GetExtruderConfigurationsCommand get = new GetExtruderConfigurationsCommand();</span>
+<span class="nc" id="L32">        get.execute();</span>
+<span class="nc" id="L33">        return (ArrayList&lt;String&gt;)get.getResult();</span>
+    }
+
+    @Override
+    public ArrayList&lt;String&gt; getMaterialConfigurations() {
+<span class="nc" id="L38">        GetMaterialConfigurationsCommand get = new GetMaterialConfigurationsCommand();</span>
+<span class="nc" id="L39">        get.execute();</span>
+<span class="nc" id="L40">        return (ArrayList&lt;String&gt;)get.getResult();</span>
+    }
+
+    @Override
+    public ArrayList&lt;String&gt; getPrintJobConfigurations() {
+<span class="nc" id="L45">        GetPrintJobConfigurationsCommand get = new GetPrintJobConfigurationsCommand();</span>
+<span class="nc" id="L46">        get.execute();</span>
+<span class="nc" id="L47">        return (ArrayList&lt;String&gt;)get.getResult();</span>
+    }
+
+    @Override
+    public ArrayList&lt;String&gt; getprintConfigurations() {
+<span class="nc" id="L52">        GetPrintConfigurationsCommand get = new GetPrintConfigurationsCommand();</span>
+<span class="nc" id="L53">        get.execute();</span>
+<span class="nc" id="L54">        return (ArrayList&lt;String&gt;)get.getResult();</span>
+    }
+
+    @Override
+    public PrinterConfiguration getPrinterConfiguration(String fileName) {
+<span class="nc" id="L59">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    }
+
+    @Override
+    public ExtruderConfiguration getExtruderConfiguration(String fileName) {
+<span class="nc" id="L64">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    }
+
+    @Override
+    public MaterialConfiguration getMaterialConfiguration(String fileName) {
+<span class="nc" id="L69">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    }
+
+    @Override
+    public PrintJobConfiguration getPrintJobConfiguration(String fileName) {
+<span class="nc" id="L74">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    }
+
+    @Override
+    public PrintConfiguration getPrintConfiguration(String fileName) {
+<span class="nc" id="L79">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    }
+
+    @Override
+    public Boolean savePrinterConfiguration(PrinterConfiguration config) {
+<span class="nc" id="L84">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    }
+
+    @Override
+    public Boolean saveExtruderConfiguration(ExtruderConfiguration config) {
+<span class="nc" id="L89">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    }
+
+    @Override
+    public Boolean saveMaterialConfiguration(MaterialConfiguration config) {
+<span class="nc" id="L94">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    }
+
+    @Override
+    public Boolean savePrintJobConfiguration(PrintJobConfiguration config) {
+<span class="nc" id="L99">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    }
+
+    @Override
+    public Boolean savePrintConfiguration(PrintConfiguration config) {
+<span class="nc" id="L104">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    }
+
+    @Override
+    public Boolean deletePrinterConfiguration(String fileName) {
+<span class="nc" id="L109">        DeletePrinterConfigurationCommand delete = new DeletePrinterConfigurationCommand(fileName);</span>
+<span class="nc" id="L110">        delete.execute();</span>
+<span class="nc" id="L111">        return (Boolean)delete.getResult();</span>
+    }
+
+    @Override
+    public Boolean deleteExtruderConfiguration(String fileName) {
+<span class="nc" id="L116">        DeleteExtruderConfigurationCommand delete = new DeleteExtruderConfigurationCommand(fileName);</span>
+<span class="nc" id="L117">        delete.execute();</span>
+<span class="nc" id="L118">        return (Boolean)delete.getResult();</span>
+    }
+
+    @Override
+    public Boolean deleteMaterialConfiguration(String fileName) {
+<span class="nc" id="L123">        DeleteMaterialConfigurationCommand delete = new DeleteMaterialConfigurationCommand(fileName);</span>
+<span class="nc" id="L124">        delete.execute();</span>
+<span class="nc" id="L125">        return (Boolean)delete.getResult();</span>
+    }
+
+    @Override
+    public Boolean deletePrintJobConfiguration(String fileName) {
+<span class="nc" id="L130">        DeletePrintJobConfigurationCommand delete = new DeletePrintJobConfigurationCommand(fileName);</span>
+<span class="nc" id="L131">        delete.execute();</span>
+<span class="nc" id="L132">        return (Boolean)delete.getResult();</span>
+    }
+
+    @Override
+    public Boolean deletePrintConfiguration(String fileName) {
+<span class="nc" id="L137">        DeletePrintConfigurationCommand delete = new DeletePrintConfigurationCommand(fileName);</span>
+<span class="nc" id="L138">        delete.execute();</span>
+<span class="nc" id="L139">        return (Boolean)delete.getResult();</span>
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>
