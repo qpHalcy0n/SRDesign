@@ -33,5 +33,10 @@ public abstract class PersistenceFramework {
     public abstract Boolean saveMaterialConfiguration(MaterialConfiguration config);
     public abstract Boolean savePrintJobConfiguration(PrintJobConfiguration config);
     public abstract Boolean savePrintConfiguration(PrintConfiguration config);
+    public abstract Boolean deletePrinterConfiguration(String fileName);
+    public abstract Boolean deleteExtruderConfiguration(String fileName);
+    public abstract Boolean deleteMaterialConfiguration(String fileName);
+    public abstract Boolean deletePrintJobConfiguration(String fileName);
+    public abstract Boolean deletePrintConfiguration(String fileName);
     
 }

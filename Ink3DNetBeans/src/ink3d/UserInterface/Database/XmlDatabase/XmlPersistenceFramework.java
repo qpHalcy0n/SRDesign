@@ -21,27 +21,37 @@ public class XmlPersistenceFramework extends ink3d.UserInterface.Database.Persis
 
     @Override
     public ArrayList<String> getPrinterConfigurations() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        GetPrinterConfigurationsCommand get = new GetPrinterConfigurationsCommand();
+        get.execute();
+        return (ArrayList<String>)get.getResult();
     }
 
     @Override
     public ArrayList<String> getExtruderConfigurations() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        GetExtruderConfigurationsCommand get = new GetExtruderConfigurationsCommand();
+        get.execute();
+        return (ArrayList<String>)get.getResult();
     }
 
     @Override
     public ArrayList<String> getMaterialConfigurations() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        GetMaterialConfigurationsCommand get = new GetMaterialConfigurationsCommand();
+        get.execute();
+        return (ArrayList<String>)get.getResult();
     }
 
     @Override
     public ArrayList<String> getPrintJobConfigurations() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        GetPrintJobConfigurationsCommand get = new GetPrintJobConfigurationsCommand();
+        get.execute();
+        return (ArrayList<String>)get.getResult();
     }
 
     @Override
     public ArrayList<String> getprintConfigurations() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        GetPrintConfigurationsCommand get = new GetPrintConfigurationsCommand();
+        get.execute();
+        return (ArrayList<String>)get.getResult();
     }
 
     @Override
@@ -92,6 +102,41 @@ public class XmlPersistenceFramework extends ink3d.UserInterface.Database.Persis
     @Override
     public Boolean savePrintConfiguration(PrintConfiguration config) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Boolean deletePrinterConfiguration(String fileName) {
+        DeletePrinterConfigurationCommand delete = new DeletePrinterConfigurationCommand(fileName);
+        delete.execute();
+        return (Boolean)delete.getResult();
+    }
+
+    @Override
+    public Boolean deleteExtruderConfiguration(String fileName) {
+        DeleteExtruderConfigurationCommand delete = new DeleteExtruderConfigurationCommand(fileName);
+        delete.execute();
+        return (Boolean)delete.getResult();
+    }
+
+    @Override
+    public Boolean deleteMaterialConfiguration(String fileName) {
+        DeleteMaterialConfigurationCommand delete = new DeleteMaterialConfigurationCommand(fileName);
+        delete.execute();
+        return (Boolean)delete.getResult();
+    }
+
+    @Override
+    public Boolean deletePrintJobConfiguration(String fileName) {
+        DeletePrintJobConfigurationCommand delete = new DeletePrintJobConfigurationCommand(fileName);
+        delete.execute();
+        return (Boolean)delete.getResult();
+    }
+
+    @Override
+    public Boolean deletePrintConfiguration(String fileName) {
+        DeletePrintConfigurationCommand delete = new DeletePrintConfigurationCommand(fileName);
+        delete.execute();
+        return (Boolean)delete.getResult();
     }
     
 }
