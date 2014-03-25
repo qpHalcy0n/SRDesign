@@ -6,11 +6,14 @@
 
 package ink3d.UserInterface.Database.XmlDatabase;
 
+import ink3d.ConfigurationObjects.ExtruderConfiguration;
+import ink3d.ConfigurationObjects.FileConfiguration;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
 import ink3d.ConfigurationObjects.PrinterConfiguration;
 import ink3d.ConfigurationObjects.SubsetConfiguration;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import static org.junit.Assert.*;
@@ -24,12 +27,59 @@ import org.junit.Test;
 public class SavePrintJobConfigurationCommandTest {
     PrintJobConfiguration printJob;
     PrinterConfiguration printer;
-    SubsetConfiguration subset;
+    ArrayList<SubsetConfiguration> subsetList;
     String expected;
 
     @Before
     public void setUp() {
+        
+        printer = new PrinterConfiguration();
+        printer.setName("SaveTest.Printer");
+        printer.setBedX(100.5);
+        printer.setBedY(150.5);
+        printer.setNumExtruders(3);
+        printer.setPrintCenterX(65.8);
+        printer.setPrintCenterY(70.4);
+        printer.setUseRelativeEDistances(true);
+        printer.setVibrationLimit(1.1);
+        printer.setgCodeFlavor("rep-rap");
+        printer.setzOffset(1.5);
+        
+        ExtruderConfiguration extruder = new ExtruderConfiguration();
+        extruder.setName("SaveTest");
+        extruder.setExtruderType("ABS");
+        extruder.setNozzleDiameter(2);
+        extruder.setxOffset(0);
+        extruder.setyOffset(0);
+        extruder.setzOffset(0);
+        
+        
+        
+        File stlfile1 = new File("./Database/Files/SaveTest1.stl");
+        File stlfile2 = new File("./Database/Files/SaveTest2.stl");
+        File stlfile3 = new File("./Database/Files/SaveTest3.stl");
+        
+        FileConfiguration file1 = new FileConfiguration();
+        file1.setExtruderConfiguration(extruder);
+        file1.setMaterialConfiguration(material);
+        file1.setName("SaveTest.file1");
+        file1.setParentSTLFile(stlfile1);
+        
+        
+        ArrayList<FileConfiguration> files = new ArrayList<FileConfiguration>();
+        files.add(file1)
+        
+        SubsetConfiguration sub1= new SubsetConfiguration();
+        sub1.setBottomZ(0);
+        sub1.setFileConfigurations(files);
+        
+        subsetList = new ArrayList<SubsetConfiguration>();
+        subsetList.add(subset1)
+        
         printJob = new PrintJobConfiguration();
+        printJob.setName("SaveTest");
+        printJob.setPrinterConfiguration(printer);
+        printJob.setSubsetConfigurationList(subsetList);
         
         expected ="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                     "<print>\n" +
@@ -101,8 +151,8 @@ public class SavePrintJobConfigurationCommandTest {
     @After
     public void tearDown() {
         printJob = null;
-        File file = new File("./Database/PrintJobs/SaveTest.xml");
-        file.delete();
+        //File file = new File("./Database/PrintJobs/SaveTest.xml");
+        //file.delete();
     }
 
     /**
