@@ -17,7 +17,7 @@ public class GetPrinterConfigurationsCommand extends ink3d.UserInterface.Databas
 
     @Override
     public void execute() {
-        File folder = new File("./Printers");
+        File folder = new File("./Database/Printers");
         File[] files = folder.listFiles();
         result = new ArrayList<String>();
         for(File f: files){

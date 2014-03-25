@@ -21,7 +21,7 @@ public class DeleteMaterialConfigurationCommand extends ink3d.UserInterface.Data
     @Override
     public void execute() {
         try{
-            File file = new File("./Materials/"+fileName);
+            File file = new File("./Database/Materials/"+fileName+".xml");
             result = file.delete();
      	}catch(Exception e){
              e.printStackTrace();

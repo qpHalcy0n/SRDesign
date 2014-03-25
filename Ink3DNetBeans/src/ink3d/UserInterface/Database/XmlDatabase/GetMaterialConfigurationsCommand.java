@@ -17,7 +17,7 @@ public class GetMaterialConfigurationsCommand extends ink3d.UserInterface.Databa
 
     @Override
     public void execute() {
-        File folder = new File("./Materials");
+        File folder = new File("./Database/Materials");
         File[] files = folder.listFiles();
         result = new ArrayList<String>();
         for(File f: files){

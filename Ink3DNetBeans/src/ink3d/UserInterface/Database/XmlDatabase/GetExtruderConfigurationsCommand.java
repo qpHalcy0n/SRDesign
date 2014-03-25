@@ -17,7 +17,7 @@ public class GetExtruderConfigurationsCommand extends ink3d.UserInterface.Databa
 
     @Override
     public void execute() {
-        File folder = new File("./Extruders");
+        File folder = new File("./Database/Extruders");
         File[] files = folder.listFiles();
         result = new ArrayList<String>();
         for(File f: files){

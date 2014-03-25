@@ -21,7 +21,7 @@ public class DeletePrintConfigurationCommand extends ink3d.UserInterface.Databas
     @Override
     public void execute() {
         try{
-            File file = new File("./Prints/"+fileName);
+            File file = new File("./Database/Prints/"+fileName+".xml");
             result = file.delete();
      	}catch(Exception e){
              e.printStackTrace();

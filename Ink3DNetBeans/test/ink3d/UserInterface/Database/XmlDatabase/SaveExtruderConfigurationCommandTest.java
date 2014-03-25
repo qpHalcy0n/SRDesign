@@ -24,18 +24,7 @@ import org.junit.Test;
 public class SaveExtruderConfigurationCommandTest {
     ExtruderConfiguration extruder;
     String expected;
-    
-    public SaveExtruderConfigurationCommandTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() { 
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+
     @Before
     public void setUp() {
         extruder = new ExtruderConfiguration();
@@ -63,7 +52,7 @@ public class SaveExtruderConfigurationCommandTest {
     @After
     public void tearDown() {
         extruder = null;
-        File file = new File("./Extruders/SaveTest.xml");
+        File file = new File("./Database/Extruders/SaveTest.xml");
         file.delete();
     }
 
@@ -74,7 +63,7 @@ public class SaveExtruderConfigurationCommandTest {
     public void SaveExtruderTest() throws IOException {
         String actual;
 
-        String path = "./Extruders/"+extruder.getName()+".xml";
+        String path = "./Database/Extruders/"+extruder.getName()+".xml";
         SaveExtruderConfigurationCommand instance = new SaveExtruderConfigurationCommand(extruder);
         instance.execute();
         assertTrue((Boolean)instance.getResult());

@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 public class SavePrinterConfigurationCommand extends ink3d.UserInterface.Database.CommandStructure{
     private PrinterConfiguration config;
     private static String xmlHeadName = "printer";
-    private static String path = "./Printers";
+    private static String path = "./Database/Printers";
     private static String extention =".xml";
     
     public SavePrinterConfigurationCommand(PrinterConfiguration config){

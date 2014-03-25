@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 public class SaveMaterialConfigurationCommand extends ink3d.UserInterface.Database.CommandStructure{
     private MaterialConfiguration config;
     private static String xmlHeadName = "material";
-    private static String path = "./Materials";
+    private static String path = "./Database/Materials/";
     private static String extention =".xml";
     
     public SaveMaterialConfigurationCommand(MaterialConfiguration config){

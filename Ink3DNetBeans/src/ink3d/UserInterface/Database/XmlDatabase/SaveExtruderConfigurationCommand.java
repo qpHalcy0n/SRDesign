@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 public class SaveExtruderConfigurationCommand extends ink3d.UserInterface.Database.CommandStructure{
     private ExtruderConfiguration config;
     private static String xmlHeadName = "extruder";
-    private static String path = "./Extruders/";
+    private static String path = "./Database/Extruders/";
     private static String extention =".xml";
     
     public SaveExtruderConfigurationCommand(ExtruderConfiguration config){
