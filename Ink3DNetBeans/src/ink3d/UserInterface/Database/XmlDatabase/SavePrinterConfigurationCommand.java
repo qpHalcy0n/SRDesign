@@ -46,13 +46,13 @@ public class SavePrinterConfigurationCommand extends ink3d.UserInterface.Databas
             marshaller.marshal(je, os);
             result = Boolean.TRUE;
         } catch (JAXBException ex) {
-            Logger.getLogger(SaveExtruderConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SavePrinterConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
             result = Boolean.FALSE;
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(SaveExtruderConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SavePrinterConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
             result = Boolean.FALSE;
         } catch (IOException ex) {
-            Logger.getLogger(SaveExtruderConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SavePrinterConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
             result = Boolean.FALSE;
         }
     }

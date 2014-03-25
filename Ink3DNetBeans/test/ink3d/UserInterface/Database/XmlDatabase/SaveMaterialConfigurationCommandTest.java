@@ -124,7 +124,7 @@ public class SaveMaterialConfigurationCommandTest {
     public void tearDown() {
         material = null;
         File file = new File("./Database/Materials/SaveTest.xml");
-     //   file.delete();
+        file.delete();
     }
 
     /**

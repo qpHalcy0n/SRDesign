@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 public class SavePrintConfigurationCommand extends ink3d.UserInterface.Database.CommandStructure{
     private PrintConfiguration config;
     private static String xmlHeadName = "print";
-    private static String path = "./Database/Prints";
+    private static String path = "./Database/Prints/";
     private static String extention =".xml";
     
     public SavePrintConfigurationCommand(PrintConfiguration config){
@@ -46,13 +46,13 @@ public class SavePrintConfigurationCommand extends ink3d.UserInterface.Database.
             marshaller.marshal(je, os);
             result = Boolean.TRUE;
         } catch (JAXBException ex) {
-            Logger.getLogger(SaveExtruderConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SavePrintConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
             result = Boolean.FALSE;
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(SaveExtruderConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SavePrintConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
             result = Boolean.FALSE;
         } catch (IOException ex) {
-            Logger.getLogger(SaveExtruderConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SavePrintConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
             result = Boolean.FALSE;
         }
     }
