@@ -13,17 +13,17 @@ import java.util.ArrayList;
  *
  * @author daniellain
  */
-<span class="nc" id="L16">public class GetExtruderConfigurationsCommand extends ink3d.UserInterface.Database.CommandStructure{</span>
+<span class="fc" id="L16">public class GetExtruderConfigurationsCommand extends ink3d.UserInterface.Database.CommandStructure{</span>
 
     @Override
     public void execute() {
-<span class="nc" id="L20">        File folder = new File(&quot;./Database/Extruders&quot;);</span>
-<span class="nc" id="L21">        File[] files = folder.listFiles();</span>
-<span class="nc" id="L22">        result = new ArrayList&lt;String&gt;();</span>
-<span class="nc bnc" id="L23" title="All 2 branches missed.">        for(File f: files){</span>
-<span class="nc" id="L24">            ((ArrayList&lt;String&gt;)result).add(f.getName());</span>
+<span class="fc" id="L20">        File folder = new File(&quot;./Database/Extruders/&quot;);</span>
+<span class="fc" id="L21">        File[] files = folder.listFiles();</span>
+<span class="fc" id="L22">        result = new ArrayList&lt;String&gt;();</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        for(File f: files){</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">            if(f.getName().contains(&quot;.xml&quot;))((ArrayList&lt;String&gt;)result).add(f.getName().substring(0,f.getName().length()-4 ));</span>
         }
-<span class="nc" id="L26">    }</span>
+<span class="fc" id="L26">    }</span>
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

@@ -11,5 +11,28 @@ package ink3d.ConfigurationObjects;
  * @author daniellain
  */
 public class FileSelection {
-    
-}
+        private String file;
+        private String extruder; 
+        
+        public FileSelection(String file, String extruder){
+            this.file = file;
+            this.extruder = extruder;
+        }
+
+        public String getFile() {
+            return file;
+        }
+
+        public void setFile(String file) {
+            this.file = file;
+        }
+
+        public String getExtruder() {
+            return extruder;
+        }
+
+        public void setExtruder(String extruder) {
+            this.extruder = extruder;
+        }
+        
+    }

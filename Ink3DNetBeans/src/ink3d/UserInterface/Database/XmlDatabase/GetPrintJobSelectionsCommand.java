@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author daniellain
  */
-public class GetPrintJobConfigurationsCommand extends ink3d.UserInterface.Database.CommandStructure{
+public class GetPrintJobSelectionsCommand extends ink3d.UserInterface.Database.CommandStructure{
 
     @Override
     public void execute() {

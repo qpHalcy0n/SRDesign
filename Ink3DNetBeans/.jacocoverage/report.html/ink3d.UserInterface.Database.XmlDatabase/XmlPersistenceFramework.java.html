@@ -42,7 +42,7 @@ import java.util.ArrayList;
 
     @Override
     public ArrayList&lt;String&gt; getPrintJobConfigurations() {
-<span class="nc" id="L45">        GetPrintJobConfigurationsCommand get = new GetPrintJobConfigurationsCommand();</span>
+<span class="nc" id="L45">        GetPrintJobSelectionsCommand get = new GetPrintJobSelectionsCommand();</span>
 <span class="nc" id="L46">        get.execute();</span>
 <span class="nc" id="L47">        return (ArrayList&lt;String&gt;)get.getResult();</span>
     }

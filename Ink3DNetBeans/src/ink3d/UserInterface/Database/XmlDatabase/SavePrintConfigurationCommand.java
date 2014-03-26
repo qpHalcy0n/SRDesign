@@ -8,9 +8,7 @@ package ink3d.UserInterface.Database.XmlDatabase;
 
 import ink3d.ConfigurationObjects.PrintConfiguration;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,13 +43,7 @@ public class SavePrintConfigurationCommand extends ink3d.UserInterface.Database.
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(je, os);
             result = Boolean.TRUE;
-        } catch (JAXBException ex) {
-            Logger.getLogger(SavePrintConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
-            result = Boolean.FALSE;
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(SavePrintConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
-            result = Boolean.FALSE;
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(SavePrintConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
             result = Boolean.FALSE;
         }

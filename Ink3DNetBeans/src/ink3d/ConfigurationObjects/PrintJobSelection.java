@@ -6,7 +6,7 @@
 
 package ink3d.ConfigurationObjects;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,6 +15,46 @@ import java.util.List;
 public class PrintJobSelection {
     private String name;
     private String printerConfiguration;
-    private List <SubsetSelection> subsetConfigurationList;
+    private ArrayList<ExtruderMaterialSelection> materials;
+    private ArrayList <SubsetSelection> subsetConfigurationList;
     
+    public PrintJobSelection(){
+        materials = new ArrayList<>();
+        subsetConfigurationList = new ArrayList<>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPrinterConfiguration() {
+        return printerConfiguration;
+    }
+
+    public void setPrinterConfiguration(String printerConfiguration) {
+        this.printerConfiguration = printerConfiguration;
+    }
+
+    public ArrayList<ExtruderMaterialSelection> getMaterials() {
+        return materials;
+    }
+
+    public void setMaterials(ArrayList<ExtruderMaterialSelection> materials) {
+        this.materials = materials;
+    }
+
+    public ArrayList<SubsetSelection> getSubsetConfigurationList() {
+        return subsetConfigurationList;
+    }
+
+    public void setSubsetConfigurationList(ArrayList<SubsetSelection> subsetConfigurationList) {
+        this.subsetConfigurationList = subsetConfigurationList;
+    }
+
 }
+
+

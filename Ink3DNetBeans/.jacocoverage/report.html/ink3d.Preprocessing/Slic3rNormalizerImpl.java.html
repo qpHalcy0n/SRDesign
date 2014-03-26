@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Slic3rNormalizerImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ink3d.Preprocessing</a> &gt; <span class="el_source">Slic3rNormalizerImpl.java</span></div><h1>Slic3rNormalizerImpl.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package ink3d.Preprocessing;
+
+import ink3d.ConfigurationObjects.FileConfiguration;
+import ink3d.ConfigurationObjects.MaterialConfiguration;
+import ink3d.ConfigurationObjects.PrintJobConfiguration;
+import ink3d.ConfigurationObjects.SubsetConfiguration;
+import java.io.File;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.j3d.loaders.stl.STLFileReader;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import sun.security.provider.certpath.Vertex;
+
+/**
+ *
+ * @author Tim
+ */
+<span class="nc" id="L35">public class Slic3rNormalizerImpl implements Normalizer {</span>
+    private static final String AMF_TAG = &quot;amf&quot;;
+    private static final String MATERIAL_TAG = &quot;material&quot;;
+    private static final String METADATA_TAG = &quot;metadata&quot;;
+    private static final String ID_ATTR = &quot;id&quot;;
+    private static final String TYPE_ATTR = &quot;type&quot;;
+    private static final String OBJECT_TAG = &quot;object&quot;;
+    private static final String MESH_TAG = &quot;mesh&quot;;
+    private static final String VERTICIES_TAG = &quot;verticies&quot;;
+    private static final String VERTEX_TAG = &quot;vertex&quot;;
+    private static final String COORDS_TAG = &quot;coordinates&quot;;
+    private static final String X_TAG = &quot;x&quot;;
+    private static final String Y_TAG = &quot;y&quot;;
+    private static final String Z_TAG = &quot;z&quot;;
+    private static final String VOLUME_TAG = &quot;volume&quot;;
+    private static final String MATERIALID_ATTR = &quot;materialid&quot;;
+    private static final String TRIANGE_TAG = &quot;triangle&quot;;
+    private static final String NAME_VALUE = &quot;name&quot;;
+
+	@Override
+	public boolean normalize(PrintJobConfiguration printJobConfiguration) {
+<span class="nc" id="L56">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); </span>
+	}
+
+	private boolean translateFiles(PrintJobConfiguration printJobConfiguration) {
+<span class="nc" id="L60">        List&lt;SubsetConfiguration&gt; subsets = printJobConfiguration.getSubsetConfigurationList();</span>
+
+<span class="nc" id="L62">        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();</span>
+        DocumentBuilder docBuilder;
+        try {
+<span class="nc" id="L65">            docBuilder = docFactory.newDocumentBuilder();</span>
+<span class="nc" id="L66">        } catch (ParserConfigurationException ex) {</span>
+<span class="nc" id="L67">            Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L68">            return false;</span>
+<span class="nc" id="L69">        }</span>
+
+<span class="nc bnc" id="L71" title="All 2 branches missed.">        for(SubsetConfiguration subset : subsets) {</span>
+
+            // TODO: Sort file config list by extruder position 0,1,2...n
+            // or figure out how we're going to do positioning
+
+<span class="nc" id="L76">            List&lt;FileConfiguration&gt; fileConfigs = subset.getFileConfigurations();</span>
+            try {
+<span class="nc" id="L78">                Document doc = docBuilder.newDocument();</span>
+<span class="nc" id="L79">                Element root = doc.createElement(AMF_TAG);</span>
+
+                // Add material data to AMF
+<span class="nc" id="L82">                int materialCount = 1;</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">                for(FileConfiguration fileConfig : fileConfigs) {</span>
+<span class="nc" id="L84">                    MaterialConfiguration materialConfig = fileConfig.getMaterialConfiguration();</span>
+<span class="nc" id="L85">                    Element materialElement = doc.createElement(MATERIAL_TAG);</span>
+<span class="nc" id="L86">                    materialElement.setAttribute(ID_ATTR, String.valueOf(materialCount));</span>
+<span class="nc" id="L87">                    root.appendChild(materialElement);</span>
+
+<span class="nc" id="L89">                    Element metadataElement = doc.createElement(METADATA_TAG);</span>
+<span class="nc" id="L90">                    metadataElement.setAttribute(TYPE_ATTR, NAME_VALUE);</span>
+<span class="nc" id="L91">                    metadataElement.appendChild(doc.createTextNode(materialConfig.getName()));</span>
+<span class="nc" id="L92">                    materialElement.appendChild(metadataElement);</span>
+<span class="nc" id="L93">                    materialCount++;</span>
+<span class="nc" id="L94">                }</span>
+                
+                // Add geometry data to AMF
+<span class="nc" id="L97">                Element objectElement = doc.createElement(OBJECT_TAG);</span>
+<span class="nc" id="L98">                Element meshElement = doc.createElement(MESH_TAG);</span>
+<span class="nc" id="L99">                Element verticiesElement = doc.createElement(VERTICIES_TAG);</span>
+<span class="nc" id="L100">                root.appendChild(objectElement);</span>
+<span class="nc" id="L101">                objectElement.appendChild(meshElement);</span>
+<span class="nc" id="L102">                meshElement.appendChild(verticiesElement);</span>
+
+<span class="nc" id="L104">                materialCount = 1;</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">                for(FileConfiguration fileConfig : fileConfigs) {</span>
+<span class="nc" id="L106">                    File stlFile = fileConfig.getSubsetSTL();</span>
+<span class="nc" id="L107">                    STLFileReader reader = new STLFileReader(stlFile);</span>
+<span class="nc" id="L108">                    int[] numFacets = reader.getNumOfFacets();</span>
+
+<span class="nc" id="L110">                    Element volumeElement = doc.createElement(VOLUME_TAG);</span>
+<span class="nc" id="L111">                    volumeElement.setAttribute(MATERIALID_ATTR, String.valueOf(materialCount));</span>
+<span class="nc" id="L112">                    materialCount++;</span>
+                    
+<span class="nc" id="L114">                    int vertCount = 0;</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">                    for(int i = 0; i &lt; numFacets[0]; i++) {</span>
+<span class="nc" id="L116">                        Element triangleElement = doc.createElement(TRIANGE_TAG);</span>
+<span class="nc" id="L117">                        volumeElement.appendChild(triangleElement);</span>
+<span class="nc" id="L118">                        double[] normal = new double[3];</span>
+<span class="nc" id="L119">                        double[][] verticies = new double[3][3];</span>
+<span class="nc" id="L120">                        reader.getNextFacet(normal, verticies);</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">                        for(int j = 0; j &lt; 3; j++) {</span>
+<span class="nc" id="L122">                            double x = verticies[j][0];</span>
+<span class="nc" id="L123">                            double y = verticies[j][1];</span>
+<span class="nc" id="L124">                            double z = verticies[j][2];</span>
+
+                            // create XML elements for the verticies of the face
+<span class="nc" id="L127">                            Element vertexElement = doc.createElement(VERTEX_TAG);</span>
+<span class="nc" id="L128">                            Element coordsElement = doc.createElement(COORDS_TAG);</span>
+<span class="nc" id="L129">                            Element xElement = doc.createElement(X_TAG);</span>
+<span class="nc" id="L130">                            Element yElement = doc.createElement(Y_TAG);</span>
+<span class="nc" id="L131">                            Element zElement = doc.createElement(Z_TAG);</span>
+<span class="nc" id="L132">                            xElement.appendChild(doc.createTextNode(String.valueOf(x)));</span>
+<span class="nc" id="L133">                            yElement.appendChild(doc.createTextNode(String.valueOf(y)));</span>
+<span class="nc" id="L134">                            zElement.appendChild(doc.createTextNode(String.valueOf(z)));</span>
+<span class="nc" id="L135">                            coordsElement.appendChild(xElement);</span>
+<span class="nc" id="L136">                            coordsElement.appendChild(yElement);</span>
+<span class="nc" id="L137">                            coordsElement.appendChild(zElement);</span>
+<span class="nc" id="L138">                            vertexElement.appendChild(coordsElement);</span>
+<span class="nc" id="L139">                            verticiesElement.appendChild(vertexElement);</span>
+
+                            // this is the number of vertex in the face
+                            // i.e. v1, v2, or v3
+<span class="nc" id="L143">                            int faceVertexNumber = j + 1;</span>
+
+<span class="nc" id="L145">                            Element vElement = </span>
+                                    doc.createElement(&quot;v&quot; + String.valueOf(faceVertexNumber));
+
+<span class="nc" id="L148">                            triangleElement.appendChild(vElement);</span>
+<span class="nc" id="L149">                            triangleElement.appendChild(doc.createTextNode(String.valueOf(vertCount)));</span>
+
+<span class="nc" id="L151">                            vertCount++;</span>
+                        }
+                    }
+<span class="nc" id="L154">                }</span>
+
+<span class="nc" id="L156">                TransformerFactory transformerFactory = TransformerFactory.newInstance();</span>
+<span class="nc" id="L157">                Transformer transformer = transformerFactory.newTransformer();</span>
+<span class="nc" id="L158">                DOMSource source = new DOMSource(doc);</span>
+<span class="nc" id="L159">                StreamResult result = new StreamResult(new File(&quot;.&quot;+File.separator+&quot;sub&quot;+&quot;.amf&quot;));</span>
+
+<span class="nc" id="L161">                transformer.transform(source, result);</span>
+                
+            }
+<span class="nc" id="L164">            catch(Exception ex) {</span>
+<span class="nc" id="L165">                Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L166">            }</span>
+<span class="nc" id="L167">        }</span>
+<span class="nc" id="L168">        return true;</span>
+	}
+
+    private Set&lt;Vertex&gt; createVerticies(File stl) {
+<span class="nc" id="L172">        Set&lt;Vertex&gt; verticies = new LinkedHashSet&lt;Vertex&gt;();</span>
+<span class="nc" id="L173">        return verticies; </span>
+    }
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>
