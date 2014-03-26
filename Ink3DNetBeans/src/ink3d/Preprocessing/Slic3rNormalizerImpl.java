@@ -11,9 +11,7 @@ import ink3d.ConfigurationObjects.MaterialConfiguration;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
 import ink3d.ConfigurationObjects.SubsetConfiguration;
 import java.io.File;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -26,7 +24,6 @@ import javax.xml.transform.stream.StreamResult;
 import org.j3d.loaders.stl.STLFileReader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import sun.security.provider.certpath.Vertex;
 
 /**
  *
@@ -167,11 +164,5 @@ public class Slic3rNormalizerImpl implements Normalizer {
         }
         return true;
 	}
-
-    private Set<Vertex> createVerticies(File stl) {
-        Set<Vertex> verticies = new LinkedHashSet<Vertex>();
-        return verticies; 
-    }
-	
 	
 }
