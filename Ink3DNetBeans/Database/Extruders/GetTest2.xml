@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<extruder>
+    <extruderType>ABS</extruderType>
+    <headxOffset>0.0</headxOffset>
+    <headyOffset>0.0</headyOffset>
+    <headzOffset>0.0</headzOffset>
+    <name>GetTest2</name>
+    <nozzleDiameter>2.0</nozzleDiameter>
+    <xOffset>0.0</xOffset>
+    <yOffset>0.0</yOffset>
+    <zOffset>0.0</zOffset>
+</extruder>

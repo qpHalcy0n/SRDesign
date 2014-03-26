@@ -21,7 +21,7 @@ public class DeletePrintJobConfigurationCommand extends ink3d.UserInterface.Data
     @Override
     public void execute() {
         try{
-            File file = new File("./PrintJobs/"+fileName);
+            File file = new File("./Database/PrintJobs/"+fileName+".xml");
             result = file.delete();
      	}catch(Exception e){
              e.printStackTrace();

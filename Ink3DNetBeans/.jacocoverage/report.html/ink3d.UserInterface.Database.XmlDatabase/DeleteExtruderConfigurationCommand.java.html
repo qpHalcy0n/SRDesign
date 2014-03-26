@@ -21,7 +21,7 @@ public class DeleteExtruderConfigurationCommand extends ink3d.UserInterface.Data
     @Override
     public void execute() {
         try{
-<span class="fc" id="L24">            File file = new File(&quot;./Extruders/&quot;+fileName+&quot;.xml&quot;);</span>
+<span class="fc" id="L24">            File file = new File(&quot;./Database/Extruders/&quot;+fileName+&quot;.xml&quot;);</span>
 <span class="fc" id="L25">            result = file.delete();</span>
 <span class="nc" id="L26">     	}catch(Exception e){</span>
 <span class="nc" id="L27">             e.printStackTrace();</span>

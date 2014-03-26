@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
 public class SubsetConfiguration {
-    private String name;
     private double bottomZ;
     private double topZ;
     File amfFile;
@@ -63,18 +61,15 @@ public class SubsetConfiguration {
         this.fileConfigurations = fileConfigurations;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.name);
+        int hash = 5;
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.bottomZ) ^ (Double.doubleToLongBits(this.bottomZ) >>> 32));
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.topZ) ^ (Double.doubleToLongBits(this.topZ) >>> 32));
+        hash = 79 * hash + Objects.hashCode(this.amfFile);
+        hash = 79 * hash + Objects.hashCode(this.gCodeFile);
+        hash = 79 * hash + Objects.hashCode(this.printConfiguration);
+        hash = 79 * hash + Objects.hashCode(this.fileConfigurations);
         return hash;
     }
 
@@ -87,9 +82,7 @@ public class SubsetConfiguration {
             return false;
         }
         final SubsetConfiguration other = (SubsetConfiguration) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
+
         if (Double.doubleToLongBits(this.bottomZ) != Double.doubleToLongBits(other.bottomZ)) {
             return false;
         }

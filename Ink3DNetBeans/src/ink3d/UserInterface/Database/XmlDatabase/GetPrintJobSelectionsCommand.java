@@ -13,11 +13,11 @@ import java.util.ArrayList;
  *
  * @author daniellain
  */
-public class GetPrintJobConfigurationsCommand extends ink3d.UserInterface.Database.CommandStructure{
+public class GetPrintJobSelectionsCommand extends ink3d.UserInterface.Database.CommandStructure{
 
     @Override
     public void execute() {
-        File folder = new File("./PrintJobs");
+        File folder = new File("./Database/PrintJobs/");
         File[] files = folder.listFiles();
         result = new ArrayList<String>();
         for(File f: files){

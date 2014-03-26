@@ -42,7 +42,7 @@ public class XmlPersistenceFramework extends ink3d.UserInterface.Database.Persis
 
     @Override
     public ArrayList<String> getPrintJobConfigurations() {
-        GetPrintJobConfigurationsCommand get = new GetPrintJobConfigurationsCommand();
+        GetPrintJobSelectionsCommand get = new GetPrintJobSelectionsCommand();
         get.execute();
         return (ArrayList<String>)get.getResult();
     }
