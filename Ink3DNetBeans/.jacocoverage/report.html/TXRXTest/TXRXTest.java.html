@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TXRXTest.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">TXRXTest</a> &gt; <span class="el_source">TXRXTest.java</span></div><h1>TXRXTest.java</h1><pre class="source lang-java linenums">/*
+    ink3D - TX/RX test module (3/15/14)
+    Shawn Simonson
+ */
+
+package TXRXTest;
+
+import jssc.SerialPort;
+import jssc.SerialPortException;
+import jssc.SerialPortList;
+import jssc.SerialPortEvent;
+import jssc.SerialPortEventListener;
+import java.util.ArrayList;
+import java.io.*;
+
+/*
+ *
+ * @author Shawn Simonson
+ */
+public class TXRXTest 
+{
+    private static SerialPortList serialPortList;
+    private static SerialPort serialPort;
+<span class="nc" id="L24">    private static String fileName                  = &quot;test-cube.gcode&quot;;</span>
+<span class="nc" id="L25">    private static int MAX_BUF_LEN                  = 5;</span>
+<span class="nc" id="L26">    private static int BAUD_RATE                    = 250000;</span>
+    
+<span class="nc" id="L28">    private boolean isEmpty                         = false;</span>
+<span class="nc" id="L29">    private ArrayList gCodes                        = new ArrayList();</span>
+    
+    
+    public TXRXTest()
+<span class="nc" id="L33">    {</span>
+<span class="nc" id="L34">        serialPortList = new SerialPortList();</span>
+<span class="nc" id="L35">    }</span>
+    
+    public static String[] getPortNames()
+    {
+<span class="nc" id="L39">        String[] portNames = serialPortList.getPortNames();</span>
+<span class="nc" id="L40">        return portNames;</span>
+    }
+    /**
+     * @param args the command line arguments
+     */
+    public void main(String[] args) 
+    {
+<span class="nc" id="L47">        String[] serialPorts = getPortNames();</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">        if(serialPorts.length &lt;= 0)</span>
+        {
+<span class="nc" id="L50">            System.out.println(&quot;No serial ports reported. Exiting&quot;);</span>
+<span class="nc" id="L51">            return;</span>
+        }
+        
+        // Diagnostic: Dump serial ports
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        for(int i = 0; i &lt; serialPorts.length; i++)</span>
+<span class="nc" id="L56">            System.out.println(serialPorts[i]);</span>
+        
+        // Read g-codes //
+        try
+        {
+<span class="nc" id="L61">            BufferedReader br = new BufferedReader(new FileReader(fileName));</span>
+            String line;
+<span class="nc bnc" id="L63" title="All 2 branches missed.">            while((line = br.readLine()) != null)</span>
+<span class="nc" id="L64">                gCodes.add(line);</span>
+        }
+        
+<span class="nc" id="L67">        catch(Exception e)</span>
+        {
+<span class="nc" id="L69">            System.err.println(&quot;Error: &quot; + e.getMessage());</span>
+<span class="nc" id="L70">        }</span>
+        
+        
+        // Open serial port //
+<span class="nc" id="L74">        serialPort = new SerialPort(&quot;COM2&quot;);</span>
+        try
+        {
+<span class="nc" id="L77">            System.out.println(&quot;Port Opened: &quot; + serialPort.openPort());</span>
+<span class="nc" id="L78">            System.out.println(&quot;Params set: &quot; + serialPort.setParams(BAUD_RATE, 8, 1, 0));</span>
+<span class="nc" id="L79">            System.out.println(&quot;Output Buffer Bytes: &quot; + serialPort.getOutputBufferBytesCount());</span>
+<span class="nc" id="L80">            System.out.println(&quot;Input Buffer Bytes: &quot; + serialPort.getInputBufferBytesCount());</span>
+            
+<span class="nc" id="L82">            int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_TXEMPTY;</span>
+<span class="nc" id="L83">            serialPort.setEventsMask(mask);</span>
+<span class="nc" id="L84">            serialPort.addEventListener(new SerialPortReader());</span>
+            
+            // Sit and spin until all g-codes are sent //
+            // Callback will raise empty flag, this loop will kick out and remove listeners and close port //
+<span class="nc bnc" id="L88" title="All 2 branches missed.">            while(!isEmpty)</span>
+            {
+            }
+            
+<span class="nc" id="L92">            serialPort.removeEventListener();</span>
+<span class="nc" id="L93">            System.out.println(&quot;Port closed:&quot; + serialPort.closePort());</span>
+        }
+        
+<span class="nc" id="L96">        catch(SerialPortException ex)</span>
+        {
+<span class="nc" id="L98">            System.out.println(ex);</span>
+<span class="nc" id="L99">        }</span>
+<span class="nc" id="L100">    }</span>
+    
+    
+    // Callback for RXCHAR/TXEMPTY events //
+    // Will read entire input buffer contents and spit them out to console //
+    // Gives us an idea of what feedback we can expect //
+    
+    // Fills printer buffer on TXEMPTY event //
+    // Raises g-code empty flag when g-codes are exhausted //
+<span class="nc" id="L109">    class SerialPortReader implements SerialPortEventListener</span>
+    {
+        public void serialEvent(SerialPortEvent event)
+        {
+<span class="nc bnc" id="L113" title="All 2 branches missed.">            if(event.isRXCHAR())</span>
+            {
+                try
+                {
+                    // getEventValue returns size of buffer on RXCHAR event //
+<span class="nc" id="L118">                    byte buffer[]   = serialPort.readBytes(event.getEventValue());</span>
+<span class="nc" id="L119">                    String inBuffer = new String(buffer);</span>
+                    
+                    // Just echo the printer feedback for now
+<span class="nc" id="L122">                    System.out.println(inBuffer);</span>
+                }
+                
+<span class="nc" id="L125">                catch(Exception ex)</span>
+                {
+<span class="nc" id="L127">                    System.out.println(ex);</span>
+<span class="nc" id="L128">                }</span>
+            }
+            
+            // Receiving buffer is empty...send out G-Codes
+<span class="nc bnc" id="L132" title="All 2 branches missed.">            if(event.isTXEMPTY())</span>
+            {
+                try
+                {
+                    // Sanity check //
+<span class="nc bnc" id="L137" title="All 2 branches missed.">                    if(gCodes.size() &lt;= 0)</span>
+                    {
+<span class="nc" id="L139">                        isEmpty = true;</span>
+<span class="nc" id="L140">                        return;</span>
+                    }
+                    
+<span class="nc" id="L143">                    int bufBytes    = event.getEventValue();</span>
+<span class="nc" id="L144">                    int nGCodes     = bufBytes / 128;</span>
+                    
+<span class="nc bnc" id="L146" title="All 2 branches missed.">                    if(nGCodes &gt; gCodes.size())</span>
+<span class="nc" id="L147">                        nGCodes = gCodes.size();</span>
+                    
+<span class="nc bnc" id="L149" title="All 2 branches missed.">                    for(int i = 0; i &lt; nGCodes; ++i)</span>
+                    {
+                        // The index into the gCodes ArrayList will always be zero because we're removing
+                        // at index 0 every time 
+<span class="nc bnc" id="L153" title="All 2 branches missed.">                        if(!serialPort.writeBytes(gCodes.get(0).toString().getBytes()))</span>
+<span class="nc" id="L154">                            break;</span>
+                        
+<span class="nc" id="L156">                        gCodes.remove(0);</span>
+                    }
+                }
+                
+<span class="nc" id="L160">                catch(Exception ex)</span>
+                {
+<span class="nc" id="L162">                    System.out.println(ex); </span>
+<span class="nc" id="L163">                }</span>
+            }
+<span class="nc" id="L165">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

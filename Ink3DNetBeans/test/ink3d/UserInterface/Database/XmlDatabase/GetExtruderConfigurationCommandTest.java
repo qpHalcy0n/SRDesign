@@ -76,5 +76,4 @@ public class GetExtruderConfigurationCommandTest {
         actual = (ExtruderConfiguration)instance.getResult();
         assertTrue(expected.equals(actual));
     }
-    
 }

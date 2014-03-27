@@ -15,7 +15,7 @@ public class PrintJobConfiguration {
     public PrintJobConfiguration() {
         this.name = "";
         this.printerConfiguration = new PrinterConfiguration();
-        this.subsetConfigurationList = new ArrayList<SubsetConfiguration>();
+        this.subsetConfigurationList = new ArrayList<>();
     }
 
     public PrinterConfiguration getPrinterConfiguration() {

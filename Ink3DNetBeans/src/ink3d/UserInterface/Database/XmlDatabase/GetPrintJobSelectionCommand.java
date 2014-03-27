@@ -6,7 +6,7 @@
 
 package ink3d.UserInterface.Database.XmlDatabase;
 
-import ink3d.ConfigurationObjects.ExtruderConfiguration;
+import ink3d.ConfigurationObjects.PrintJobSelection;
 import ink3d.UserInterface.Database.CommandStructure;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,26 +20,24 @@ import javax.xml.transform.stream.StreamSource;
  *
  * @author daniellain
  */
-public class GetExtruderConfigurationCommand extends CommandStructure {
-    String name;
-    private static String path = "./Database/Extruders/";
+public class GetPrintJobSelectionCommand extends CommandStructure{String name;
+    private static String path = "./Database/PrintJobs/";
     private static String extention =".xml";
     
-    public GetExtruderConfigurationCommand(String name){
+    public GetPrintJobSelectionCommand(String name){
         this.name = name;
     }
     @Override
     public void execute() {
         try {
-            JAXBContext jc = JAXBContext.newInstance(ExtruderConfiguration.class);
+            JAXBContext jc = JAXBContext.newInstance(PrintJobSelection.class);
  
             StreamSource xml = new StreamSource(path+name+extention);
             Unmarshaller unmarshaller = jc.createUnmarshaller();
-            JAXBElement<ExtruderConfiguration> je1 = unmarshaller.unmarshal(xml, ExtruderConfiguration.class);
+            JAXBElement<PrintJobSelection> je1 = unmarshaller.unmarshal(xml, PrintJobSelection.class);
             result = je1.getValue();
         }catch (JAXBException ex) {
-            Logger.getLogger(GetExtruderConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetPrintJobSelectionCommand.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 }

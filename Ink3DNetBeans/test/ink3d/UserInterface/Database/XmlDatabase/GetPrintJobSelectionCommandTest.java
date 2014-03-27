@@ -11,26 +11,29 @@ import ink3d.ConfigurationObjects.FileSelection;
 import ink3d.ConfigurationObjects.PrintJobSelection;
 import ink3d.ConfigurationObjects.SubsetSelection;
 import java.io.File;
-import java.io.IOException;
-import org.apache.commons.io.FileUtils;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
-import static org.junit.Assert.*;
-import org.junit.Before;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import org.junit.Before;
 
 /**
  *
  * @author daniellain
  */
-public class SavePrintJobSelectionCommandTest {
-    PrintJobSelection printJob;
-    String expected;
-
+public class GetPrintJobSelectionCommandTest {
+    PrintJobSelection expected;
+    PrintJobSelection actual;
+    String name = "GetPrintJobSelectionTest";
+    String path = "./Database/PrintJobs/";
+    
     @Before
-    public void setUp() {       
+    public void setup(){
         SubsetSelection subset1 = new SubsetSelection();
         subset1.setBottomZ(0);
-        subset1.setPrintConfiguration("SaveTest.Sub1.Print");
+        subset1.setPrintConfiguration(name+".Sub1.Print");
         subset1.setTopZ(1);
         subset1.getFileConfigurations().add(new FileSelection("file1", "extruder1"));
         subset1.getFileConfigurations().add(new FileSelection("file2", "extruder2"));
@@ -38,25 +41,26 @@ public class SavePrintJobSelectionCommandTest {
         
         SubsetSelection subset2 = new SubsetSelection();
         subset2.setBottomZ(1);
-        subset2.setPrintConfiguration("SaveTest.Sub2.Print");
+        subset2.setPrintConfiguration(name+".Sub2.Print");
         subset2.setTopZ(2);
+        
         subset2.getFileConfigurations().add(new FileSelection("file1", "extruder2"));
         subset2.getFileConfigurations().add(new FileSelection("file2", "extruder3"));
         subset2.getFileConfigurations().add(new FileSelection("file3", "extruder4"));
         
-        printJob = new PrintJobSelection();
-        printJob.setName("SaveTest");
-        printJob.setPrinterConfiguration("SaveTest.printer");
-        printJob.getMaterials().add(new ExtruderMaterialSelection("extruder 1", "material 1"));
-        printJob.getMaterials().add(new ExtruderMaterialSelection("extruder 2", "material 1"));
-        printJob.getMaterials().add(new ExtruderMaterialSelection("extruder 3", "material 2"));
-        printJob.getSubsetConfigurationList().add(subset1);
-        printJob.getSubsetConfigurationList().add(subset2);
+        expected = new PrintJobSelection();
+        expected.setName(name);
+        expected.setPrinterConfiguration(name+".printer");
+        expected.getMaterials().add(new ExtruderMaterialSelection("extruder 1", "material 1"));
+        expected.getMaterials().add(new ExtruderMaterialSelection("extruder 2", "material 1"));
+        expected.getMaterials().add(new ExtruderMaterialSelection("extruder 3", "material 2"));
+        expected.getSubsetConfigurationList().add(subset1);
+        expected.getSubsetConfigurationList().add(subset2);
         
-        expected ="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+        String xml="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                     "<printjob>\n" +
-                    "    <name>SaveTest</name>\n" +
-                    "    <printerConfiguration>SaveTest.printer</printerConfiguration>\n" +
+                    "    <name>GetPrintJobSelectionTest</name>\n" +
+                    "    <printerConfiguration>GetPrintJobSelectionTest.printer</printerConfiguration>\n" +
                     "    <extruderMarterial>\n" +
                     "        <extruder>extruder 1</extruder>\n" +
                     "        <material>material 1</material>\n" +
@@ -72,7 +76,7 @@ public class SavePrintJobSelectionCommandTest {
                     "    <subsetSelection>\n" +
                     "        <bottomZ>0.0</bottomZ>\n" +
                     "        <topZ>1.0</topZ>\n" +
-                    "        <printConfiguration>SaveTest.Sub1.Print</printConfiguration>\n" +
+                    "        <printConfiguration>GetPrintJobSelectionTest.Sub1.Print</printConfiguration>\n" +
                     "        <fileSelection>\n" +
                     "            <file>extruder1</file>\n" +
                     "            <extruder>file1</extruder>\n" +
@@ -89,7 +93,7 @@ public class SavePrintJobSelectionCommandTest {
                     "    <subsetSelection>\n" +
                     "        <bottomZ>1.0</bottomZ>\n" +
                     "        <topZ>2.0</topZ>\n" +
-                    "        <printConfiguration>SaveTest.Sub2.Print</printConfiguration>\n" +
+                    "        <printConfiguration>GetPrintJobSelectionTest.Sub2.Print</printConfiguration>\n" +
                     "        <fileSelection>\n" +
                     "            <file>extruder2</file>\n" +
                     "            <extruder>file1</extruder>\n" +
@@ -104,31 +108,28 @@ public class SavePrintJobSelectionCommandTest {
                     "        </fileSelection>\n" +
                     "    </subsetSelection>\n" +
                     "</printjob>";
+        
+        PrintWriter writer;
+        try {
+            writer = new PrintWriter(path+name+".xml", "UTF-8");
+            writer.println(xml);
+            writer.close();
+        } catch (Exception ex) {
+            Logger.getLogger(GetPrintJobSelectionCommandTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @After
     public void tearDown() {
-        printJob = null;
-        File file = new File("./Database/PrintJobs/SaveTest.xml");
-       file.delete();
-    }
-
-    /**
-     * Test of execute method, of class SaveExtruderConfigurationCommand.
-     */
-    @Test
-    public void SavePrintJobTest() throws IOException {
-        String actual;
-
-        String path = "./Database/PrintJobs/"+printJob.getName()+".xml";
-        SavePrintJobSelectionCommand instance = new SavePrintJobSelectionCommand(printJob);
-        instance.execute();
-        assertTrue((Boolean)instance.getResult());
-        actual = FileUtils.readFileToString(new File(path));
-        
-        for(int i=0; i < expected.length(); i++){
-            assertTrue(expected.charAt(i) == actual.charAt(i));
-        }
+        File file = new File(path+name+".xml");
+        file.delete();
     }
     
+    @Test
+    public void GetPrintJobSelectionTest() {
+        GetPrintJobSelectionCommand instance = new GetPrintJobSelectionCommand(name);
+        instance.execute();
+        actual = (PrintJobSelection)instance.getResult();
+        assertTrue(expected.equals(actual));
+    }
 }

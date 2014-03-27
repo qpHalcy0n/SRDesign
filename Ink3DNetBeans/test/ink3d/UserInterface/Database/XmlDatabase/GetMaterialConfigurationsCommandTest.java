@@ -138,7 +138,7 @@ public class GetMaterialConfigurationsCommandTest {
         actual = (ArrayList<String>)instance.getResult();
         
         for(int i = 0; i < actual.size(); i++){
-            assertTrue(expected.get(i).equals(actual.get(i)));
+            assertTrue(expected.equals(actual));
         }
     }
     

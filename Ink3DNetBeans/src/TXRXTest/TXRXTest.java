@@ -13,7 +13,7 @@ import jssc.SerialPortEventListener;
 import java.util.ArrayList;
 import java.io.*;
 
-/**
+/*
  *
  * @author Shawn Simonson
  */

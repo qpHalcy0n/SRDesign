@@ -22,107 +22,149 @@ public class XmlPersistenceFramework extends ink3d.UserInterface.Database.Persis
 
     @Override
     public ArrayList<String> getPrinterConfigurations() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        GetPrinterConfigurationsCommand get = new GetPrinterConfigurationsCommand();
+        get.execute();
+        return (ArrayList<String>)get.getResult();
     }
 
     @Override
     public ArrayList<String> getExtruderConfigurations() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        GetExtruderConfigurationsCommand get = new GetExtruderConfigurationsCommand();
+        get.execute();
+        return (ArrayList<String>)get.getResult();
     }
 
     @Override
     public ArrayList<String> getMaterialConfigurations() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        GetMaterialConfigurationsCommand get = new GetMaterialConfigurationsCommand();
+        get.execute();
+        return (ArrayList<String>)get.getResult();
     }
 
     @Override
     public ArrayList<String> getPrintJobSelectionss() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       GetPrintJobSelectionsCommand get = new GetPrintJobSelectionsCommand();
+       get.execute();
+       return (ArrayList<String>)get.getResult();
     }
 
     @Override
     public ArrayList<String> getPrintConfigurations() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       GetPrintConfigurationsCommand get = new GetPrintConfigurationsCommand();
+       get.execute();
+       return (ArrayList<String>)get.getResult();
     }
 
     @Override
     public PrinterConfiguration getPrinterConfiguration(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        GetPrinterConfigurationCommand get = new GetPrinterConfigurationCommand(name);
+        get.execute();
+        return (PrinterConfiguration)get.getResult();
     }
 
     @Override
     public ExtruderConfiguration getExtruderConfiguration(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        GetExtruderConfigurationCommand get = new GetExtruderConfigurationCommand(name);
+        get.execute();
+        return (ExtruderConfiguration)get.getResult();
     }
 
     @Override
     public MaterialConfiguration getMaterialConfiguration(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        GetMaterialConfigurationCommand get = new GetMaterialConfigurationCommand(name);
+        get.execute();
+        return (MaterialConfiguration)get.getResult();
     }
 
     @Override
-    public PrintJobConfiguration getPrintJobConfiguration(PrintJobSelection printJOb) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public PrintJobConfiguration getPrintJobConfiguration(PrintJobSelection printJob) {
+        GetPrintJobConfigurationCommand get = new GetPrintJobConfigurationCommand(printJob);
+        get.execute();
+        return (PrintJobConfiguration)get.getResult();
     }
 
     @Override
     public PrintJobSelection getPrintJobSelection(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        GetPrintJobSelectionCommand get = new GetPrintJobSelectionCommand(name);
+        get.execute();
+        return (PrintJobSelection)get.getResult();
     }
 
     @Override
-    public PrintConfiguration getPrintConfiguration(String fileName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public PrintConfiguration getPrintConfiguration(String name) {
+        GetPrintConfigurationCommand get = new GetPrintConfigurationCommand(name);
+        get.execute();
+        return (PrintConfiguration)get.getResult();
     }
 
     @Override
     public Boolean savePrinterConfiguration(PrinterConfiguration config) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        SavePrinterConfigurationCommand save = new SavePrinterConfigurationCommand(config);
+        save.execute();
+        return (Boolean)save.getResult();
     }
 
     @Override
     public Boolean saveExtruderConfiguration(ExtruderConfiguration config) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        SaveExtruderConfigurationCommand save = new SaveExtruderConfigurationCommand(config);
+        save.execute();
+        return (Boolean)save.getResult();
     }
 
     @Override
     public Boolean saveMaterialConfiguration(MaterialConfiguration config) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        SaveMaterialConfigurationCommand save = new SaveMaterialConfigurationCommand(config);
+        save.execute();
+        return (Boolean)save.getResult();
     }
 
     @Override
     public Boolean savePrintJobSelection(PrintJobSelection config) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        SavePrintJobSelectionCommand save = new SavePrintJobSelectionCommand(config);
+        save.execute();
+        return (Boolean)save.getResult();
     }
 
     @Override
     public Boolean savePrintConfiguration(PrintConfiguration config) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        SavePrintConfigurationCommand save = new SavePrintConfigurationCommand(config);
+        save.execute();
+        return (Boolean)save.getResult();
     }
 
     @Override
-    public Boolean deletePrinterConfiguration(String fileName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Boolean deletePrinterConfiguration(String name) {
+        DeletePrinterConfigurationCommand save = new DeletePrinterConfigurationCommand(name);
+        save.execute();
+        return (Boolean)save.getResult();
     }
 
     @Override
-    public Boolean deleteExtruderConfiguration(String fileName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Boolean deleteExtruderConfiguration(String name) {
+        DeleteExtruderConfigurationCommand save = new DeleteExtruderConfigurationCommand(name);
+        save.execute();
+        return (Boolean)save.getResult();
     }
 
     @Override
-    public Boolean deleteMaterialConfiguration(String fileName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Boolean deleteMaterialConfiguration(String name) {
+        DeleteMaterialConfigurationCommand save = new DeleteMaterialConfigurationCommand(name);
+        save.execute();
+        return (Boolean)save.getResult();
     }
 
     @Override
-    public Boolean deletePrintJobSelection(String fileName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Boolean deletePrintJobSelection(String name) {
+        DeletePrintJobSelectionCommand save = new DeletePrintJobSelectionCommand(name);
+        save.execute();
+        return (Boolean)save.getResult();
     }
 
     @Override
-    public Boolean deletePrintConfiguration(String fileName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Boolean deletePrintConfiguration(String name) {
+        DeletePrintConfigurationCommand save = new DeletePrintConfigurationCommand(name);
+        save.execute();
+        return (Boolean)save.getResult();
     }
 
 }

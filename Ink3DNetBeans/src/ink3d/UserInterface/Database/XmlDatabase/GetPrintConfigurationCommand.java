@@ -6,7 +6,7 @@
 
 package ink3d.UserInterface.Database.XmlDatabase;
 
-import ink3d.ConfigurationObjects.ExtruderConfiguration;
+import ink3d.ConfigurationObjects.PrintConfiguration;
 import ink3d.UserInterface.Database.CommandStructure;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,26 +20,25 @@ import javax.xml.transform.stream.StreamSource;
  *
  * @author daniellain
  */
-public class GetExtruderConfigurationCommand extends CommandStructure {
+public class GetPrintConfigurationCommand extends CommandStructure{
     String name;
-    private static String path = "./Database/Extruders/";
+    private static String path = "./Database/Prints/";
     private static String extention =".xml";
     
-    public GetExtruderConfigurationCommand(String name){
+    public GetPrintConfigurationCommand(String name){
         this.name = name;
     }
     @Override
     public void execute() {
         try {
-            JAXBContext jc = JAXBContext.newInstance(ExtruderConfiguration.class);
+            JAXBContext jc = JAXBContext.newInstance(PrintConfiguration.class);
  
             StreamSource xml = new StreamSource(path+name+extention);
             Unmarshaller unmarshaller = jc.createUnmarshaller();
-            JAXBElement<ExtruderConfiguration> je1 = unmarshaller.unmarshal(xml, ExtruderConfiguration.class);
+            JAXBElement<PrintConfiguration> je1 = unmarshaller.unmarshal(xml, PrintConfiguration.class);
             result = je1.getValue();
         }catch (JAXBException ex) {
-            Logger.getLogger(GetExtruderConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetPrintConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 }
