@@ -1,6 +1,7 @@
 package ink3d.ConfigurationObjects;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -12,6 +13,11 @@ public class SubsetConfiguration {
     File gCodeFile;
     private PrintConfiguration printConfiguration;
     private List<FileConfiguration> fileConfigurations;
+
+    public SubsetConfiguration() {
+        this.printConfiguration = new PrintConfiguration();
+        this.fileConfigurations = new ArrayList<FileConfiguration>();
+    }
 
     public double getBottomZ() {
         return bottomZ;

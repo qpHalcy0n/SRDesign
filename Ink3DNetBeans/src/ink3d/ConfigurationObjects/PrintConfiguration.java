@@ -15,6 +15,14 @@ public class PrintConfiguration {
     private SkirtAndBrimConfiguration skirtAndBrimConfiguration;
     private SupportMaterialConfiguration supportMaterialConfiguration;
 
+    public PrintConfiguration() {
+        this.infillConfiguration = new InfillConfiguration();
+        this.layerPerimiterConfiguration = new LayerAndPerimeterConfiguration();
+        this.speedConfiguration = new SpeedConfiguration();
+        this.skirtAndBrimConfiguration = new SkirtAndBrimConfiguration();
+        this.supportMaterialConfiguration = new SupportMaterialConfiguration();
+    }
+
     public InfillConfiguration getInfillConfiguration() {
         return infillConfiguration;
     }

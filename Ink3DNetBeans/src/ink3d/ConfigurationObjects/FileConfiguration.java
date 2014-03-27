@@ -17,6 +17,11 @@ public class FileConfiguration {
     private ExtruderConfiguration extruderConfiguration;
     private MaterialConfiguration materialConfiguration;
 
+    public FileConfiguration () {
+        this.extruderConfiguration = new ExtruderConfiguration();
+        this.materialConfiguration = new MaterialConfiguration();
+    }
+
     public void setParentSTLFile(File parentSTLFile) {
         this.parentSTLFile = parentSTLFile;
     }

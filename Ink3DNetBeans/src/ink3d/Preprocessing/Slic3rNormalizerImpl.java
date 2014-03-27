@@ -50,8 +50,14 @@ public class Slic3rNormalizerImpl implements Normalizer {
 
 	@Override
 	public boolean normalize(PrintJobConfiguration printJobConfiguration) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        return translateFiles(printJobConfiguration);
 	}
+
+    private boolean subsectionFiles(PrintJobConfiguration printJobConfiguration) {
+
+
+        return true;
+    }
 
 	private boolean translateFiles(PrintJobConfiguration printJobConfiguration) {
         List<SubsetConfiguration> subsets = printJobConfiguration.getSubsetConfigurationList();
@@ -94,6 +100,7 @@ public class Slic3rNormalizerImpl implements Normalizer {
                 Element objectElement = doc.createElement(OBJECT_TAG);
                 Element meshElement = doc.createElement(MESH_TAG);
                 Element verticiesElement = doc.createElement(VERTICIES_TAG);
+                doc.appendChild(root);
                 root.appendChild(objectElement);
                 objectElement.appendChild(meshElement);
                 meshElement.appendChild(verticiesElement);
@@ -153,13 +160,17 @@ public class Slic3rNormalizerImpl implements Normalizer {
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();
                 DOMSource source = new DOMSource(doc);
-                StreamResult result = new StreamResult(new File("."+File.separator+"sub"+".amf"));
+                File amfFile = new File("."+File.separator+"sub"+".amf");
+                StreamResult result = new StreamResult(amfFile);
 
                 transformer.transform(source, result);
+
+                subset.setAmfFile(amfFile);
                 
             }
             catch(Exception ex) {
                 Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
             }
         }
         return true;

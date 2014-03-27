@@ -1,6 +1,7 @@
 package ink3d.ConfigurationObjects;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -10,6 +11,12 @@ public class PrintJobConfiguration {
     private String name;
     private PrinterConfiguration printerConfiguration;
     private List <SubsetConfiguration> subsetConfigurationList;
+
+    public PrintJobConfiguration() {
+        this.name = "";
+        this.printerConfiguration = new PrinterConfiguration();
+        this.subsetConfigurationList = new ArrayList<SubsetConfiguration>();
+    }
 
     public PrinterConfiguration getPrinterConfiguration() {
         return printerConfiguration;
