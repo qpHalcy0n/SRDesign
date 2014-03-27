@@ -25,7 +25,6 @@ public class DeleteExtruderConfigurationCommand extends ink3d.UserInterface.Data
             result = file.delete();
      	}catch(Exception e){
              e.printStackTrace();
-             result = Boolean.FALSE;
      	}
     }
     

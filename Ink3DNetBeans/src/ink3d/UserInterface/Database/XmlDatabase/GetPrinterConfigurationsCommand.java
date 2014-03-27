@@ -17,11 +17,11 @@ public class GetPrinterConfigurationsCommand extends ink3d.UserInterface.Databas
 
     @Override
     public void execute() {
-        File folder = new File("./Database/Printers");
+        File folder = new File("./Database/Printers/");
         File[] files = folder.listFiles();
         result = new ArrayList<String>();
         for(File f: files){
-            ((ArrayList<String>)result).add(f.getName());
+            if(f.getName().contains(".xml"))((ArrayList<String>)result).add(f.getName().substring(0,f.getName().length()-4 ));
         }
     }
 }

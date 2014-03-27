@@ -18,10 +18,10 @@ public class GetPrintJobSelectionsCommand extends ink3d.UserInterface.Database.C
     @Override
     public void execute() {
         File folder = new File("./Database/PrintJobs/");
-        File[] files = folder.listFiles();
+       File[] files = folder.listFiles();
         result = new ArrayList<String>();
         for(File f: files){
-            ((ArrayList<String>)result).add(f.getName());
+            if(f.getName().contains(".xml"))((ArrayList<String>)result).add(f.getName().substring(0,f.getName().length()-4 ));
         }
     }
     

@@ -7,7 +7,7 @@ import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-<span class="fc" id="L10">public class PrintConfiguration {</span>
+public class PrintConfiguration {
     private String name;
     private InfillConfiguration infillConfiguration;
     private LayerAndPerimeterConfiguration layerPerimiterConfiguration;
@@ -15,89 +15,97 @@ import javax.xml.bind.annotation.XmlRootElement;
     private SkirtAndBrimConfiguration skirtAndBrimConfiguration;
     private SupportMaterialConfiguration supportMaterialConfiguration;
 
+<span class="fc" id="L18">    public PrintConfiguration() {</span>
+<span class="fc" id="L19">        this.infillConfiguration = new InfillConfiguration();</span>
+<span class="fc" id="L20">        this.layerPerimiterConfiguration = new LayerAndPerimeterConfiguration();</span>
+<span class="fc" id="L21">        this.speedConfiguration = new SpeedConfiguration();</span>
+<span class="fc" id="L22">        this.skirtAndBrimConfiguration = new SkirtAndBrimConfiguration();</span>
+<span class="fc" id="L23">        this.supportMaterialConfiguration = new SupportMaterialConfiguration();</span>
+<span class="fc" id="L24">    }</span>
+
     public InfillConfiguration getInfillConfiguration() {
-<span class="fc" id="L19">        return infillConfiguration;</span>
+<span class="fc" id="L27">        return infillConfiguration;</span>
     }
 
     public void setInfillConfiguration(InfillConfiguration infillConfiguration) {
-<span class="fc" id="L23">        this.infillConfiguration = infillConfiguration;</span>
-<span class="fc" id="L24">    }</span>
+<span class="fc" id="L31">        this.infillConfiguration = infillConfiguration;</span>
+<span class="fc" id="L32">    }</span>
 
     public LayerAndPerimeterConfiguration getLayerPerimiterConfiguration() {
-<span class="fc" id="L27">        return layerPerimiterConfiguration;</span>
+<span class="fc" id="L35">        return layerPerimiterConfiguration;</span>
     }
 
     public void setLayerPerimiterConfiguration(LayerAndPerimeterConfiguration layerPerimiterConfiguration) {
-<span class="fc" id="L31">        this.layerPerimiterConfiguration = layerPerimiterConfiguration;</span>
-<span class="fc" id="L32">    }</span>
+<span class="fc" id="L39">        this.layerPerimiterConfiguration = layerPerimiterConfiguration;</span>
+<span class="fc" id="L40">    }</span>
 
     public SpeedConfiguration getSpeedConfiguration() {
-<span class="fc" id="L35">        return speedConfiguration;</span>
+<span class="fc" id="L43">        return speedConfiguration;</span>
     }
 
     public void setSpeedConfiguration(SpeedConfiguration speedConfiguration) {
-<span class="fc" id="L39">        this.speedConfiguration = speedConfiguration;</span>
-<span class="fc" id="L40">    }</span>
+<span class="fc" id="L47">        this.speedConfiguration = speedConfiguration;</span>
+<span class="fc" id="L48">    }</span>
 
     public SkirtAndBrimConfiguration getSkirtAndBrimConfiguration() {
-<span class="fc" id="L43">        return skirtAndBrimConfiguration;</span>
+<span class="fc" id="L51">        return skirtAndBrimConfiguration;</span>
     }
 
     public void setSkirtAndBrimConfiguration(SkirtAndBrimConfiguration skirtAndBrimConfiguration) {
-<span class="fc" id="L47">        this.skirtAndBrimConfiguration = skirtAndBrimConfiguration;</span>
-<span class="fc" id="L48">    }</span>
+<span class="fc" id="L55">        this.skirtAndBrimConfiguration = skirtAndBrimConfiguration;</span>
+<span class="fc" id="L56">    }</span>
 
     public SupportMaterialConfiguration getSupportMaterialConfiguration() {
-<span class="fc" id="L51">        return supportMaterialConfiguration;</span>
+<span class="fc" id="L59">        return supportMaterialConfiguration;</span>
     }
 
     public void setSupportMaterialConfiguration(SupportMaterialConfiguration supportMaterialConfiguration) {
-<span class="fc" id="L55">        this.supportMaterialConfiguration = supportMaterialConfiguration;</span>
-<span class="fc" id="L56">    }</span>
+<span class="fc" id="L63">        this.supportMaterialConfiguration = supportMaterialConfiguration;</span>
+<span class="fc" id="L64">    }</span>
 
     public String getName() {
-<span class="fc" id="L59">        return name;</span>
+<span class="fc" id="L67">        return name;</span>
     }
 
     public void setName(String name) {
-<span class="fc" id="L63">        this.name = name;</span>
-<span class="fc" id="L64">    }   </span>
+<span class="fc" id="L71">        this.name = name;</span>
+<span class="fc" id="L72">    }   </span>
 
     @Override
     public int hashCode() {
-<span class="nc" id="L68">        int hash = 3;</span>
-<span class="nc" id="L69">        hash = 29 * hash + Objects.hashCode(this.name);</span>
-<span class="nc" id="L70">        return hash;</span>
+<span class="nc" id="L76">        int hash = 3;</span>
+<span class="nc" id="L77">        hash = 29 * hash + Objects.hashCode(this.name);</span>
+<span class="nc" id="L78">        return hash;</span>
     }
 
     @Override
     public boolean equals(Object obj) {
-<span class="nc bnc" id="L75" title="All 2 branches missed.">        if (obj == null) {</span>
-<span class="nc" id="L76">            return false;</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L84">            return false;</span>
         }
-<span class="nc bnc" id="L78" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
-<span class="nc" id="L79">            return false;</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L87">            return false;</span>
         }
-<span class="nc" id="L81">        final PrintConfiguration other = (PrintConfiguration) obj;</span>
-<span class="nc bnc" id="L82" title="All 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
-<span class="nc" id="L83">            return false;</span>
+<span class="nc" id="L89">        final PrintConfiguration other = (PrintConfiguration) obj;</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
+<span class="nc" id="L91">            return false;</span>
         }
-<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (!Objects.equals(this.infillConfiguration, other.infillConfiguration)) {</span>
-<span class="nc" id="L86">            return false;</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">        if (!Objects.equals(this.infillConfiguration, other.infillConfiguration)) {</span>
+<span class="nc" id="L94">            return false;</span>
         }
-<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (!Objects.equals(this.layerPerimiterConfiguration, other.layerPerimiterConfiguration)) {</span>
-<span class="nc" id="L89">            return false;</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        if (!Objects.equals(this.layerPerimiterConfiguration, other.layerPerimiterConfiguration)) {</span>
+<span class="nc" id="L97">            return false;</span>
         }
-<span class="nc bnc" id="L91" title="All 2 branches missed.">        if (!Objects.equals(this.speedConfiguration, other.speedConfiguration)) {</span>
-<span class="nc" id="L92">            return false;</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        if (!Objects.equals(this.speedConfiguration, other.speedConfiguration)) {</span>
+<span class="nc" id="L100">            return false;</span>
         }
-<span class="nc bnc" id="L94" title="All 2 branches missed.">        if (!Objects.equals(this.skirtAndBrimConfiguration, other.skirtAndBrimConfiguration)) {</span>
-<span class="nc" id="L95">            return false;</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        if (!Objects.equals(this.skirtAndBrimConfiguration, other.skirtAndBrimConfiguration)) {</span>
+<span class="nc" id="L103">            return false;</span>
         }
-<span class="nc bnc" id="L97" title="All 2 branches missed.">        if (!Objects.equals(this.supportMaterialConfiguration, other.supportMaterialConfiguration)) {</span>
-<span class="nc" id="L98">            return false;</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (!Objects.equals(this.supportMaterialConfiguration, other.supportMaterialConfiguration)) {</span>
+<span class="nc" id="L106">            return false;</span>
         }
-<span class="nc" id="L100">        return true;</span>
+<span class="nc" id="L108">        return true;</span>
     }
     
     

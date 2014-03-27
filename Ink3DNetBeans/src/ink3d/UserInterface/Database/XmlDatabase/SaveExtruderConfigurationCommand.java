@@ -45,7 +45,6 @@ public class SaveExtruderConfigurationCommand extends ink3d.UserInterface.Databa
             result = Boolean.TRUE;
         } catch (Exception ex) {
             Logger.getLogger(SaveExtruderConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
-            result = Boolean.FALSE;
         }
     }
     

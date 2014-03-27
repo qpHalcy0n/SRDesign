@@ -12,7 +12,6 @@ import ink3d.ConfigurationObjects.PrintJobSelection;
 import ink3d.ConfigurationObjects.SubsetSelection;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import static org.junit.Assert.*;
