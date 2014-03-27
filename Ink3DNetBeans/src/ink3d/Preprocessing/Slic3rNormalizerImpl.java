@@ -10,7 +10,10 @@ import ink3d.ConfigurationObjects.FileConfiguration;
 import ink3d.ConfigurationObjects.MaterialConfiguration;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
 import ink3d.ConfigurationObjects.SubsetConfiguration;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +24,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.j3d.loaders.InvalidFormatException;
 import org.j3d.loaders.stl.STLFileReader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -47,6 +51,15 @@ public class Slic3rNormalizerImpl implements Normalizer {
     private static final String MATERIALID_ATTR = "materialid";
     private static final String TRIANGE_TAG = "triangle";
     private static final String NAME_VALUE = "name";
+    private static final String SCAD_DIR = "scad";
+    private static final String OPEN_SCAD_TEMPLATE =
+            "intersection(){import(\"%s\");translate([%f,%f,%f]){cube(size=[%f,%f,%f],center=false);};}";
+    private static final String SCAD_EXTENSION = ".scad";
+    private static final String STL_EXTENSION = ".stl";
+    private static final String STL_DIR = "stl";
+    private static final String SCAD_PATH = "third-party" + File.separator
+            + "openscad" + File.separator + "openscad.exe";
+    
 
 	@Override
 	public boolean normalize(PrintJobConfiguration printJobConfiguration) {
@@ -54,9 +67,123 @@ public class Slic3rNormalizerImpl implements Normalizer {
 	}
 
     private boolean subsectionFiles(PrintJobConfiguration printJobConfiguration) {
+        List<SubsetConfiguration> subsets = printJobConfiguration.getSubsetConfigurationList();
 
+        // Count used for naming subsection files.
+        int count = 0;
+        for(SubsetConfiguration subset : subsets) {
+            for(FileConfiguration fileConfig : subset.getFileConfigurations()) {
+                try {
+                    File parentStlFile = fileConfig.getParentSTLFile();
+                    File scadFile = buildScadFile(parentStlFile,
+                            count, subset.getBottomZ(), subset.getTopZ());
+                    
+                    String subsetStlFilename = createSubsetStlFilename(parentStlFile.getName(), count);
+                    String baseDir = new File("").getAbsolutePath();
+                    String command = baseDir + SCAD_PATH + " -o " + subsetStlFilename + " " + scadFile.getAbsolutePath();
+                    Runtime.getRuntime().exec(command);
+                    count++;
 
+                    File subsetStlFile = new File(subsetStlFilename);
+                    if(subsetStlFile.exists()) {
+                        fileConfig.setSubsetSTL(subsetStlFile);
+                    }
+                    else {
+                        // TODO: Create custom exception?
+                        throw new Exception("Did not create subsection STL file.");
+                    }
+                }
+                catch (IOException ex) {
+                    Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                }
+                catch (Exception ex) {
+                    Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                }
+            }
+        }
         return true;
+    }
+
+    private File buildScadFile(File parentStl,
+            int subsetNum, double zMin, double zMax) throws Exception {
+        // Find the xMin, xMax, yMin, yMax
+        // TODO: Optimize
+        STLFileReader reader = new STLFileReader(parentStl);
+        int[] numFacets = reader.getNumOfFacets();
+        if(numFacets[0] < 1) {
+            // TODO:  Make custom Exception
+            throw new Exception("Cannot create SCAD file for empty STL file.");
+        }
+        double xMin = Double.POSITIVE_INFINITY;
+        double xMax = Double.NEGATIVE_INFINITY;
+        double yMin = Double.POSITIVE_INFINITY;
+        double yMax = Double.NEGATIVE_INFINITY;
+
+        double[] normal = new double[3];
+        double[][] verticies = new double[3][3];
+        for(int i = 0; i < numFacets[0]; i++) {
+            reader.getNextFacet(normal, verticies);
+            for(int j = 0; j < 3; j++) {
+                double x = verticies[j][0];
+                double y = verticies[j][1];
+                if(x < xMin) {
+                    xMin = x;
+                }
+                else if(x > xMax) {
+                    xMax = x;
+                }
+                if(y < yMin) {
+                    yMin = y;
+                }
+                else if(y > yMax) {
+                    yMax = y;
+                }
+            }
+        }
+        
+        File scadFile = new File(createOpenScadFilename(parentStl.getName(), subsetNum));
+        String scadScript = createOpenScadScriptString(
+                parentStl.getAbsolutePath(), xMin, xMax, yMin, yMax, zMin, zMax);
+        
+        if(!scadFile.exists()) {
+            scadFile.createNewFile();
+        }
+
+        FileWriter fw = new FileWriter(scadFile.getAbsoluteFile());
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(scadScript);
+        bw.close();
+
+        return scadFile;
+
+    }
+    
+    private String createOpenScadFilename(String parentFilename, int subsetNum) {
+        String parentName = parentFilename
+                .substring(0, parentFilename.length() - STL_EXTENSION.length() - 1);
+        String baseDir = new File("").getAbsolutePath();
+        return String.format("%s%s%s%s-sub%000d%s",
+                baseDir,SCAD_DIR,File.separator,parentName,subsetNum,SCAD_EXTENSION);
+    }
+
+    private String createSubsetStlFilename(String parentFilename, int subsetNum) {
+        String parentName = parentFilename
+                .substring(0, parentFilename.length() - STL_EXTENSION.length() - 1);
+        String baseDir = new File("").getAbsolutePath();
+        return String.format("%s%s%s%s-sub%000d%s",
+                baseDir,STL_DIR,File.separator,parentName,subsetNum,STL_EXTENSION);
+    }
+    
+    private String createOpenScadScriptString(String inputFile, double xMin, 
+            double xMax, double yMin, double yMax, double zMin, double zMax) {
+        double xDistance = xMax - xMin;
+        double yDistance = yMax - yMin;
+        double height = zMax - zMin;
+        return String.format(OPEN_SCAD_TEMPLATE,
+                inputFile,xMin,yMin,zMin,xDistance,yDistance,height);
+        
     }
 
 	private boolean translateFiles(PrintJobConfiguration printJobConfiguration) {
