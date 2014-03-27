@@ -9,7 +9,7 @@ import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-<span class="nc" id="L12">public class FileConfiguration {</span>
+public class FileConfiguration {
     private String name;
     private File parentSTLFile;
     private File subsetSTL;
@@ -17,78 +17,83 @@ import javax.xml.bind.annotation.XmlRootElement;
     private ExtruderConfiguration extruderConfiguration;
     private MaterialConfiguration materialConfiguration;
 
+<span class="fc" id="L20">    public FileConfiguration () {</span>
+<span class="fc" id="L21">        this.extruderConfiguration = new ExtruderConfiguration();</span>
+<span class="fc" id="L22">        this.materialConfiguration = new MaterialConfiguration();</span>
+<span class="fc" id="L23">    }</span>
+
     public void setParentSTLFile(File parentSTLFile) {
-<span class="nc" id="L21">        this.parentSTLFile = parentSTLFile;</span>
-<span class="nc" id="L22">    }</span>
+<span class="nc" id="L26">        this.parentSTLFile = parentSTLFile;</span>
+<span class="nc" id="L27">    }</span>
     
     public void setSubsetSTL(File subsetSTL) {
-<span class="nc" id="L25">        this.subsetSTL = subsetSTL;</span>
-<span class="nc" id="L26">    }</span>
+<span class="fc" id="L30">        this.subsetSTL = subsetSTL;</span>
+<span class="fc" id="L31">    }</span>
 
     public void setExtruderConfiguration(ExtruderConfiguration extruderConfiguration) {
-<span class="nc" id="L29">        this.extruderConfiguration = extruderConfiguration;</span>
-<span class="nc" id="L30">    }</span>
+<span class="nc" id="L34">        this.extruderConfiguration = extruderConfiguration;</span>
+<span class="nc" id="L35">    }</span>
     
     public void setMaterialConfiguration(MaterialConfiguration materialConfiguration) {
-<span class="nc" id="L33">        this.materialConfiguration = materialConfiguration;</span>
-<span class="nc" id="L34">    }</span>
+<span class="fc" id="L38">        this.materialConfiguration = materialConfiguration;</span>
+<span class="fc" id="L39">    }</span>
     
     public MaterialConfiguration getMaterialConfiguration() {
-<span class="nc" id="L37">        return materialConfiguration;</span>
+<span class="fc" id="L42">        return materialConfiguration;</span>
     }
     
     public ExtruderConfiguration getExtruderConfiguration() {
-<span class="nc" id="L41">        return extruderConfiguration;</span>
+<span class="nc" id="L46">        return extruderConfiguration;</span>
     }
     
     public File getSubsetSTL() {
-<span class="nc" id="L45">        return subsetSTL;</span>
+<span class="fc" id="L50">        return subsetSTL;</span>
     }
     
     public File getParentSTLFile() {
-<span class="nc" id="L49">        return parentSTLFile;</span>
+<span class="nc" id="L54">        return parentSTLFile;</span>
     }
 
     public String getName() {
-<span class="nc" id="L53">        return name;</span>
+<span class="nc" id="L58">        return name;</span>
     }
 
     public void setName(String name) {
-<span class="nc" id="L57">        this.name = name;</span>
-<span class="nc" id="L58">    }</span>
+<span class="nc" id="L62">        this.name = name;</span>
+<span class="nc" id="L63">    }</span>
     
     @Override
     public int hashCode() {
-<span class="nc" id="L62">        int hash = 3;</span>
-<span class="nc" id="L63">        hash = 89 * hash + Objects.hashCode(this.name);</span>
-<span class="nc" id="L64">        return hash;</span>
+<span class="nc" id="L67">        int hash = 3;</span>
+<span class="nc" id="L68">        hash = 89 * hash + Objects.hashCode(this.name);</span>
+<span class="nc" id="L69">        return hash;</span>
     }
 
     @Override
     public boolean equals(Object obj) {
-<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (obj == null) {</span>
-<span class="nc" id="L70">            return false;</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L75">            return false;</span>
         }
-<span class="nc bnc" id="L72" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
-<span class="nc" id="L73">            return false;</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L78">            return false;</span>
         }
-<span class="nc" id="L75">        final FileConfiguration other = (FileConfiguration) obj;</span>
-<span class="nc bnc" id="L76" title="All 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
-<span class="nc" id="L77">            return false;</span>
+<span class="nc" id="L80">        final FileConfiguration other = (FileConfiguration) obj;</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
+<span class="nc" id="L82">            return false;</span>
         }
-<span class="nc bnc" id="L79" title="All 2 branches missed.">        if (!Objects.equals(this.parentSTLFile, other.parentSTLFile)) {</span>
-<span class="nc" id="L80">            return false;</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (!Objects.equals(this.parentSTLFile, other.parentSTLFile)) {</span>
+<span class="nc" id="L85">            return false;</span>
         }
-<span class="nc bnc" id="L82" title="All 2 branches missed.">        if (!Objects.equals(this.subsetSTL, other.subsetSTL)) {</span>
-<span class="nc" id="L83">            return false;</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        if (!Objects.equals(this.subsetSTL, other.subsetSTL)) {</span>
+<span class="nc" id="L88">            return false;</span>
         }
-<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (!Objects.equals(this.extruderConfiguration, other.extruderConfiguration)) {</span>
-<span class="nc" id="L86">            return false;</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        if (!Objects.equals(this.extruderConfiguration, other.extruderConfiguration)) {</span>
+<span class="nc" id="L91">            return false;</span>
         }
-<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (!Objects.equals(this.materialConfiguration, other.materialConfiguration)) {</span>
-<span class="nc" id="L89">            return false;</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">        if (!Objects.equals(this.materialConfiguration, other.materialConfiguration)) {</span>
+<span class="nc" id="L94">            return false;</span>
         }
-<span class="nc" id="L91">        return true;</span>
+<span class="nc" id="L96">        return true;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

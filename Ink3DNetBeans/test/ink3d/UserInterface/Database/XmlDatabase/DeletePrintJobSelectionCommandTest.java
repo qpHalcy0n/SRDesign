@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  *
  * @author daniellain
  */
-public class DeletePrintJobConfigurationCommandTest {
+public class DeletePrintJobSelectionCommandTest {
     private File file;
     private String name = "./Database/PrintJobs/DeleteTest.xml";
  
@@ -31,15 +31,15 @@ public class DeletePrintJobConfigurationCommandTest {
             file.createNewFile();
         } catch (IOException ex) {
             fail("Could not create File to delete");
-            Logger.getLogger(DeletePrintJobConfigurationCommandTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DeletePrintJobSelectionCommandTest.class.getName()).log(Level.SEVERE, null, ex);
         }
-        DeletePrintJobConfigurationCommand delete = new DeletePrintJobConfigurationCommand("DeleteTest");
+        DeletePrintJobSelectionCommand delete = new DeletePrintJobSelectionCommand("DeleteTest");
         delete.execute();
         assertTrue((Boolean)delete.getResult());
     }
     @Test
     public void DeletePrintJobNoSuchFileTest(){
-        DeletePrintJobConfigurationCommand delete = new DeletePrintJobConfigurationCommand("DeleteExceptionTest");
+        DeletePrintJobSelectionCommand delete = new DeletePrintJobSelectionCommand("DeleteExceptionTest");
         delete.execute();
         assertFalse((Boolean)delete.getResult());
     }

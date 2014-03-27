@@ -9,13 +9,13 @@ package ink3d.UserInterface.Database.XmlDatabase;
 import ink3d.ConfigurationObjects.ExtruderConfiguration;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
-import org.apache.commons.io.FileUtils;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -29,9 +29,19 @@ public class GetExtruderConfigurationsCommandTest {
     File file2;
     File file3;
     File file4;
+    File file5;
 
     @Before
     public void setUp() {
+        PrintWriter writer;
+        try {
+            writer = new PrintWriter("./Database/Extruders/Trash.txt", "UTF-8");
+            writer.println("Text");
+            writer.close();
+        } catch (Exception ex) {
+            Logger.getLogger(GetExtruderConfigurationsCommandTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         SaveExtruderConfigurationCommand save;
         
         ExtruderConfiguration extruder = new ExtruderConfiguration();
@@ -56,9 +66,7 @@ public class GetExtruderConfigurationsCommandTest {
         save = new SaveExtruderConfigurationCommand(extruder);
         save.execute();
         
-          
-        
-        expected = new ArrayList<String>();
+        expected = new ArrayList<>();
         expected.add("GetTest1");
         expected.add("GetTest2");
         expected.add("GetTest3");
@@ -67,22 +75,23 @@ public class GetExtruderConfigurationsCommandTest {
     
     @After
     public void tearDown() {
-        /*file1 = new File("./Database/Extruders/GetTest1.xml");
+        file1 = new File("./Database/Extruders/GetTest1.xml");
         file2 = new File("./Database/Extruders/GetTest2.xml");
         file3 = new File("./Database/Extruders/GetTest3.xml");
         file4 = new File("./Database/Extruders/GetTest4.xml"); 
+        file5 = new File("./Database/Extruders/Trash.txt");
         file1.delete();
         file2.delete();
         file3.delete();
         file4.delete();
-    */
+        file5.delete();
         }
 
     /**
      * Test of execute method, of class SaveExtruderConfigurationCommand.
      */
     @Test
-    public void SaveExtruderTest() throws IOException {
+    public void GetExtruderConfigurationsTest() throws IOException {
         GetExtruderConfigurationsCommand instance = new GetExtruderConfigurationsCommand();
         instance.execute();
         actual = (ArrayList<String>)instance.getResult();

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SubsetConfiguration.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ink3d.ConfigurationObjects</a> &gt; <span class="el_source">SubsetConfiguration.java</span></div><h1>SubsetConfiguration.java</h1><pre class="source lang-java linenums">package ink3d.ConfigurationObjects;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
-<span class="nc" id="L8">public class SubsetConfiguration {</span>
+public class SubsetConfiguration {
     private double bottomZ;
     private double topZ;
     File amfFile;
@@ -13,95 +14,100 @@ import javax.xml.bind.annotation.XmlRootElement;
     private PrintConfiguration printConfiguration;
     private List&lt;FileConfiguration&gt; fileConfigurations;
 
+<span class="fc" id="L17">    public SubsetConfiguration() {</span>
+<span class="fc" id="L18">        this.printConfiguration = new PrintConfiguration();</span>
+<span class="fc" id="L19">        this.fileConfigurations = new ArrayList&lt;FileConfiguration&gt;();</span>
+<span class="fc" id="L20">    }</span>
+
     public double getBottomZ() {
-<span class="nc" id="L17">        return bottomZ;</span>
+<span class="nc" id="L23">        return bottomZ;</span>
     }
 
     public void setBottomZ(double bottomZ) {
-<span class="nc" id="L21">        this.bottomZ = bottomZ;</span>
-<span class="nc" id="L22">    }</span>
+<span class="nc" id="L27">        this.bottomZ = bottomZ;</span>
+<span class="nc" id="L28">    }</span>
 
     public double getTopZ() {
-<span class="nc" id="L25">        return topZ;</span>
+<span class="nc" id="L31">        return topZ;</span>
     }
 
     public void setTopZ(double topZ) {
-<span class="nc" id="L29">        this.topZ = topZ;</span>
-<span class="nc" id="L30">    }</span>
+<span class="nc" id="L35">        this.topZ = topZ;</span>
+<span class="nc" id="L36">    }</span>
 
     public File getAmfFile() {
-<span class="nc" id="L33">        return amfFile;</span>
+<span class="fc" id="L39">        return amfFile;</span>
     }
 
     public void setAmfFile(File amfFile) {
-<span class="nc" id="L37">        this.amfFile = amfFile;</span>
-<span class="nc" id="L38">    }</span>
+<span class="fc" id="L43">        this.amfFile = amfFile;</span>
+<span class="fc" id="L44">    }</span>
 
     public File getgCodeFile() {
-<span class="nc" id="L41">        return gCodeFile;</span>
+<span class="nc" id="L47">        return gCodeFile;</span>
     }
 
     public void setgCodeFile(File gCodeFile) {
-<span class="nc" id="L45">        this.gCodeFile = gCodeFile;</span>
-<span class="nc" id="L46">    }</span>
+<span class="nc" id="L51">        this.gCodeFile = gCodeFile;</span>
+<span class="nc" id="L52">    }</span>
 
     public PrintConfiguration getPrintConfiguration() {
-<span class="nc" id="L49">        return printConfiguration;</span>
+<span class="nc" id="L55">        return printConfiguration;</span>
     }
 
     public void setPrintConfiguration(PrintConfiguration printConfiguration) {
-<span class="nc" id="L53">        this.printConfiguration = printConfiguration;</span>
-<span class="nc" id="L54">    }</span>
+<span class="nc" id="L59">        this.printConfiguration = printConfiguration;</span>
+<span class="nc" id="L60">    }</span>
 
     public List&lt;FileConfiguration&gt; getFileConfigurations() {
-<span class="nc" id="L57">        return fileConfigurations;</span>
+<span class="fc" id="L63">        return fileConfigurations;</span>
     }
 
     public void setFileConfigurations(List&lt;FileConfiguration&gt; fileConfigurations) {
-<span class="nc" id="L61">        this.fileConfigurations = fileConfigurations;</span>
-<span class="nc" id="L62">    }</span>
+<span class="nc" id="L67">        this.fileConfigurations = fileConfigurations;</span>
+<span class="nc" id="L68">    }</span>
 
     @Override
     public int hashCode() {
-<span class="nc" id="L66">        int hash = 5;</span>
-<span class="nc" id="L67">        hash = 79 * hash + (int) (Double.doubleToLongBits(this.bottomZ) ^ (Double.doubleToLongBits(this.bottomZ) &gt;&gt;&gt; 32));</span>
-<span class="nc" id="L68">        hash = 79 * hash + (int) (Double.doubleToLongBits(this.topZ) ^ (Double.doubleToLongBits(this.topZ) &gt;&gt;&gt; 32));</span>
-<span class="nc" id="L69">        hash = 79 * hash + Objects.hashCode(this.amfFile);</span>
-<span class="nc" id="L70">        hash = 79 * hash + Objects.hashCode(this.gCodeFile);</span>
-<span class="nc" id="L71">        hash = 79 * hash + Objects.hashCode(this.printConfiguration);</span>
-<span class="nc" id="L72">        hash = 79 * hash + Objects.hashCode(this.fileConfigurations);</span>
-<span class="nc" id="L73">        return hash;</span>
+<span class="nc" id="L72">        int hash = 5;</span>
+<span class="nc" id="L73">        hash = 79 * hash + (int) (Double.doubleToLongBits(this.bottomZ) ^ (Double.doubleToLongBits(this.bottomZ) &gt;&gt;&gt; 32));</span>
+<span class="nc" id="L74">        hash = 79 * hash + (int) (Double.doubleToLongBits(this.topZ) ^ (Double.doubleToLongBits(this.topZ) &gt;&gt;&gt; 32));</span>
+<span class="nc" id="L75">        hash = 79 * hash + Objects.hashCode(this.amfFile);</span>
+<span class="nc" id="L76">        hash = 79 * hash + Objects.hashCode(this.gCodeFile);</span>
+<span class="nc" id="L77">        hash = 79 * hash + Objects.hashCode(this.printConfiguration);</span>
+<span class="nc" id="L78">        hash = 79 * hash + Objects.hashCode(this.fileConfigurations);</span>
+<span class="nc" id="L79">        return hash;</span>
     }
 
     @Override
     public boolean equals(Object obj) {
-<span class="nc bnc" id="L78" title="All 2 branches missed.">        if (obj == null) {</span>
-<span class="nc" id="L79">            return false;</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L85">            return false;</span>
         }
-<span class="nc bnc" id="L81" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
-<span class="nc" id="L82">            return false;</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L88">            return false;</span>
         }
-<span class="nc" id="L84">        final SubsetConfiguration other = (SubsetConfiguration) obj;</span>
+<span class="nc" id="L90">        final SubsetConfiguration other = (SubsetConfiguration) obj;</span>
 
-<span class="nc bnc" id="L86" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.bottomZ) != Double.doubleToLongBits(other.bottomZ)) {</span>
-<span class="nc" id="L87">            return false;</span>
-        }
-<span class="nc bnc" id="L89" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.topZ) != Double.doubleToLongBits(other.topZ)) {</span>
-<span class="nc" id="L90">            return false;</span>
-        }
-<span class="nc bnc" id="L92" title="All 2 branches missed.">        if (!Objects.equals(this.amfFile, other.amfFile)) {</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.bottomZ) != Double.doubleToLongBits(other.bottomZ)) {</span>
 <span class="nc" id="L93">            return false;</span>
         }
-<span class="nc bnc" id="L95" title="All 2 branches missed.">        if (!Objects.equals(this.gCodeFile, other.gCodeFile)) {</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.topZ) != Double.doubleToLongBits(other.topZ)) {</span>
 <span class="nc" id="L96">            return false;</span>
         }
-<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (!Objects.equals(this.printConfiguration, other.printConfiguration)) {</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (!Objects.equals(this.amfFile, other.amfFile)) {</span>
 <span class="nc" id="L99">            return false;</span>
         }
-<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (!Objects.equals(this.fileConfigurations, other.fileConfigurations)) {</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (!Objects.equals(this.gCodeFile, other.gCodeFile)) {</span>
 <span class="nc" id="L102">            return false;</span>
         }
-<span class="nc" id="L104">        return true;</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        if (!Objects.equals(this.printConfiguration, other.printConfiguration)) {</span>
+<span class="nc" id="L105">            return false;</span>
+        }
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        if (!Objects.equals(this.fileConfigurations, other.fileConfigurations)) {</span>
+<span class="nc" id="L108">            return false;</span>
+        }
+<span class="nc" id="L110">        return true;</span>
     }
     
     

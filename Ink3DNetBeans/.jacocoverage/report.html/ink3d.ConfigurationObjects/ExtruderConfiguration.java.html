@@ -47,16 +47,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     private double zOffset;
 
     public void setHeadxOffset(double headxOffset) {
-<span class="nc" id="L50">        this.headxOffset = headxOffset;</span>
-<span class="nc" id="L51">    }</span>
+<span class="fc" id="L50">        this.headxOffset = headxOffset;</span>
+<span class="fc" id="L51">    }</span>
 
     public void setHeadyOffset(double headyOffset) {
-<span class="nc" id="L54">        this.headyOffset = headyOffset;</span>
-<span class="nc" id="L55">    }</span>
+<span class="fc" id="L54">        this.headyOffset = headyOffset;</span>
+<span class="fc" id="L55">    }</span>
 
     public void setHeadzOffset(double headzOffset) {
-<span class="nc" id="L58">        this.headzOffset = headzOffset;</span>
-<span class="nc" id="L59">    }</span>
+<span class="fc" id="L58">        this.headzOffset = headzOffset;</span>
+<span class="fc" id="L59">    }</span>
 
     public void setxOffset(double xOffset) {
 <span class="fc" id="L62">        this.xOffset = xOffset;</span>
@@ -127,41 +127,41 @@ import javax.xml.bind.annotation.XmlRootElement;
 
     @Override
     public boolean equals(Object obj) {
-<span class="nc bnc" id="L130" title="All 2 branches missed.">        if (obj == null) {</span>
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">        if (obj == null) {</span>
 <span class="nc" id="L131">            return false;</span>
         }
-<span class="nc bnc" id="L133" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="pc bpc" id="L133" title="1 of 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
 <span class="nc" id="L134">            return false;</span>
         }
-<span class="nc" id="L136">        final ExtruderConfiguration other = (ExtruderConfiguration) obj;</span>
-<span class="nc bnc" id="L137" title="All 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
+<span class="fc" id="L136">        final ExtruderConfiguration other = (ExtruderConfiguration) obj;</span>
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
 <span class="nc" id="L138">            return false;</span>
         }
-<span class="nc bnc" id="L140" title="All 2 branches missed.">        if (!Objects.equals(this.extruderType, other.extruderType)) {</span>
+<span class="pc bpc" id="L140" title="1 of 2 branches missed.">        if (!Objects.equals(this.extruderType, other.extruderType)) {</span>
 <span class="nc" id="L141">            return false;</span>
         }
-<span class="nc bnc" id="L143" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.nozzleDiameter) != Double.doubleToLongBits(other.nozzleDiameter)) {</span>
+<span class="pc bpc" id="L143" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.nozzleDiameter) != Double.doubleToLongBits(other.nozzleDiameter)) {</span>
 <span class="nc" id="L144">            return false;</span>
         }
-<span class="nc bnc" id="L146" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.headxOffset) != Double.doubleToLongBits(other.headxOffset)) {</span>
+<span class="pc bpc" id="L146" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.headxOffset) != Double.doubleToLongBits(other.headxOffset)) {</span>
 <span class="nc" id="L147">            return false;</span>
         }
-<span class="nc bnc" id="L149" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.headyOffset) != Double.doubleToLongBits(other.headyOffset)) {</span>
+<span class="pc bpc" id="L149" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.headyOffset) != Double.doubleToLongBits(other.headyOffset)) {</span>
 <span class="nc" id="L150">            return false;</span>
         }
-<span class="nc bnc" id="L152" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.headzOffset) != Double.doubleToLongBits(other.headzOffset)) {</span>
+<span class="pc bpc" id="L152" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.headzOffset) != Double.doubleToLongBits(other.headzOffset)) {</span>
 <span class="nc" id="L153">            return false;</span>
         }
-<span class="nc bnc" id="L155" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.xOffset) != Double.doubleToLongBits(other.xOffset)) {</span>
+<span class="pc bpc" id="L155" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.xOffset) != Double.doubleToLongBits(other.xOffset)) {</span>
 <span class="nc" id="L156">            return false;</span>
         }
-<span class="nc bnc" id="L158" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.yOffset) != Double.doubleToLongBits(other.yOffset)) {</span>
+<span class="pc bpc" id="L158" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.yOffset) != Double.doubleToLongBits(other.yOffset)) {</span>
 <span class="nc" id="L159">            return false;</span>
         }
-<span class="nc bnc" id="L161" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.zOffset) != Double.doubleToLongBits(other.zOffset)) {</span>
+<span class="pc bpc" id="L161" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.zOffset) != Double.doubleToLongBits(other.zOffset)) {</span>
 <span class="nc" id="L162">            return false;</span>
         }
-<span class="nc" id="L164">        return true;</span>
+<span class="fc" id="L164">        return true;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

@@ -12,10 +12,10 @@ import java.io.File;
  *
  * @author daniellain
  */
-public class DeletePrintJobConfigurationCommand extends ink3d.UserInterface.Database.CommandStructure{
+public class DeletePrintJobSelectionCommand extends ink3d.UserInterface.Database.CommandStructure{
     private String fileName;
     
-    public DeletePrintJobConfigurationCommand(String fileName){
+    public DeletePrintJobSelectionCommand(String fileName){
         this.fileName = fileName;
     }
     @Override

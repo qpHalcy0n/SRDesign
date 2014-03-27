@@ -10,6 +10,7 @@ import ink3d.ConfigurationObjects.ExtruderConfiguration;
 import ink3d.ConfigurationObjects.MaterialConfiguration;
 import ink3d.ConfigurationObjects.PrintConfiguration;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
+import ink3d.ConfigurationObjects.PrintJobSelection;
 import ink3d.ConfigurationObjects.PrinterConfiguration;
 import java.util.ArrayList;
 
@@ -17,26 +18,27 @@ import java.util.ArrayList;
  *
  * @author daniellain
  */
-<span class="nc" id="L20">public abstract class PersistenceFramework {</span>
+<span class="nc" id="L21">public abstract class PersistenceFramework {</span>
     public abstract ArrayList&lt;String&gt; getPrinterConfigurations();
     public abstract ArrayList&lt;String&gt; getExtruderConfigurations();
     public abstract ArrayList&lt;String&gt; getMaterialConfigurations();
-    public abstract ArrayList&lt;String&gt; getPrintJobConfigurations();
-    public abstract ArrayList&lt;String&gt; getprintConfigurations();
-    public abstract PrinterConfiguration getPrinterConfiguration(String fileName);
-    public abstract ExtruderConfiguration getExtruderConfiguration(String fileName);
-    public abstract MaterialConfiguration getMaterialConfiguration(String fileName);
-    public abstract PrintJobConfiguration getPrintJobConfiguration(String fileName);
+    public abstract ArrayList&lt;String&gt; getPrintJobSelectionss();
+    public abstract ArrayList&lt;String&gt; getPrintConfigurations();
+    public abstract PrinterConfiguration getPrinterConfiguration(String name);
+    public abstract ExtruderConfiguration getExtruderConfiguration(String name);
+    public abstract MaterialConfiguration getMaterialConfiguration(String name);
+    public abstract PrintJobConfiguration getPrintJobConfiguration(PrintJobSelection printJOb);
+    public abstract PrintJobSelection getPrintJobSelection(String name);
     public abstract PrintConfiguration getPrintConfiguration(String fileName);
     public abstract Boolean savePrinterConfiguration(PrinterConfiguration config);
     public abstract Boolean saveExtruderConfiguration(ExtruderConfiguration config);
     public abstract Boolean saveMaterialConfiguration(MaterialConfiguration config);
-    public abstract Boolean savePrintJobConfiguration(PrintJobConfiguration config);
+    public abstract Boolean savePrintJobSelection(PrintJobSelection config);
     public abstract Boolean savePrintConfiguration(PrintConfiguration config);
     public abstract Boolean deletePrinterConfiguration(String fileName);
     public abstract Boolean deleteExtruderConfiguration(String fileName);
     public abstract Boolean deleteMaterialConfiguration(String fileName);
-    public abstract Boolean deletePrintJobConfiguration(String fileName);
+    public abstract Boolean deletePrintJobSelection(String fileName);
     public abstract Boolean deletePrintConfiguration(String fileName);
     
 }

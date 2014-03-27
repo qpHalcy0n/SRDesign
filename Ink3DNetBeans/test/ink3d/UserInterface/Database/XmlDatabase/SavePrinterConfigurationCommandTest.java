@@ -6,20 +6,12 @@
 
 package ink3d.UserInterface.Database.XmlDatabase;
 
-import ink3d.ConfigurationObjects.InfillConfiguration;
-import ink3d.ConfigurationObjects.LayerAndPerimeterConfiguration;
-import ink3d.ConfigurationObjects.PrintConfiguration;
 import ink3d.ConfigurationObjects.PrinterConfiguration;
-import ink3d.ConfigurationObjects.SkirtAndBrimConfiguration;
-import ink3d.ConfigurationObjects.SpeedConfiguration;
-import ink3d.ConfigurationObjects.SupportMaterialConfiguration;
 import java.io.File;
 import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
