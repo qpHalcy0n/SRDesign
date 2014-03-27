@@ -209,7 +209,7 @@ public class GetPrintJobConfigurationCommandTest {
         subset = new SubsetConfiguration();
         subset.setBottomZ(0);
         subset.setTopZ(1.1);
-        subset;
+        
         
         subsets = new ArrayList<>();
         subsets.add(subset);
