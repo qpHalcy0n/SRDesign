@@ -14,9 +14,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -51,64 +53,92 @@ public class Slic3rNormalizerImpl implements Normalizer {
     private static final String MATERIALID_ATTR = "materialid";
     private static final String TRIANGE_TAG = "triangle";
     private static final String NAME_VALUE = "name";
-    private static final String SCAD_DIR = "scad";
-    private static final String OPEN_SCAD_TEMPLATE =
+    private static final String OPENSCAD_FILES_DIR = "openscad-files";
+    private static final String OPENSCAD_TEMPLATE =
             "intersection(){import(\"%s\");translate([%f,%f,%f]){cube(size=[%f,%f,%f],center=false);};}";
-    private static final String SCAD_EXTENSION = ".scad";
+    private static final String OPENSCAD_EXTENSION = ".scad";
     private static final String STL_EXTENSION = ".stl";
-    private static final String STL_DIR = "stl";
-    private static final String SCAD_PATH = "third-party" + File.separator
+    private static final String STL_DIR = "stl-files";
+    private static final String OPENSCAD_PATH = "third-party" + File.separator
             + "openscad" + File.separator + "openscad.exe";
     
 
 	@Override
 	public boolean normalize(PrintJobConfiguration printJobConfiguration) {
-        return translateFiles(printJobConfiguration);
+        // Return false if any operation the process fails.
+        // Otherwise return true.
+        if(!subsectionFiles(printJobConfiguration)) {
+            return false;
+        }
+        if(!translateFiles(printJobConfiguration)) {
+            return false;
+        }
+        return true;
 	}
 
-    private boolean subsectionFiles(PrintJobConfiguration printJobConfiguration) {
+    public boolean subsectionFiles(PrintJobConfiguration printJobConfiguration) {
         List<SubsetConfiguration> subsets = printJobConfiguration.getSubsetConfigurationList();
 
         // Count used for naming subsection files.
-        int count = 0;
+        int subsetNum = 0;
         for(SubsetConfiguration subset : subsets) {
             for(FileConfiguration fileConfig : subset.getFileConfigurations()) {
                 try {
                     File parentStlFile = fileConfig.getParentSTLFile();
                     File scadFile = buildScadFile(parentStlFile,
-                            count, subset.getBottomZ(), subset.getTopZ());
+                            subsetNum, subset.getBottomZ(), subset.getTopZ());
                     
-                    String subsetStlFilename = createSubsetStlFilename(parentStlFile.getName(), count);
-                    String baseDir = new File("").getAbsolutePath();
-                    String command = baseDir + SCAD_PATH + " -o " + subsetStlFilename + " " + scadFile.getAbsolutePath();
-                    Runtime.getRuntime().exec(command);
-                    count++;
+                    // build the name of the subset STL file based on parent STL filename and subset number
+                    // "<stlDir>/parentStlFilname-subxxx.stl"
+                    String subsetStlFilename = createSubsetStlFilename(parentStlFile.getName(), subsetNum);
 
+                    // build directory to store subset STL file
+                    File subsetStlDir = new File(subsetStlFilename).getParentFile();
+                    if(!subsetStlDir.exists()) {
+                        boolean success = subsetStlDir.mkdirs();
+                        if(!success) {
+                            throw new Exception("Could not create directory for STL files.");
+                        }
+                    }
+
+                    // execute Open Scad to make subsection
+                    String baseDir = new File("").getAbsolutePath();
+                    String command = baseDir + File.separator + OPENSCAD_PATH + " -o " + "\"" + subsetStlFilename + "\" \"" + scadFile.getAbsolutePath() + "\"";
+                    Process openScadProcess = Runtime.getRuntime().exec(command);
+                    // wait for open scad to finish processing before continuing
+                    // TODO:  May want to optimize this in the future.
+                    // TODO:  Read output/error stream from process to find error messages.
+                    openScadProcess.waitFor();
+                    
+                    // Create reference to file that Open Scad (should have) created
                     File subsetStlFile = new File(subsetStlFilename);
                     if(subsetStlFile.exists()) {
                         fileConfig.setSubsetSTL(subsetStlFile);
                     }
                     else {
                         // TODO: Create custom exception?
+                        // Open Scad didn't create the subset stl file, throw exception
                         throw new Exception("Did not create subsection STL file.");
                     }
                 }
                 catch (IOException ex) {
-                    Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
                     return false;
                 }
                 catch (Exception ex) {
-                    Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
                     return false;
                 }
             }
+            // increment the subsection num (for naming open scad and subset stl files)
+            subsetNum++;
         }
         return true;
     }
 
     private File buildScadFile(File parentStl,
             int subsetNum, double zMin, double zMax) throws Exception {
-        // Find the xMin, xMax, yMin, yMax
+        // Find the xMin, xMax, yMin, yMax of the parent STL file
         // TODO: Optimize
         STLFileReader reader = new STLFileReader(parentStl);
         int[] numFacets = reader.getNumOfFacets();
@@ -116,6 +146,7 @@ public class Slic3rNormalizerImpl implements Normalizer {
             // TODO:  Make custom Exception
             throw new Exception("Cannot create SCAD file for empty STL file.");
         }
+
         double xMin = Double.POSITIVE_INFINITY;
         double xMax = Double.NEGATIVE_INFINITY;
         double yMin = Double.POSITIVE_INFINITY;
@@ -144,14 +175,27 @@ public class Slic3rNormalizerImpl implements Normalizer {
         }
         
         File scadFile = new File(createOpenScadFilename(parentStl.getName(), subsetNum));
+        // Escape the file separators in the filename string so that they will be
+        // escaped in open scad.
+        // TODO: Currently hardcoded for windows.
+        // This needs to be fixed, but Java does some strange regex stuff with "\"
+        String inputFile = parentStl.getAbsolutePath().replaceAll("\\\\", "\\\\\\\\");
         String scadScript = createOpenScadScriptString(
-                parentStl.getAbsolutePath(), xMin, xMax, yMin, yMax, zMin, zMax);
+                inputFile, xMin, xMax, yMin, yMax, zMin, zMax);
         
+        // Create Open Scad file and directory
         if(!scadFile.exists()) {
+            File scadFileDir = scadFile.getParentFile();
+            if(!scadFileDir.exists()) {
+                boolean success = scadFileDir.mkdirs();
+                if(!success) {
+                    throw new Exception("Could not create Open Scad Files");
+                }
+            }
             scadFile.createNewFile();
         }
 
-        FileWriter fw = new FileWriter(scadFile.getAbsoluteFile());
+        FileWriter fw = new FileWriter(scadFile);
         BufferedWriter bw = new BufferedWriter(fw);
         bw.write(scadScript);
         bw.close();
@@ -162,18 +206,18 @@ public class Slic3rNormalizerImpl implements Normalizer {
     
     private String createOpenScadFilename(String parentFilename, int subsetNum) {
         String parentName = parentFilename
-                .substring(0, parentFilename.length() - STL_EXTENSION.length() - 1);
+                .substring(0, parentFilename.length() - STL_EXTENSION.length());
         String baseDir = new File("").getAbsolutePath();
-        return String.format("%s%s%s%s-sub%000d%s",
-                baseDir,SCAD_DIR,File.separator,parentName,subsetNum,SCAD_EXTENSION);
+        return String.format("%s%s%s%s%s-sub%05d%s",
+                baseDir,File.separator,OPENSCAD_FILES_DIR,File.separator,parentName,subsetNum,OPENSCAD_EXTENSION);
     }
 
     private String createSubsetStlFilename(String parentFilename, int subsetNum) {
         String parentName = parentFilename
-                .substring(0, parentFilename.length() - STL_EXTENSION.length() - 1);
+                .substring(0, parentFilename.length() - STL_EXTENSION.length());
         String baseDir = new File("").getAbsolutePath();
-        return String.format("%s%s%s%s-sub%000d%s",
-                baseDir,STL_DIR,File.separator,parentName,subsetNum,STL_EXTENSION);
+        return String.format("%s%s%s%s%s-sub%05d%s",
+                baseDir,File.separator,STL_DIR,File.separator,parentName,subsetNum,STL_EXTENSION);
     }
     
     private String createOpenScadScriptString(String inputFile, double xMin, 
@@ -181,12 +225,12 @@ public class Slic3rNormalizerImpl implements Normalizer {
         double xDistance = xMax - xMin;
         double yDistance = yMax - yMin;
         double height = zMax - zMin;
-        return String.format(OPEN_SCAD_TEMPLATE,
+        return String.format(OPENSCAD_TEMPLATE,
                 inputFile,xMin,yMin,zMin,xDistance,yDistance,height);
         
     }
 
-	private boolean translateFiles(PrintJobConfiguration printJobConfiguration) {
+	public boolean translateFiles(PrintJobConfiguration printJobConfiguration) {
         List<SubsetConfiguration> subsets = printJobConfiguration.getSubsetConfigurationList();
 
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
