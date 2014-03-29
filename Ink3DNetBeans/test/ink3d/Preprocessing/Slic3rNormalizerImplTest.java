@@ -20,7 +20,9 @@ import org.junit.Test;
  */
 public class Slic3rNormalizerImplTest {
     private static String TEST_FILE_DIR = File.separator + "test-files" + File.separator + "stl" + File.separator;
-
+    
+    // TODO:  Clean up openscad, stl, amf files (if they exist) before tests
+    
     @Test
     public void testSubsectionFiles() {
         String basePath = new File("").getAbsolutePath();

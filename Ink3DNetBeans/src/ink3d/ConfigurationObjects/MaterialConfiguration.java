@@ -5,8 +5,73 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class MaterialConfiguration {
+    
+    // General Material Options
+    public static final String DEFAULT_NAME = "Default";
+    public static final double DEFAULT_FILAMENT_DIAMETER = 3.0;
+    public static final double DEFAULT_EXTRUSION_MULTIPLIER = 1.0;
+
+    // Temperature Options
+    public static final int DEFAULT_FIRST_LAYER_EXTRUSION_TEMPERATURE = 200;
+    public static final int DEFAULT_EXTRUSION_TEMPERATURE = 200;
+    public static final int DEFAULT_FIRST_LAYER_BED_TEMPERATURE = 0;
+    public static final int DEFAULT_BED_TEMPERATURE = 0;
+
+    // Cooling Options
+    public static final boolean DEFAULT_FAN_ALWAYS_ON = false;
+    public static final boolean DEFAULT_ENABLE_AUTO_COOLING = true;
+    public static final int DEFAULT_MIN_FAN_SPEED = 35;
+    public static final int DEFAULT_MAX_FAN_SPEED = 100;
+    public static final int DEFAULT_BRIDGE_FAN_SPEED_PERCENT = 100;
+    public static final int DEFAULT_DISABLE_FAN_FOR_FIRST_N_LAYERS = 1;
+    public static final int DEFAULT_ENABLE_FAN_TIME_THRESHOLD = 60;
+    public static final int DEFAULT_SLOW_DOWN_TIME_THRESHOLD = 30;
+    public static final int DEFAULT_MIN_PRINT_SPEED = 10;
+
+    // Retraction Options
+    public static final double DEFAULT_RETRACTION_LENGTH = 1.0;
+    public static final double DEFAULT_RETRACTION_LIFT_Z = 0.0;
+    public static final int DEFAULT_RETRACTION_SPEED = 30;
+    public static final double DEFAULT_EXTRA_LENGTH_AFTER_RETRACTION = 0.0;
+    public static final double DEFAULT_MINIMUM_TRAVEL_AFTER_RETRACTION = 2.0;
+    public static final boolean DEFAULT_RETRACT_ON_LAYER_CHANGE = true;
+    public static final boolean DEFAULT_WIPE_BEFORE_RETRACT = false;
+    public static final double DEFAULT_RETRACTION_LENGTH_BEFORE_TOOL_CHANGE = 10.0;
+    public static final double DEFAULT_EXTRA_LENGTH_ON_TOOL_REENABLE = 0.0;
+
+    public MaterialConfiguration() {
+        name = DEFAULT_NAME;
+        filamentDiameter = DEFAULT_FILAMENT_DIAMETER;
+        extrusionMultiplier = DEFAULT_EXTRUSION_MULTIPLIER;
+        firstLayerExtrusionTemperature = DEFAULT_FIRST_LAYER_EXTRUSION_TEMPERATURE;
+        extrusionTemperature = DEFAULT_EXTRUSION_TEMPERATURE;
+
+        // TODO: Add bed temperatures options
+        
+        fanAlwaysOn = DEFAULT_FAN_ALWAYS_ON;
+        enableAutoCooling = DEFAULT_ENABLE_AUTO_COOLING;
+        minFanSpeed = DEFAULT_MIN_FAN_SPEED;
+        maxFanSpeed = DEFAULT_MAX_FAN_SPEED;
+        bridgeFanSpeedPercent = DEFAULT_BRIDGE_FAN_SPEED_PERCENT;
+        disableFanForFirstNLayers = DEFAULT_DISABLE_FAN_FOR_FIRST_N_LAYERS;
+        enableFanTimeThreshold = DEFAULT_ENABLE_FAN_TIME_THRESHOLD;
+        slowDownTimeTreshold = DEFAULT_SLOW_DOWN_TIME_THRESHOLD;
+        minPrintSpeed = DEFAULT_MIN_PRINT_SPEED;
+        retractionLength = DEFAULT_RETRACTION_LENGTH;
+        retractionLiftZ = DEFAULT_RETRACTION_LIFT_Z;
+        retractionSpeed = DEFAULT_RETRACTION_SPEED;
+        extraLengthAfterRetraction = DEFAULT_EXTRA_LENGTH_AFTER_RETRACTION;
+        minimumTravelAfterRetraction = DEFAULT_MINIMUM_TRAVEL_AFTER_RETRACTION;
+        retractOnLayerChange = DEFAULT_RETRACT_ON_LAYER_CHANGE;
+        wipeBeforeRetract = DEFAULT_WIPE_BEFORE_RETRACT;
+        retractionLengthBeforeToolChange = DEFAULT_RETRACTION_LENGTH_BEFORE_TOOL_CHANGE;
+        extraLengthOnToolReenable = DEFAULT_EXTRA_LENGTH_ON_TOOL_REENABLE;
+
+    }
+
+
     private String name;
-    private SpeedConfiguration speedConfiguration;
+
     /**
      * Diameter in mm of the filament.
      */
@@ -125,14 +190,6 @@ public class MaterialConfiguration {
      * The move speed will not be scaled down below this speed (in mm/s).
      */
     private int minPrintSpeed;
-
-    public SpeedConfiguration getSpeedConfiguration() {
-        return speedConfiguration;
-    }
-
-    public void setSpeedConfiguration(SpeedConfiguration speedConfiguration) {
-        this.speedConfiguration = speedConfiguration;
-    }
 
     public double getFilamentDiameter() {
         return filamentDiameter;
@@ -335,9 +392,6 @@ public class MaterialConfiguration {
         }
         final MaterialConfiguration other = (MaterialConfiguration) obj;
         if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.speedConfiguration, other.speedConfiguration)) {
             return false;
         }
         if (Double.doubleToLongBits(this.filamentDiameter) != Double.doubleToLongBits(other.filamentDiameter)) {

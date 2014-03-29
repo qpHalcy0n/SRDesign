@@ -56,23 +56,6 @@ public class GetPrintJobConfigurationCommandTest {
     }
     
     private void setupMaterial(){
-        speed2 = new SpeedConfiguration();
-        speed2.setBridgeAcceleration(.02);
-        speed2.setBridgesSpeed(1.02);
-        speed2.setDefaultAcceleration(.1);
-        speed2.setExternalPerimetersSpeed(2.2);
-        speed2.setFirstLayerSpeed(1.3);
-        speed2.setGapFillSpeed(1.2);
-        speed2.setInfillAcceleration(.3);
-        speed2.setInfillSpeed(1.5);
-        speed2.setName("SaveTest.Speed");
-        speed2.setNonPrintMovesSpeed(2.2);
-        speed2.setPerimetersAcceleration(.5);
-        speed2.setPerimetersSpeed(3.4);
-        speed2.setSmallPerimetersSpeed(2.1);
-        speed2.setSolidInfillSpeed(1.3);
-        speed2.setSupportMaterialSpeed(3.4);
-        speed2.setTopSolidInfillSpeed(2.63);
         
         material = new MaterialConfiguration();
         material.setName("SaveTest");
@@ -98,7 +81,6 @@ public class GetPrintJobConfigurationCommandTest {
         material.setRetractionLiftZ(.2);
         material.setRetractionSpeed(12);
         material.setSlowDownTimeTreshold(13);
-        material.setSpeedConfiguration(speed2);
         material.setWipeBeforeRetract(true);
         
         db.saveMaterialConfiguration(material);
