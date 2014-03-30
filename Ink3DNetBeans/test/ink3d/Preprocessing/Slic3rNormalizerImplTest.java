@@ -97,6 +97,7 @@ public class Slic3rNormalizerImplTest {
         SubsetConfiguration subset = new SubsetConfiguration();
         subset.getFileConfigurations().add(fileConfig);
         PrintJobConfiguration printJob = new PrintJobConfiguration();
+        printJob.setName("test print job");
         printJob.getSubsetConfigurationList().add(subset);
 
         Slic3rNormalizerImpl normalizer = new Slic3rNormalizerImpl();

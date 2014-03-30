@@ -22,6 +22,7 @@ import java.util.regex.Matcher;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -59,6 +60,8 @@ public class Slic3rNormalizerImpl implements Normalizer {
     private static final String OPENSCAD_EXTENSION = ".scad";
     private static final String STL_EXTENSION = ".stl";
     private static final String STL_DIR = "stl-files";
+    private static final String AMF_DIR = "amf-files";
+    private static final String AMF_EXTENSION = ".amf";
     private static final String OPENSCAD_PATH = "third-party" + File.separator
             + "openscad" + File.separator + "openscad.exe";
     
@@ -245,6 +248,7 @@ public class Slic3rNormalizerImpl implements Normalizer {
             return false;
         }
 
+        int subsetNum = 0;
         for(SubsetConfiguration subset : subsets) {
 
             // TODO: Sort file config list by extruder position 0,1,2...n
@@ -287,6 +291,7 @@ public class Slic3rNormalizerImpl implements Normalizer {
 
                     Element volumeElement = doc.createElement(VOLUME_TAG);
                     volumeElement.setAttribute(MATERIALID_ATTR, String.valueOf(materialCount));
+                    objectElement.appendChild(volumeElement);
                     materialCount++;
                     
                     int vertCount = 0;
@@ -324,28 +329,52 @@ public class Slic3rNormalizerImpl implements Normalizer {
                                     doc.createElement("v" + String.valueOf(faceVertexNumber));
 
                             triangleElement.appendChild(vElement);
-                            triangleElement.appendChild(doc.createTextNode(String.valueOf(vertCount)));
+                            vElement.appendChild(doc.createTextNode(String.valueOf(vertCount)));
 
                             vertCount++;
                         }
                     }
                 }
 
+
+                String baseDir = new File("").getAbsolutePath();
+                String amfFilename = baseDir +File.separator + AMF_DIR + File.separator 
+                        + printJobConfiguration.getName() + File.separator 
+                        + "sub" + subsetNum + AMF_EXTENSION;
+                
+                // Create AMF file directory if it does not exist
+                File amfFileDir = new File(amfFilename).getParentFile();
+                if(!amfFileDir.exists()) {
+                    boolean success = amfFileDir.mkdirs();
+                    if(!success) {
+                        throw new Exception("Could not create directory for subset AMF files.");
+                    }
+                }
+
+                File amfFile = new File(amfFilename);
+                StreamResult result = new StreamResult(amfFile);
+                DOMSource source = new DOMSource(doc);
+
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();
-                DOMSource source = new DOMSource(doc);
-                File amfFile = new File("."+File.separator+"sub"+".amf");
-                StreamResult result = new StreamResult(amfFile);
-
+                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
                 transformer.transform(source, result);
-
-                subset.setAmfFile(amfFile);
+                
+                if(amfFile.exists()) {
+                    subset.setAmfFile(amfFile);
+                }
+                else {
+                    throw new Exception("Could not create AMF file.");
+                }
                 
             }
             catch(Exception ex) {
                 Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
             }
+
+            subsetNum++;
         }
         return true;
 	}
