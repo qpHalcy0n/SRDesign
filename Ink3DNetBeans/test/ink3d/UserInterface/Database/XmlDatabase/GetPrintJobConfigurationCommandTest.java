@@ -7,15 +7,21 @@
 package ink3d.UserInterface.Database.XmlDatabase;
 
 import ink3d.ConfigurationObjects.ExtruderConfiguration;
+import ink3d.ConfigurationObjects.ExtruderMaterialSelection;
+import ink3d.ConfigurationObjects.ExtruderMaterialConfiguration;
+import ink3d.ConfigurationObjects.FileConfiguration;
+import ink3d.ConfigurationObjects.FileSelection;
 import ink3d.ConfigurationObjects.InfillConfiguration;
 import ink3d.ConfigurationObjects.LayerAndPerimeterConfiguration;
 import ink3d.ConfigurationObjects.MaterialConfiguration;
 import ink3d.ConfigurationObjects.PrintConfiguration;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
+import ink3d.ConfigurationObjects.PrintJobSelection;
 import ink3d.ConfigurationObjects.PrinterConfiguration;
 import ink3d.ConfigurationObjects.SkirtAndBrimConfiguration;
 import ink3d.ConfigurationObjects.SpeedConfiguration;
 import ink3d.ConfigurationObjects.SubsetConfiguration;
+import ink3d.ConfigurationObjects.SubsetSelection;
 import ink3d.ConfigurationObjects.SupportMaterialConfiguration;
 import ink3d.UserInterface.Database.PersistenceFramework;
 import java.util.ArrayList;
@@ -40,13 +46,20 @@ public class GetPrintJobConfigurationCommandTest {
     SpeedConfiguration speed;
     SupportMaterialConfiguration support;
     PrinterConfiguration printer;
-    PrintJobConfiguration printJob;
     SubsetConfiguration subset;
+    ArrayList<ExtruderMaterialConfiguration> extruderMaterials;
     ArrayList<SubsetConfiguration> subsets;
+    ArrayList<FileConfiguration> files;
+    ArrayList<ExtruderMaterialSelection> materialsSelections;
+    ArrayList<FileSelection> fileSelections;
+    ArrayList<SubsetSelection> subsetSelections;
+    PrintJobSelection input;
+    PrintJobConfiguration expected;
+    PrintJobConfiguration actual;
     
     public void setupExtruder(){
         extruder = new ExtruderConfiguration();
-        extruder.setName("getTest");
+        extruder.setName("GetPrintJobTest");
         extruder.setExtruderType("ABS");
         extruder.setNozzleDiameter(2);
         extruder.setxOffset(0);
@@ -54,11 +67,28 @@ public class GetPrintJobConfigurationCommandTest {
         extruder.setzOffset(0);
         db.saveExtruderConfiguration(extruder);
     }
-    
+     
     private void setupMaterial(){
+        speed2 = new SpeedConfiguration();
+        speed2.setBridgeAcceleration(.02);
+        speed2.setBridgesSpeed(1.02);
+        speed2.setDefaultAcceleration(.1);
+        speed2.setExternalPerimetersSpeed(2.2);
+        speed2.setFirstLayerSpeed(1.3);
+        speed2.setGapFillSpeed(1.2);
+        speed2.setInfillAcceleration(.3);
+        speed2.setInfillSpeed(1.5);
+        speed2.setName("GetPrintJobTest.Speed");
+        speed2.setNonPrintMovesSpeed(2.2);
+        speed2.setPerimetersAcceleration(.5);
+        speed2.setPerimetersSpeed(3.4);
+        speed2.setSmallPerimetersSpeed(2.1);
+        speed2.setSolidInfillSpeed(1.3);
+        speed2.setSupportMaterialSpeed(3.4);
+        speed2.setTopSolidInfillSpeed(2.63);
         
         material = new MaterialConfiguration();
-        material.setName("SaveTest");
+        material.setName("GetPrintJobTest");
         material.setBridgeFanSpeedPercent(1);
         material.setDisableFanForFirstNLayers(2);
         material.setEnableAutoCooling(true);
@@ -81,9 +111,15 @@ public class GetPrintJobConfigurationCommandTest {
         material.setRetractionLiftZ(.2);
         material.setRetractionSpeed(12);
         material.setSlowDownTimeTreshold(13);
+        material.setSpeedConfiguration(speed2);
         material.setWipeBeforeRetract(true);
         
         db.saveMaterialConfiguration(material);
+    }
+    
+    private void setupExtruderMaterial(){
+        this.extruderMaterials = new ArrayList<>();
+        this.extruderMaterials.add(new ExtruderMaterialConfiguration(extruder, material));
     }
     
     private void setupPrint(){
@@ -96,7 +132,7 @@ public class GetPrintJobConfigurationCommandTest {
         speed.setGapFillSpeed(1.2);
         speed.setInfillAcceleration(.3);
         speed.setInfillSpeed(1.5);
-        speed.setName("SaveTest.Speed");
+        speed.setName("GetPrintJobTest.Speed");
         speed.setNonPrintMovesSpeed(2.2);
         speed.setPerimetersAcceleration(.5);
         speed.setPerimetersSpeed(3.4);
@@ -111,7 +147,7 @@ public class GetPrintJobConfigurationCommandTest {
         infill.setInfillDensity(.4);
         infill.setInfillEveryNLayers(3);
         infill.setInfillPattern("rectilinear");
-        infill.setName("SaveTest.Infill");
+        infill.setName("GetPrintJobTest.Infill");
         infill.setOnlyInfillWhereNeeded(false);
         infill.setOnlyRetractInfillWhenCrossingPerimeters(true);
         infill.setSolidInfillEveryNLayers(4);
@@ -122,7 +158,7 @@ public class GetPrintJobConfigurationCommandTest {
         layer.setFirstLayerHeight(.001);
         layer.setGenerateExtraPerimetersWhenNeeded(true);
         layer.setLayerHeight(.0005);
-        layer.setName("SaveTest.Layer");
+        layer.setName("GetPrintJobTest.Layer");
         layer.setPerimeters(2);
         layer.setRandomizedStartingPoints(true);
         layer.setSolidBottomLayers(2);
@@ -130,7 +166,7 @@ public class GetPrintJobConfigurationCommandTest {
         
         skirt = new SkirtAndBrimConfiguration();
         skirt.setBrimWidth(1.1);
-        skirt.setName("SaveTest.Skirt");
+        skirt.setName("GetPrintJobTest.Skirt");
         skirt.setSkirtDistanceFromObject(1.2);
         skirt.setSkirtHeight(2);
         skirt.setSkirtLoops(3);
@@ -140,7 +176,7 @@ public class GetPrintJobConfigurationCommandTest {
         support.setEnforceSupportForFirstNLayers(1);
         support.setInterfaceLayers(2);
         support.setInterfacePatternSpacing(1.1);
-        support.setName("SaveTest.Support");
+        support.setName("GetPrintJobTest.Support");
         support.setOverhangThreshold(3);
         support.setRaftLayers(4);
         support.setSupportMaterialPattern("rectilinear");
@@ -148,7 +184,7 @@ public class GetPrintJobConfigurationCommandTest {
         support.setSupportPatternSpacing(2.3);
         
         print = new PrintConfiguration();
-        print.setName("SaveTest");
+        print.setName("GetPrintJobTest");
         print.setInfillConfiguration(infill);
         print.setLayerPerimiterConfiguration(layer);
         print.setSkirtAndBrimConfiguration(skirt);
@@ -158,9 +194,20 @@ public class GetPrintJobConfigurationCommandTest {
         db.savePrintConfiguration(print);
     }
     
+    private void setupFiles(){
+        files = new ArrayList<>();
+        FileConfiguration file = new FileConfiguration();
+        
+        file.setExtruderConfiguration(extruder);
+        file.setMaterialConfiguration(material);
+        file.setName("GetPrintJobTest");
+        
+        files.add(file);
+    }
+    
     private void setupPrinter(){
         printer = new PrinterConfiguration();
-        printer.setName("SaveTest");
+        printer.setName("GetPrintJobTest");
         printer.setBedX(150);
         printer.setBedY(100);
         printer.setNumExtruders(5);
@@ -174,11 +221,45 @@ public class GetPrintJobConfigurationCommandTest {
         db.savePrinterConfiguration(printer);
     }
     
+    private void setupSubsets(){
+        subset = new SubsetConfiguration();
+        subset.setBottomZ(0);
+        subset.setTopZ(1.1);
+        subset.setPrintConfiguration(print);
+        subset.setFileConfigurations(files);
+        
+        subsets = new ArrayList<>();
+        subsets.add(subset);
+    }
+    
     public void delete(){
         db.deleteExtruderConfiguration(extruder.getName());
         db.deleteMaterialConfiguration(material.getName());
         db.deletePrintConfiguration(print.getName());
         db.deletePrinterConfiguration(printer.getName());
+    }
+    
+    public void setupMaterialsSelection(){
+        this.materialsSelections = new ArrayList<>();
+        this.materialsSelections.add(new ExtruderMaterialSelection(extruder.getName(), material.getName()));
+    }
+    
+    public void setupFileSelection(){
+        fileSelections = new ArrayList<>();
+        fileSelections.add(new FileSelection(extruder.getName(), material.getName(), files.get(0).getName()));
+    }
+    
+    public void setupSubsetSelection(){
+        this.subsetSelections = new ArrayList<>();
+        this.setupFileSelection();
+        
+        SubsetSelection subsetSel = new SubsetSelection();
+        subsetSel.setBottomZ(0);
+        subsetSel.setTopZ(1.1);
+        subsetSel.setPrintConfiguration(print.getName());
+        subsetSel.setFileConfigurations(fileSelections);
+        
+        this.subsetSelections.add(subsetSel);
     }
     
     @Before
@@ -187,19 +268,23 @@ public class GetPrintJobConfigurationCommandTest {
         this.setupMaterial();
         this.setupPrint();
         this.setupPrinter(); 
+        this.setupFiles();
+        this.setupExtruderMaterial();
         
-        subset = new SubsetConfiguration();
-        subset.setBottomZ(0);
-        subset.setTopZ(1.1);
+        expected = new PrintJobConfiguration();
+        expected.setName("GetPrintJobTest");
+        expected.setPrinterConfiguration(printer);
+        expected.setSubsetConfigurationList(subsets);
+        expected.setExtruderMaterials(this.extruderMaterials);
         
+        this.setupMaterialsSelection();
+        this.setupSubsetSelection();
         
-        subsets = new ArrayList<>();
-        subsets.add(subset);
-        
-        printJob = new PrintJobConfiguration();
-        printJob.setName("GetPrintJobTest");
-        printJob.setPrinterConfiguration(printer);
-        printJob.setSubsetConfigurationList(subsets);
+        input = new PrintJobSelection();
+        input.setName("GetPrintJobTest");
+        input.setPrinterConfiguration("GetPrintJobTest");
+        input.setMaterials(materialsSelections);
+        input.setSubsetConfigurationList(subsetSelections);
         
     }
     
@@ -209,7 +294,9 @@ public class GetPrintJobConfigurationCommandTest {
     }
     @Test
     public void getPrintJobConfigurationTest() {
-        fail("Test not Implemeted");
+        actual = db.getPrintJobConfiguration(input);
+        if(!expected.equals(actual)) System.out.printf(expected+"\n"+actual+"\n");
+        assertTrue(expected.equals(actual));
     }
     
 }

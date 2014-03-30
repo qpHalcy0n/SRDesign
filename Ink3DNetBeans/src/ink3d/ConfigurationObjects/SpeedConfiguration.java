@@ -312,6 +312,11 @@ public class SpeedConfiguration {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "SpeedConfiguration{" + "name=" + name + ", perimetersSpeed=" + perimetersSpeed + ", smallPerimetersSpeed=" + smallPerimetersSpeed + ", externalPerimetersSpeed=" + externalPerimetersSpeed + ", infillSpeed=" + infillSpeed + ", solidInfillSpeed=" + solidInfillSpeed + ", topSolidInfillSpeed=" + topSolidInfillSpeed + ", supportMaterialSpeed=" + supportMaterialSpeed + ", bridgesSpeed=" + bridgesSpeed + ", gapFillSpeed=" + gapFillSpeed + ", nonPrintMovesSpeed=" + nonPrintMovesSpeed + ", firstLayerSpeed=" + firstLayerSpeed + ", perimetersAcceleration=" + perimetersAcceleration + ", infillAcceleration=" + infillAcceleration + ", bridgeAcceleration=" + bridgeAcceleration + ", defaultAcceleration=" + defaultAcceleration + '}';
+    }
     
     
 }

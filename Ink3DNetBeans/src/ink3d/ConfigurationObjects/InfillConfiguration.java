@@ -229,5 +229,10 @@ public class InfillConfiguration {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "InfillConfiguration{" + "name=" + name + ", infillDensity=" + infillDensity + ", infillPattern=" + infillPattern + ", topBottomInfillPattern=" + topBottomInfillPattern + ", infillEveryNLayers=" + infillEveryNLayers + ", onlyInfillWhereNeeded=" + onlyInfillWhereNeeded + ", solidInfillEveryNLayers=" + solidInfillEveryNLayers + ", infillAngle=" + infillAngle + ", solidInfillThresholdArea=" + solidInfillThresholdArea + ", onlyRetractInfillWhenCrossingPerimeters=" + onlyRetractInfillWhenCrossingPerimeters + ", infillBeforePerimeters=" + infillBeforePerimeters + '}';
+    }
     
 }

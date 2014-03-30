@@ -19,14 +19,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType (XmlAccessType.FIELD)
 public class FileSelection {
     private String file;
-    private String extruder; 
+    private String extruder;
+    private String material;
 
     public FileSelection(){
     }
     
-    public FileSelection(String extruder, String file){
+    public FileSelection(String extruder, String material, String file){
         this.extruder = extruder;
         this.file = file;
+        this.material = material;
     }
 
     public String getFile() {
@@ -45,9 +47,21 @@ public class FileSelection {
         this.extruder = extruder;
     }
 
+    public String getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+
     @Override
-    public String toString() {
-        return "FileSelection{" + "file=" + file + ", extruder=" + extruder + '}';
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.file);
+        hash = 53 * hash + Objects.hashCode(this.extruder);
+        hash = 53 * hash + Objects.hashCode(this.material);
+        return hash;
     }
 
     @Override
@@ -65,6 +79,14 @@ public class FileSelection {
         if (!Objects.equals(this.extruder, other.extruder)) {
             return false;
         }
+        if (!Objects.equals(this.material, other.material)) {
+            return false;
+        }
         return true;
-    }      
+    }
+
+    @Override
+    public String toString() {
+        return "FileSelection{" + "file=" + file + ", extruder=" + extruder + ", material=" + material + '}';
+    }
 }

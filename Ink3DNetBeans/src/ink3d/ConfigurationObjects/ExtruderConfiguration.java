@@ -185,4 +185,9 @@ public class ExtruderConfiguration {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "ExtruderConfiguration{" + "name=" + name + ", extruderType=" + extruderType + ", nozzleDiameter=" + nozzleDiameter + ", headxOffset=" + headxOffset + ", headyOffset=" + headyOffset + ", headzOffset=" + headzOffset + ", xOffset=" + xOffset + ", yOffset=" + yOffset + ", zOffset=" + zOffset + '}';
+    }        
 }

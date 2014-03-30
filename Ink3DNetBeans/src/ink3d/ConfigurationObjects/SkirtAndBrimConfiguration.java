@@ -134,6 +134,11 @@ public class SkirtAndBrimConfiguration {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "SkirtAndBrimConfiguration{" + "name=" + name + ", skirtLoops=" + skirtLoops + ", skirtDistanceFromObject=" + skirtDistanceFromObject + ", skirtHeight=" + skirtHeight + ", skirtMinimumExtrusionLength=" + skirtMinimumExtrusionLength + ", brimWidth=" + brimWidth + '}';
+    }
     
     
 }

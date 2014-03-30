@@ -205,5 +205,10 @@ public class SupportMaterialConfiguration {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "SupportMaterialConfiguration{" + "name=" + name + ", generateSupportMaterial=" + generateSupportMaterial + ", overhangThreshold=" + overhangThreshold + ", enforceSupportForFirstNLayers=" + enforceSupportForFirstNLayers + ", raftLayers=" + raftLayers + ", supportMaterialPattern=" + supportMaterialPattern + ", supportPatternSpacing=" + supportPatternSpacing + ", supportPatternAngle=" + supportPatternAngle + ", interfaceLayers=" + interfaceLayers + ", interfacePatternSpacing=" + interfacePatternSpacing + '}';
+    }
     
 }

@@ -177,6 +177,11 @@ public class LayerAndPerimeterConfiguration {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "LayerAndPerimeterConfiguration{" + "name=" + name + ", layerHeight=" + layerHeight + ", firstLayerHeight=" + firstLayerHeight + ", perimeters=" + perimeters + ", randomizedStartingPoints=" + randomizedStartingPoints + ", generateExtraPerimetersWhenNeeded=" + generateExtraPerimetersWhenNeeded + ", solidTopLayers=" + solidTopLayers + ", solidBottomLayers=" + solidBottomLayers + '}';
+    }
     
     
 }

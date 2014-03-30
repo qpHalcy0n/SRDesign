@@ -47,6 +47,10 @@ public class SubsetSelection {
         this.topZ = topZ;
     }
 
+    public void setFileConfigurations(ArrayList<FileSelection> fileConfigurations) {
+        this.fileConfigurations = fileConfigurations;
+    }
+    
     public void setPrintConfiguration(String printConfiguration) {
         this.printConfiguration = printConfiguration;
     }
@@ -87,7 +91,5 @@ public class SubsetSelection {
     @Override
     public String toString() {
         return "SubsetSelection{" + "bottomZ=" + bottomZ + ", topZ=" + topZ + ", printConfiguration=" + printConfiguration + ", fileConfigurations=" + fileConfigurations + '}';
-    }
-    
-    
+    }    
 }
