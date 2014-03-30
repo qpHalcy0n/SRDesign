@@ -5,6 +5,31 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class SupportMaterialConfiguration {
+
+    public static final String DEFAULT_NAME = "Default";
+    public static final boolean DEFAULT_GENERATE_SUPPORT_MATERIAL = false;
+    public static final int DEFAULT_OVERHANG_THRESHOLD = 0;
+    public static final int DEFAULT_ENFORCE_SUPPORT_FOR_FIRST_N_LAYER = 0;
+    public static final int DEFAULT_RAFT_LAYERS = 0;
+    public static final String DEFAULT_SUPPORT_MATERIAL_PATTERN = "rectilinear";
+    public static final double DEFAULT_SUPPORT_PATTERN_SPACING = 2.5;
+    public static final int DEFAULT_SUPPORT_PATTERN_ANGLE = 0;
+    public static final int DEFAULT_INTERFACE_LAYERS = 0;
+    public static final double DEFAULT_INTERFACE_PATTERN_SPACING = 0.0;
+
+    public SupportMaterialConfiguration() {
+        name = DEFAULT_NAME;
+        generateSupportMaterial = DEFAULT_GENERATE_SUPPORT_MATERIAL;
+        overhangThreshold = DEFAULT_OVERHANG_THRESHOLD;
+        enforceSupportForFirstNLayers = DEFAULT_ENFORCE_SUPPORT_FOR_FIRST_N_LAYER;
+        raftLayers = DEFAULT_RAFT_LAYERS;
+        supportMaterialPattern = DEFAULT_SUPPORT_MATERIAL_PATTERN;
+        supportPatternSpacing = DEFAULT_SUPPORT_PATTERN_SPACING;
+        supportPatternAngle = DEFAULT_SUPPORT_PATTERN_ANGLE;
+        interfaceLayers = DEFAULT_INTERFACE_LAYERS;
+        interfacePatternSpacing = DEFAULT_INTERFACE_PATTERN_SPACING;
+    }
+
     private String name;
     /**
      * When set to true, G-code for support material will be generated.

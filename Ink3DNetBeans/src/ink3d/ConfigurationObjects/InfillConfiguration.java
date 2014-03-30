@@ -4,6 +4,34 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class InfillConfiguration {
+
+    public static final String DEFAULT_NAME = "Default";
+    public static final double DEFAULT_INFILL_DENSITY = 0.4;
+    public static final String DEFAULT_INFILL_PATTERN = "honeycomb";
+    public static final String DEFAULT_TOP_BOTTOM_INFILL_PATTERN = "rectilinear";
+    public static final int DEFAULT_INFILL_EVERY_N_LAYERS = 1;
+    public static final boolean DEFAULT_ONLY_INFILL_WHERE_NEEDED = false;
+    public static final int DEFAULT_SOLID_INFILL_EVERY_N_LAYERS = 0;
+    public static final int DEFAULT_INFILL_ANGLE = 45;
+    
+    // TODO:  Research if solidInfillThresholdArea needs to be floating point
+    public static final int DEFAULT_SOLID_INFILL_THRESHOLD_AREA = 70;
+    public static final boolean DEFAULT_ONLY_RETRACT_INFILL_WHEN_CROSSING_PERIMETERS = true;
+    public static final boolean DEFAULT_INFILL_BEFORE_PERIMETERS = false;
+
+    public InfillConfiguration() {
+        name = DEFAULT_NAME;
+        infillDensity = DEFAULT_INFILL_DENSITY;
+        infillPattern = DEFAULT_INFILL_PATTERN;
+        topBottomInfillPattern = DEFAULT_TOP_BOTTOM_INFILL_PATTERN;
+        infillEveryNLayers = DEFAULT_INFILL_EVERY_N_LAYERS;
+        onlyInfillWhereNeeded = DEFAULT_ONLY_INFILL_WHERE_NEEDED;
+        solidInfillEveryNLayers = DEFAULT_SOLID_INFILL_EVERY_N_LAYERS;
+        infillAngle = DEFAULT_INFILL_ANGLE;
+        solidInfillThresholdArea = DEFAULT_SOLID_INFILL_THRESHOLD_AREA;
+        onlyRetractInfillWhenCrossingPerimeters = DEFAULT_ONLY_RETRACT_INFILL_WHEN_CROSSING_PERIMETERS;
+    }
+
     private String name;
     /**
      * The density of infill from 0.0 - 1.0.  0.0 being no infill, 1.0 being a solid infill.

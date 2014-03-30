@@ -13,7 +13,11 @@ public class FileConfiguration {
     private String name;
     private File parentSTLFile;
     private File subsetSTL;
-
+    
+    /**
+     * Represents the extruder (it's position) that is responsible for this file
+     */
+    private int extruderNum;
     private ExtruderConfiguration extruderConfiguration;
     private MaterialConfiguration materialConfiguration;
 

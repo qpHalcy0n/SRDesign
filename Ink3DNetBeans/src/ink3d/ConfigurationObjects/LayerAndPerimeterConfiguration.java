@@ -4,6 +4,28 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class LayerAndPerimeterConfiguration {
+
+    public static final String DEFAULT_NAME = "Default";
+    public static final double DEFAULT_LAYER_HEIGHT = 0.4;
+    public static final double DEFAULT_FIRST_LAYER_HEIGHT = 0.35;
+    public static final int DEFAULT_PERIMETERS = 3;
+    public static final boolean DEFAULT_RANDOMIZE_STARTING_POINTS = false;
+    public static final boolean DEFAULT_GENERATE_EXTRA_PERIMETERS_WHERE_NEEDED = true;
+    public static final int DEFAULT_SOLID_TOP_LAYERS = 3;
+    public static final int DEFAULT_SOLID_BOTTOM_LAYERS = 3;
+
+    public LayerAndPerimeterConfiguration() {
+        name = DEFAULT_NAME;
+        layerHeight = DEFAULT_LAYER_HEIGHT;
+        firstLayerHeight = DEFAULT_FIRST_LAYER_HEIGHT;
+        perimeters = DEFAULT_PERIMETERS;
+        randomizedStartingPoints = DEFAULT_RANDOMIZE_STARTING_POINTS;
+        generateExtraPerimetersWhenNeeded = DEFAULT_GENERATE_EXTRA_PERIMETERS_WHERE_NEEDED;
+        solidTopLayers = DEFAULT_SOLID_TOP_LAYERS;
+        solidBottomLayers = DEFAULT_SOLID_BOTTOM_LAYERS;
+    }
+
+
 	// Layers and Perimeters
     private String name;
 	

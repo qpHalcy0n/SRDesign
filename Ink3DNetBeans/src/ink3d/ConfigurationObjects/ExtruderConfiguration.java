@@ -4,7 +4,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class ExtruderConfiguration {
-    
+
+    public static final String DEFAULT_NAME = "Default";
+    public static final String DEFAULT_EXTRUDER_TYPE = "";
+    public static final double DEFAULT_NOZZLE_DIAMETER = 0.5;
+    public static final double DEFAULT_HEAD_X_OFFSET = 0.0;
+    public static final double DEFAULT_HEAD_Y_OFFSET = 0.0;
+    public static final double DEFAULT_HEAD_Z_OFFSET = 0.0;
+    public static final double DEFAULT_X_OFFSET = 0.0;
+    public static final double DEFAULT_Y_OFFSET = 0.0;
+    public static final double DEFAULT_Z_OFFSET = 0.0;
+
+    public ExtruderConfiguration() {
+        name = DEFAULT_NAME;
+        extruderType = DEFAULT_EXTRUDER_TYPE;
+        nozzleDiameter = DEFAULT_NOZZLE_DIAMETER;
+        headxOffset = DEFAULT_HEAD_X_OFFSET;
+        headyOffset = DEFAULT_HEAD_Y_OFFSET;
+        headzOffset = DEFAULT_HEAD_Z_OFFSET;
+        xOffset = DEFAULT_X_OFFSET;
+        yOffset = DEFAULT_Y_OFFSET;
+        zOffset = DEFAULT_Z_OFFSET;
+    }
+
     private String name;
     /**
      * The type of extruder.

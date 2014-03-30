@@ -5,6 +5,43 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class SpeedConfiguration {
+
+    public static final String DEFAULT_NAME = "Default";
+    public static final double DEFAULT_PERIMETERS_SPEED = 30.0;
+    public static final double DEFAULT_SMALL_PERIMETERS_SPEED = 30.0;
+    public static final double DEFAULT_EXTERNAL_PERIMETERS_SPEED = 70.0;
+    public static final double DEFAULT_INFILL_SPEED = 60.0;
+    public static final double DEFAULT_SOLID_INFILL_SPEED = 60.0;
+    public static final double DEFAULT_TOP_SOLID_INFILL_SPEED = 50.0;
+    public static final double DEFAULT_SUPPORT_MATERIAL_SPEED = 60.0;
+    public static final double DEFAULT_BRIDGES_SPEED = 60.0;
+    public static final double DEFAULT_GAP_FILL_SPEED = 20.0;
+    public static final double DEFAULT_TRAVEL_SPEED = 120.0;
+    public static final double DEFAULT_FIRST_LAYER_SPEED = 30.0;
+    public static final double DEFAULT_PERIMETERS_ACCELERATION = 0.0;
+    public static final double DEFAULT_INFILL_ACCELERATION = 0.0;
+    public static final double DEFAULT_BRIDGE_ACCELERATION = 0.0;
+    public static final double DEFAULT_ACCELERATION = 0.0;
+    
+    public SpeedConfiguration() {
+        name = DEFAULT_NAME;
+        perimetersSpeed = DEFAULT_PERIMETERS_SPEED;
+        smallPerimetersSpeed = DEFAULT_SMALL_PERIMETERS_SPEED;
+        externalPerimetersSpeed = DEFAULT_EXTERNAL_PERIMETERS_SPEED;
+        infillSpeed = DEFAULT_INFILL_SPEED;
+        solidInfillSpeed = DEFAULT_SOLID_INFILL_SPEED;
+        topSolidInfillSpeed = DEFAULT_TOP_SOLID_INFILL_SPEED;
+        supportMaterialSpeed = DEFAULT_SUPPORT_MATERIAL_SPEED;
+        bridgesSpeed = DEFAULT_BRIDGES_SPEED;
+        gapFillSpeed = DEFAULT_GAP_FILL_SPEED;
+        nonPrintMovesSpeed = DEFAULT_TRAVEL_SPEED;
+        firstLayerSpeed = DEFAULT_FIRST_LAYER_SPEED;
+        perimetersAcceleration = DEFAULT_PERIMETERS_ACCELERATION;
+        infillAcceleration = DEFAULT_INFILL_ACCELERATION;
+        bridgeAcceleration = DEFAULT_BRIDGE_ACCELERATION;
+        defaultAcceleration = DEFAULT_ACCELERATION;
+    }
+
     private String name;
     /**
      * Speed for perimeters (mm/s)

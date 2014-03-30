@@ -105,9 +105,12 @@ public class Slic3rNormalizerImpl implements Normalizer {
                     String baseDir = new File("").getAbsolutePath();
                     String command = baseDir + File.separator + OPENSCAD_PATH + " -o " + "\"" + subsetStlFilename + "\" \"" + scadFile.getAbsolutePath() + "\"";
                     Process openScadProcess = Runtime.getRuntime().exec(command);
+                    // TODO:  Read output/error stream from process to find error messages.
+                    //        Problems can occur where Open SCAD cannot subset STL files
+                    //        properly (try to Feed Housing from 0-10 10-22).
+
                     // wait for open scad to finish processing before continuing
                     // TODO:  May want to optimize this in the future.
-                    // TODO:  Read output/error stream from process to find error messages.
                     openScadProcess.waitFor();
                     
                     // Create reference to file that Open Scad (should have) created

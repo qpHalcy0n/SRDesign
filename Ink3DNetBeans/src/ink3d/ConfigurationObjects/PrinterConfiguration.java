@@ -1,10 +1,36 @@
 package ink3d.ConfigurationObjects;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class PrinterConfiguration {
+    public static final String DEFAULT_NAME = "Default";
+    public static final double DEFAULT_BED_X = 200.0;
+    public static final double DEFAULT_BED_Y = 200.0;
+    public static final double DEFAULT_PRINT_CENTER_X = 100.0;
+    public static final double DEFAULT_PRINT_CENTER_Y = 100.0;
+    public static final double DEFAULT_Z_OFFSET = 0.0;
+    public static final String DEFAULT_GCODE_FLAVOR = "RepRap";
+    public static final boolean DEFAULT_USE_RELATIVE_E_DISTANCES = false;
+    public static final double DEFAULT_VIBRATION_LIMIT = 0.0;
+
+    public PrinterConfiguration() {
+        name = DEFAULT_NAME;
+        bedX = DEFAULT_BED_X;
+        bedY = DEFAULT_BED_Y;
+        printCenterX = DEFAULT_PRINT_CENTER_X;
+        printCenterY = DEFAULT_PRINT_CENTER_Y;
+        zOffset = DEFAULT_Z_OFFSET;
+        gCodeFlavor = DEFAULT_GCODE_FLAVOR;
+        useRelativeEDistances = DEFAULT_USE_RELATIVE_E_DISTANCES;
+        vibrationLimit = DEFAULT_VIBRATION_LIMIT;
+        extruderList = new ArrayList<ExtruderConfiguration>();
+        extruderList.add(new ExtruderConfiguration());
+    }
+
     private String name;
     /**
      * The max x of the bed.
@@ -53,6 +79,12 @@ public class PrinterConfiguration {
      * will slow.
      */
     private double vibrationLimit;
+
+    /**
+     * List of the extruders on the printer.  In order of where they
+     * are on the printer (i.e. extruderList[0] is T0).
+     */
+    private List<ExtruderConfiguration> extruderList;
 
     public double getBedX() {
         return bedX;
@@ -181,6 +213,20 @@ public class PrinterConfiguration {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return the extruderList
+     */
+    public List<ExtruderConfiguration> getExtruderList() {
+        return extruderList;
+    }
+
+    /**
+     * @param extruderList the extruderList to set
+     */
+    public void setExtruderList(List<ExtruderConfiguration> extruderList) {
+        this.extruderList = extruderList;
     }
     
     

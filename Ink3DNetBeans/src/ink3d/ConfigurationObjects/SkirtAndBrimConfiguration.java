@@ -5,6 +5,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class SkirtAndBrimConfiguration {
+    
+    public static final String DEFAULT_NAME = "Default";
+    public static final int DEFAULT_SKIRT_LOOPS = 1;
+    public static final double DEFAULT_SKIRT_DISTANCE_FROM_OBJECT = 6.0;
+    public static final int DEFAULT_SKIRT_HEIGHT = 1;
+    public static final double DEFAULT_SKIRT_MINIMUM_EXTRUSION_LENGTH = 0.0;
+    public static final double DEFAULT_BRIM_WIDTH = 0.0;
+
+    public SkirtAndBrimConfiguration() {
+        name = DEFAULT_NAME;
+        skirtLoops = DEFAULT_SKIRT_LOOPS;
+        skirtDistanceFromObject = DEFAULT_SKIRT_DISTANCE_FROM_OBJECT;
+        skirtHeight = DEFAULT_SKIRT_HEIGHT;
+        skirtMinimumExtrusionLength = DEFAULT_SKIRT_MINIMUM_EXTRUSION_LENGTH;
+        brimWidth = DEFAULT_BRIM_WIDTH;
+    }
+
     private String name;
 	
     /**
