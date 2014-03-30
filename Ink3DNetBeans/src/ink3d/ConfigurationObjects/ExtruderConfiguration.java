@@ -8,9 +8,8 @@ public class ExtruderConfiguration {
     public static final String DEFAULT_NAME = "Default";
     public static final String DEFAULT_EXTRUDER_TYPE = "";
     public static final double DEFAULT_NOZZLE_DIAMETER = 0.5;
-    public static final double DEFAULT_HEAD_X_OFFSET = 0.0;
-    public static final double DEFAULT_HEAD_Y_OFFSET = 0.0;
-    public static final double DEFAULT_HEAD_Z_OFFSET = 0.0;
+    public static final double DEFAULT_X_DIMENSION = 0.0;
+    public static final double DEFAULT_Y_DIMENSION = 0.0;
     public static final double DEFAULT_X_OFFSET = 0.0;
     public static final double DEFAULT_Y_OFFSET = 0.0;
     public static final double DEFAULT_Z_OFFSET = 0.0;
@@ -19,9 +18,8 @@ public class ExtruderConfiguration {
         name = DEFAULT_NAME;
         extruderType = DEFAULT_EXTRUDER_TYPE;
         nozzleDiameter = DEFAULT_NOZZLE_DIAMETER;
-        headxOffset = DEFAULT_HEAD_X_OFFSET;
-        headyOffset = DEFAULT_HEAD_Y_OFFSET;
-        headzOffset = DEFAULT_HEAD_Z_OFFSET;
+        xDimension = DEFAULT_X_DIMENSION;
+        yDimension = DEFAULT_Y_DIMENSION;
         xOffset = DEFAULT_X_OFFSET;
         yOffset = DEFAULT_Y_OFFSET;
         zOffset = DEFAULT_Z_OFFSET;
@@ -39,19 +37,14 @@ public class ExtruderConfiguration {
     private double nozzleDiameter;
 
     /**
-     * The x offset this extruder adds base for its neighbor.
-     */
-    private double headxOffset;
+    * The x dimension of the extruder.  Used to calculate true offsets.
+    */
+    private double xDimension;
 
     /**
-     * The y offset this extruder adds base for its neighbor.
+     * The y dimension of the extruder.  Used to calculate true offsets.
      */
-    private double headyOffset;
-
-    /**
-     * The z offset this extruder adds base for its neighbor.
-     */
-    private double headzOffset;
+    private double yDimension;
     
      /**
      * The x offset in respect to the current base.
@@ -68,17 +61,6 @@ public class ExtruderConfiguration {
      */
     private double zOffset;
 
-    public void setHeadxOffset(double headxOffset) {
-        this.headxOffset = headxOffset;
-    }
-
-    public void setHeadyOffset(double headyOffset) {
-        this.headyOffset = headyOffset;
-    }
-
-    public void setHeadzOffset(double headzOffset) {
-        this.headzOffset = headzOffset;
-    }
 
     public void setxOffset(double xOffset) {
         this.xOffset = xOffset;
@@ -102,18 +84,6 @@ public class ExtruderConfiguration {
 
     public void setNozzleDiameter(double nozzleDiameter) {
         this.nozzleDiameter = nozzleDiameter;
-    }
-
-    public double getHeadxOffset() {
-        return headxOffset;
-    }
-
-    public double getHeadyOffset() {
-        return headyOffset;
-    }
-
-    public double getHeadzOffset() {
-        return headzOffset;
     }
 
     public double getxOffset() {
@@ -165,13 +135,10 @@ public class ExtruderConfiguration {
         if (Double.doubleToLongBits(this.nozzleDiameter) != Double.doubleToLongBits(other.nozzleDiameter)) {
             return false;
         }
-        if (Double.doubleToLongBits(this.headxOffset) != Double.doubleToLongBits(other.headxOffset)) {
+        if (Double.doubleToLongBits(this.xDimension) != Double.doubleToLongBits(other.xDimension)) {
             return false;
         }
-        if (Double.doubleToLongBits(this.headyOffset) != Double.doubleToLongBits(other.headyOffset)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.headzOffset) != Double.doubleToLongBits(other.headzOffset)) {
+        if (Double.doubleToLongBits(this.yDimension) != Double.doubleToLongBits(other.yDimension)) {
             return false;
         }
         if (Double.doubleToLongBits(this.xOffset) != Double.doubleToLongBits(other.xOffset)) {
@@ -188,6 +155,6 @@ public class ExtruderConfiguration {
 
     @Override
     public String toString() {
-        return "ExtruderConfiguration{" + "name=" + name + ", extruderType=" + extruderType + ", nozzleDiameter=" + nozzleDiameter + ", headxOffset=" + headxOffset + ", headyOffset=" + headyOffset + ", headzOffset=" + headzOffset + ", xOffset=" + xOffset + ", yOffset=" + yOffset + ", zOffset=" + zOffset + '}';
+        return "ExtruderConfiguration{" + "name=" + name + ", extruderType=" + extruderType + ", nozzleDiameter=" + nozzleDiameter + ", xDimension=" + xDimension + ", yDimension=" + yDimension + ", xOffset=" + xOffset + ", yOffset=" + yOffset + ", zOffset=" + zOffset + '}';
     }        
 }
