@@ -45,24 +45,6 @@ public class GetMaterialConfigurationsCommandTest {
         
         SaveMaterialConfigurationCommand save;
         
-        SpeedConfiguration speed = new SpeedConfiguration();
-        speed.setBridgeAcceleration(.02);
-        speed.setBridgesSpeed(1.02);
-        speed.setDefaultAcceleration(.1);
-        speed.setExternalPerimetersSpeed(2.2);
-        speed.setFirstLayerSpeed(1.3);
-        speed.setGapFillSpeed(1.2);
-        speed.setInfillAcceleration(.3);
-        speed.setInfillSpeed(1.5);
-        speed.setName("GetMaterialTest.Speed");
-        speed.setNonPrintMovesSpeed(2.2);
-        speed.setPerimetersAcceleration(.5);
-        speed.setPerimetersSpeed(3.4);
-        speed.setSmallPerimetersSpeed(2.1);
-        speed.setSolidInfillSpeed(1.3);
-        speed.setSupportMaterialSpeed(3.4);
-        speed.setTopSolidInfillSpeed(2.63);
-        
         MaterialConfiguration material = new MaterialConfiguration();
         material.setName("GetMaterialTest1");
         material.setBridgeFanSpeedPercent(1);
@@ -87,7 +69,6 @@ public class GetMaterialConfigurationsCommandTest {
         material.setRetractionLiftZ(.2);
         material.setRetractionSpeed(12);
         material.setSlowDownTimeTreshold(13);
-        material.setSpeedConfiguration(speed);
         material.setWipeBeforeRetract(true);
         
         save = new SaveMaterialConfigurationCommand(material);

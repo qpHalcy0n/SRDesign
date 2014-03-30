@@ -30,11 +30,11 @@ public class GetExtruderConfigurationCommandTest {
     public void setup(){
         String xml="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                     "<extruder>\n" +
+                    "    <name>GetExtruderConfigurationTest</name>\n" +
                     "    <extruderType>ABS</extruderType>\n" +
                     "    <headxOffset>0.0</headxOffset>\n" +
                     "    <headyOffset>0.0</headyOffset>\n" +
                     "    <headzOffset>0.0</headzOffset>\n" +
-                    "    <name>GetExtruderConfigurationTest</name>\n" +
                     "    <nozzleDiameter>2.0</nozzleDiameter>\n" +
                     "    <xOffset>0.0</xOffset>\n" +
                     "    <yOffset>0.0</yOffset>\n" +

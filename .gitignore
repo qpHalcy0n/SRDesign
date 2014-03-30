@@ -215,3 +215,6 @@ pip-log.txt
 .mr.developer.cfg
 /Ink3DNetBeans/nbproject/private/
 Ink3DNetBeans/sub.amf
+Ink3DNetBeans/openscad-files/
+Ink3DNetBeans/stl-files/
+Ink3DNetBeans/Database/
