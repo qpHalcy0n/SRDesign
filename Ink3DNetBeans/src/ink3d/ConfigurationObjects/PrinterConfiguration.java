@@ -228,6 +228,11 @@ public class PrinterConfiguration {
     public void setExtruderList(List<ExtruderConfiguration> extruderList) {
         this.extruderList = extruderList;
     }
+
+    @Override
+    public String toString() {
+        return "PrinterConfiguration{" + "name=" + name + ", bedX=" + bedX + ", bedY=" + bedY + ", printCenterX=" + printCenterX + ", printCenterY=" + printCenterY + ", zOffset=" + zOffset + ", gCodeFlavor=" + gCodeFlavor + ", useRelativeEDistances=" + useRelativeEDistances + ", numExtruders=" + numExtruders + ", vibrationLimit=" + vibrationLimit + '}';
+    }
     
     
 }
