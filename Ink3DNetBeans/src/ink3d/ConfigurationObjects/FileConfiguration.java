@@ -104,5 +104,19 @@ public class FileConfiguration {
     public String toString() {
         return "FileConfiguration{" + "name=" + name + ", parentSTLFile=" + parentSTLFile + ", subsetSTL=" + subsetSTL + ", extruderConfiguration=" + extruderConfiguration + ", materialConfiguration=" + materialConfiguration + '}';
     }
+
+    /**
+     * @return the extruderNum
+     */
+    public int getExtruderNum() {
+        return extruderNum;
+    }
+
+    /**
+     * @param extruderNum the extruderNum to set
+     */
+    public void setExtruderNum(int extruderNum) {
+        this.extruderNum = extruderNum;
+    }
     
 }
