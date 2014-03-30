@@ -408,4 +408,10 @@ public class MaterialConfiguration {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "MaterialConfiguration{" + "name=" + name + ", speedConfiguration=" + speedConfiguration + ", filamentDiameter=" + filamentDiameter + ", extrusionMultiplier=" + extrusionMultiplier + ", firstLayerExtrusionTemperature=" + firstLayerExtrusionTemperature + ", extrusionTemperature=" + extrusionTemperature + ", retractionLength=" + retractionLength + ", retractionLiftZ=" + retractionLiftZ + ", retractionSpeed=" + retractionSpeed + ", extraLengthAfterRetraction=" + extraLengthAfterRetraction + ", minimumTravelAfterRetraction=" + minimumTravelAfterRetraction + ", retractOnLayerChange=" + retractOnLayerChange + ", wipeBeforeRetract=" + wipeBeforeRetract + ", retractionLengthBeforeToolChange=" + retractionLengthBeforeToolChange + ", extraLengthOnToolReenable=" + extraLengthOnToolReenable + ", fanAlwaysOn=" + fanAlwaysOn + ", enableAutoCooling=" + enableAutoCooling + ", minFanSpeed=" + minFanSpeed + ", maxFanSpeed=" + maxFanSpeed + ", bridgeFanSpeedPercent=" + bridgeFanSpeedPercent + ", disableFanForFirstNLayers=" + disableFanForFirstNLayers + ", enableFanTimeThreshold=" + enableFanTimeThreshold + ", slowDownTimeTreshold=" + slowDownTimeTreshold + ", minPrintSpeed=" + minPrintSpeed + '}';
+    }
+    
 }

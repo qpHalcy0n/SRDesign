@@ -11,6 +11,7 @@ public class PrintJobConfiguration {
     private String name;
     private PrinterConfiguration printerConfiguration;
     private List <SubsetConfiguration> subsetConfigurationList;
+    private List <ExtruderMaterialConfiguration> extruderMaterials;
 
     public PrintJobConfiguration() {
         this.name = "";
@@ -42,10 +43,21 @@ public class PrintJobConfiguration {
         this.name = name;
     }
 
+    public List<ExtruderMaterialConfiguration> getExtruderMaterials() {
+        return extruderMaterials;
+    }
+
+    public void setExtruderMaterials(List<ExtruderMaterialConfiguration> extruderMaterials) {
+        this.extruderMaterials = extruderMaterials;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 61 * hash + Objects.hashCode(this.name);
+        int hash = 5;
+        hash = 17 * hash + Objects.hashCode(this.name);
+        hash = 17 * hash + Objects.hashCode(this.printerConfiguration);
+        hash = 17 * hash + Objects.hashCode(this.subsetConfigurationList);
+        hash = 17 * hash + Objects.hashCode(this.extruderMaterials);
         return hash;
     }
 
@@ -67,7 +79,16 @@ public class PrintJobConfiguration {
         if (!Objects.equals(this.subsetConfigurationList, other.subsetConfigurationList)) {
             return false;
         }
+        if (!Objects.equals(this.extruderMaterials, other.extruderMaterials)) {
+            return false;
+        }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "PrintJobConfiguration{" + "name=" + name + ", printerConfiguration=" + printerConfiguration + ", subsetConfigurationList=" + subsetConfigurationList + ", extruderMaterials=" + extruderMaterials + '}';
+    }
+
     
 }

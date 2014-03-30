@@ -35,18 +35,18 @@ public class GetPrintJobSelectionCommandTest {
         subset1.setBottomZ(0);
         subset1.setPrintConfiguration(name+".Sub1.Print");
         subset1.setTopZ(1);
-        subset1.getFileConfigurations().add(new FileSelection("file1", "extruder1"));
-        subset1.getFileConfigurations().add(new FileSelection("file2", "extruder2"));
-        subset1.getFileConfigurations().add(new FileSelection("file3", "extruder3"));
+        subset1.getFileConfigurations().add(new FileSelection("extruder1", "material1", "file1"));
+        subset1.getFileConfigurations().add(new FileSelection("extruder2", "material2", "file2"));
+        subset1.getFileConfigurations().add(new FileSelection("extruder3", "material3", "file3"));
         
         SubsetSelection subset2 = new SubsetSelection();
         subset2.setBottomZ(1);
         subset2.setPrintConfiguration(name+".Sub2.Print");
         subset2.setTopZ(2);
         
-        subset2.getFileConfigurations().add(new FileSelection("file1", "extruder2"));
-        subset2.getFileConfigurations().add(new FileSelection("file2", "extruder3"));
-        subset2.getFileConfigurations().add(new FileSelection("file3", "extruder4"));
+        subset2.getFileConfigurations().add(new FileSelection("extruder2", "material2", "file1"));
+        subset2.getFileConfigurations().add(new FileSelection("extruder3", "material3", "file2"));
+        subset2.getFileConfigurations().add(new FileSelection("extruder1", "material1", "file3"));
         
         expected = new PrintJobSelection();
         expected.setName(name);

@@ -107,6 +107,11 @@ public class PrintConfiguration {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "PrintConfiguration{" + "name=" + name + ", infillConfiguration=" + infillConfiguration + ", layerPerimiterConfiguration=" + layerPerimiterConfiguration + ", speedConfiguration=" + speedConfiguration + ", skirtAndBrimConfiguration=" + skirtAndBrimConfiguration + ", supportMaterialConfiguration=" + supportMaterialConfiguration + '}';
+    }
     
     
 }

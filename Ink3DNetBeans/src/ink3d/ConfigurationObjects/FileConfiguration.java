@@ -95,4 +95,10 @@ public class FileConfiguration {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "FileConfiguration{" + "name=" + name + ", parentSTLFile=" + parentSTLFile + ", subsetSTL=" + subsetSTL + ", extruderConfiguration=" + extruderConfiguration + ", materialConfiguration=" + materialConfiguration + '}';
+    }
+    
 }

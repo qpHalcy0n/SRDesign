@@ -32,17 +32,17 @@ public class SavePrintJobSelectionCommandTest {
         subset1.setBottomZ(0);
         subset1.setPrintConfiguration("SaveTest.Sub1.Print");
         subset1.setTopZ(1);
-        subset1.getFileConfigurations().add(new FileSelection("file1", "extruder1"));
-        subset1.getFileConfigurations().add(new FileSelection("file2", "extruder2"));
-        subset1.getFileConfigurations().add(new FileSelection("file3", "extruder3"));
+        subset1.getFileConfigurations().add(new FileSelection("extruder1", "material1", "file1"));
+        subset1.getFileConfigurations().add(new FileSelection("extruder2", "material2", "file2"));
+        subset1.getFileConfigurations().add(new FileSelection("extruder3", "material3", "file3"));
         
         SubsetSelection subset2 = new SubsetSelection();
         subset2.setBottomZ(1);
         subset2.setPrintConfiguration("SaveTest.Sub2.Print");
         subset2.setTopZ(2);
-        subset2.getFileConfigurations().add(new FileSelection("file1", "extruder2"));
-        subset2.getFileConfigurations().add(new FileSelection("file2", "extruder3"));
-        subset2.getFileConfigurations().add(new FileSelection("file3", "extruder4"));
+        subset2.getFileConfigurations().add(new FileSelection("extruder2", "material2", "file1"));
+        subset2.getFileConfigurations().add(new FileSelection("extruder3", "material3", "file2"));
+        subset2.getFileConfigurations().add(new FileSelection("extruder1", "material1", "file3"));
         
         printJob = new PrintJobSelection();
         printJob.setName("SaveTest");
@@ -74,16 +74,19 @@ public class SavePrintJobSelectionCommandTest {
                     "        <topZ>1.0</topZ>\n" +
                     "        <printConfiguration>SaveTest.Sub1.Print</printConfiguration>\n" +
                     "        <fileSelection>\n" +
-                    "            <file>extruder1</file>\n" +
-                    "            <extruder>file1</extruder>\n" +
+                    "            <file>file1</file>\n" +
+                    "            <extruder>extruder1</extruder>\n" +
+                    "            <material>material1</material>\n" +
                     "        </fileSelection>\n" +
                     "        <fileSelection>\n" +
-                    "            <file>extruder2</file>\n" +
-                    "            <extruder>file2</extruder>\n" +
+                    "            <file>file2</file>\n" +
+                    "            <extruder>extruder2</extruder>\n" +
+                    "            <material>material2</material>\n" +
                     "        </fileSelection>\n" +
                     "        <fileSelection>\n" +
-                    "            <file>extruder3</file>\n" +
-                    "            <extruder>file3</extruder>\n" +
+                    "            <file>file3</file>\n" +
+                    "            <extruder>extruder3</extruder>\n" +
+                    "            <material>material3</material>\n" +
                     "        </fileSelection>\n" +
                     "    </subsetSelection>\n" +
                     "    <subsetSelection>\n" +
@@ -91,16 +94,19 @@ public class SavePrintJobSelectionCommandTest {
                     "        <topZ>2.0</topZ>\n" +
                     "        <printConfiguration>SaveTest.Sub2.Print</printConfiguration>\n" +
                     "        <fileSelection>\n" +
-                    "            <file>extruder2</file>\n" +
-                    "            <extruder>file1</extruder>\n" +
+                    "            <file>file1</file>\n" +
+                    "            <extruder>extruder2</extruder>\n" +
+                    "            <material>material2</material>\n" +
                     "        </fileSelection>\n" +
                     "        <fileSelection>\n" +
-                    "            <file>extruder3</file>\n" +
-                    "            <extruder>file2</extruder>\n" +
+                    "            <file>file2</file>\n" +
+                    "            <extruder>extruder3</extruder>\n" +
+                    "            <material>material3</material>\n" +
                     "        </fileSelection>\n" +
                     "        <fileSelection>\n" +
-                    "            <file>extruder4</file>\n" +
-                    "            <extruder>file3</extruder>\n" +
+                    "            <file>file3</file>\n" +
+                    "            <extruder>extruder1</extruder>\n" +
+                    "            <material>material1</material>\n" +
                     "        </fileSelection>\n" +
                     "    </subsetSelection>\n" +
                     "</printjob>";
@@ -110,7 +116,7 @@ public class SavePrintJobSelectionCommandTest {
     public void tearDown() {
         printJob = null;
         File file = new File("./Database/PrintJobs/SaveTest.xml");
-       file.delete();
+       //file.delete();
     }
 
     /**

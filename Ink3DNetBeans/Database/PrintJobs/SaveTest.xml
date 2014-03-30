@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<printjob>
+    <name>SaveTest</name>
+    <printerConfiguration>SaveTest.printer</printerConfiguration>
+    <extruderMarterial>
+        <extruder>extruder 1</extruder>
+        <material>material 1</material>
+    </extruderMarterial>
+    <extruderMarterial>
+        <extruder>extruder 2</extruder>
+        <material>material 1</material>
+    </extruderMarterial>
+    <extruderMarterial>
+        <extruder>extruder 3</extruder>
+        <material>material 2</material>
+    </extruderMarterial>
+    <subsetSelection>
+        <bottomZ>0.0</bottomZ>
+        <topZ>1.0</topZ>
+        <printConfiguration>SaveTest.Sub1.Print</printConfiguration>
+        <fileSelection>
+            <file>file1</file>
+            <extruder>extruder1</extruder>
+            <material>material1</material>
+        </fileSelection>
+        <fileSelection>
+            <file>file2</file>
+            <extruder>extruder2</extruder>
+            <material>material2</material>
+        </fileSelection>
+        <fileSelection>
+            <file>file3</file>
+            <extruder>extruder3</extruder>
+            <material>material3</material>
+        </fileSelection>
+    </subsetSelection>
+    <subsetSelection>
+        <bottomZ>1.0</bottomZ>
+        <topZ>2.0</topZ>
+        <printConfiguration>SaveTest.Sub2.Print</printConfiguration>
+        <fileSelection>
+            <file>file1</file>
+            <extruder>extruder2</extruder>
+            <material>material2</material>
+        </fileSelection>
+        <fileSelection>
+            <file>file2</file>
+            <extruder>extruder3</extruder>
+            <material>material3</material>
+        </fileSelection>
+        <fileSelection>
+            <file>file3</file>
+            <extruder>extruder1</extruder>
+            <material>material1</material>
+        </fileSelection>
+    </subsetSelection>
+</printjob>

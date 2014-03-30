@@ -109,6 +109,11 @@ public class SubsetConfiguration {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "SubsetConfiguration{" + "bottomZ=" + bottomZ + ", topZ=" + topZ + ", amfFile=" + amfFile + ", gCodeFile=" + gCodeFile + ", printConfiguration=" + printConfiguration + ", fileConfigurations=" + fileConfigurations + '}';
+    }
     
     
 }
