@@ -111,7 +111,6 @@ public class GetPrintJobConfigurationCommandTest {
         material.setRetractionLiftZ(.2);
         material.setRetractionSpeed(12);
         material.setSlowDownTimeTreshold(13);
-        material.setSpeedConfiguration(speed2);
         material.setWipeBeforeRetract(true);
         
         db.saveMaterialConfiguration(material);
