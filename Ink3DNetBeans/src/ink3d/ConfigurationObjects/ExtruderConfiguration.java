@@ -135,10 +135,10 @@ public class ExtruderConfiguration {
         if (Double.doubleToLongBits(this.nozzleDiameter) != Double.doubleToLongBits(other.nozzleDiameter)) {
             return false;
         }
-        if (Double.doubleToLongBits(this.xDimension) != Double.doubleToLongBits(other.xDimension)) {
+        if (Double.doubleToLongBits(this.getxDimension()) != Double.doubleToLongBits(other.getxDimension())) {
             return false;
         }
-        if (Double.doubleToLongBits(this.yDimension) != Double.doubleToLongBits(other.yDimension)) {
+        if (Double.doubleToLongBits(this.getyDimension()) != Double.doubleToLongBits(other.getyDimension())) {
             return false;
         }
         if (Double.doubleToLongBits(this.xOffset) != Double.doubleToLongBits(other.xOffset)) {
@@ -155,6 +155,34 @@ public class ExtruderConfiguration {
 
     @Override
     public String toString() {
-        return "ExtruderConfiguration{" + "name=" + name + ", extruderType=" + extruderType + ", nozzleDiameter=" + nozzleDiameter + ", xDimension=" + xDimension + ", yDimension=" + yDimension + ", xOffset=" + xOffset + ", yOffset=" + yOffset + ", zOffset=" + zOffset + '}';
+        return "ExtruderConfiguration{" + "name=" + name + ", extruderType=" + extruderType + ", nozzleDiameter=" + nozzleDiameter + ", xDimension=" + getxDimension() + ", yDimension=" + getyDimension() + ", xOffset=" + xOffset + ", yOffset=" + yOffset + ", zOffset=" + zOffset + '}';
     }        
+
+    /**
+     * @return the xDimension
+     */
+    public double getxDimension() {
+        return xDimension;
+    }
+
+    /**
+     * @param xDimension the xDimension to set
+     */
+    public void setxDimension(double xDimension) {
+        this.xDimension = xDimension;
+    }
+
+    /**
+     * @return the yDimension
+     */
+    public double getyDimension() {
+        return yDimension;
+    }
+
+    /**
+     * @param yDimension the yDimension to set
+     */
+    public void setyDimension(double yDimension) {
+        this.yDimension = yDimension;
+    }
 }
