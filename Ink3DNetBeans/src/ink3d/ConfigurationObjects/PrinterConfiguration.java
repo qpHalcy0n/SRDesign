@@ -28,7 +28,6 @@ public class PrinterConfiguration {
         useRelativeEDistances = DEFAULT_USE_RELATIVE_E_DISTANCES;
         vibrationLimit = DEFAULT_VIBRATION_LIMIT;
         extruderList = new ArrayList<ExtruderConfiguration>();
-        extruderList.add(new ExtruderConfiguration());
     }
 
     private String name;

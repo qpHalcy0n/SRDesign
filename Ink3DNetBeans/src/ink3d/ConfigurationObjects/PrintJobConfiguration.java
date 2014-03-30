@@ -11,12 +11,22 @@ public class PrintJobConfiguration {
     private String name;
     private PrinterConfiguration printerConfiguration;
     private List <SubsetConfiguration> subsetConfigurationList;
-    private List <ExtruderMaterialConfiguration> extruderMaterials;
+
+    /**
+     * Mapping of materials to extruders.
+     * i.e. extruderMaterials[0] is the material that is loaded into extruder 0
+     */
+    private List<MaterialConfiguration> extruderMaterials;
 
     public PrintJobConfiguration() {
         this.name = "";
         this.printerConfiguration = new PrinterConfiguration();
-        this.subsetConfigurationList = new ArrayList<>();
+        this.subsetConfigurationList = new ArrayList<SubsetConfiguration>();
+        this.extruderMaterials = new ArrayList<MaterialConfiguration>();
+    }
+
+    public MaterialConfiguration getMaterialForExtruderPosition(int i) {
+        return extruderMaterials.get(i);
     }
 
     public PrinterConfiguration getPrinterConfiguration() {
@@ -43,21 +53,13 @@ public class PrintJobConfiguration {
         this.name = name;
     }
 
-    public List<ExtruderMaterialConfiguration> getExtruderMaterials() {
-        return extruderMaterials;
-    }
-
-    public void setExtruderMaterials(List<ExtruderMaterialConfiguration> extruderMaterials) {
-        this.extruderMaterials = extruderMaterials;
-    }
-
     @Override
     public int hashCode() {
         int hash = 5;
         hash = 17 * hash + Objects.hashCode(this.name);
         hash = 17 * hash + Objects.hashCode(this.printerConfiguration);
         hash = 17 * hash + Objects.hashCode(this.subsetConfigurationList);
-        hash = 17 * hash + Objects.hashCode(this.extruderMaterials);
+        hash = 17 * hash + Objects.hashCode(this.getExtruderMaterials());
         return hash;
     }
 
@@ -87,7 +89,21 @@ public class PrintJobConfiguration {
 
     @Override
     public String toString() {
-        return "PrintJobConfiguration{" + "name=" + name + ", printerConfiguration=" + printerConfiguration + ", subsetConfigurationList=" + subsetConfigurationList + ", extruderMaterials=" + extruderMaterials + '}';
+        return "PrintJobConfiguration{" + "name=" + name + ", printerConfiguration=" + printerConfiguration + ", subsetConfigurationList=" + subsetConfigurationList + ", extruderMaterials=" + getExtruderMaterials() + '}';
+    }
+
+    /**
+     * @return the extruderMaterials
+     */
+    public List<MaterialConfiguration> getExtruderMaterials() {
+        return extruderMaterials;
+    }
+
+    /**
+     * @param extruderMaterials the extruderMaterials to set
+     */
+    public void setExtruderMaterials(List<MaterialConfiguration> extruderMaterials) {
+        this.extruderMaterials = extruderMaterials;
     }
 
     
