@@ -17,8 +17,13 @@ import ink3d.ConfigurationObjects.SkirtAndBrimConfiguration;
 import ink3d.ConfigurationObjects.SpeedConfiguration;
 import ink3d.ConfigurationObjects.SubsetConfiguration;
 import ink3d.ConfigurationObjects.SupportMaterialConfiguration;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -147,6 +152,11 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     public static String INFILL_EXTRUDER = "infill_extruder";
     public static String SUPPORT_MATERIAL_EXTRUDER = "support_material_extruder";
 
+    public static String SLIC3R_CONFIG_DIR = "slic3r-configs";
+    public static String GCODE_DIR = "gcode";
+    public static String GCODE_EXTENSION = ".gcode";
+    public static String CONFIG_EXTENSION = ".ini";
+
     private static String SLIC3R_PATH = "third_party" + File.separator 
             + "Slic3r" + File.separator + "slic3r_console.exe";
 
@@ -166,6 +176,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
         appendProperty(sb, VIBRATION_LIMIT, printerConfiguration.getVibrationLimit());
         appendProperty(sb, NOZZLE_DIAMTER, getNozzleDiameters(printerConfiguration.getExtruderList()));
 
+        int subsetNum = 0;
         // Append subset specific options
         for(SubsetConfiguration subset : printJobConfiguration.getSubsetConfigurationList()) {
             double zOffset = printerConfiguration.getzOffset() + subset.getBottomZ();
@@ -182,6 +193,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, EXTRUSION_MULTIPLIER, getExtrusionMultipliers(fileConfigs));
             appendProperty(sb, TEMPERATURE, getExtrusionTemperatures(fileConfigs));
             appendProperty(sb, FIRST_LAYER_TEMPERATURE, getFirstLayerTemperatures(fileConfigs));
+
             // TODO: Add bed temps
             // appendProperty(sb, BED_TEMPERATURE, );
 
@@ -217,14 +229,16 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, FILL_DENSITY, infill.getInfillDensity());
             appendProperty(sb, FILL_ANGLE, infill.getInfillAngle());
             appendProperty(sb, FILL_PATTERN, infill.getInfillPattern());
-            // TODO: appendProperty(sb, SOLID_FILL_PATTERN, infill.get);
+            appendProperty(sb, SOLID_FILL_PATTERN, infill.getTopBottomInfillPattern());
+
             // TODO: all the start/end gcodes
+
             appendProperty(sb, EXTRA_PERIMETERS, layerAndPerimeters.isGenerateExtraPerimetersWhenNeeded());
             appendProperty(sb, RANDOMIZE_START, layerAndPerimeters.isRandomizedStartingPoints());
-            appendProperty(sb, AVOID_CROSSING_PERIMETERS, infill.isOnlyRetractInfillWhenCrossingPerimeters());
-            // TODO: figure out what this is????
-            // appendProperty(sb, EXTERNAL_PERIMETERS_FIRST, infill.isInfillBeforePerimeters());
-            // appendProperty(sb, ONLY_RETRACT_WHEN_CROSSING_PERIMETERS, );
+
+            // TODO: Add "Advanced" Layers and Perimeters Options
+
+            appendProperty(sb, ONLY_RETRACT_WHEN_CROSSING_PERIMETERS, infill.isOnlyRetractInfillWhenCrossingPerimeters());
             appendProperty(sb, SOLID_INFILL_BELOW_AREA, infill.getSolidInfillThresholdArea());
             appendProperty(sb, INFILL_ONLY_WHERE_NEEDED, infill.isOnlyInfillWhereNeeded());
             appendProperty(sb, INFILL_FIRST, infill.isInfillBeforePerimeters());
@@ -252,7 +266,8 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, RETRACT_RESTART_EXTRA_TOOLCHANGE, getExtraAfterRetractToolchange(fileConfigs));
             
             // TODO:  Cooling Options
-            // appendProperty(sb, COOLING, );
+            //        Currently cooling options are tied to each material, but slic3r can only handle 
+            //        global cooling options.  We need to figure this out.
 
             //Skirt/Brim Options
             //TODO:  Make special case for first subset, then modify skirt
@@ -267,8 +282,72 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             // Multiple Extruder Options
             appendProperty(sb, EXTRUDER_OFFSET, getExtruderOffsets(printerConfiguration.getExtruderList()));
             //TODO: Handle Perimeter, Infill, and Support Extruder options
-        }
 
+            // Write to config file and create gcode file with Slic3r
+            try {
+                String baseDir = new File("").getAbsolutePath();
+
+                // Create config filename based on print job and subsection number
+                String configFilename =
+                        baseDir + File.separator + SLIC3R_CONFIG_DIR + File.separator
+                        + printJobConfiguration.getName() + File.separator
+                        + "subsets" + File.separator + "sub" + subsetNum + CONFIG_EXTENSION;
+
+                // Create directory for subset config files if one does not exist
+                File subsetConfigDir = new File(configFilename).getParentFile();
+                if(!subsetConfigDir.exists()) {
+                    boolean success = subsetConfigDir.mkdirs();
+                    if(!success) {
+                        throw new Exception("Could not create directory for subset config files.");
+                    }
+                }
+
+                // Create subset config file and write properties
+                File subsetConfigFile = new File(configFilename);
+                FileWriter fw = new FileWriter(subsetConfigFile);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(sb.toString());
+                bw.close();
+
+                // Create GCode directory if it does not exist
+                String gCodeFilename =
+                        baseDir + File.separator + GCODE_DIR + File.separator
+                        + printJobConfiguration.getName() + File.separator
+                        + "subsets" + File.separator + "sub" + subsetNum + GCODE_EXTENSION;
+                
+                File subsetGCodeDir = new File(gCodeFilename).getParentFile();
+                if(!subsetGCodeDir.exists()) {
+                    boolean success = subsetGCodeDir.mkdirs();
+                    if(!success) {
+                        throw new Exception("Could not create directory for subset G-Code files files.");
+                    }
+                }
+                String subsetAmfFilename = subset.getAmfFile().getAbsolutePath();
+                String command = baseDir + File.separator + SLIC3R_PATH
+                        + " " + "--load " + configFilename + " -o " 
+                        + gCodeFilename + " " + subsetAmfFilename;
+                Process slic3rProcess = Runtime.getRuntime().exec(command);
+                slic3rProcess.waitFor();
+
+                File subsetGCodeFile = new File(gCodeFilename);
+                if(subsetGCodeFile.exists()) {
+                    subset.setgCodeFile(subsetGCodeFile);
+                }
+                else {
+                    throw new Exception("Could not create G-Code file");
+                }
+            }
+            catch(IOException ex) {
+                Logger.getLogger(Slic3rSlicingEngineWrapperImpl.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Slic3rSlicingEngineWrapperImpl.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            } catch (Exception ex) {
+                Logger.getLogger(Slic3rSlicingEngineWrapperImpl.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
         return true;
     }
 
@@ -288,8 +367,6 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
         slic3rXOffsets[0] = 0.0;
         slic3rYOffsets[0] = 0.0;
         
-        double externalXOffset = 0.0;
-        double externalYOffset = 0.0;
         int i = 1;
         while(i < extruders.size()) {
             ExtruderConfiguration prevExtruder = extruders.get(i - 1);
