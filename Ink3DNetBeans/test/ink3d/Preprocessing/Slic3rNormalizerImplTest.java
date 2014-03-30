@@ -85,20 +85,38 @@ public class Slic3rNormalizerImplTest {
     @Test
     public void testTranslateFiles() {
         String basePath = new File("").getAbsolutePath();
-        String stlFilePath = basePath + TEST_FILE_DIR + "20mm-Basic-Cube-Solid.STL";
+        String stlFilePath_0 = basePath + File.separator + "test-files" + File.separator
+                + "file-translation" + File.separator + "stl" 
+                + File.separator + "Feed-Housing-sub0.stl";
+        String stlFilePath_1 = basePath + File.separator + "test-files" + File.separator  
+                + "file-translation" + File.separator + "stl" 
+                + File.separator + "Feed-Housing-sub1.stl";
         String materialName = "PLA";
 
         // Build Print Job Config
         MaterialConfiguration materialConfig = new MaterialConfiguration();
         materialConfig.setName(materialName);
-        FileConfiguration fileConfig = new FileConfiguration();
-        fileConfig.setSubsetSTL(new File(stlFilePath));
-        fileConfig.setMaterialConfiguration(materialConfig);
-        SubsetConfiguration subset = new SubsetConfiguration();
-        subset.getFileConfigurations().add(fileConfig);
+
+        FileConfiguration fileConfig_0 = new FileConfiguration();
+        fileConfig_0.setExtruderNum(0);
+        fileConfig_0.setSubsetSTL(new File(stlFilePath_0));
+        fileConfig_0.setMaterialConfiguration(materialConfig);
+
+        FileConfiguration fileConfig_1 = new FileConfiguration();
+        fileConfig_1.setExtruderNum(0);
+        fileConfig_1.setSubsetSTL(new File(stlFilePath_0));
+        fileConfig_1.setMaterialConfiguration(materialConfig);
+
+        SubsetConfiguration subset_0 = new SubsetConfiguration();
+        subset_0.getFileConfigurations().add(fileConfig_0);
+
+        SubsetConfiguration subset_1 = new SubsetConfiguration();
+        subset_1.getFileConfigurations().add(fileConfig_1);
+
         PrintJobConfiguration printJob = new PrintJobConfiguration();
-        printJob.setName("test print job");
-        printJob.getSubsetConfigurationList().add(subset);
+        printJob.setName("File Translation Test");
+        printJob.getSubsetConfigurationList().add(subset_0);
+        printJob.getSubsetConfigurationList().add(subset_1);
 
         Slic3rNormalizerImpl normalizer = new Slic3rNormalizerImpl();
         normalizer.translateFiles(printJob);
