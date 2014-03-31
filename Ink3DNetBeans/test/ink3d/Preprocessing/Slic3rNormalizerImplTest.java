@@ -26,12 +26,12 @@ public class Slic3rNormalizerImplTest {
     @Test
     public void testSubsectionFiles() {
         String basePath = new File("").getAbsolutePath();
-        String stlFilePath = basePath + TEST_FILE_DIR + "Feed-Housing.STL";
+        String stlFilePath = basePath + TEST_FILE_DIR + "20mm-Basic-Cube-Solid.STL";
         String materialName = "PLA";
         double bottomZ_0 = 0.0;
         double topZ_0 = 7.0;
         double bottomZ_1 = 7.0;
-        double topZ_1 = 22.0;
+        double topZ_1 = 20.0;
 
         // Build Print Job Config
         MaterialConfiguration materialConfig = new MaterialConfiguration();
@@ -104,7 +104,7 @@ public class Slic3rNormalizerImplTest {
 
         FileConfiguration fileConfig_1 = new FileConfiguration();
         fileConfig_1.setExtruderNum(0);
-        fileConfig_1.setSubsetSTL(new File(stlFilePath_0));
+        fileConfig_1.setSubsetSTL(new File(stlFilePath_1));
         fileConfig_1.setMaterialConfiguration(materialConfig);
 
         SubsetConfiguration subset_0 = new SubsetConfiguration();
@@ -114,7 +114,7 @@ public class Slic3rNormalizerImplTest {
         subset_1.getFileConfigurations().add(fileConfig_1);
 
         PrintJobConfiguration printJob = new PrintJobConfiguration();
-        printJob.setName("File Translation Test");
+        printJob.setName("Basic Cube File Translation Test");
         printJob.getSubsetConfigurationList().add(subset_0);
         printJob.getSubsetConfigurationList().add(subset_1);
 

@@ -10,6 +10,8 @@ import ink3d.ConfigurationObjects.FileConfiguration;
 import ink3d.ConfigurationObjects.MaterialConfiguration;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
 import ink3d.ConfigurationObjects.SubsetConfiguration;
+import ink3d.Util.IndexedSet;
+import ink3d.Util.Vertex;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -44,7 +46,7 @@ public class Slic3rNormalizerImpl implements Normalizer {
     private static final String TYPE_ATTR = "type";
     private static final String OBJECT_TAG = "object";
     private static final String MESH_TAG = "mesh";
-    private static final String VERTICIES_TAG = "verticies";
+    private static final String VERTICES_TAG = "vertices";
     private static final String VERTEX_TAG = "vertex";
     private static final String COORDS_TAG = "coordinates";
     private static final String X_TAG = "x";
@@ -277,10 +279,11 @@ public class Slic3rNormalizerImpl implements Normalizer {
                 // Add geometry data to AMF
                 Element objectElement = doc.createElement(OBJECT_TAG);
                 Element meshElement = doc.createElement(MESH_TAG);
-                Element verticiesElement = doc.createElement(VERTICIES_TAG);
+                Element verticiesElement = doc.createElement(VERTICES_TAG);
                 doc.appendChild(root);
                 root.appendChild(objectElement);
                 objectElement.appendChild(meshElement);
+                objectElement.setAttribute(ID_ATTR, "0");
                 meshElement.appendChild(verticiesElement);
 
                 materialCount = 1;
@@ -291,51 +294,55 @@ public class Slic3rNormalizerImpl implements Normalizer {
 
                     Element volumeElement = doc.createElement(VOLUME_TAG);
                     volumeElement.setAttribute(MATERIALID_ATTR, String.valueOf(materialCount));
-                    objectElement.appendChild(volumeElement);
+                    meshElement.appendChild(volumeElement);
                     materialCount++;
+
+                    int[][] faces = new int[numFacets[0]][];
                     
                     int vertCount = 0;
+                    IndexedSet<Vertex> vertices = new IndexedSet<Vertex>();
                     for(int i = 0; i < numFacets[0]; i++) {
                         Element triangleElement = doc.createElement(TRIANGE_TAG);
                         volumeElement.appendChild(triangleElement);
                         double[] normal = new double[3];
-                        double[][] verticies = new double[3][3];
-                        reader.getNextFacet(normal, verticies);
+                        double[][] faceVertices = new double[3][3];
+                        reader.getNextFacet(normal, faceVertices);
+
+                        int[] face = new int[3];
                         for(int j = 0; j < 3; j++) {
-                            double x = verticies[j][0];
-                            double y = verticies[j][1];
-                            double z = verticies[j][2];
+                            double x = faceVertices[j][0];
+                            double y = faceVertices[j][1];
+                            double z = faceVertices[j][2];
+                            Vertex vertex = new Vertex(x,y,z);
+                            if(!vertices.contains(vertex)) {
+                                vertices.add(vertex);
 
-                            // create XML elements for the verticies of the face
-                            Element vertexElement = doc.createElement(VERTEX_TAG);
-                            Element coordsElement = doc.createElement(COORDS_TAG);
-                            Element xElement = doc.createElement(X_TAG);
-                            Element yElement = doc.createElement(Y_TAG);
-                            Element zElement = doc.createElement(Z_TAG);
-                            xElement.appendChild(doc.createTextNode(String.valueOf(x)));
-                            yElement.appendChild(doc.createTextNode(String.valueOf(y)));
-                            zElement.appendChild(doc.createTextNode(String.valueOf(z)));
-                            coordsElement.appendChild(xElement);
-                            coordsElement.appendChild(yElement);
-                            coordsElement.appendChild(zElement);
-                            vertexElement.appendChild(coordsElement);
-                            verticiesElement.appendChild(vertexElement);
-
-                            // this is the number of vertex in the face
-                            // i.e. v1, v2, or v3
-                            int faceVertexNumber = j + 1;
+                                // create XML elements for the verticies of the face
+                                Element vertexElement = doc.createElement(VERTEX_TAG);
+                                Element coordsElement = doc.createElement(COORDS_TAG);
+                                Element xElement = doc.createElement(X_TAG);
+                                Element yElement = doc.createElement(Y_TAG);
+                                Element zElement = doc.createElement(Z_TAG);
+                                xElement.appendChild(doc.createTextNode(String.valueOf(x)));
+                                yElement.appendChild(doc.createTextNode(String.valueOf(y)));
+                                zElement.appendChild(doc.createTextNode(String.valueOf(z)));
+                                coordsElement.appendChild(xElement);
+                                coordsElement.appendChild(yElement);
+                                coordsElement.appendChild(zElement);
+                                vertexElement.appendChild(coordsElement);
+                                verticiesElement.appendChild(vertexElement);
+                            }
+                            // assign the vertex id to the face
+                            int vertexId = vertices.getIndexOf(vertex);
 
                             Element vElement = 
-                                    doc.createElement("v" + String.valueOf(faceVertexNumber));
+                                    doc.createElement("v" + String.valueOf(j + 1));
 
                             triangleElement.appendChild(vElement);
-                            vElement.appendChild(doc.createTextNode(String.valueOf(vertCount)));
-
-                            vertCount++;
+                            vElement.appendChild(doc.createTextNode(String.valueOf(vertexId)));
                         }
                     }
                 }
-
 
                 String baseDir = new File("").getAbsolutePath();
                 String amfFilename = baseDir +File.separator + AMF_DIR + File.separator 
