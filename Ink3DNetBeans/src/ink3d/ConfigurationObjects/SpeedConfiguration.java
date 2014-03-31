@@ -9,7 +9,7 @@ public class SpeedConfiguration {
     public static final String DEFAULT_NAME = "Default";
     public static final double DEFAULT_PERIMETERS_SPEED = 30.0;
     public static final double DEFAULT_SMALL_PERIMETERS_SPEED = 30.0;
-    public static final double DEFAULT_EXTERNAL_PERIMETERS_SPEED = 70.0;
+    public static final double DEFAULT_EXTERNAL_PERIMETERS_SPEED = 25.0;
     public static final double DEFAULT_INFILL_SPEED = 60.0;
     public static final double DEFAULT_SOLID_INFILL_SPEED = 60.0;
     public static final double DEFAULT_TOP_SOLID_INFILL_SPEED = 50.0;
@@ -17,7 +17,7 @@ public class SpeedConfiguration {
     public static final double DEFAULT_BRIDGES_SPEED = 60.0;
     public static final double DEFAULT_GAP_FILL_SPEED = 20.0;
     public static final double DEFAULT_TRAVEL_SPEED = 120.0;
-    public static final double DEFAULT_FIRST_LAYER_SPEED = 30.0;
+    public static final double DEFAULT_FIRST_LAYER_SPEED = 10.0;
     public static final double DEFAULT_PERIMETERS_ACCELERATION = 0.0;
     public static final double DEFAULT_INFILL_ACCELERATION = 0.0;
     public static final double DEFAULT_BRIDGE_ACCELERATION = 0.0;
