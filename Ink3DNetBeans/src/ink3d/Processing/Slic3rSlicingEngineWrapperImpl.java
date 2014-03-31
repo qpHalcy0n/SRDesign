@@ -37,7 +37,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     public static String GCODE_FLAVOR = "gcode_flavor";
     public static String USE_RELATIVE_E_DISTANCES = "use_relative_e_distances";
     public static String USE_FIRMWARE_RETRACTION = "use_firmware_retraction";
-    public static String VIBRATION_LIMIT = "print_center";
+    public static String VIBRATION_LIMIT = "vibration_limit";
     public static String NOZZLE_DIAMTER = "nozzle_diameter";
 
     // Filament/Material Settings
@@ -166,7 +166,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     public static String PERIMETER_EXTRUDER = "perimeter_extruder";
     public static String INFILL_EXTRUDER = "infill_extruder";
     public static String SUPPORT_MATERIAL_EXTRUDER = "support_material_extruder";
-    public static String SUPPORT_MATERIAL_INTERFACE_EXTRUDER = "perimeter_extruder";
+    public static String SUPPORT_MATERIAL_INTERFACE_EXTRUDER = "support_material_interface_extruder";
     public static String OOZE_PREVENTION = "ooze_prevention";
     public static String STANDBY_TEMPERATURE_DELTA = "standby_temperature_delta";
 
@@ -175,7 +175,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     public static String EXTRUDER_CLEARANCE_HEIGHT = "extruder_clearance_height";
     public static String EXTRUDER_CLEARANCE_RADIUS = "extruder_clearance_radius";
     public static String VERBOSE_GCODE = "gcode_comments";
-    public static String OUTPUT_FILE_FORMAT = "output_file_format";
+    public static String OUTPUT_FILENAME_FORMAT = "output_filename_format";
     public static String POST_PROCESSING_SCRIPTS = "post_process";
 
     // Other Options
@@ -305,7 +305,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, START_PERIMETERS_AT_CONCAVE, false);
             appendProperty(sb, START_PERIMETERS_AT_NONOVERHANGS, false);
             appendProperty(sb, DETECT_THIN_WALLS, true);
-            appendProperty(sb, DETECT_BRIDGING_PERIMETERS, true);
+            appendProperty(sb, DETECT_BRIDGING_PERIMETERS, false);
             // TODO: detect bridge perimeters
             // appendProperty(sb, , );
             appendProperty(sb, RANDOMIZE_START, layerAndPerimeters.isRandomizedStartingPoints());
@@ -379,7 +379,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, EXTRUDER_CLEARANCE_RADIUS, 20);
             appendProperty(sb, EXTRUDER_CLEARANCE_HEIGHT, 20);
             appendProperty(sb, VERBOSE_GCODE, false);
-            appendProperty(sb, OUTPUT_FILE_FORMAT, "[input_filename_base].gcode");
+            appendProperty(sb, OUTPUT_FILENAME_FORMAT, "[input_filename_base].gcode");
             appendProperty(sb, POST_PROCESSING_SCRIPTS, "");
 
             // Other Options
