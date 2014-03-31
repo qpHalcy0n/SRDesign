@@ -36,6 +36,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     public static String Z_OFFSET = "z_offset";
     public static String GCODE_FLAVOR = "gcode_flavor";
     public static String USE_RELATIVE_E_DISTANCES = "use_relative_e_distances";
+    public static String USE_FIRMWARE_RETRACTION = "use_firmware_retraction";
     public static String VIBRATION_LIMIT = "print_center";
     public static String NOZZLE_DIAMTER = "nozzle_diameter";
 
@@ -65,7 +66,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     public static String INFILL_ACCELERATION = "infill_acceleration";
     public static String BRIDGE_ACCELERATION = "bridge_acceleration";
     public static String DEFAULT_ACCELERATION = "default_acceleration";
-
+    public static String FIRST_LAYER_ACCELERATION = "first_layer_acceleration";
     // Accuracy Options
     public static String LAYER_HEIGHT = "layer_height";
     public static String FIRST_LAYER_HEIGHT = "first_layer_height";
@@ -74,6 +75,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
 
     // Print Options
     public static String PERIMETERS = "perimeters";
+    public static String SPIRAL_VASE = "spiral_vase";
     public static String TOP_SOLID_LAYERS = "top_solid_layers";
     public static String BOTTOM_SOLID_LAYERS = "bottom_solid_layers";
     public static String SOLID_LAYERS = "solid_layers";
@@ -93,6 +95,11 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     public static String SOLID_INFILL_BELOW_AREA = "solid_infill_below_area";
     public static String INFILL_ONLY_WHERE_NEEDED = "infill_only_where_needed";
     public static String INFILL_FIRST = "infill_first";
+
+    public static final String START_PERIMETERS_AT_CONCAVE = "start_perimeters_at_concave_points";
+    public static final String START_PERIMETERS_AT_NONOVERHANGS = "start_perimeters_at_non_overhang";
+    public static final String DETECT_THIN_WALLS = "thin_walls";
+    public static final String DETECT_BRIDGING_PERIMETERS = "overhangs";
 
     // Support Material Options
     public static String SUPPORT_MATERIAL = "support_material";
@@ -136,7 +143,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     public static String MIN_SKIRT_LENGTH = "min_skirt_length";
     public static String BRIM_WIDTH = "brim_width";
 
-    // Flow Options
+    // Extrusion Width Options
     public static String EXTRUSION_WIDTH = "extrusion_width";
     public static String FIRST_LAYER_EXTRUSION_WIDTH = "first_layer_extrusion_width";
     public static String PERIMETER_EXTRUSION_WIDTH = "perimeter_extrusion_width";
@@ -144,13 +151,42 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     public static String SOLID_INFILL_EXTRUSION_WIDTH = "solid_infill_extrusion_width";
     public static String TOP_INFILL_EXTRUSION_WIDTH = "top_infill_extrusion_width";
     public static String SUPPORT_MATERIAL_EXTRUSION_WIDTH = "support_material_extrusion_width";
+    public static String DEFAULT_EXTRUSION_WIDTH = "extrusion_width";
+    public static String PERIMETERS_EXTRUSION_WIDTH = "perimeter_extrusion_width";
+
+    // Flow Options 
     public static String BRIDGE_FLOW_RATIO = "bridge_flow_ratio";
+
+    // Advanced Options
+    public static String THREADS = "threads";
+    public static String RESOLUTION = "resolution";
 
     // Mulitple Extruder Options
     public static String EXTRUDER_OFFSET = "extruder_offset";
     public static String PERIMETER_EXTRUDER = "perimeter_extruder";
     public static String INFILL_EXTRUDER = "infill_extruder";
     public static String SUPPORT_MATERIAL_EXTRUDER = "support_material_extruder";
+    public static String SUPPORT_MATERIAL_INTERFACE_EXTRUDER = "perimeter_extruder";
+    public static String OOZE_PREVENTION = "ooze_prevention";
+    public static String STANDBY_TEMPERATURE_DELTA = "standby_temperature_delta";
+
+    // Output Options
+    public static String COMPLETE_OBJECTS = "complete_objects";
+    public static String EXTRUDER_CLEARANCE_HEIGHT = "extruder_clearance_height";
+    public static String EXTRUDER_CLEARANCE_RADIUS = "extruder_clearance_radius";
+    public static String VERBOSE_GCODE = "gcode_comments";
+    public static String OUTPUT_FILE_FORMAT = "output_file_format";
+    public static String POST_PROCESSING_SCRIPTS = "post_process";
+
+    // Other Options
+    public static String EXTRUSION_AXIS = "extrusion_axis";
+    public static String GCODE_ARCS = "gcode_arcs";
+    public static String G0 = "g0";
+    public static String ROTATE = "rotate";
+    public static String SCALE = "scale";
+    public static String DUPLICATE = "duplicate";
+    public static String DUPLICATE_DISTANCE = "duplicate_distance";
+    public static String DUPLICATE_GRID = "duplicate_grid";
 
     public static String SLIC3R_CONFIG_DIR = "slic3r-configs";
     public static String GCODE_DIR = "gcode";
@@ -175,6 +211,14 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
         appendProperty(sb, USE_RELATIVE_E_DISTANCES, printerConfiguration.isUseRelativeEDistances());
         appendProperty(sb, VIBRATION_LIMIT, printerConfiguration.getVibrationLimit());
         appendProperty(sb, NOZZLE_DIAMTER, getNozzleDiameters(printerConfiguration.getExtruderList()));
+        appendProperty(sb, USE_FIRMWARE_RETRACTION, false);
+        // Hardcode custom G-Code properties to empty (take care of this in post processing)
+        appendProperty(sb, START_GCODE, "");
+        appendProperty(sb, END_GCODE, "");
+        appendProperty(sb, TOOLCHANGE_GCODE, "");
+        appendProperty(sb, LAYER_GCODE, "");
+
+
 
         int subsetNum = 0;
         // Append subset specific options
@@ -195,7 +239,9 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, FIRST_LAYER_TEMPERATURE, getFirstLayerTemperatures(fileConfigs));
 
             // TODO: Add bed temps
-            // appendProperty(sb, BED_TEMPERATURE, );
+            // hardcoded for now
+            appendProperty(sb, BED_TEMPERATURE, 0);
+            appendProperty(sb, FIRST_LAYER_BED_TEMPERATURE, 0);
 
             // Speed Options
             appendProperty(sb, TRAVEL_SPEED, speed.getNonPrintMovesSpeed());
@@ -214,6 +260,8 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, PERIMETER_ACCELERATION, speed.getPerimetersAcceleration());
             appendProperty(sb, INFILL_ACCELERATION, speed.getInfillAcceleration());
             appendProperty(sb, BRIDGE_ACCELERATION, speed.getBridgeAcceleration());
+            // TODO: Fix hardcode
+            appendProperty(sb, FIRST_LAYER_ACCELERATION, 0);
             appendProperty(sb, DEFAULT_ACCELERATION, speed.getDefaultAcceleration());
 
             // Accuracy Options
@@ -223,6 +271,8 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, SOLID_INFILL_EVERY_LAYERS, infill.getSolidInfillEveryNLayers());
 
             // Print Options
+            // TODO: fix hardcode
+            appendProperty(sb, SPIRAL_VASE, false);
             appendProperty(sb, PERIMETERS, layerAndPerimeters.getPerimeters());
             appendProperty(sb, TOP_SOLID_LAYERS, layerAndPerimeters.getSolidTopLayers());
             appendProperty(sb, BOTTOM_SOLID_LAYERS, layerAndPerimeters.getSolidBottomLayers());
@@ -231,12 +281,35 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, FILL_PATTERN, infill.getInfillPattern());
             appendProperty(sb, SOLID_FILL_PATTERN, infill.getTopBottomInfillPattern());
 
+            // TODO:  Extrusion Width Options
+            // Hardcoded for now
+            appendProperty(sb, DEFAULT_EXTRUSION_WIDTH, 0);
+            appendProperty(sb, FIRST_LAYER_EXTRUSION_WIDTH, "200%");
+            appendProperty(sb, PERIMETERS_EXTRUSION_WIDTH, 0);
+            appendProperty(sb, INFILL_EXTRUSION_WIDTH, 0);
+            appendProperty(sb, SOLID_INFILL_EXTRUSION_WIDTH, 0);
+            appendProperty(sb, TOP_INFILL_EXTRUSION_WIDTH, 0);
+            appendProperty(sb, SUPPORT_MATERIAL_EXTRUSION_WIDTH, 0);
+            appendProperty(sb, BRIDGE_FLOW_RATIO, 1);
+
+            // Advanced Options
+            appendProperty(sb, THREADS, 2);
+            appendProperty(sb, RESOLUTION, 0);
+
             // TODO: all the start/end gcodes
 
+            // TODO: Layers and Perimeters -> Quality
+            // Hardcoded for now
             appendProperty(sb, EXTRA_PERIMETERS, layerAndPerimeters.isGenerateExtraPerimetersWhenNeeded());
+            appendProperty(sb, AVOID_CROSSING_PERIMETERS, false);
+            appendProperty(sb, START_PERIMETERS_AT_CONCAVE, false);
+            appendProperty(sb, START_PERIMETERS_AT_NONOVERHANGS, false);
+            appendProperty(sb, DETECT_THIN_WALLS, true);
+            appendProperty(sb, DETECT_BRIDGING_PERIMETERS, true);
+            // TODO: detect bridge perimeters
+            // appendProperty(sb, , );
             appendProperty(sb, RANDOMIZE_START, layerAndPerimeters.isRandomizedStartingPoints());
-
-            // TODO: Add "Advanced" Layers and Perimeters Options
+            appendProperty(sb, EXTERNAL_PERIMETERS_FIRST, false);
 
             appendProperty(sb, ONLY_RETRACT_WHEN_CROSSING_PERIMETERS, infill.isOnlyRetractInfillWhenCrossingPerimeters());
             appendProperty(sb, SOLID_INFILL_BELOW_AREA, infill.getSolidInfillThresholdArea());
@@ -268,6 +341,16 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             // TODO:  Cooling Options
             //        Currently cooling options are tied to each material, but slic3r can only handle 
             //        global cooling options.  We need to figure this out.
+            //        Hardcoded for now
+            appendProperty(sb, COOLING, true);
+            appendProperty(sb, FAN_ALWAYS_ON, false);
+            appendProperty(sb, MIN_FAN_SPEED, 35);
+            appendProperty(sb, MAX_FAN_SPEED, 100);
+            appendProperty(sb, BRIDGE_FAN_SPEED, 100);
+            appendProperty(sb, DISABLE_FAN_FIRST_LAYERS, 1);
+            appendProperty(sb, FAN_BELOW_LAYER_TIME, 60);
+            appendProperty(sb, SLOWDOWN_BELOW_LAYER_TIME, 30);
+            appendProperty(sb, MIN_PRINT_SPEED, 10);
 
             //Skirt/Brim Options
             //TODO:  Make special case for first subset, then modify skirt
@@ -280,8 +363,34 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, BRIM_WIDTH, skirtAndBrim.getBrimWidth());
 
             // Multiple Extruder Options
+            // TODO: replace hardcoding
             appendProperty(sb, EXTRUDER_OFFSET, getExtruderOffsets(printerConfiguration.getExtruderList()));
+            appendProperty(sb, PERIMETER_EXTRUDER, 0);
+            appendProperty(sb, INFILL_EXTRUDER, 0);
+            appendProperty(sb, SUPPORT_MATERIAL_EXTRUDER, 0);
+            appendProperty(sb, SUPPORT_MATERIAL_INTERFACE_EXTRUDER, 0);
+            appendProperty(sb, OOZE_PREVENTION, false);
+            appendProperty(sb, STANDBY_TEMPERATURE_DELTA, -5);
             //TODO: Handle Perimeter, Infill, and Support Extruder options
+
+            // Output Options
+            // Hardcoded for now
+            appendProperty(sb, COMPLETE_OBJECTS, false);
+            appendProperty(sb, EXTRUDER_CLEARANCE_RADIUS, 20);
+            appendProperty(sb, EXTRUDER_CLEARANCE_HEIGHT, 20);
+            appendProperty(sb, VERBOSE_GCODE, false);
+            appendProperty(sb, OUTPUT_FILE_FORMAT, "[input_filename_base].gcode");
+            appendProperty(sb, POST_PROCESSING_SCRIPTS, "");
+
+            // Other Options
+            appendProperty(sb, DUPLICATE, 1);
+            appendProperty(sb, DUPLICATE_DISTANCE, 6);
+            appendProperty(sb, DUPLICATE_GRID, "1,1");
+            appendProperty(sb, EXTRUSION_AXIS, "E");
+            appendProperty(sb, G0, 0);
+            appendProperty(sb, GCODE_ARCS, false);
+            appendProperty(sb, ROTATE, 0);
+            appendProperty(sb, SCALE, 1);
 
             // Write to config file and create gcode file with Slic3r
             try {
