@@ -352,6 +352,9 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
                 Logger.getLogger(Slic3rSlicingEngineWrapperImpl.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
             }
+
+            // increment subset number for naming files
+            subsetNum++;
         }
         return true;
     }
@@ -408,7 +411,6 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             i++;
         }
         sb.append(extruders.get(i).getNozzleDiameter());
-        sb.append("\n");
         return sb.toString();
     }
 
