@@ -38,6 +38,12 @@ public interface TXRX
     // Query whether printer feedback buffer has data
     public boolean isPrinterFeedbackReady();
     
-    // Pass G-Codes from serialization into communications
+    // Pass G-Codes from into communications
     public boolean addGcode(ArrayList<String> ppGcode);
+    
+    // Serialize data (do processing on g-codes)
+    public boolean serialize(String gCodeLine);
+    
+    // Deserialize data (process byte stream from printer)
+    public boolean deserialize(byte[] byteStream);
 }

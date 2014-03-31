@@ -146,6 +146,26 @@ public class TXRXImpl implements TXRX
         return true;
     }
     
+    /**
+     * This was originally intended to be its own module. In reality, the method is so simple, small, 
+     * and really just allows us to do any processing on g-codes that might need to happen based on the printer
+     * firmware. Therefore it is a function. For marlin nothing needs to happen at this point.
+     * @return boolean - success or failure of method
+     */
+    public boolean serialize(String gCodeLine)
+    {
+        return true;
+    }
+    
+    /**
+     * Same situation as serialize. In reality, this simply allows us to assemble the data into a readable type
+     * Does nothing for marlin as of yet.
+     * @return boolean - success or failure of method
+     */
+    public boolean deserialize(byte[] byteStream)
+    {
+        return true;
+    }
     
     /**
      * SerialPortReader defines the actions to be taken when the receive buffer becomes full
@@ -202,6 +222,9 @@ public class TXRXImpl implements TXRX
                     
                     for(int i = 0; i < nGCodes; ++i)
                     {
+                        // Serialize the data //
+                        serialize(gCodes.get(0));
+                        
                         // The index into the gCodes ArrayList will always be zero because we're removing
                         // at index 0 every time 
                         if(!serialPort.writeBytes(gCodes.get(0).toString().getBytes()))
