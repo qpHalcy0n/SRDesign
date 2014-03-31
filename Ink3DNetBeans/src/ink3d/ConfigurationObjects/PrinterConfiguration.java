@@ -13,7 +13,7 @@ public class PrinterConfiguration {
     public static final double DEFAULT_PRINT_CENTER_X = 100.0;
     public static final double DEFAULT_PRINT_CENTER_Y = 100.0;
     public static final double DEFAULT_Z_OFFSET = 0.0;
-    public static final String DEFAULT_GCODE_FLAVOR = "RepRap";
+    public static final String DEFAULT_GCODE_FLAVOR = "reprap";
     public static final boolean DEFAULT_USE_RELATIVE_E_DISTANCES = false;
     public static final double DEFAULT_VIBRATION_LIMIT = 0.0;
 
