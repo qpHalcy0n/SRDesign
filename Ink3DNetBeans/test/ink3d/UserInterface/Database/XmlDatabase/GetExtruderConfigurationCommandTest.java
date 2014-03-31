@@ -48,9 +48,6 @@ public class GetExtruderConfigurationCommandTest {
         expected.setxOffset(0);
         expected.setyOffset(0);
         expected.setzOffset(0);
-        expected.setHeadxOffset(0);
-        expected.setHeadyOffset(0);
-        expected.setHeadzOffset(0);
         
         
         PrintWriter writer;

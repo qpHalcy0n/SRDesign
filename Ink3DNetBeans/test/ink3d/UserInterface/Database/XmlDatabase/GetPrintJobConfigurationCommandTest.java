@@ -274,7 +274,6 @@ public class GetPrintJobConfigurationCommandTest {
         expected.setName("GetPrintJobTest");
         expected.setPrinterConfiguration(printer);
         expected.setSubsetConfigurationList(subsets);
-        expected.setExtruderMaterials(this.extruderMaterials);
         
         this.setupMaterialsSelection();
         this.setupSubsetSelection();
