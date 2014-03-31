@@ -217,12 +217,14 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
         appendProperty(sb, END_GCODE, "");
         appendProperty(sb, TOOLCHANGE_GCODE, "");
         appendProperty(sb, LAYER_GCODE, "");
+        appendProperty(sb, EXTRUDER_OFFSET, getExtruderOffsets(printerConfiguration.getExtruderList()));
 
 
 
         int subsetNum = 0;
+        List<SubsetConfiguration> subsets = printJobConfiguration.getSubsetConfigurationList();
         // Append subset specific options
-        for(SubsetConfiguration subset : printJobConfiguration.getSubsetConfigurationList()) {
+        for(SubsetConfiguration subset : subsets) {
             double zOffset = printerConfiguration.getzOffset() + subset.getBottomZ();
             List<FileConfiguration> fileConfigs = subset.getFileConfigurations();
             PrintConfiguration printConfig = subset.getPrintConfiguration();
@@ -231,17 +233,61 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             SkirtAndBrimConfiguration skirtAndBrim = printConfig.getSkirtAndBrimConfiguration();
             SpeedConfiguration speed = printConfig.getSpeedConfiguration();
             SupportMaterialConfiguration supportMaterial = printConfig.getSupportMaterialConfiguration();
+
+            // Special first subset options
+            if(subsetNum == 0) {
+                appendProperty(sb, FIRST_LAYER_TEMPERATURE, getFirstLayerTemperatures(fileConfigs));
+                appendProperty(sb, FIRST_LAYER_BED_TEMPERATURE, 0);
+                appendProperty(sb, FIRST_LAYER_SPEED, speed.getFirstLayerSpeed());
+                appendProperty(sb, FIRST_LAYER_ACCELERATION, 0);
+                appendProperty(sb, FIRST_LAYER_HEIGHT, layerAndPerimeters.getFirstLayerHeight());
+                appendProperty(sb, BOTTOM_SOLID_LAYERS, layerAndPerimeters.getSolidBottomLayers());
+                appendProperty(sb, FIRST_LAYER_EXTRUSION_WIDTH, "200%");
+                appendProperty(sb, DISABLE_FAN_FIRST_LAYERS, 1);
+                appendProperty(sb, SKIRTS, skirtAndBrim.getSkirtLoops());
+                appendProperty(sb, SKIRT_DISTANCE, skirtAndBrim.getSkirtDistanceFromObject());
+                appendProperty(sb, SKIRT_HEIGHT, skirtAndBrim.getSkirtHeight());
+                appendProperty(sb, MIN_SKIRT_LENGTH, skirtAndBrim.getSkirtMinimumExtrusionLength());
+                appendProperty(sb, BRIM_WIDTH, skirtAndBrim.getBrimWidth());
+            }
+            else {
+                appendProperty(sb, FIRST_LAYER_TEMPERATURE, getExtrusionTemperatures(fileConfigs));
+                appendProperty(sb, FIRST_LAYER_BED_TEMPERATURE, 0);
+                appendProperty(sb, FIRST_LAYER_SPEED, "100%");
+                appendProperty(sb, FIRST_LAYER_ACCELERATION, 0);
+                appendProperty(sb, FIRST_LAYER_HEIGHT, layerAndPerimeters.getLayerHeight());
+                appendProperty(sb, BOTTOM_SOLID_LAYERS, 0);
+                appendProperty(sb, FIRST_LAYER_EXTRUSION_WIDTH, "100%");
+                appendProperty(sb, DISABLE_FAN_FIRST_LAYERS, 0);
+                appendProperty(sb, SKIRTS, 0);
+                appendProperty(sb, SKIRT_DISTANCE, skirtAndBrim.getSkirtDistanceFromObject());
+                appendProperty(sb, SKIRT_HEIGHT, skirtAndBrim.getSkirtHeight());
+                appendProperty(sb, MIN_SKIRT_LENGTH, skirtAndBrim.getSkirtMinimumExtrusionLength());
+                appendProperty(sb, BRIM_WIDTH, 0);
+
+            }
+
+            // Special last subset options
+            if(subsetNum == subsets.size() - 1) {
+                appendProperty(sb, TOP_SOLID_INFILL_SPEED, speed.getTopSolidInfillSpeed());
+                appendProperty(sb, TOP_SOLID_LAYERS, layerAndPerimeters.getSolidTopLayers());
+                appendProperty(sb, TOP_INFILL_EXTRUSION_WIDTH, 0);
+            }
+            else {
+                appendProperty(sb, TOP_SOLID_INFILL_SPEED, speed.getSolidInfillSpeed());
+                appendProperty(sb, TOP_SOLID_LAYERS, 0);
+                appendProperty(sb, TOP_INFILL_EXTRUSION_WIDTH, 0);
+            }
+
             
             appendProperty(sb, Z_OFFSET, zOffset);
             appendProperty(sb, FILAMENT_DIAMTER, getFilamentDiameters(fileConfigs));
             appendProperty(sb, EXTRUSION_MULTIPLIER, getExtrusionMultipliers(fileConfigs));
             appendProperty(sb, TEMPERATURE, getExtrusionTemperatures(fileConfigs));
-            appendProperty(sb, FIRST_LAYER_TEMPERATURE, getFirstLayerTemperatures(fileConfigs));
 
             // TODO: Add bed temps
             // hardcoded for now
             appendProperty(sb, BED_TEMPERATURE, 0);
-            appendProperty(sb, FIRST_LAYER_BED_TEMPERATURE, 0);
 
             // Speed Options
             appendProperty(sb, TRAVEL_SPEED, speed.getNonPrintMovesSpeed());
@@ -250,23 +296,19 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, EXTERNAL_PERIMETER_SPEED, speed.getExternalPerimetersSpeed());
             appendProperty(sb, INFILL_SPEED, speed.getInfillSpeed());
             appendProperty(sb, SOLID_INFILL_SPEED, speed.getSolidInfillSpeed());
-            appendProperty(sb, TOP_SOLID_INFILL_SPEED, speed.getTopSolidInfillSpeed());
             appendProperty(sb, SUPPORT_MATERIAL_SPEED, speed.getSupportMaterialSpeed());
             appendProperty(sb, BRIDGE_SPEED, speed.getBridgesSpeed());
             appendProperty(sb, GAP_FILL_SPEED, speed.getGapFillSpeed());
-            appendProperty(sb, FIRST_LAYER_SPEED, speed.getFirstLayerSpeed());
 
             // Acceleration Options
             appendProperty(sb, PERIMETER_ACCELERATION, speed.getPerimetersAcceleration());
             appendProperty(sb, INFILL_ACCELERATION, speed.getInfillAcceleration());
             appendProperty(sb, BRIDGE_ACCELERATION, speed.getBridgeAcceleration());
             // TODO: Fix hardcode
-            appendProperty(sb, FIRST_LAYER_ACCELERATION, 0);
             appendProperty(sb, DEFAULT_ACCELERATION, speed.getDefaultAcceleration());
 
             // Accuracy Options
             appendProperty(sb, LAYER_HEIGHT, layerAndPerimeters.getLayerHeight());
-            appendProperty(sb, FIRST_LAYER_HEIGHT, layerAndPerimeters.getFirstLayerHeight());
             appendProperty(sb, INFILL_EVERY_LAYERS, infill.getInfillEveryNLayers());
             appendProperty(sb, SOLID_INFILL_EVERY_LAYERS, infill.getSolidInfillEveryNLayers());
 
@@ -274,8 +316,6 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             // TODO: fix hardcode
             appendProperty(sb, SPIRAL_VASE, false);
             appendProperty(sb, PERIMETERS, layerAndPerimeters.getPerimeters());
-            appendProperty(sb, TOP_SOLID_LAYERS, layerAndPerimeters.getSolidTopLayers());
-            appendProperty(sb, BOTTOM_SOLID_LAYERS, layerAndPerimeters.getSolidBottomLayers());
             appendProperty(sb, FILL_DENSITY, infill.getInfillDensity());
             appendProperty(sb, FILL_ANGLE, infill.getInfillAngle());
             appendProperty(sb, FILL_PATTERN, infill.getInfillPattern());
@@ -284,19 +324,15 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             // TODO:  Extrusion Width Options
             // Hardcoded for now
             appendProperty(sb, DEFAULT_EXTRUSION_WIDTH, 0);
-            appendProperty(sb, FIRST_LAYER_EXTRUSION_WIDTH, "200%");
             appendProperty(sb, PERIMETERS_EXTRUSION_WIDTH, 0);
             appendProperty(sb, INFILL_EXTRUSION_WIDTH, 0);
             appendProperty(sb, SOLID_INFILL_EXTRUSION_WIDTH, 0);
-            appendProperty(sb, TOP_INFILL_EXTRUSION_WIDTH, 0);
             appendProperty(sb, SUPPORT_MATERIAL_EXTRUSION_WIDTH, 0);
             appendProperty(sb, BRIDGE_FLOW_RATIO, 1);
 
             // Advanced Options
             appendProperty(sb, THREADS, 2);
             appendProperty(sb, RESOLUTION, 0);
-
-            // TODO: all the start/end gcodes
 
             // TODO: Layers and Perimeters -> Quality
             // Hardcoded for now
@@ -347,24 +383,12 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, MIN_FAN_SPEED, 35);
             appendProperty(sb, MAX_FAN_SPEED, 100);
             appendProperty(sb, BRIDGE_FAN_SPEED, 100);
-            appendProperty(sb, DISABLE_FAN_FIRST_LAYERS, 1);
             appendProperty(sb, FAN_BELOW_LAYER_TIME, 60);
             appendProperty(sb, SLOWDOWN_BELOW_LAYER_TIME, 30);
             appendProperty(sb, MIN_PRINT_SPEED, 10);
 
-            //Skirt/Brim Options
-            //TODO:  Make special case for first subset, then modify skirt
-            //       for the rest of the subsets based on dimensions of subset
-            //       vs. the object as a whole.
-            appendProperty(sb, SKIRTS, skirtAndBrim.getSkirtLoops());
-            appendProperty(sb, SKIRT_DISTANCE, skirtAndBrim.getSkirtDistanceFromObject());
-            appendProperty(sb, SKIRT_HEIGHT, skirtAndBrim.getSkirtHeight());
-            appendProperty(sb, MIN_SKIRT_LENGTH, skirtAndBrim.getSkirtMinimumExtrusionLength());
-            appendProperty(sb, BRIM_WIDTH, skirtAndBrim.getBrimWidth());
-
             // Multiple Extruder Options
             // TODO: replace hardcoding
-            appendProperty(sb, EXTRUDER_OFFSET, getExtruderOffsets(printerConfiguration.getExtruderList()));
             appendProperty(sb, PERIMETER_EXTRUDER, 0);
             appendProperty(sb, INFILL_EXTRUDER, 0);
             appendProperty(sb, SUPPORT_MATERIAL_EXTRUDER, 0);

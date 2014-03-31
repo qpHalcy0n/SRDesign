@@ -42,10 +42,12 @@ public class Slic3rSlicingEngineWrapperImplTest {
         SubsetConfiguration subset0 = new SubsetConfiguration();
         subset0.setAmfFile(new File(subset0AmfFilename));
         subset0.getFileConfigurations().add(fileConfig);
+        subset0.setBottomZ(0.0);
 
         SubsetConfiguration subset1 = new SubsetConfiguration();
         subset1.setAmfFile(new File(subset1AmfFilename));
         subset1.getFileConfigurations().add(fileConfig);
+        subset1.setBottomZ(7.0);
 
         printJobConfiguration.getSubsetConfigurationList().add(subset0);
         printJobConfiguration.getSubsetConfigurationList().add(subset1);
