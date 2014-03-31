@@ -116,7 +116,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
 
     // Retract Options for Multi_Extruder Setup
     public static String RETRACT_LENGTH_TOOLCHANGE = "retract_length_toolchange";
-    public static String RETRACT_RESTART_EXTRA_TOOLCHANGE = "retract_restart_extra_toolchnage";
+    public static String RETRACT_RESTART_EXTRA_TOOLCHANGE = "retract_restart_extra_toolchange";
 
     // Cooling Options
     public static String COOLING = "cooling";
@@ -157,8 +157,8 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     public static String GCODE_EXTENSION = ".gcode";
     public static String CONFIG_EXTENSION = ".ini";
 
-    private static String SLIC3R_PATH = "third_party" + File.separator 
-            + "Slic3r" + File.separator + "slic3r_console.exe";
+    private static String SLIC3R_PATH = "third-party" + File.separator 
+            + "Slic3r" + File.separator + "slic3r-console.exe";
 
     @Override
     public boolean generateGCode(PrintJobConfiguration printJobConfiguration) {
@@ -314,6 +314,8 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
                         baseDir + File.separator + GCODE_DIR + File.separator
                         + printJobConfiguration.getName() + File.separator
                         + "subsets" + File.separator + "sub" + subsetNum + GCODE_EXTENSION;
+
+                System.out.println("gCodeFilename = " + gCodeFilename);
                 
                 File subsetGCodeDir = new File(gCodeFilename).getParentFile();
                 if(!subsetGCodeDir.exists()) {
@@ -324,8 +326,11 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
                 }
                 String subsetAmfFilename = subset.getAmfFile().getAbsolutePath();
                 String command = baseDir + File.separator + SLIC3R_PATH
-                        + " " + "--load " + configFilename + " -o " 
-                        + gCodeFilename + " " + subsetAmfFilename;
+                        + " " + "--load \"" + configFilename + "\" --output \"" 
+                        + gCodeFilename + "\" " + subsetAmfFilename;
+
+                System.out.println(command);
+                
                 Process slic3rProcess = Runtime.getRuntime().exec(command);
                 slic3rProcess.waitFor();
 
@@ -411,7 +416,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     private String getFilamentDiameters(List<FileConfiguration> fileConfigs) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size()) {
+        while(i < fileConfigs.size() - 1) {
             sb.append(fileConfigs.get(i).getMaterialConfiguration().getFilamentDiameter())
               .append(",");
             i++;
@@ -423,7 +428,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     private String getExtrusionMultipliers(List<FileConfiguration> fileConfigs) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size()) {
+        while(i < fileConfigs.size() - 1) {
             sb.append(fileConfigs.get(i).getMaterialConfiguration().getExtrusionMultiplier())
               .append(",");
             i++;
@@ -435,7 +440,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     private String getFirstLayerTemperatures(List<FileConfiguration> fileConfigs) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size()) {
+        while(i < fileConfigs.size() - 1) {
             sb.append(fileConfigs.get(i).getMaterialConfiguration().getFirstLayerExtrusionTemperature())
               .append(",");
             i++;
@@ -447,7 +452,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     private String getExtrusionTemperatures(List<FileConfiguration> fileConfigs) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size()) {
+        while(i < fileConfigs.size() - 1) {
             sb.append(fileConfigs.get(i).getMaterialConfiguration().getExtrusionTemperature())
               .append(",");
             i++;
@@ -459,7 +464,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     private String getRetractBeforeTravelValues(List<FileConfiguration> fileConfigs) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size()) {
+        while(i < fileConfigs.size() - 1) {
             sb.append(fileConfigs.get(i).getMaterialConfiguration().getMinimumTravelAfterRetraction())
               .append(",");
             i++;
@@ -471,7 +476,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     private String getRetractOnLayerChangeValues(List<FileConfiguration> fileConfigs) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size()) {
+        while(i < fileConfigs.size() - 1) {
             sb.append(fileConfigs.get(i).getMaterialConfiguration().isRetractOnLayerChange() ? "1" : "0")
               .append(",");
             i++;
@@ -483,7 +488,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     private String getRetractLengths(List<FileConfiguration> fileConfigs) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size()) {
+        while(i < fileConfigs.size() - 1) {
             sb.append(fileConfigs.get(i).getMaterialConfiguration().getRetractionLength())
               .append(",");
             i++;
@@ -495,7 +500,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     private String getRetractBeforeToolChange(List<FileConfiguration> fileConfigs) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size()) {
+        while(i < fileConfigs.size() - 1) {
             sb.append(fileConfigs.get(i).getMaterialConfiguration().getRetractionLengthBeforeToolChange())
               .append(",");
             i++;
@@ -507,7 +512,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     private String getRetractLifts(List<FileConfiguration> fileConfigs) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size()) {
+        while(i < fileConfigs.size() - 1) {
             sb.append(fileConfigs.get(i).getMaterialConfiguration().getRetractionLiftZ())
               .append(",");
             i++;
@@ -519,7 +524,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     private String getExtraAfterRetracts(List<FileConfiguration> fileConfigs) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size()) {
+        while(i < fileConfigs.size() - 1) {
             sb.append(fileConfigs.get(i).getMaterialConfiguration().getExtraLengthAfterRetraction())
               .append(",");
             i++;
@@ -531,7 +536,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     private String getExtraAfterRetractToolchange(List<FileConfiguration> fileConfigs) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size()) {
+        while(i < fileConfigs.size() - 1) {
             sb.append(fileConfigs.get(i).getMaterialConfiguration().getExtraLengthOnToolReenable())
               .append(",");
             i++;
@@ -543,7 +548,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     private String getRetractSpeeds(List<FileConfiguration> fileConfigs) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size()) {
+        while(i < fileConfigs.size() - 1) {
             sb.append(fileConfigs.get(i).getMaterialConfiguration().getRetractionSpeed())
               .append(",");
             i++;
@@ -555,7 +560,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     private String getWipeBeforeRetract(List<FileConfiguration> fileConfigs) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size()) {
+        while(i < fileConfigs.size() - 1) {
             sb.append(fileConfigs.get(i).getMaterialConfiguration().isWipeBeforeRetract() ? "1" : "0")
               .append(",");
             i++;
