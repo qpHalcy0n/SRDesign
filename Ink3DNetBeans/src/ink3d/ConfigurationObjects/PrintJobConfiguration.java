@@ -15,6 +15,7 @@ public class PrintJobConfiguration {
     public static final double DEFAULT_TEMPERATURE_DELTA = -5.0;
     public static final double DEFAULT_EXTRUDER_CLEARANCE_RADIUS = 20.0;
     public static final double DEFAULT_EXTRUDER_CLEARANCE_HEIGHT = 20.0;
+    public static final boolean DEFAULT_VERBOSE_GCODE = false;
 
     private String name;
     private PrinterConfiguration printerConfiguration;
@@ -24,6 +25,7 @@ public class PrintJobConfiguration {
     private double temperatureDelta;
     private double extruderClearanceRadius;
     private double extruderClearanceHeight;
+    private boolean verboseGCode;
     private File finalizedGCode;
 
 
@@ -43,6 +45,7 @@ public class PrintJobConfiguration {
         this.temperatureDelta = DEFAULT_TEMPERATURE_DELTA;
         this.extruderClearanceRadius = DEFAULT_EXTRUDER_CLEARANCE_RADIUS;
         this.extruderClearanceHeight = DEFAULT_EXTRUDER_CLEARANCE_HEIGHT;
+        this.verboseGCode = DEFAULT_VERBOSE_GCODE;
     }
 
     public MaterialConfiguration getMaterialForExtruderPosition(int i) {
@@ -208,6 +211,20 @@ public class PrintJobConfiguration {
      */
     public void setCompleteIndividualObjects(boolean completeIndividualObjects) {
         this.completeIndividualObjects = completeIndividualObjects;
+    }
+
+    /**
+     * @return the verboseGCode
+     */
+    public boolean isVerboseGCode() {
+        return verboseGCode;
+    }
+
+    /**
+     * @param verboseGCode the verboseGCode to set
+     */
+    public void setVerboseGCode(boolean verboseGCode) {
+        this.verboseGCode = verboseGCode;
     }
 
     
