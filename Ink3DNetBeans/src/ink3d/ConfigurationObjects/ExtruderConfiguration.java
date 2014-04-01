@@ -13,6 +13,8 @@ public class ExtruderConfiguration {
     public static final double DEFAULT_X_OFFSET = 0.0;
     public static final double DEFAULT_Y_OFFSET = 0.0;
     public static final double DEFAULT_Z_OFFSET = 0.0;
+    public static final String DEFAULT_START_GCODE = "";
+    public static final String DEFAULT_END_GCODE = "";
 
     public ExtruderConfiguration() {
         name = DEFAULT_NAME;
@@ -23,6 +25,8 @@ public class ExtruderConfiguration {
         xOffset = DEFAULT_X_OFFSET;
         yOffset = DEFAULT_Y_OFFSET;
         zOffset = DEFAULT_Z_OFFSET;
+        startGCode = DEFAULT_START_GCODE;
+        endGCode = DEFAULT_END_GCODE;
     }
 
     private String name;
@@ -61,6 +65,8 @@ public class ExtruderConfiguration {
      */
     private double zOffset;
 
+    private String startGCode;
+    private String endGCode;
 
     public void setxOffset(double xOffset) {
         this.xOffset = xOffset;
@@ -184,5 +190,33 @@ public class ExtruderConfiguration {
      */
     public void setyDimension(double yDimension) {
         this.yDimension = yDimension;
+    }
+
+    /**
+     * @return the startGCode
+     */
+    public String getStartGCode() {
+        return startGCode;
+    }
+
+    /**
+     * @param startGCode the startGCode to set
+     */
+    public void setStartGCode(String startGCode) {
+        this.startGCode = startGCode;
+    }
+
+    /**
+     * @return the endGCode
+     */
+    public String getEndGCode() {
+        return endGCode;
+    }
+
+    /**
+     * @param endGCode the endGCode to set
+     */
+    public void setEndGCode(String endGCode) {
+        this.endGCode = endGCode;
     }
 }

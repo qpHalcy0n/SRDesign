@@ -15,7 +15,10 @@ public class PrinterConfiguration {
     public static final double DEFAULT_Z_OFFSET = 0.0;
     public static final String DEFAULT_GCODE_FLAVOR = "reprap";
     public static final boolean DEFAULT_USE_RELATIVE_E_DISTANCES = false;
+    public static final boolean DEFAULT_USE_FIRMWARE_RETRACTION = false;
     public static final double DEFAULT_VIBRATION_LIMIT = 0.0;
+    public static final String DEFAULT_START_GCODE = "";
+    public static final String DEFAULT_END_GCODE = "";
 
     public PrinterConfiguration() {
         name = DEFAULT_NAME;
@@ -27,6 +30,9 @@ public class PrinterConfiguration {
         gCodeFlavor = DEFAULT_GCODE_FLAVOR;
         useRelativeEDistances = DEFAULT_USE_RELATIVE_E_DISTANCES;
         vibrationLimit = DEFAULT_VIBRATION_LIMIT;
+        useFirmwareRetraction = DEFAULT_USE_FIRMWARE_RETRACTION;
+        startGCode = DEFAULT_START_GCODE;
+        endGCode = DEFAULT_END_GCODE;
         extruderList = new ArrayList<ExtruderConfiguration>();
     }
 
@@ -78,6 +84,10 @@ public class PrinterConfiguration {
      * will slow.
      */
     private double vibrationLimit;
+
+    private boolean useFirmwareRetraction;
+    private String startGCode;
+    private String endGCode;
 
     /**
      * List of the extruders on the printer.  In order of where they
@@ -231,6 +241,48 @@ public class PrinterConfiguration {
     @Override
     public String toString() {
         return "PrinterConfiguration{" + "name=" + name + ", bedX=" + bedX + ", bedY=" + bedY + ", printCenterX=" + printCenterX + ", printCenterY=" + printCenterY + ", zOffset=" + zOffset + ", gCodeFlavor=" + gCodeFlavor + ", useRelativeEDistances=" + useRelativeEDistances + ", numExtruders=" + numExtruders + ", vibrationLimit=" + vibrationLimit + '}';
+    }
+
+    /**
+     * @return the startGCode
+     */
+    public String getStartGCode() {
+        return startGCode;
+    }
+
+    /**
+     * @param startGCode the startGCode to set
+     */
+    public void setStartGCode(String startGCode) {
+        this.startGCode = startGCode;
+    }
+
+    /**
+     * @return the endGCode
+     */
+    public String getEndGCode() {
+        return endGCode;
+    }
+
+    /**
+     * @param endGCode the endGCode to set
+     */
+    public void setEndGCode(String endGCode) {
+        this.endGCode = endGCode;
+    }
+
+    /**
+     * @return the useFirmwareRetraction
+     */
+    public boolean isUseFirmwareRetraction() {
+        return useFirmwareRetraction;
+    }
+
+    /**
+     * @param useFirmwareRetraction the useFirmwareRetraction to set
+     */
+    public void setUseFirmwareRetraction(boolean useFirmwareRetraction) {
+        this.useFirmwareRetraction = useFirmwareRetraction;
     }
     
     

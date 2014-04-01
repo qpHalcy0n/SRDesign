@@ -9,22 +9,37 @@ public class LayerAndPerimeterConfiguration {
     public static final double DEFAULT_LAYER_HEIGHT = 0.4;
     public static final double DEFAULT_FIRST_LAYER_HEIGHT = 0.35;
     public static final int DEFAULT_PERIMETERS = 3;
+    public static final boolean DEFAULT_SPIRAL_VASE = false;
     public static final boolean DEFAULT_RANDOMIZE_STARTING_POINTS = false;
     public static final boolean DEFAULT_GENERATE_EXTRA_PERIMETERS_WHERE_NEEDED = true;
     public static final int DEFAULT_SOLID_TOP_LAYERS = 3;
     public static final int DEFAULT_SOLID_BOTTOM_LAYERS = 3;
+
+    public static final boolean DEFAULT_AVOID_CROSSING_PERIMETERS = false;
+    public static final boolean DEFAULT_START_PERIMETERS_AT_CONCAVE_POINTS = false;
+    public static final boolean DEFAULT_START_PERIMETERS_AT_NON_OVERHANG_POINTS = false;
+    public static final boolean DEFAULT_DETECT_THIN_WALLS = true;
+    public static final boolean DEFAULT_DETECT_BRIDGING_PERIMETERS = true;
+    public static final boolean DEFAULT_EXTERNAL_PERIMETERS_FIRST = false;
 
     public LayerAndPerimeterConfiguration() {
         name = DEFAULT_NAME;
         layerHeight = DEFAULT_LAYER_HEIGHT;
         firstLayerHeight = DEFAULT_FIRST_LAYER_HEIGHT;
         perimeters = DEFAULT_PERIMETERS;
+        spiralVase = DEFAULT_SPIRAL_VASE;
         randomizedStartingPoints = DEFAULT_RANDOMIZE_STARTING_POINTS;
         generateExtraPerimetersWhenNeeded = DEFAULT_GENERATE_EXTRA_PERIMETERS_WHERE_NEEDED;
         solidTopLayers = DEFAULT_SOLID_TOP_LAYERS;
         solidBottomLayers = DEFAULT_SOLID_BOTTOM_LAYERS;
+        avoidCrossingPerimeters = DEFAULT_AVOID_CROSSING_PERIMETERS;
+        startPerimetersAtConcavePoints = DEFAULT_START_PERIMETERS_AT_CONCAVE_POINTS;
+        startPerimetersAtNonOverhangPoints = DEFAULT_START_PERIMETERS_AT_NON_OVERHANG_POINTS;
+        detectThinWalls = DEFAULT_DETECT_THIN_WALLS;
+        detectBridgingPerimeters = DEFAULT_DETECT_BRIDGING_PERIMETERS;
+        externalPerimetersFirst = DEFAULT_EXTERNAL_PERIMETERS_FIRST;
     }
-
+    
 
 	// Layers and Perimeters
     private String name;
@@ -49,6 +64,8 @@ public class LayerAndPerimeterConfiguration {
      */
     private int perimeters;
 
+    private boolean spiralVase;
+
     /**
      * If true, each layer should start from a different vertex to avoid build up on
      * a specific corner.
@@ -70,6 +87,13 @@ public class LayerAndPerimeterConfiguration {
      * The number of solid layers to generate on the bottom of the print.
      */
     private int solidBottomLayers;
+
+    private boolean avoidCrossingPerimeters;
+    private boolean startPerimetersAtConcavePoints;
+    private boolean startPerimetersAtNonOverhangPoints;
+    private boolean detectThinWalls;
+    private boolean detectBridgingPerimeters;
+    private boolean externalPerimetersFirst;
 
     public double getLayerHeight() {
         return layerHeight;
@@ -181,6 +205,104 @@ public class LayerAndPerimeterConfiguration {
     @Override
     public String toString() {
         return "LayerAndPerimeterConfiguration{" + "name=" + name + ", layerHeight=" + layerHeight + ", firstLayerHeight=" + firstLayerHeight + ", perimeters=" + perimeters + ", randomizedStartingPoints=" + randomizedStartingPoints + ", generateExtraPerimetersWhenNeeded=" + generateExtraPerimetersWhenNeeded + ", solidTopLayers=" + solidTopLayers + ", solidBottomLayers=" + solidBottomLayers + '}';
+    }
+
+    /**
+     * @return the spiralVase
+     */
+    public boolean isSpiralVase() {
+        return spiralVase;
+    }
+
+    /**
+     * @param spiralVase the spiralVase to set
+     */
+    public void setSpiralVase(boolean spiralVase) {
+        this.spiralVase = spiralVase;
+    }
+
+    /**
+     * @return the avoidCrossingPerimeters
+     */
+    public boolean isAvoidCrossingPerimeters() {
+        return avoidCrossingPerimeters;
+    }
+
+    /**
+     * @param avoidCrossingPerimeters the avoidCrossingPerimeters to set
+     */
+    public void setAvoidCrossingPerimeters(boolean avoidCrossingPerimeters) {
+        this.avoidCrossingPerimeters = avoidCrossingPerimeters;
+    }
+
+    /**
+     * @return the startPerimetersAtConcavePoints
+     */
+    public boolean isStartPerimetersAtConcavePoints() {
+        return startPerimetersAtConcavePoints;
+    }
+
+    /**
+     * @param startPerimetersAtConcavePoints the startPerimetersAtConcavePoints to set
+     */
+    public void setStartPerimetersAtConcavePoints(boolean startPerimetersAtConcavePoints) {
+        this.startPerimetersAtConcavePoints = startPerimetersAtConcavePoints;
+    }
+
+    /**
+     * @return the startPerimetersAtNonOverhangPoints
+     */
+    public boolean isStartPerimetersAtNonOverhangPoints() {
+        return startPerimetersAtNonOverhangPoints;
+    }
+
+    /**
+     * @param startPerimetersAtNonOverhangPoints the startPerimetersAtNonOverhangPoints to set
+     */
+    public void setStartPerimetersAtNonOverhangPoints(boolean startPerimetersAtNonOverhangPoints) {
+        this.startPerimetersAtNonOverhangPoints = startPerimetersAtNonOverhangPoints;
+    }
+
+    /**
+     * @return the detectThinWalls
+     */
+    public boolean isDetectThinWalls() {
+        return detectThinWalls;
+    }
+
+    /**
+     * @param detectThinWalls the detectThinWalls to set
+     */
+    public void setDetectThinWalls(boolean detectThinWalls) {
+        this.detectThinWalls = detectThinWalls;
+    }
+
+    /**
+     * @return the detectBridgingPerimeters
+     */
+    public boolean isDetectBridgingPerimeters() {
+        return detectBridgingPerimeters;
+    }
+
+    /**
+     * @param detectBridgingPerimeters the detectBridgingPerimeters to set
+     */
+    public void setDetectBridgingPerimeters(boolean detectBridgingPerimeters) {
+        this.detectBridgingPerimeters = detectBridgingPerimeters;
+    }
+
+    /**
+     * @return the externalPerimetersFirst
+     */
+    public boolean isExternalPerimetersFirst() {
+        return externalPerimetersFirst;
+    }
+
+    /**
+     * @param externalPerimetersFirst the externalPerimetersFirst to set
+     */
+    public void setExternalPerimetersFirst(boolean externalPerimetersFirst) {
+        this.externalPerimetersFirst = externalPerimetersFirst;
     }
     
     

@@ -21,6 +21,7 @@ public class SpeedConfiguration {
     public static final double DEFAULT_PERIMETERS_ACCELERATION = 0.0;
     public static final double DEFAULT_INFILL_ACCELERATION = 0.0;
     public static final double DEFAULT_BRIDGE_ACCELERATION = 0.0;
+    public static final double DEFAULT_FIRST_LAYER_ACCELERATION = 0.0;
     public static final double DEFAULT_ACCELERATION = 0.0;
     
     public SpeedConfiguration() {
@@ -39,6 +40,7 @@ public class SpeedConfiguration {
         perimetersAcceleration = DEFAULT_PERIMETERS_ACCELERATION;
         infillAcceleration = DEFAULT_INFILL_ACCELERATION;
         bridgeAcceleration = DEFAULT_BRIDGE_ACCELERATION;
+        firstLayerAcceleration = DEFAULT_FIRST_LAYER_ACCELERATION;
         defaultAcceleration = DEFAULT_ACCELERATION;
     }
 
@@ -112,6 +114,8 @@ public class SpeedConfiguration {
      * Acceleration for bridges (mm/s^2)
      */
     private double bridgeAcceleration;
+
+    private double firstLayerAcceleration;
 
     /**
      * Default Acceleration (mm/s^2)
@@ -316,6 +320,20 @@ public class SpeedConfiguration {
     @Override
     public String toString() {
         return "SpeedConfiguration{" + "name=" + name + ", perimetersSpeed=" + perimetersSpeed + ", smallPerimetersSpeed=" + smallPerimetersSpeed + ", externalPerimetersSpeed=" + externalPerimetersSpeed + ", infillSpeed=" + infillSpeed + ", solidInfillSpeed=" + solidInfillSpeed + ", topSolidInfillSpeed=" + topSolidInfillSpeed + ", supportMaterialSpeed=" + supportMaterialSpeed + ", bridgesSpeed=" + bridgesSpeed + ", gapFillSpeed=" + gapFillSpeed + ", nonPrintMovesSpeed=" + nonPrintMovesSpeed + ", firstLayerSpeed=" + firstLayerSpeed + ", perimetersAcceleration=" + perimetersAcceleration + ", infillAcceleration=" + infillAcceleration + ", bridgeAcceleration=" + bridgeAcceleration + ", defaultAcceleration=" + defaultAcceleration + '}';
+    }
+
+    /**
+     * @return the firstLayerAcceleration
+     */
+    public double getFirstLayerAcceleration() {
+        return firstLayerAcceleration;
+    }
+
+    /**
+     * @param firstLayerAcceleration the firstLayerAcceleration to set
+     */
+    public void setFirstLayerAcceleration(double firstLayerAcceleration) {
+        this.firstLayerAcceleration = firstLayerAcceleration;
     }
     
     
