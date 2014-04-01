@@ -12,7 +12,7 @@ public class PrintJobConfiguration {
     public static final String DEFAULT_NAME = "Default";
     public static final boolean DEFAULT_COMPLETE_INDIVIDUAL_OBJECTS = false;
     public static final boolean DEFAULT_OOZE_PREVENTION = false;
-    public static final double DEFAULT_TEMPERATURE_DELTA = -5.0;
+    public static final int DEFAULT_TEMPERATURE_DELTA = -5;
     public static final double DEFAULT_EXTRUDER_CLEARANCE_RADIUS = 20.0;
     public static final double DEFAULT_EXTRUDER_CLEARANCE_HEIGHT = 20.0;
     public static final boolean DEFAULT_VERBOSE_GCODE = false;
@@ -22,7 +22,7 @@ public class PrintJobConfiguration {
     private List <SubsetConfiguration> subsetConfigurationList;
     private boolean completeIndividualObjects;
     private boolean oozePrevention;
-    private double temperatureDelta;
+    private int temperatureDelta;
     private double extruderClearanceRadius;
     private double extruderClearanceHeight;
     private boolean verboseGCode;
@@ -146,15 +146,15 @@ public class PrintJobConfiguration {
     /**
      * @return the temperatureDelta
      */
-    public double getTemperatureDelta() {
+    public int getTemperatureDelta() {
         return temperatureDelta;
     }
 
     /**
      * @param temperatureDelta the temperatureDelta to set
      */
-    public void setTemperatureDelta(double temperatureDelta) {
-        this.temperatureDelta = temperatureDelta;
+    public void setTemperatureDelta(int temperatureDelta) {
+        this.setTemperatureDelta(temperatureDelta);
     }
 
     /**
