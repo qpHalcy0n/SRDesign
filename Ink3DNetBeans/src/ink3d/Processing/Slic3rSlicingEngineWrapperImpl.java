@@ -6,10 +6,13 @@
 
 package ink3d.Processing;
 
+import ink3d.ConfigurationObjects.CoolingConfiguration;
 import ink3d.ConfigurationObjects.ExtruderConfiguration;
+import ink3d.ConfigurationObjects.ExtrusionWidthConfiguration;
 import ink3d.ConfigurationObjects.FileConfiguration;
 import ink3d.ConfigurationObjects.InfillConfiguration;
 import ink3d.ConfigurationObjects.LayerAndPerimeterConfiguration;
+import ink3d.ConfigurationObjects.MaterialConfiguration;
 import ink3d.ConfigurationObjects.PrintConfiguration;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
 import ink3d.ConfigurationObjects.PrinterConfiguration;
@@ -96,10 +99,10 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     public static String INFILL_ONLY_WHERE_NEEDED = "infill_only_where_needed";
     public static String INFILL_FIRST = "infill_first";
 
-    public static final String START_PERIMETERS_AT_CONCAVE = "start_perimeters_at_concave_points";
-    public static final String START_PERIMETERS_AT_NONOVERHANGS = "start_perimeters_at_non_overhang";
-    public static final String DETECT_THIN_WALLS = "thin_walls";
-    public static final String DETECT_BRIDGING_PERIMETERS = "overhangs";
+    public static String START_PERIMETERS_AT_CONCAVE = "start_perimeters_at_concave_points";
+    public static String START_PERIMETERS_AT_NONOVERHANGS = "start_perimeters_at_non_overhang";
+    public static String DETECT_THIN_WALLS = "thin_walls";
+    public static String DETECT_BRIDGING_PERIMETERS = "overhangs";
 
     // Support Material Options
     public static String SUPPORT_MATERIAL = "support_material";
@@ -201,48 +204,34 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
         PrinterConfiguration printerConfiguration = printJobConfiguration.getPrinterConfiguration();
 
         // Create a string builder to build a string of config options
-        StringBuilder sb = new StringBuilder();
-
-        // Append printer options
-        appendProperty(sb, BED_SIZE, printerConfiguration.getBedX() + "," + printerConfiguration.getBedY());
-        appendProperty(sb, PRINT_CENTER, printerConfiguration.getPrintCenterX() 
-                + "," + printerConfiguration.getPrintCenterY());
-        appendProperty(sb, GCODE_FLAVOR, printerConfiguration.getgCodeFlavor());
-        appendProperty(sb, USE_RELATIVE_E_DISTANCES, printerConfiguration.isUseRelativeEDistances());
-        appendProperty(sb, VIBRATION_LIMIT, printerConfiguration.getVibrationLimit());
-        appendProperty(sb, NOZZLE_DIAMTER, getNozzleDiameters(printerConfiguration.getExtruderList()));
-        appendProperty(sb, USE_FIRMWARE_RETRACTION, false);
-        // Hardcode custom G-Code properties to empty (take care of this in post processing)
-        appendProperty(sb, START_GCODE, "");
-        appendProperty(sb, END_GCODE, "");
-        appendProperty(sb, TOOLCHANGE_GCODE, "");
-        appendProperty(sb, LAYER_GCODE, "");
-        appendProperty(sb, EXTRUDER_OFFSET, getExtruderOffsets(printerConfiguration.getExtruderList()));
-
-
-
         int subsetNum = 0;
         List<SubsetConfiguration> subsets = printJobConfiguration.getSubsetConfigurationList();
         // Append subset specific options
         for(SubsetConfiguration subset : subsets) {
-            double zOffset = printerConfiguration.getzOffset() + subset.getBottomZ();
             List<FileConfiguration> fileConfigs = subset.getFileConfigurations();
+            List<ExtruderConfiguration> extruders = printerConfiguration.getExtruderList();
+            List<MaterialConfiguration> materials = printJobConfiguration.getExtruderMaterials();
             PrintConfiguration printConfig = subset.getPrintConfiguration();
             InfillConfiguration infill = printConfig.getInfillConfiguration();
             LayerAndPerimeterConfiguration layerAndPerimeters = printConfig.getLayerPerimiterConfiguration();
             SkirtAndBrimConfiguration skirtAndBrim = printConfig.getSkirtAndBrimConfiguration();
             SpeedConfiguration speed = printConfig.getSpeedConfiguration();
             SupportMaterialConfiguration supportMaterial = printConfig.getSupportMaterialConfiguration();
+            ExtrusionWidthConfiguration extrusionWidth = printConfig.getExtrusionWidthConfiguration();
+            CoolingConfiguration cooling = printConfig.getCoolingConfiguration();
+
+            // String builder to build config string
+            StringBuilder sb = new StringBuilder();
 
             // Special first subset options
             if(subsetNum == 0) {
-                appendProperty(sb, FIRST_LAYER_TEMPERATURE, getFirstLayerTemperatures(fileConfigs));
+                appendProperty(sb, FIRST_LAYER_TEMPERATURE, getFirstLayerTemperatures(materials));
                 appendProperty(sb, FIRST_LAYER_BED_TEMPERATURE, 0);
                 appendProperty(sb, FIRST_LAYER_SPEED, speed.getFirstLayerSpeed());
                 appendProperty(sb, FIRST_LAYER_ACCELERATION, 0);
                 appendProperty(sb, FIRST_LAYER_HEIGHT, layerAndPerimeters.getFirstLayerHeight());
                 appendProperty(sb, BOTTOM_SOLID_LAYERS, layerAndPerimeters.getSolidBottomLayers());
-                appendProperty(sb, FIRST_LAYER_EXTRUSION_WIDTH, "200%");
+                appendProperty(sb, FIRST_LAYER_EXTRUSION_WIDTH, extrusionWidth.getFirstLayerExtrusionWidth());
                 appendProperty(sb, DISABLE_FAN_FIRST_LAYERS, 1);
                 appendProperty(sb, SKIRTS, skirtAndBrim.getSkirtLoops());
                 appendProperty(sb, SKIRT_DISTANCE, skirtAndBrim.getSkirtDistanceFromObject());
@@ -251,13 +240,13 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
                 appendProperty(sb, BRIM_WIDTH, skirtAndBrim.getBrimWidth());
             }
             else {
-                appendProperty(sb, FIRST_LAYER_TEMPERATURE, getExtrusionTemperatures(fileConfigs));
+                appendProperty(sb, FIRST_LAYER_TEMPERATURE, getExtrusionTemperatures(materials));
                 appendProperty(sb, FIRST_LAYER_BED_TEMPERATURE, 0);
                 appendProperty(sb, FIRST_LAYER_SPEED, "100%");
                 appendProperty(sb, FIRST_LAYER_ACCELERATION, 0);
                 appendProperty(sb, FIRST_LAYER_HEIGHT, layerAndPerimeters.getLayerHeight());
                 appendProperty(sb, BOTTOM_SOLID_LAYERS, 0);
-                appendProperty(sb, FIRST_LAYER_EXTRUSION_WIDTH, "100%");
+                appendProperty(sb, FIRST_LAYER_EXTRUSION_WIDTH, extrusionWidth.getDefaultExtrusionWidth());
                 appendProperty(sb, DISABLE_FAN_FIRST_LAYERS, 0);
                 appendProperty(sb, SKIRTS, 0);
                 appendProperty(sb, SKIRT_DISTANCE, skirtAndBrim.getSkirtDistanceFromObject());
@@ -271,23 +260,37 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             if(subsetNum == subsets.size() - 1) {
                 appendProperty(sb, TOP_SOLID_INFILL_SPEED, speed.getTopSolidInfillSpeed());
                 appendProperty(sb, TOP_SOLID_LAYERS, layerAndPerimeters.getSolidTopLayers());
-                appendProperty(sb, TOP_INFILL_EXTRUSION_WIDTH, 0);
+                appendProperty(sb, TOP_INFILL_EXTRUSION_WIDTH, extrusionWidth.getTopSolidInfillExtrusionWidth());
             }
             else {
                 appendProperty(sb, TOP_SOLID_INFILL_SPEED, speed.getSolidInfillSpeed());
                 appendProperty(sb, TOP_SOLID_LAYERS, 0);
-                appendProperty(sb, TOP_INFILL_EXTRUSION_WIDTH, 0);
+                appendProperty(sb, TOP_INFILL_EXTRUSION_WIDTH, extrusionWidth.getDefaultExtrusionWidth());
             }
 
-            
-            appendProperty(sb, Z_OFFSET, zOffset);
-            appendProperty(sb, FILAMENT_DIAMTER, getFilamentDiameters(fileConfigs));
-            appendProperty(sb, EXTRUSION_MULTIPLIER, getExtrusionMultipliers(fileConfigs));
-            appendProperty(sb, TEMPERATURE, getExtrusionTemperatures(fileConfigs));
+            // Append printer options
+            appendProperty(sb, BED_SIZE, printerConfiguration.getBedX() + "," + printerConfiguration.getBedY());
+            appendProperty(sb, PRINT_CENTER, printerConfiguration.getPrintCenterX() 
+                    + "," + printerConfiguration.getPrintCenterY());
+            appendProperty(sb, GCODE_FLAVOR, printerConfiguration.getgCodeFlavor());
+            appendProperty(sb, USE_RELATIVE_E_DISTANCES, printerConfiguration.isUseRelativeEDistances());
+            appendProperty(sb, VIBRATION_LIMIT, printerConfiguration.getVibrationLimit());
+            appendProperty(sb, NOZZLE_DIAMTER, getNozzleDiameters(printerConfiguration.getExtruderList()));
+            appendProperty(sb, USE_FIRMWARE_RETRACTION, printerConfiguration.isUseFirmwareRetraction());
+            // Hardcode custom G-Code properties to empty (take care of this in post processing)
+            appendProperty(sb, START_GCODE, "");
+            appendProperty(sb, END_GCODE, "");
+            appendProperty(sb, TOOLCHANGE_GCODE, "");
+            appendProperty(sb, EXTRUDER_OFFSET, getExtruderOffsets(printerConfiguration.getExtruderList()));
 
-            // TODO: Add bed temps
-            // hardcoded for now
-            appendProperty(sb, BED_TEMPERATURE, 0);
+            appendProperty(sb, LAYER_GCODE, printConfig.getLayerChangeGCode());
+            
+            double zOffset = printerConfiguration.getzOffset() + subset.getBottomZ();
+            appendProperty(sb, Z_OFFSET, zOffset);
+            appendProperty(sb, FILAMENT_DIAMTER, getFilamentDiameters(materials));
+            appendProperty(sb, EXTRUSION_MULTIPLIER, getExtrusionMultipliers(materials));
+            appendProperty(sb, TEMPERATURE, getExtrusionTemperatures(materials));
+            appendProperty(sb, BED_TEMPERATURE, printConfig.getBedTemperature());
 
             // Speed Options
             appendProperty(sb, TRAVEL_SPEED, speed.getNonPrintMovesSpeed());
@@ -304,7 +307,6 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, PERIMETER_ACCELERATION, speed.getPerimetersAcceleration());
             appendProperty(sb, INFILL_ACCELERATION, speed.getInfillAcceleration());
             appendProperty(sb, BRIDGE_ACCELERATION, speed.getBridgeAcceleration());
-            // TODO: Fix hardcode
             appendProperty(sb, DEFAULT_ACCELERATION, speed.getDefaultAcceleration());
 
             // Accuracy Options
@@ -313,8 +315,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, SOLID_INFILL_EVERY_LAYERS, infill.getSolidInfillEveryNLayers());
 
             // Print Options
-            // TODO: fix hardcode
-            appendProperty(sb, SPIRAL_VASE, false);
+            appendProperty(sb, SPIRAL_VASE, layerAndPerimeters.isSpiralVase());
             appendProperty(sb, PERIMETERS, layerAndPerimeters.getPerimeters());
             appendProperty(sb, FILL_DENSITY, infill.getInfillDensity());
             appendProperty(sb, FILL_ANGLE, infill.getInfillAngle());
@@ -323,29 +324,26 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
 
             // TODO:  Extrusion Width Options
             // Hardcoded for now
-            appendProperty(sb, DEFAULT_EXTRUSION_WIDTH, 0);
-            appendProperty(sb, PERIMETERS_EXTRUSION_WIDTH, 0);
-            appendProperty(sb, INFILL_EXTRUSION_WIDTH, 0);
-            appendProperty(sb, SOLID_INFILL_EXTRUSION_WIDTH, 0);
-            appendProperty(sb, SUPPORT_MATERIAL_EXTRUSION_WIDTH, 0);
-            appendProperty(sb, BRIDGE_FLOW_RATIO, 1);
+            appendProperty(sb, DEFAULT_EXTRUSION_WIDTH, extrusionWidth.getDefaultExtrusionWidth());
+            appendProperty(sb, PERIMETERS_EXTRUSION_WIDTH, extrusionWidth.getPerimetersExtrusionWidth());
+            appendProperty(sb, INFILL_EXTRUSION_WIDTH, extrusionWidth.getInfillExtrusionWidth());
+            appendProperty(sb, SOLID_INFILL_EXTRUSION_WIDTH, extrusionWidth.getSolidInfillExtrusionWidth());
+            appendProperty(sb, SUPPORT_MATERIAL_EXTRUSION_WIDTH, extrusionWidth.getSupportMaterialExtrusionWidth());
+            appendProperty(sb, BRIDGE_FLOW_RATIO, printConfig.getBridgeFlowRatio());
 
             // Advanced Options
             appendProperty(sb, THREADS, 2);
             appendProperty(sb, RESOLUTION, 0);
 
-            // TODO: Layers and Perimeters -> Quality
-            // Hardcoded for now
+            // Layers and Perimeters -> Quality
             appendProperty(sb, EXTRA_PERIMETERS, layerAndPerimeters.isGenerateExtraPerimetersWhenNeeded());
-            appendProperty(sb, AVOID_CROSSING_PERIMETERS, false);
-            appendProperty(sb, START_PERIMETERS_AT_CONCAVE, false);
-            appendProperty(sb, START_PERIMETERS_AT_NONOVERHANGS, false);
-            appendProperty(sb, DETECT_THIN_WALLS, true);
-            appendProperty(sb, DETECT_BRIDGING_PERIMETERS, false);
-            // TODO: detect bridge perimeters
-            // appendProperty(sb, , );
+            appendProperty(sb, AVOID_CROSSING_PERIMETERS, layerAndPerimeters.isAvoidCrossingPerimeters());
+            appendProperty(sb, START_PERIMETERS_AT_CONCAVE, layerAndPerimeters.isStartPerimetersAtConcavePoints());
+            appendProperty(sb, START_PERIMETERS_AT_NONOVERHANGS, layerAndPerimeters.isStartPerimetersAtNonOverhangPoints());
+            appendProperty(sb, DETECT_THIN_WALLS, layerAndPerimeters.isDetectThinWalls());
+            appendProperty(sb, DETECT_BRIDGING_PERIMETERS, layerAndPerimeters.isDetectBridgingPerimeters());
             appendProperty(sb, RANDOMIZE_START, layerAndPerimeters.isRandomizedStartingPoints());
-            appendProperty(sb, EXTERNAL_PERIMETERS_FIRST, false);
+            appendProperty(sb, EXTERNAL_PERIMETERS_FIRST, layerAndPerimeters.isExternalPerimetersFirst());
 
             appendProperty(sb, ONLY_RETRACT_WHEN_CROSSING_PERIMETERS, infill.isOnlyRetractInfillWhenCrossingPerimeters());
             appendProperty(sb, SOLID_INFILL_BELOW_AREA, infill.getSolidInfillThresholdArea());
@@ -364,49 +362,44 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, SUPPORT_MATERIAL_ENFORCE_LAYERS, supportMaterial.getEnforceSupportForFirstNLayers());
 
             // Retraction Options
-            appendProperty(sb, RETRACT_LENGTH, getRetractLengths(fileConfigs));
-            appendProperty(sb, RETRACT_SPEED, getRetractSpeeds(fileConfigs));
-            appendProperty(sb, RETRACT_RESTART_EXTRA, getExtraAfterRetracts(fileConfigs));
-            appendProperty(sb, RETRACT_BEFORE_TRAVEL, getRetractBeforeTravelValues(fileConfigs));
-            appendProperty(sb, RETRACT_LIFT, getRetractLifts(fileConfigs));
-            appendProperty(sb, RETRACT_LAYER_CHANGE, getRetractOnLayerChangeValues(fileConfigs));
-            appendProperty(sb, WIPE, getWipeBeforeRetract(fileConfigs));
-            appendProperty(sb, RETRACT_LENGTH_TOOLCHANGE, getRetractBeforeToolChange(fileConfigs) );
-            appendProperty(sb, RETRACT_RESTART_EXTRA_TOOLCHANGE, getExtraAfterRetractToolchange(fileConfigs));
+            appendProperty(sb, RETRACT_LENGTH, getRetractLengths(materials));
+            appendProperty(sb, RETRACT_SPEED, getRetractSpeeds(materials));
+            appendProperty(sb, RETRACT_RESTART_EXTRA, getExtraAfterRetracts(materials));
+            appendProperty(sb, RETRACT_BEFORE_TRAVEL, getRetractBeforeTravelValues(materials));
+            appendProperty(sb, RETRACT_LIFT, getRetractLifts(materials));
+            appendProperty(sb, RETRACT_LAYER_CHANGE, getRetractOnLayerChangeValues(materials));
+            appendProperty(sb, WIPE, getWipeBeforeRetract(materials));
+            appendProperty(sb, RETRACT_LENGTH_TOOLCHANGE, getRetractBeforeToolChange(materials) );
+            appendProperty(sb, RETRACT_RESTART_EXTRA_TOOLCHANGE, getExtraAfterRetractToolchange(materials));
             
-            // TODO:  Cooling Options
-            //        Currently cooling options are tied to each material, but slic3r can only handle 
-            //        global cooling options.  We need to figure this out.
-            //        Hardcoded for now
-            appendProperty(sb, COOLING, true);
-            appendProperty(sb, FAN_ALWAYS_ON, false);
-            appendProperty(sb, MIN_FAN_SPEED, 35);
-            appendProperty(sb, MAX_FAN_SPEED, 100);
-            appendProperty(sb, BRIDGE_FAN_SPEED, 100);
-            appendProperty(sb, FAN_BELOW_LAYER_TIME, 60);
-            appendProperty(sb, SLOWDOWN_BELOW_LAYER_TIME, 30);
-            appendProperty(sb, MIN_PRINT_SPEED, 10);
+            // Cooling Options
+            appendProperty(sb, COOLING, cooling.isEnableAutoCooling());
+            appendProperty(sb, FAN_ALWAYS_ON, cooling.isFanAlwaysOn());
+            appendProperty(sb, MIN_FAN_SPEED, cooling.getMinFanSpeed());
+            appendProperty(sb, MAX_FAN_SPEED, cooling.getMaxFanSpeed());
+            appendProperty(sb, BRIDGE_FAN_SPEED, String.valueOf(cooling.getBridgeFanSpeedPercent()) + "%");
+            appendProperty(sb, FAN_BELOW_LAYER_TIME, cooling.getEnableFanTimeThreshold());
+            appendProperty(sb, SLOWDOWN_BELOW_LAYER_TIME, cooling.getSlowDownTimeTreshold());
+            appendProperty(sb, MIN_PRINT_SPEED, cooling.getMinPrintSpeed());
 
             // Multiple Extruder Options
-            // TODO: replace hardcoding
-            appendProperty(sb, PERIMETER_EXTRUDER, 0);
-            appendProperty(sb, INFILL_EXTRUDER, 0);
-            appendProperty(sb, SUPPORT_MATERIAL_EXTRUDER, 0);
-            appendProperty(sb, SUPPORT_MATERIAL_INTERFACE_EXTRUDER, 0);
-            appendProperty(sb, OOZE_PREVENTION, false);
-            appendProperty(sb, STANDBY_TEMPERATURE_DELTA, -5);
-            //TODO: Handle Perimeter, Infill, and Support Extruder options
+            appendProperty(sb, PERIMETER_EXTRUDER, printConfig.getPerimeterExtruder());
+            appendProperty(sb, INFILL_EXTRUDER, printConfig.getInfillExtruder());
+            appendProperty(sb, SUPPORT_MATERIAL_EXTRUDER, printConfig.getSupportMaterialExtruder());
+            appendProperty(sb, SUPPORT_MATERIAL_INTERFACE_EXTRUDER, printConfig.getSupportMaterialInterfaceExtruder());
+            appendProperty(sb, OOZE_PREVENTION, printJobConfiguration.isOozePrevention());
+            appendProperty(sb, STANDBY_TEMPERATURE_DELTA, printJobConfiguration.getTemperatureDelta());
 
             // Output Options
-            // Hardcoded for now
-            appendProperty(sb, COMPLETE_OBJECTS, false);
-            appendProperty(sb, EXTRUDER_CLEARANCE_RADIUS, 20);
-            appendProperty(sb, EXTRUDER_CLEARANCE_HEIGHT, 20);
-            appendProperty(sb, VERBOSE_GCODE, false);
+            appendProperty(sb, COMPLETE_OBJECTS, printJobConfiguration.isCompleteIndividualObjects());
+            appendProperty(sb, EXTRUDER_CLEARANCE_RADIUS, printJobConfiguration.getExtruderClearanceRadius());
+            appendProperty(sb, EXTRUDER_CLEARANCE_HEIGHT, printJobConfiguration.getExtruderClearanceHeight());
+            appendProperty(sb, VERBOSE_GCODE, printJobConfiguration.isVerboseGCode());
             appendProperty(sb, OUTPUT_FILENAME_FORMAT, "[input_filename_base].gcode");
             appendProperty(sb, POST_PROCESSING_SCRIPTS, "");
 
             // Other Options
+            // TODO:  Figure out exactly what "duplicate" is
             appendProperty(sb, DUPLICATE, 1);
             appendProperty(sb, DUPLICATE_DISTANCE, 6);
             appendProperty(sb, DUPLICATE_GRID, "1,1");
@@ -548,159 +541,159 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     }
 
     // Assumes FileConfigurations are sorted in order of extruder
-    private String getFilamentDiameters(List<FileConfiguration> fileConfigs) {
+    private String getFilamentDiameters(List<MaterialConfiguration> materials) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size() - 1) {
-            sb.append(fileConfigs.get(i).getMaterialConfiguration().getFilamentDiameter())
+        while(i < materials.size() - 1) {
+            sb.append(materials.get(i).getFilamentDiameter())
               .append(",");
             i++;
         }
-        sb.append(fileConfigs.get(i).getMaterialConfiguration().getFilamentDiameter());
+        sb.append(materials.get(i).getFilamentDiameter());
         return sb.toString();
     }
     
-    private String getExtrusionMultipliers(List<FileConfiguration> fileConfigs) {
+    private String getExtrusionMultipliers(List<MaterialConfiguration> materials) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size() - 1) {
-            sb.append(fileConfigs.get(i).getMaterialConfiguration().getExtrusionMultiplier())
+        while(i < materials.size() - 1) {
+            sb.append(materials.get(i).getExtrusionMultiplier())
               .append(",");
             i++;
         }
-        sb.append(fileConfigs.get(i).getMaterialConfiguration().getExtrusionMultiplier());
+        sb.append(materials.get(i).getExtrusionMultiplier());
         return sb.toString();
     }
 
-    private String getFirstLayerTemperatures(List<FileConfiguration> fileConfigs) {
+    private String getFirstLayerTemperatures(List<MaterialConfiguration> materials) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size() - 1) {
-            sb.append(fileConfigs.get(i).getMaterialConfiguration().getFirstLayerExtrusionTemperature())
+        while(i < materials.size() - 1) {
+            sb.append(materials.get(i).getFirstLayerExtrusionTemperature())
               .append(",");
             i++;
         }
-        sb.append(fileConfigs.get(i).getMaterialConfiguration().getFirstLayerExtrusionTemperature());
+        sb.append(materials.get(i).getFirstLayerExtrusionTemperature());
         return sb.toString();
     }
 
-    private String getExtrusionTemperatures(List<FileConfiguration> fileConfigs) {
+    private String getExtrusionTemperatures(List<MaterialConfiguration> materials) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size() - 1) {
-            sb.append(fileConfigs.get(i).getMaterialConfiguration().getExtrusionTemperature())
+        while(i < materials.size() - 1) {
+            sb.append(materials.get(i).getExtrusionTemperature())
               .append(",");
             i++;
         }
-        sb.append(fileConfigs.get(i).getMaterialConfiguration().getExtrusionTemperature());
+        sb.append(materials.get(i).getExtrusionTemperature());
         return sb.toString();
     }
 
-    private String getRetractBeforeTravelValues(List<FileConfiguration> fileConfigs) {
+    private String getRetractBeforeTravelValues(List<MaterialConfiguration> materials) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size() - 1) {
-            sb.append(fileConfigs.get(i).getMaterialConfiguration().getMinimumTravelAfterRetraction())
+        while(i < materials.size() - 1) {
+            sb.append(materials.get(i).getMinimumTravelAfterRetraction())
               .append(",");
             i++;
         }
-        sb.append(fileConfigs.get(i).getMaterialConfiguration().getMinimumTravelAfterRetraction());
+        sb.append(materials.get(i).getMinimumTravelAfterRetraction());
         return sb.toString();
     }
 
-    private String getRetractOnLayerChangeValues(List<FileConfiguration> fileConfigs) {
+    private String getRetractOnLayerChangeValues(List<MaterialConfiguration> materials) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size() - 1) {
-            sb.append(fileConfigs.get(i).getMaterialConfiguration().isRetractOnLayerChange() ? "1" : "0")
+        while(i < materials.size() - 1) {
+            sb.append(materials.get(i).isRetractOnLayerChange() ? "1" : "0")
               .append(",");
             i++;
         }
-        sb.append(fileConfigs.get(i).getMaterialConfiguration().isRetractOnLayerChange() ? "1" : "0");
+        sb.append(materials.get(i).isRetractOnLayerChange() ? "1" : "0");
         return sb.toString();
     }
 
-    private String getRetractLengths(List<FileConfiguration> fileConfigs) {
+    private String getRetractLengths(List<MaterialConfiguration> materials) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size() - 1) {
-            sb.append(fileConfigs.get(i).getMaterialConfiguration().getRetractionLength())
+        while(i < materials.size() - 1) {
+            sb.append(materials.get(i).getRetractionLength())
               .append(",");
             i++;
         }
-        sb.append(fileConfigs.get(i).getMaterialConfiguration().getRetractionLength());
+        sb.append(materials.get(i).getRetractionLength());
         return sb.toString();
     }
 
-    private String getRetractBeforeToolChange(List<FileConfiguration> fileConfigs) {
+    private String getRetractBeforeToolChange(List<MaterialConfiguration> materials) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size() - 1) {
-            sb.append(fileConfigs.get(i).getMaterialConfiguration().getRetractionLengthBeforeToolChange())
+        while(i < materials.size() - 1) {
+            sb.append(materials.get(i).getRetractionLengthBeforeToolChange())
               .append(",");
             i++;
         }
-        sb.append(fileConfigs.get(i).getMaterialConfiguration().getRetractionLengthBeforeToolChange());
+        sb.append(materials.get(i).getRetractionLengthBeforeToolChange());
         return sb.toString();
     }
 
-    private String getRetractLifts(List<FileConfiguration> fileConfigs) {
+    private String getRetractLifts(List<MaterialConfiguration> materials) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size() - 1) {
-            sb.append(fileConfigs.get(i).getMaterialConfiguration().getRetractionLiftZ())
+        while(i < materials.size() - 1) {
+            sb.append(materials.get(i).getRetractionLiftZ())
               .append(",");
             i++;
         }
-        sb.append(fileConfigs.get(i).getMaterialConfiguration().getRetractionLiftZ());
+        sb.append(materials.get(i).getRetractionLiftZ());
         return sb.toString();
     }
 
-    private String getExtraAfterRetracts(List<FileConfiguration> fileConfigs) {
+    private String getExtraAfterRetracts(List<MaterialConfiguration> materials) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size() - 1) {
-            sb.append(fileConfigs.get(i).getMaterialConfiguration().getExtraLengthAfterRetraction())
+        while(i < materials.size() - 1) {
+            sb.append(materials.get(i).getExtraLengthAfterRetraction())
               .append(",");
             i++;
         }
-        sb.append(fileConfigs.get(i).getMaterialConfiguration().getExtraLengthAfterRetraction());
+        sb.append(materials.get(i).getExtraLengthAfterRetraction());
         return sb.toString();
     }
 
-    private String getExtraAfterRetractToolchange(List<FileConfiguration> fileConfigs) {
+    private String getExtraAfterRetractToolchange(List<MaterialConfiguration> materials) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size() - 1) {
-            sb.append(fileConfigs.get(i).getMaterialConfiguration().getExtraLengthOnToolReenable())
+        while(i < materials.size() - 1) {
+            sb.append(materials.get(i).getExtraLengthOnToolReenable())
               .append(",");
             i++;
         }
-        sb.append(fileConfigs.get(i).getMaterialConfiguration().getExtraLengthOnToolReenable());
+        sb.append(materials.get(i).getExtraLengthOnToolReenable());
         return sb.toString();
     }
 
-    private String getRetractSpeeds(List<FileConfiguration> fileConfigs) {
+    private String getRetractSpeeds(List<MaterialConfiguration> materials) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size() - 1) {
-            sb.append(fileConfigs.get(i).getMaterialConfiguration().getRetractionSpeed())
+        while(i < materials.size() - 1) {
+            sb.append(materials.get(i).getRetractionSpeed())
               .append(",");
             i++;
         }
-        sb.append(fileConfigs.get(i).getMaterialConfiguration().getRetractionSpeed());
+        sb.append(materials.get(i).getRetractionSpeed());
         return sb.toString();
     }
 
-    private String getWipeBeforeRetract(List<FileConfiguration> fileConfigs) {
+    private String getWipeBeforeRetract(List<MaterialConfiguration> materials) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        while(i < fileConfigs.size() - 1) {
-            sb.append(fileConfigs.get(i).getMaterialConfiguration().isWipeBeforeRetract() ? "1" : "0")
+        while(i < materials.size() - 1) {
+            sb.append(materials.get(i).isWipeBeforeRetract() ? "1" : "0")
               .append(",");
             i++;
         }
-        sb.append(fileConfigs.get(i).getMaterialConfiguration().isWipeBeforeRetract() ? "1" : "0");
+        sb.append(materials.get(i).isWipeBeforeRetract() ? "1" : "0");
         return sb.toString();
     }
 
