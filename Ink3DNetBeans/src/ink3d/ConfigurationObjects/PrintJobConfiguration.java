@@ -8,9 +8,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class PrintJobConfiguration {
+
+    public static final String DEFAULT_NAME = "Default";
+    public static final boolean DEFAULT_COMPLETE_INDIVIDUAL_OBJECTS = false;
+    public static final boolean DEFAULT_OOZE_PREVENTION = false;
+    public static final double DEFAULT_TEMPERATURE_DELTA = -5.0;
+    public static final double DEFAULT_EXTRUDER_CLEARANCE_RADIUS = 20.0;
+    public static final double DEFAULT_EXTRUDER_CLEARANCE_HEIGHT = 20.0;
+
     private String name;
     private PrinterConfiguration printerConfiguration;
     private List <SubsetConfiguration> subsetConfigurationList;
+    private boolean completeIndividualObjects;
+    private boolean oozePrevention;
+    private double temperatureDelta;
+    private double extruderClearanceRadius;
+    private double extruderClearanceHeight;
+    private File finalizedGCode;
+
 
     /**
      * Mapping of materials to extruders.
@@ -19,10 +34,15 @@ public class PrintJobConfiguration {
     private List<MaterialConfiguration> extruderMaterials;
 
     public PrintJobConfiguration() {
-        this.name = "";
+        this.name = DEFAULT_NAME;
         this.printerConfiguration = new PrinterConfiguration();
         this.subsetConfigurationList = new ArrayList<SubsetConfiguration>();
         this.extruderMaterials = new ArrayList<MaterialConfiguration>();
+        this.completeIndividualObjects = DEFAULT_COMPLETE_INDIVIDUAL_OBJECTS;
+        this.oozePrevention = DEFAULT_OOZE_PREVENTION;
+        this.temperatureDelta = DEFAULT_TEMPERATURE_DELTA;
+        this.extruderClearanceRadius = DEFAULT_EXTRUDER_CLEARANCE_RADIUS;
+        this.extruderClearanceHeight = DEFAULT_EXTRUDER_CLEARANCE_HEIGHT;
     }
 
     public MaterialConfiguration getMaterialForExtruderPosition(int i) {
@@ -104,6 +124,90 @@ public class PrintJobConfiguration {
      */
     public void setExtruderMaterials(List<MaterialConfiguration> extruderMaterials) {
         this.extruderMaterials = extruderMaterials;
+    }
+
+    /**
+     * @return the oozePrevention
+     */
+    public boolean isOozePrevention() {
+        return oozePrevention;
+    }
+
+    /**
+     * @param oozePrevention the oozePrevention to set
+     */
+    public void setOozePrevention(boolean oozePrevention) {
+        this.oozePrevention = oozePrevention;
+    }
+
+    /**
+     * @return the temperatureDelta
+     */
+    public double getTemperatureDelta() {
+        return temperatureDelta;
+    }
+
+    /**
+     * @param temperatureDelta the temperatureDelta to set
+     */
+    public void setTemperatureDelta(double temperatureDelta) {
+        this.temperatureDelta = temperatureDelta;
+    }
+
+    /**
+     * @return the extruderClearanceRadius
+     */
+    public double getExtruderClearanceRadius() {
+        return extruderClearanceRadius;
+    }
+
+    /**
+     * @param extruderClearanceRadius the extruderClearanceRadius to set
+     */
+    public void setExtruderClearanceRadius(double extruderClearanceRadius) {
+        this.extruderClearanceRadius = extruderClearanceRadius;
+    }
+
+    /**
+     * @return the extruderClearanceHeight
+     */
+    public double getExtruderClearanceHeight() {
+        return extruderClearanceHeight;
+    }
+
+    /**
+     * @param extruderClearanceHeight the extruderClearanceHeight to set
+     */
+    public void setExtruderClearanceHeight(double extruderClearanceHeight) {
+        this.extruderClearanceHeight = extruderClearanceHeight;
+    }
+
+    /**
+     * @return the finalizedGCode
+     */
+    public File getFinalizedGCode() {
+        return finalizedGCode;
+    }
+
+    /**
+     * @param finalizedGCode the finalizedGCode to set
+     */
+    public void setFinalizedGCode(File finalizedGCode) {
+        this.finalizedGCode = finalizedGCode;
+    }
+
+    /**
+     * @return the completeIndividualObjects
+     */
+    public boolean isCompleteIndividualObjects() {
+        return completeIndividualObjects;
+    }
+
+    /**
+     * @param completeIndividualObjects the completeIndividualObjects to set
+     */
+    public void setCompleteIndividualObjects(boolean completeIndividualObjects) {
+        this.completeIndividualObjects = completeIndividualObjects;
     }
 
     
