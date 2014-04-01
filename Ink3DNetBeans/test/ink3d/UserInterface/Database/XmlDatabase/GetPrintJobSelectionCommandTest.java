@@ -130,6 +130,7 @@ public class GetPrintJobSelectionCommandTest {
         GetPrintJobSelectionCommand instance = new GetPrintJobSelectionCommand(name);
         instance.execute();
         actual = (PrintJobSelection)instance.getResult();
+        System.out.printf(this.expected+"\n"+this.actual);
         assertTrue(expected.equals(actual));
     }
 }

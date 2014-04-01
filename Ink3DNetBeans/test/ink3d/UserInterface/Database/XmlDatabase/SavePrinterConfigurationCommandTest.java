@@ -41,10 +41,13 @@ public class SavePrinterConfigurationCommandTest {
                     "<printer>\n" +
                     "    <bedX>150.0</bedX>\n" +
                     "    <bedY>100.0</bedY>\n" +
+                    "    <endGCode></endGCode>\n" +
                     "    <name>SaveTest</name>\n" +
                     "    <numExtruders>5</numExtruders>\n" +
                     "    <printCenterX>75.0</printCenterX>\n" +
                     "    <printCenterY>50.0</printCenterY>\n" +
+                    "    <startGCode></startGCode>\n" +
+                    "    <useFirmwareRetraction>false</useFirmwareRetraction>\n" +
                     "    <useRelativeEDistances>true</useRelativeEDistances>\n" +
                     "    <vibrationLimit>1.1</vibrationLimit>\n" +
                     "    <gCodeFlavor>rep-rap</gCodeFlavor>\n" +

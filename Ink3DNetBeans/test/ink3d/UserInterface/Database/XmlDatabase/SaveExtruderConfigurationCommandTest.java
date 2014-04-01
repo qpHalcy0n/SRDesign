@@ -37,13 +37,14 @@ public class SaveExtruderConfigurationCommandTest {
         
         expected ="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                     "<extruder>\n" +
+                    "    <endGCode></endGCode>\n" +
                     "    <extruderType>ABS</extruderType>\n" +
-                    "    <headxOffset>0.0</headxOffset>\n" +
-                    "    <headyOffset>0.0</headyOffset>\n" +
-                    "    <headzOffset>0.0</headzOffset>\n" +
                     "    <name>SaveTest</name>\n" +
                     "    <nozzleDiameter>2.0</nozzleDiameter>\n" +
+                    "    <startGCode></startGCode>\n" +
+                    "    <xDimension>0.0</xDimension>\n" +
                     "    <xOffset>0.0</xOffset>\n" +
+                    "    <yDimension>0.0</yDimension>\n" +
                     "    <yOffset>0.0</yOffset>\n" +
                     "    <zOffset>0.0</zOffset>\n" +
                     "</extruder>";

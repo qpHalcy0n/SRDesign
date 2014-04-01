@@ -175,55 +175,6 @@ public class PrinterConfiguration {
         this.name = name;
     }        
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.name);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final PrinterConfiguration other = (PrinterConfiguration) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.bedX) != Double.doubleToLongBits(other.bedX)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.bedY) != Double.doubleToLongBits(other.bedY)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.printCenterX) != Double.doubleToLongBits(other.printCenterX)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.printCenterY) != Double.doubleToLongBits(other.printCenterY)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.zOffset) != Double.doubleToLongBits(other.zOffset)) {
-            return false;
-        }
-        if (!Objects.equals(this.gCodeFlavor, other.gCodeFlavor)) {
-            return false;
-        }
-        if (this.useRelativeEDistances != other.useRelativeEDistances) {
-            return false;
-        }
-        if (this.numExtruders != other.numExtruders) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.vibrationLimit) != Double.doubleToLongBits(other.vibrationLimit)) {
-            return false;
-        }
-        return true;
-    }
-
     /**
      * @return the extruderList
      */
@@ -236,11 +187,6 @@ public class PrinterConfiguration {
      */
     public void setExtruderList(List<ExtruderConfiguration> extruderList) {
         this.extruderList = extruderList;
-    }
-
-    @Override
-    public String toString() {
-        return "PrinterConfiguration{" + "name=" + name + ", bedX=" + bedX + ", bedY=" + bedY + ", printCenterX=" + printCenterX + ", printCenterY=" + printCenterY + ", zOffset=" + zOffset + ", gCodeFlavor=" + gCodeFlavor + ", useRelativeEDistances=" + useRelativeEDistances + ", numExtruders=" + numExtruders + ", vibrationLimit=" + vibrationLimit + '}';
     }
 
     /**
@@ -284,6 +230,78 @@ public class PrinterConfiguration {
     public void setUseFirmwareRetraction(boolean useFirmwareRetraction) {
         this.useFirmwareRetraction = useFirmwareRetraction;
     }
-    
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.name);
+        hash = 67 * hash + (int) (Double.doubleToLongBits(this.bedX) ^ (Double.doubleToLongBits(this.bedX) >>> 32));
+        hash = 67 * hash + (int) (Double.doubleToLongBits(this.bedY) ^ (Double.doubleToLongBits(this.bedY) >>> 32));
+        hash = 67 * hash + (int) (Double.doubleToLongBits(this.printCenterX) ^ (Double.doubleToLongBits(this.printCenterX) >>> 32));
+        hash = 67 * hash + (int) (Double.doubleToLongBits(this.printCenterY) ^ (Double.doubleToLongBits(this.printCenterY) >>> 32));
+        hash = 67 * hash + (int) (Double.doubleToLongBits(this.zOffset) ^ (Double.doubleToLongBits(this.zOffset) >>> 32));
+        hash = 67 * hash + Objects.hashCode(this.gCodeFlavor);
+        hash = 67 * hash + (this.useRelativeEDistances ? 1 : 0);
+        hash = 67 * hash + this.numExtruders;
+        hash = 67 * hash + (int) (Double.doubleToLongBits(this.vibrationLimit) ^ (Double.doubleToLongBits(this.vibrationLimit) >>> 32));
+        hash = 67 * hash + (this.useFirmwareRetraction ? 1 : 0);
+        hash = 67 * hash + Objects.hashCode(this.startGCode);
+        hash = 67 * hash + Objects.hashCode(this.endGCode);
+        hash = 67 * hash + Objects.hashCode(this.extruderList);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PrinterConfiguration other = (PrinterConfiguration) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.bedX) != Double.doubleToLongBits(other.bedX)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.bedY) != Double.doubleToLongBits(other.bedY)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.printCenterX) != Double.doubleToLongBits(other.printCenterX)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.printCenterY) != Double.doubleToLongBits(other.printCenterY)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.zOffset) != Double.doubleToLongBits(other.zOffset)) {
+            return false;
+        }
+        if (!Objects.equals(this.gCodeFlavor, other.gCodeFlavor)) {
+            return false;
+        }
+        if (this.useRelativeEDistances != other.useRelativeEDistances) {
+            return false;
+        }
+        if (this.numExtruders != other.numExtruders) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.vibrationLimit) != Double.doubleToLongBits(other.vibrationLimit)) {
+            return false;
+        }
+        if (this.useFirmwareRetraction != other.useFirmwareRetraction) {
+            return false;
+        }
+        if (!Objects.equals(this.startGCode, other.startGCode)) {
+            return false;
+        }
+        if (!Objects.equals(this.endGCode, other.endGCode)) {
+            return false;
+        }
+        if (!Objects.equals(this.extruderList, other.extruderList)) {
+            return false;
+        }
+        return true;
+    }
 }

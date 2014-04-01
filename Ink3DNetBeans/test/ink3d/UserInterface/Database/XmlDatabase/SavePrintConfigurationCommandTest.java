@@ -105,6 +105,29 @@ public class SavePrintConfigurationCommandTest {
         
         expected ="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                     "<print>\n" +
+                    "    <bedTemperature>0</bedTemperature>\n" +
+                    "    <bridgeFlowRatio>1.0</bridgeFlowRatio>\n" +
+                    "    <coolingConfiguration>\n" +
+                    "        <bridgeFanSpeedPercent>100</bridgeFanSpeedPercent>\n" +
+                    "        <disableFanForFirstNLayers>1</disableFanForFirstNLayers>\n" +
+                    "        <enableAutoCooling>true</enableAutoCooling>\n" +
+                    "        <enableFanTimeThreshold>60</enableFanTimeThreshold>\n" +
+                    "        <fanAlwaysOn>false</fanAlwaysOn>\n" +
+                    "        <maxFanSpeed>100</maxFanSpeed>\n" +
+                    "        <minFanSpeed>35</minFanSpeed>\n" +
+                    "        <minPrintSpeed>10</minPrintSpeed>\n" +
+                    "        <slowDownTimeTreshold>30</slowDownTimeTreshold>\n" +
+                    "    </coolingConfiguration>\n" +
+                    "    <extrusionWidthConfiguration>\n" +
+                    "        <defaultExtrusionWidth>0.0</defaultExtrusionWidth>\n" +
+                    "        <firstLayerExtrusionWidth>0.0</firstLayerExtrusionWidth>\n" +
+                    "        <infillExtrusionWidth>0.0</infillExtrusionWidth>\n" +
+                    "        <perimetersExtrusionWidth>0.0</perimetersExtrusionWidth>\n" +
+                    "        <solidInfillExtrusionWidth>0.0</solidInfillExtrusionWidth>\n" +
+                    "        <supportMaterialExtrusionWidth>0.0</supportMaterialExtrusionWidth>\n" +
+                    "        <topSolidInfillExtrusionWidth>0.0</topSolidInfillExtrusionWidth>\n" +
+                    "    </extrusionWidthConfiguration>\n" +
+                    "    <firstLayerBedTemperature>0</firstLayerBedTemperature>\n" +
                     "    <infillConfiguration>\n" +
                     "        <infillAngle>12</infillAngle>\n" +
                     "        <infillBeforePerimeters>true</infillBeforePerimeters>\n" +
@@ -118,7 +141,13 @@ public class SavePrintConfigurationCommandTest {
                     "        <solidInfillThresholdArea>7</solidInfillThresholdArea>\n" +
                     "        <topBottomInfillPattern>circles</topBottomInfillPattern>\n" +
                     "    </infillConfiguration>\n" +
+                    "    <infillExtruder>0</infillExtruder>\n" +
+                    "    <layerChangeGCode></layerChangeGCode>\n" +
                     "    <layerPerimiterConfiguration>\n" +
+                    "        <avoidCrossingPerimeters>false</avoidCrossingPerimeters>\n" +
+                    "        <detectBridgingPerimeters>true</detectBridgingPerimeters>\n" +
+                    "        <detectThinWalls>true</detectThinWalls>\n" +
+                    "        <externalPerimetersFirst>false</externalPerimetersFirst>\n" +
                     "        <firstLayerHeight>0.001</firstLayerHeight>\n" +
                     "        <generateExtraPerimetersWhenNeeded>true</generateExtraPerimetersWhenNeeded>\n" +
                     "        <layerHeight>5.0E-4</layerHeight>\n" +
@@ -127,8 +156,12 @@ public class SavePrintConfigurationCommandTest {
                     "        <randomizedStartingPoints>true</randomizedStartingPoints>\n" +
                     "        <solidBottomLayers>2</solidBottomLayers>\n" +
                     "        <solidTopLayers>3</solidTopLayers>\n" +
+                    "        <spiralVase>false</spiralVase>\n" +
+                    "        <startPerimetersAtConcavePoints>false</startPerimetersAtConcavePoints>\n" +
+                    "        <startPerimetersAtNonOverhangPoints>false</startPerimetersAtNonOverhangPoints>\n" +
                     "    </layerPerimiterConfiguration>\n" +
                     "    <name>SaveTest</name>\n" +
+                    "    <perimeterExtruder>0</perimeterExtruder>\n" +
                     "    <skirtAndBrimConfiguration>\n" +
                     "        <brimWidth>1.1</brimWidth>\n" +
                     "        <name>SaveTest.Skirt</name>\n" +
@@ -142,6 +175,7 @@ public class SavePrintConfigurationCommandTest {
                     "        <bridgesSpeed>1.02</bridgesSpeed>\n" +
                     "        <defaultAcceleration>0.1</defaultAcceleration>\n" +
                     "        <externalPerimetersSpeed>2.2</externalPerimetersSpeed>\n" +
+                    "        <firstLayerAcceleration>0.0</firstLayerAcceleration>\n" +
                     "        <firstLayerSpeed>1.3</firstLayerSpeed>\n" +
                     "        <gapFillSpeed>1.2</gapFillSpeed>\n" +
                     "        <infillAcceleration>0.3</infillAcceleration>\n" +
@@ -167,6 +201,8 @@ public class SavePrintConfigurationCommandTest {
                     "        <supportPatternAngle>10</supportPatternAngle>\n" +
                     "        <supportPatternSpacing>2.3</supportPatternSpacing>\n" +
                     "    </supportMaterialConfiguration>\n" +
+                    "    <supportMaterialExtruder>0</supportMaterialExtruder>\n" +
+                    "    <supportMaterialInterfaceExtruder>0</supportMaterialInterfaceExtruder>\n" +
                     "</print>";
     }
     

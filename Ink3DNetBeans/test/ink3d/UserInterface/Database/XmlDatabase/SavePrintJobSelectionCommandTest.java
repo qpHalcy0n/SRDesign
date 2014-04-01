@@ -116,7 +116,7 @@ public class SavePrintJobSelectionCommandTest {
     public void tearDown() {
         printJob = null;
         File file = new File("./Database/PrintJobs/SaveTest.xml");
-       //file.delete();
+       file.delete();
     }
 
     /**
