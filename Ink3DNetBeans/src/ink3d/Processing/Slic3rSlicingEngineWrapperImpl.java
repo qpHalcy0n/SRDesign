@@ -377,7 +377,8 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, FAN_ALWAYS_ON, cooling.isFanAlwaysOn());
             appendProperty(sb, MIN_FAN_SPEED, cooling.getMinFanSpeed());
             appendProperty(sb, MAX_FAN_SPEED, cooling.getMaxFanSpeed());
-            appendProperty(sb, BRIDGE_FAN_SPEED, String.valueOf(cooling.getBridgeFanSpeedPercent()) + "%");
+            // TODO:  Fix this mess.  Bridge fan speed probably needs to be an int instead of double
+            appendProperty(sb, BRIDGE_FAN_SPEED, String.valueOf(Math.round(cooling.getBridgeFanSpeedPercent())));
             appendProperty(sb, FAN_BELOW_LAYER_TIME, cooling.getEnableFanTimeThreshold());
             appendProperty(sb, SLOWDOWN_BELOW_LAYER_TIME, cooling.getSlowDownTimeTreshold());
             appendProperty(sb, MIN_PRINT_SPEED, cooling.getMinPrintSpeed());

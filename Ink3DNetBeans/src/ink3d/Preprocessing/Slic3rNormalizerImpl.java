@@ -286,6 +286,7 @@ public class Slic3rNormalizerImpl implements Normalizer {
                 objectElement.setAttribute(ID_ATTR, "0");
                 meshElement.appendChild(verticiesElement);
 
+                IndexedSet<Vertex> vertices = new IndexedSet<Vertex>();
                 materialCount = 1;
                 for(FileConfiguration fileConfig : fileConfigs) {
                     File stlFile = fileConfig.getSubsetSTL();
@@ -300,7 +301,6 @@ public class Slic3rNormalizerImpl implements Normalizer {
                     int[][] faces = new int[numFacets[0]][];
                     
                     int vertCount = 0;
-                    IndexedSet<Vertex> vertices = new IndexedSet<Vertex>();
                     for(int i = 0; i < numFacets[0]; i++) {
                         Element triangleElement = doc.createElement(TRIANGE_TAG);
                         volumeElement.appendChild(triangleElement);

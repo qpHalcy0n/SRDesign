@@ -26,12 +26,16 @@ public class Slic3rNormalizerImplTest {
     @Test
     public void testSubsectionFiles() {
         String basePath = new File("").getAbsolutePath();
-        String stlFilePath = basePath + TEST_FILE_DIR + "20mm-Basic-Cube-Solid.STL";
+        String stlFilePath0 = basePath + File.separator + "test-files" + File.separator 
+                + "subsection" + File.separator + "stl" + File.separator + "Feed-Housing-PartA.stl";
+        String stlFilePath1 = basePath + File.separator + "test-files" + File.separator 
+                + "subsection" + File.separator + "stl" + File.separator + "Feed-Housing-PartB.stl";
+
         String materialName = "PLA";
         double bottomZ_0 = 0.0;
         double topZ_0 = 7.0;
         double bottomZ_1 = 7.0;
-        double topZ_1 = 20.0;
+        double topZ_1 = 22.0;
 
         // Build Print Job Config
         MaterialConfiguration materialConfig = new MaterialConfiguration();
@@ -40,26 +44,40 @@ public class Slic3rNormalizerImplTest {
         // Create two file configs that have the same parent STL file.
 
         // This file config is placed in subset 0
-        FileConfiguration fileConfig_0 = new FileConfiguration();
-        fileConfig_0.setParentSTLFile(new File(stlFilePath));
-        fileConfig_0.setMaterialConfiguration(materialConfig);
+        FileConfiguration fileConfig_00 = new FileConfiguration();
+        fileConfig_00.setParentSTLFile(new File(stlFilePath0));
+        fileConfig_00.setMaterialConfiguration(materialConfig);
+        fileConfig_00.setExtruderNum(0);
+
+        FileConfiguration fileConfig_01 = new FileConfiguration();
+        fileConfig_01.setParentSTLFile(new File(stlFilePath1));
+        fileConfig_01.setMaterialConfiguration(materialConfig);
+        fileConfig_01.setExtruderNum(1);
 
         // This file config is placed in subset 1
-        FileConfiguration fileConfig_1 = new FileConfiguration();
-        fileConfig_1.setParentSTLFile(new File(stlFilePath));
-        fileConfig_1.setMaterialConfiguration(materialConfig);
+        FileConfiguration fileConfig_10 = new FileConfiguration();
+        fileConfig_10.setParentSTLFile(new File(stlFilePath0));
+        fileConfig_10.setMaterialConfiguration(materialConfig);
+        fileConfig_10.setExtruderNum(0);
+
+        FileConfiguration fileConfig_11 = new FileConfiguration();
+        fileConfig_11.setParentSTLFile(new File(stlFilePath1));
+        fileConfig_11.setMaterialConfiguration(materialConfig);
+        fileConfig_11.setExtruderNum(1);
 
         // Initialize subset 0
         SubsetConfiguration subset_0 = new SubsetConfiguration();
         subset_0.setBottomZ(bottomZ_0);
         subset_0.setTopZ(topZ_0);
-        subset_0.getFileConfigurations().add(fileConfig_0);
+        subset_0.getFileConfigurations().add(fileConfig_00);
+        subset_0.getFileConfigurations().add(fileConfig_01);
 
         // Initialize subset 1
         SubsetConfiguration subset_1 = new SubsetConfiguration();
         subset_1.setBottomZ(bottomZ_1);
         subset_1.setTopZ(topZ_1);
-        subset_1.getFileConfigurations().add(fileConfig_1);
+        subset_1.getFileConfigurations().add(fileConfig_10);
+        subset_1.getFileConfigurations().add(fileConfig_11);
 
         // Initialize the print job config object
         PrintJobConfiguration printJob = new PrintJobConfiguration();
@@ -85,36 +103,60 @@ public class Slic3rNormalizerImplTest {
     @Test
     public void testTranslateFiles() {
         String basePath = new File("").getAbsolutePath();
-        String stlFilePath_0 = basePath + File.separator + "test-files" + File.separator
+        String stlFilePath_A0 = basePath + File.separator + "test-files" + File.separator
                 + "file-translation" + File.separator + "stl" 
-                + File.separator + "Feed-Housing-sub0.stl";
-        String stlFilePath_1 = basePath + File.separator + "test-files" + File.separator  
+                + File.separator + "Feed-Housing-PartA-sub0.stl";
+        String stlFilePath_A1 = basePath + File.separator + "test-files" + File.separator  
                 + "file-translation" + File.separator + "stl" 
-                + File.separator + "Feed-Housing-sub1.stl";
-        String materialName = "PLA";
+                + File.separator + "Feed-Housing-PartA-sub1.stl";
+
+        String stlFilePath_B0 = basePath + File.separator + "test-files" + File.separator
+                + "file-translation" + File.separator + "stl" 
+                + File.separator + "Feed-Housing-PartB-sub0.stl";
+        String stlFilePath_B1 = basePath + File.separator + "test-files" + File.separator  
+                + "file-translation" + File.separator + "stl" 
+                + File.separator + "Feed-Housing-PartB-sub1.stl";
+
+        String materialA = "Material A";
+        String materialB = "Material B";
 
         // Build Print Job Config
-        MaterialConfiguration materialConfig = new MaterialConfiguration();
-        materialConfig.setName(materialName);
+        MaterialConfiguration materialConfigA = new MaterialConfiguration();
+        materialConfigA.setName(materialA);
 
-        FileConfiguration fileConfig_0 = new FileConfiguration();
-        fileConfig_0.setExtruderNum(0);
-        fileConfig_0.setSubsetSTL(new File(stlFilePath_0));
-        fileConfig_0.setMaterialConfiguration(materialConfig);
+        MaterialConfiguration materialConfigB = new MaterialConfiguration();
+        materialConfigB.setName(materialB);
 
-        FileConfiguration fileConfig_1 = new FileConfiguration();
-        fileConfig_1.setExtruderNum(0);
-        fileConfig_1.setSubsetSTL(new File(stlFilePath_1));
-        fileConfig_1.setMaterialConfiguration(materialConfig);
+        FileConfiguration fileConfig_A0 = new FileConfiguration();
+        fileConfig_A0.setExtruderNum(0);
+        fileConfig_A0.setSubsetSTL(new File(stlFilePath_A0));
+        fileConfig_A0.setMaterialConfiguration(materialConfigA);
+
+        FileConfiguration fileConfig_A1 = new FileConfiguration();
+        fileConfig_A1.setExtruderNum(0);
+        fileConfig_A1.setSubsetSTL(new File(stlFilePath_A1));
+        fileConfig_A1.setMaterialConfiguration(materialConfigA);
+
+        FileConfiguration fileConfig_B0 = new FileConfiguration();
+        fileConfig_B0.setExtruderNum(1);
+        fileConfig_B0.setSubsetSTL(new File(stlFilePath_B0));
+        fileConfig_B0.setMaterialConfiguration(materialConfigB);
+
+        FileConfiguration fileConfig_B1 = new FileConfiguration();
+        fileConfig_B1.setExtruderNum(1);
+        fileConfig_B1.setSubsetSTL(new File(stlFilePath_B1));
+        fileConfig_B1.setMaterialConfiguration(materialConfigB);
 
         SubsetConfiguration subset_0 = new SubsetConfiguration();
-        subset_0.getFileConfigurations().add(fileConfig_0);
+        subset_0.getFileConfigurations().add(fileConfig_A0);
+        subset_0.getFileConfigurations().add(fileConfig_B0);
 
         SubsetConfiguration subset_1 = new SubsetConfiguration();
-        subset_1.getFileConfigurations().add(fileConfig_1);
+        subset_1.getFileConfigurations().add(fileConfig_A1);
+        subset_1.getFileConfigurations().add(fileConfig_B1);
 
         PrintJobConfiguration printJob = new PrintJobConfiguration();
-        printJob.setName("Basic Cube File Translation Test");
+        printJob.setName("Feed Housing Two Material File Translation Test");
         printJob.getSubsetConfigurationList().add(subset_0);
         printJob.getSubsetConfigurationList().add(subset_1);
 

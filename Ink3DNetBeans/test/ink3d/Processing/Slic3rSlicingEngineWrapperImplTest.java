@@ -32,21 +32,16 @@ public class Slic3rSlicingEngineWrapperImplTest {
         printJobConfiguration = new PrintJobConfiguration();
         printJobConfiguration.setName("G-Code Generator Test");
         printJobConfiguration.getPrinterConfiguration().getExtruderList().add(new ExtruderConfiguration());
+        printJobConfiguration.getPrinterConfiguration().getExtruderList().add(new ExtruderConfiguration());
+        printJobConfiguration.getExtruderMaterials().add(new MaterialConfiguration());
         printJobConfiguration.getExtruderMaterials().add(new MaterialConfiguration());
         
-        FileConfiguration fileConfig = new FileConfiguration();
-        fileConfig.setMaterialConfiguration(new MaterialConfiguration());
-        fileConfig.setExtruderConfiguration(new ExtruderConfiguration());
-        fileConfig.setExtruderNum(0);
-
         SubsetConfiguration subset0 = new SubsetConfiguration();
         subset0.setAmfFile(new File(subset0AmfFilename));
-        subset0.getFileConfigurations().add(fileConfig);
         subset0.setBottomZ(0.0);
 
         SubsetConfiguration subset1 = new SubsetConfiguration();
         subset1.setAmfFile(new File(subset1AmfFilename));
-        subset1.getFileConfigurations().add(fileConfig);
         subset1.setBottomZ(7.0);
 
         printJobConfiguration.getSubsetConfigurationList().add(subset0);
