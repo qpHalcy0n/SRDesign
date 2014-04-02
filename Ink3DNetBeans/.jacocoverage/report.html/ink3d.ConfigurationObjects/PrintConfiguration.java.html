@@ -8,105 +8,279 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class PrintConfiguration {
+    public static final int DEFAULT_BED_TEMPERATURE = 0;
+    public static final int DEFAULT_FIRST_LAYER_BED_TEMPERATURE = 0;
+    public static final double DEFAULT_BRIDGE_FLOW_RATIO = 1.0;
+    public static final int DEFAULT_PERIMETER_EXTRUDER = 0;
+    public static final int DEFAULT_INFILL_EXTRUDER = 0;
+    public static final int DEFAULT_SUPPORT_MATERIAL_EXTRUDER = 0;
+    public static final int DEFAULT_SUPPORT_MATERIAL_INTERFACE_EXTRUDER = 0;
+    public static final String DEFAULT_LAYER_CHANGE_GCODE = &quot;&quot;;
+
     private String name;
     private InfillConfiguration infillConfiguration;
     private LayerAndPerimeterConfiguration layerPerimiterConfiguration;
     private SpeedConfiguration speedConfiguration;
     private SkirtAndBrimConfiguration skirtAndBrimConfiguration;
     private SupportMaterialConfiguration supportMaterialConfiguration;
+    private CoolingConfiguration coolingConfiguration;
+    private ExtrusionWidthConfiguration extrusionWidthConfiguration;
+    private int bedTemperature;
+    private int firstLayerBedTemperature;
+    private double bridgeFlowRatio;
+    private int perimeterExtruder;
+    private int infillExtruder;
+    private int supportMaterialExtruder;
+    private int supportMaterialInterfaceExtruder;
+    private String layerChangeGCode;
 
-<span class="fc" id="L18">    public PrintConfiguration() {</span>
-<span class="fc" id="L19">        this.infillConfiguration = new InfillConfiguration();</span>
-<span class="fc" id="L20">        this.layerPerimiterConfiguration = new LayerAndPerimeterConfiguration();</span>
-<span class="fc" id="L21">        this.speedConfiguration = new SpeedConfiguration();</span>
-<span class="fc" id="L22">        this.skirtAndBrimConfiguration = new SkirtAndBrimConfiguration();</span>
-<span class="fc" id="L23">        this.supportMaterialConfiguration = new SupportMaterialConfiguration();</span>
-<span class="fc" id="L24">    }</span>
+<span class="fc" id="L37">    public PrintConfiguration() {</span>
+<span class="fc" id="L38">        this.infillConfiguration = new InfillConfiguration();</span>
+<span class="fc" id="L39">        this.layerPerimiterConfiguration = new LayerAndPerimeterConfiguration();</span>
+<span class="fc" id="L40">        this.speedConfiguration = new SpeedConfiguration();</span>
+<span class="fc" id="L41">        this.skirtAndBrimConfiguration = new SkirtAndBrimConfiguration();</span>
+<span class="fc" id="L42">        this.supportMaterialConfiguration = new SupportMaterialConfiguration();</span>
+<span class="fc" id="L43">        this.coolingConfiguration = new CoolingConfiguration();</span>
+<span class="fc" id="L44">        this.extrusionWidthConfiguration = new ExtrusionWidthConfiguration();</span>
+<span class="fc" id="L45">        this.bedTemperature = DEFAULT_BED_TEMPERATURE;</span>
+<span class="fc" id="L46">        this.firstLayerBedTemperature = DEFAULT_FIRST_LAYER_BED_TEMPERATURE;</span>
+<span class="fc" id="L47">        this.bridgeFlowRatio = DEFAULT_BRIDGE_FLOW_RATIO;</span>
+<span class="fc" id="L48">        this.perimeterExtruder = DEFAULT_PERIMETER_EXTRUDER;</span>
+<span class="fc" id="L49">        this.infillExtruder = DEFAULT_INFILL_EXTRUDER;</span>
+<span class="fc" id="L50">        this.supportMaterialExtruder = DEFAULT_SUPPORT_MATERIAL_EXTRUDER;</span>
+<span class="fc" id="L51">        this.supportMaterialInterfaceExtruder = DEFAULT_SUPPORT_MATERIAL_INTERFACE_EXTRUDER;</span>
+<span class="fc" id="L52">        this.layerChangeGCode = DEFAULT_LAYER_CHANGE_GCODE;</span>
+<span class="fc" id="L53">    }</span>
 
     public InfillConfiguration getInfillConfiguration() {
-<span class="fc" id="L27">        return infillConfiguration;</span>
+<span class="fc" id="L56">        return infillConfiguration;</span>
     }
 
     public void setInfillConfiguration(InfillConfiguration infillConfiguration) {
-<span class="fc" id="L31">        this.infillConfiguration = infillConfiguration;</span>
-<span class="fc" id="L32">    }</span>
+<span class="fc" id="L60">        this.infillConfiguration = infillConfiguration;</span>
+<span class="fc" id="L61">    }</span>
 
     public LayerAndPerimeterConfiguration getLayerPerimiterConfiguration() {
-<span class="fc" id="L35">        return layerPerimiterConfiguration;</span>
+<span class="fc" id="L64">        return layerPerimiterConfiguration;</span>
     }
 
     public void setLayerPerimiterConfiguration(LayerAndPerimeterConfiguration layerPerimiterConfiguration) {
-<span class="fc" id="L39">        this.layerPerimiterConfiguration = layerPerimiterConfiguration;</span>
-<span class="fc" id="L40">    }</span>
+<span class="fc" id="L68">        this.layerPerimiterConfiguration = layerPerimiterConfiguration;</span>
+<span class="fc" id="L69">    }</span>
 
     public SpeedConfiguration getSpeedConfiguration() {
-<span class="fc" id="L43">        return speedConfiguration;</span>
+<span class="fc" id="L72">        return speedConfiguration;</span>
     }
 
     public void setSpeedConfiguration(SpeedConfiguration speedConfiguration) {
-<span class="fc" id="L47">        this.speedConfiguration = speedConfiguration;</span>
-<span class="fc" id="L48">    }</span>
+<span class="fc" id="L76">        this.speedConfiguration = speedConfiguration;</span>
+<span class="fc" id="L77">    }</span>
 
     public SkirtAndBrimConfiguration getSkirtAndBrimConfiguration() {
-<span class="fc" id="L51">        return skirtAndBrimConfiguration;</span>
+<span class="fc" id="L80">        return skirtAndBrimConfiguration;</span>
     }
 
     public void setSkirtAndBrimConfiguration(SkirtAndBrimConfiguration skirtAndBrimConfiguration) {
-<span class="fc" id="L55">        this.skirtAndBrimConfiguration = skirtAndBrimConfiguration;</span>
-<span class="fc" id="L56">    }</span>
+<span class="fc" id="L84">        this.skirtAndBrimConfiguration = skirtAndBrimConfiguration;</span>
+<span class="fc" id="L85">    }</span>
 
     public SupportMaterialConfiguration getSupportMaterialConfiguration() {
-<span class="fc" id="L59">        return supportMaterialConfiguration;</span>
+<span class="fc" id="L88">        return supportMaterialConfiguration;</span>
     }
 
     public void setSupportMaterialConfiguration(SupportMaterialConfiguration supportMaterialConfiguration) {
-<span class="fc" id="L63">        this.supportMaterialConfiguration = supportMaterialConfiguration;</span>
-<span class="fc" id="L64">    }</span>
+<span class="fc" id="L92">        this.supportMaterialConfiguration = supportMaterialConfiguration;</span>
+<span class="fc" id="L93">    }</span>
 
     public String getName() {
-<span class="fc" id="L67">        return name;</span>
+<span class="fc" id="L96">        return name;</span>
     }
 
     public void setName(String name) {
-<span class="fc" id="L71">        this.name = name;</span>
-<span class="fc" id="L72">    }   </span>
+<span class="fc" id="L100">        this.name = name;</span>
+<span class="fc" id="L101">    }   </span>
 
     @Override
     public int hashCode() {
-<span class="nc" id="L76">        int hash = 3;</span>
-<span class="nc" id="L77">        hash = 29 * hash + Objects.hashCode(this.name);</span>
-<span class="nc" id="L78">        return hash;</span>
+<span class="nc" id="L105">        int hash = 3;</span>
+<span class="nc" id="L106">        hash = 29 * hash + Objects.hashCode(this.name);</span>
+<span class="nc" id="L107">        return hash;</span>
     }
 
     @Override
     public boolean equals(Object obj) {
-<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (obj == null) {</span>
-<span class="nc" id="L84">            return false;</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L113">            return false;</span>
         }
-<span class="nc bnc" id="L86" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
-<span class="nc" id="L87">            return false;</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L116">            return false;</span>
         }
-<span class="nc" id="L89">        final PrintConfiguration other = (PrintConfiguration) obj;</span>
-<span class="nc bnc" id="L90" title="All 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
-<span class="nc" id="L91">            return false;</span>
+<span class="fc" id="L118">        final PrintConfiguration other = (PrintConfiguration) obj;</span>
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
+<span class="nc" id="L120">            return false;</span>
         }
-<span class="nc bnc" id="L93" title="All 2 branches missed.">        if (!Objects.equals(this.infillConfiguration, other.infillConfiguration)) {</span>
-<span class="nc" id="L94">            return false;</span>
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">        if (!Objects.equals(this.infillConfiguration, other.infillConfiguration)) {</span>
+<span class="nc" id="L123">            return false;</span>
         }
-<span class="nc bnc" id="L96" title="All 2 branches missed.">        if (!Objects.equals(this.layerPerimiterConfiguration, other.layerPerimiterConfiguration)) {</span>
-<span class="nc" id="L97">            return false;</span>
+<span class="pc bpc" id="L125" title="1 of 2 branches missed.">        if (!Objects.equals(this.layerPerimiterConfiguration, other.layerPerimiterConfiguration)) {</span>
+<span class="nc" id="L126">            return false;</span>
         }
-<span class="nc bnc" id="L99" title="All 2 branches missed.">        if (!Objects.equals(this.speedConfiguration, other.speedConfiguration)) {</span>
-<span class="nc" id="L100">            return false;</span>
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">        if (!Objects.equals(this.speedConfiguration, other.speedConfiguration)) {</span>
+<span class="nc" id="L129">            return false;</span>
         }
-<span class="nc bnc" id="L102" title="All 2 branches missed.">        if (!Objects.equals(this.skirtAndBrimConfiguration, other.skirtAndBrimConfiguration)) {</span>
-<span class="nc" id="L103">            return false;</span>
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        if (!Objects.equals(this.skirtAndBrimConfiguration, other.skirtAndBrimConfiguration)) {</span>
+<span class="nc" id="L132">            return false;</span>
         }
-<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (!Objects.equals(this.supportMaterialConfiguration, other.supportMaterialConfiguration)) {</span>
-<span class="nc" id="L106">            return false;</span>
+<span class="pc bpc" id="L134" title="1 of 2 branches missed.">        if (!Objects.equals(this.supportMaterialConfiguration, other.supportMaterialConfiguration)) {</span>
+<span class="nc" id="L135">            return false;</span>
         }
-<span class="nc" id="L108">        return true;</span>
+<span class="fc" id="L137">        return true;</span>
     }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L142">        return &quot;PrintConfiguration{&quot; + &quot;name=&quot; + name + &quot;, infillConfiguration=&quot; + infillConfiguration + &quot;, layerPerimiterConfiguration=&quot; + layerPerimiterConfiguration + &quot;, speedConfiguration=&quot; + speedConfiguration + &quot;, skirtAndBrimConfiguration=&quot; + skirtAndBrimConfiguration + &quot;, supportMaterialConfiguration=&quot; + supportMaterialConfiguration + '}';</span>
+    }
+
+    /**
+     * @return the bedTemperature
+     */
+    public int getBedTemperature() {
+<span class="fc" id="L149">        return bedTemperature;</span>
+    }
+
+    /**
+     * @param bedTemperature the bedTemperature to set
+     */
+    public void setBedTemperature(int bedTemperature) {
+<span class="fc" id="L156">        this.bedTemperature = bedTemperature;</span>
+<span class="fc" id="L157">    }</span>
+
+    /**
+     * @return the firstLayerBedTemperature
+     */
+    public int getFirstLayerBedTemperature() {
+<span class="fc" id="L163">        return firstLayerBedTemperature;</span>
+    }
+
+    /**
+     * @param firstLayerBedTemperature the firstLayerBedTemperature to set
+     */
+    public void setFirstLayerBedTemperature(int firstLayerBedTemperature) {
+<span class="fc" id="L170">        this.firstLayerBedTemperature = firstLayerBedTemperature;</span>
+<span class="fc" id="L171">    }</span>
+
+    /**
+     * @return the coolingConfiguration
+     */
+    public CoolingConfiguration getCoolingConfiguration() {
+<span class="fc" id="L177">        return coolingConfiguration;</span>
+    }
+
+    /**
+     * @param coolingConfiguration the coolingConfiguration to set
+     */
+    public void setCoolingConfiguration(CoolingConfiguration coolingConfiguration) {
+<span class="fc" id="L184">        this.coolingConfiguration = coolingConfiguration;</span>
+<span class="fc" id="L185">    }</span>
+
+    /**
+     * @return the bridgeFlowRatio
+     */
+    public double getBridgeFlowRatio() {
+<span class="fc" id="L191">        return bridgeFlowRatio;</span>
+    }
+
+    /**
+     * @param bridgeFlowRatio the bridgeFlowRatio to set
+     */
+    public void setBridgeFlowRatio(double bridgeFlowRatio) {
+<span class="fc" id="L198">        this.bridgeFlowRatio = bridgeFlowRatio;</span>
+<span class="fc" id="L199">    }</span>
+
+    /**
+     * @return the perimeterExtruder
+     */
+    public int getPerimeterExtruder() {
+<span class="fc" id="L205">        return perimeterExtruder;</span>
+    }
+
+    /**
+     * @param perimeterExtruder the perimeterExtruder to set
+     */
+    public void setPerimeterExtruder(int perimeterExtruder) {
+<span class="fc" id="L212">        this.perimeterExtruder = perimeterExtruder;</span>
+<span class="fc" id="L213">    }</span>
+
+    /**
+     * @return the infillExtruder
+     */
+    public int getInfillExtruder() {
+<span class="fc" id="L219">        return infillExtruder;</span>
+    }
+
+    /**
+     * @param infillExtruder the infillExtruder to set
+     */
+    public void setInfillExtruder(int infillExtruder) {
+<span class="fc" id="L226">        this.infillExtruder = infillExtruder;</span>
+<span class="fc" id="L227">    }</span>
+
+    /**
+     * @return the supportMaterialExtruder
+     */
+    public int getSupportMaterialExtruder() {
+<span class="fc" id="L233">        return supportMaterialExtruder;</span>
+    }
+
+    /**
+     * @param supportMaterialExtruder the supportMaterialExtruder to set
+     */
+    public void setSupportMaterialExtruder(int supportMaterialExtruder) {
+<span class="fc" id="L240">        this.supportMaterialExtruder = supportMaterialExtruder;</span>
+<span class="fc" id="L241">    }</span>
+
+    /**
+     * @return the supportMaterialInterfaceExtruder
+     */
+    public int getSupportMaterialInterfaceExtruder() {
+<span class="fc" id="L247">        return supportMaterialInterfaceExtruder;</span>
+    }
+
+    /**
+     * @param supportMaterialInterfaceExtruder the supportMaterialInterfaceExtruder to set
+     */
+    public void setSupportMaterialInterfaceExtruder(int supportMaterialInterfaceExtruder) {
+<span class="fc" id="L254">        this.supportMaterialInterfaceExtruder = supportMaterialInterfaceExtruder;</span>
+<span class="fc" id="L255">    }</span>
+
+    /**
+     * @return the layerChangeGCode
+     */
+    public String getLayerChangeGCode() {
+<span class="fc" id="L261">        return layerChangeGCode;</span>
+    }
+
+    /**
+     * @param layerChangeGCode the layerChangeGCode to set
+     */
+    public void setLayerChangeGCode(String layerChangeGCode) {
+<span class="fc" id="L268">        this.layerChangeGCode = layerChangeGCode;</span>
+<span class="fc" id="L269">    }</span>
+
+    /**
+     * @return the extrusionWidthConfiguration
+     */
+    public ExtrusionWidthConfiguration getExtrusionWidthConfiguration() {
+<span class="fc" id="L275">        return extrusionWidthConfiguration;</span>
+    }
+
+    /**
+     * @param extrusionWidthConfiguration the extrusionWidthConfiguration to set
+     */
+    public void setExtrusionWidthConfiguration(ExtrusionWidthConfiguration extrusionWidthConfiguration) {
+<span class="fc" id="L282">        this.extrusionWidthConfiguration = extrusionWidthConfiguration;</span>
+<span class="fc" id="L283">    }</span>
     
     
 }

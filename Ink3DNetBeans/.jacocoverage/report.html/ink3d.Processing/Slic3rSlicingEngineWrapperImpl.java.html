@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Slic3rSlicingEngineWrapperImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ink3d.Processing</a> &gt; <span class="el_source">Slic3rSlicingEngineWrapperImpl.java</span></div><h1>Slic3rSlicingEngineWrapperImpl.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package ink3d.Processing;
+
+import ink3d.ConfigurationObjects.CoolingConfiguration;
+import ink3d.ConfigurationObjects.ExtruderConfiguration;
+import ink3d.ConfigurationObjects.ExtrusionWidthConfiguration;
+import ink3d.ConfigurationObjects.FileConfiguration;
+import ink3d.ConfigurationObjects.InfillConfiguration;
+import ink3d.ConfigurationObjects.LayerAndPerimeterConfiguration;
+import ink3d.ConfigurationObjects.MaterialConfiguration;
+import ink3d.ConfigurationObjects.PrintConfiguration;
+import ink3d.ConfigurationObjects.PrintJobConfiguration;
+import ink3d.ConfigurationObjects.PrinterConfiguration;
+import ink3d.ConfigurationObjects.SkirtAndBrimConfiguration;
+import ink3d.ConfigurationObjects.SpeedConfiguration;
+import ink3d.ConfigurationObjects.SubsetConfiguration;
+import ink3d.ConfigurationObjects.SupportMaterialConfiguration;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author Tim
+ */
+<span class="fc" id="L35">public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {</span>
+    // Printer Settings
+<span class="fc" id="L37">    public static String BED_SIZE = &quot;bed_size&quot;;</span>
+<span class="fc" id="L38">    public static String PRINT_CENTER = &quot;print_center&quot;;</span>
+<span class="fc" id="L39">    public static String Z_OFFSET = &quot;z_offset&quot;;</span>
+<span class="fc" id="L40">    public static String GCODE_FLAVOR = &quot;gcode_flavor&quot;;</span>
+<span class="fc" id="L41">    public static String USE_RELATIVE_E_DISTANCES = &quot;use_relative_e_distances&quot;;</span>
+<span class="fc" id="L42">    public static String USE_FIRMWARE_RETRACTION = &quot;use_firmware_retraction&quot;;</span>
+<span class="fc" id="L43">    public static String VIBRATION_LIMIT = &quot;vibration_limit&quot;;</span>
+<span class="fc" id="L44">    public static String NOZZLE_DIAMTER = &quot;nozzle_diameter&quot;;</span>
+
+    // Filament/Material Settings
+<span class="fc" id="L47">    public static String FILAMENT_DIAMTER = &quot;filament_diameter&quot;;</span>
+<span class="fc" id="L48">    public static String EXTRUSION_MULTIPLIER = &quot;extrusion_multiplier&quot;;</span>
+<span class="fc" id="L49">    public static String TEMPERATURE = &quot;temperature&quot;;</span>
+<span class="fc" id="L50">    public static String FIRST_LAYER_TEMPERATURE = &quot;first_layer_temperature&quot;;</span>
+<span class="fc" id="L51">    public static String BED_TEMPERATURE = &quot;bed_temperature&quot;;</span>
+<span class="fc" id="L52">    public static String FIRST_LAYER_BED_TEMPERATURE = &quot;first_layer_bed_temperature&quot;;</span>
+
+    // Speed Settings
+<span class="fc" id="L55">    public static String TRAVEL_SPEED = &quot;travel_speed&quot;;</span>
+<span class="fc" id="L56">    public static String PERIMETER_SPEED = &quot;perimeter_speed&quot;;</span>
+<span class="fc" id="L57">    public static String SMALL_PERIMETER_SPEED = &quot;small_perimeter_speed&quot;;</span>
+<span class="fc" id="L58">    public static String EXTERNAL_PERIMETER_SPEED = &quot;external_perimeter_speed&quot;;</span>
+<span class="fc" id="L59">    public static String INFILL_SPEED = &quot;infill_speed&quot;;</span>
+<span class="fc" id="L60">    public static String SOLID_INFILL_SPEED = &quot;solid_infill_speed&quot;;</span>
+<span class="fc" id="L61">    public static String TOP_SOLID_INFILL_SPEED = &quot;top_solid_infill_speed&quot;;</span>
+<span class="fc" id="L62">    public static String SUPPORT_MATERIAL_SPEED = &quot;support_material_speed&quot;;</span>
+<span class="fc" id="L63">    public static String BRIDGE_SPEED = &quot;bridge_speed&quot;;</span>
+<span class="fc" id="L64">    public static String GAP_FILL_SPEED = &quot;gap_fill_speed&quot;;</span>
+<span class="fc" id="L65">    public static String FIRST_LAYER_SPEED = &quot;first_layer_speed&quot;;</span>
+
+    // Acceleration Settings
+<span class="fc" id="L68">    public static String PERIMETER_ACCELERATION = &quot;perimeter_acceleration&quot;;</span>
+<span class="fc" id="L69">    public static String INFILL_ACCELERATION = &quot;infill_acceleration&quot;;</span>
+<span class="fc" id="L70">    public static String BRIDGE_ACCELERATION = &quot;bridge_acceleration&quot;;</span>
+<span class="fc" id="L71">    public static String DEFAULT_ACCELERATION = &quot;default_acceleration&quot;;</span>
+<span class="fc" id="L72">    public static String FIRST_LAYER_ACCELERATION = &quot;first_layer_acceleration&quot;;</span>
+    // Accuracy Options
+<span class="fc" id="L74">    public static String LAYER_HEIGHT = &quot;layer_height&quot;;</span>
+<span class="fc" id="L75">    public static String FIRST_LAYER_HEIGHT = &quot;first_layer_height&quot;;</span>
+<span class="fc" id="L76">    public static String INFILL_EVERY_LAYERS = &quot;infill_every_layers&quot;;</span>
+<span class="fc" id="L77">    public static String SOLID_INFILL_EVERY_LAYERS = &quot;solid_infill_every_layers&quot;;</span>
+
+    // Print Options
+<span class="fc" id="L80">    public static String PERIMETERS = &quot;perimeters&quot;;</span>
+<span class="fc" id="L81">    public static String SPIRAL_VASE = &quot;spiral_vase&quot;;</span>
+<span class="fc" id="L82">    public static String TOP_SOLID_LAYERS = &quot;top_solid_layers&quot;;</span>
+<span class="fc" id="L83">    public static String BOTTOM_SOLID_LAYERS = &quot;bottom_solid_layers&quot;;</span>
+<span class="fc" id="L84">    public static String SOLID_LAYERS = &quot;solid_layers&quot;;</span>
+<span class="fc" id="L85">    public static String FILL_DENSITY = &quot;fill_density&quot;;</span>
+<span class="fc" id="L86">    public static String FILL_ANGLE = &quot;fill_angle&quot;;</span>
+<span class="fc" id="L87">    public static String FILL_PATTERN = &quot;fill_pattern&quot;;</span>
+<span class="fc" id="L88">    public static String SOLID_FILL_PATTERN = &quot;solid_fill_pattern&quot;;</span>
+<span class="fc" id="L89">    public static String START_GCODE = &quot;start_gcode&quot;;</span>
+<span class="fc" id="L90">    public static String END_GCODE = &quot;end_gcode&quot;;</span>
+<span class="fc" id="L91">    public static String LAYER_GCODE = &quot;layer_gcode&quot;;</span>
+<span class="fc" id="L92">    public static String TOOLCHANGE_GCODE = &quot;toolchange_gcode&quot;;</span>
+<span class="fc" id="L93">    public static String EXTRA_PERIMETERS = &quot;extra_perimeters&quot;;</span>
+<span class="fc" id="L94">    public static String RANDOMIZE_START = &quot;randomize_start&quot;;</span>
+<span class="fc" id="L95">    public static String AVOID_CROSSING_PERIMETERS = &quot;avoid_crossing_perimeters&quot;;</span>
+<span class="fc" id="L96">    public static String EXTERNAL_PERIMETERS_FIRST = &quot;external_perimeters_first&quot;;</span>
+<span class="fc" id="L97">    public static String ONLY_RETRACT_WHEN_CROSSING_PERIMETERS = &quot;only_retract_when_crossing_perimeters&quot;;</span>
+<span class="fc" id="L98">    public static String SOLID_INFILL_BELOW_AREA = &quot;solid_infill_below_area&quot;;</span>
+<span class="fc" id="L99">    public static String INFILL_ONLY_WHERE_NEEDED = &quot;infill_only_where_needed&quot;;</span>
+<span class="fc" id="L100">    public static String INFILL_FIRST = &quot;infill_first&quot;;</span>
+
+<span class="fc" id="L102">    public static String START_PERIMETERS_AT_CONCAVE = &quot;start_perimeters_at_concave_points&quot;;</span>
+<span class="fc" id="L103">    public static String START_PERIMETERS_AT_NONOVERHANGS = &quot;start_perimeters_at_non_overhang&quot;;</span>
+<span class="fc" id="L104">    public static String DETECT_THIN_WALLS = &quot;thin_walls&quot;;</span>
+<span class="fc" id="L105">    public static String DETECT_BRIDGING_PERIMETERS = &quot;overhangs&quot;;</span>
+
+    // Support Material Options
+<span class="fc" id="L108">    public static String SUPPORT_MATERIAL = &quot;support_material&quot;;</span>
+<span class="fc" id="L109">    public static String SUPPORT_MATERIAL_THRESHOLD = &quot;support_material_threshold&quot;;</span>
+<span class="fc" id="L110">    public static String SUPPORT_MATERIAL_PATTERN = &quot;support_material_pattern&quot;;</span>
+<span class="fc" id="L111">    public static String SUPPORT_MATERIAL_SPACING = &quot;support_material_spacing&quot;;</span>
+<span class="fc" id="L112">    public static String SUPPORT_MATERIAL_ANGLE = &quot;support_material_angle&quot;;</span>
+<span class="fc" id="L113">    public static String SUPPORT_MATERIAL_INTERFACE_LAYERS = &quot;support_material_interface_layers&quot;;</span>
+<span class="fc" id="L114">    public static String SUPPORT_MATERIAL_INTERFACE_SPACING = &quot;support_material_interface_spacing&quot;;</span>
+<span class="fc" id="L115">    public static String RAFT_LAYERS = &quot;raft_layers&quot;;</span>
+<span class="fc" id="L116">    public static String SUPPORT_MATERIAL_ENFORCE_LAYERS = &quot;support_material_enforce_layers&quot;;</span>
+
+    // Retraction Options
+<span class="fc" id="L119">    public static String RETRACT_LENGTH = &quot;retract_length&quot;;</span>
+<span class="fc" id="L120">    public static String RETRACT_SPEED = &quot;retract_speed&quot;;</span>
+<span class="fc" id="L121">    public static String RETRACT_RESTART_EXTRA = &quot;retract_restart_extra&quot;;</span>
+<span class="fc" id="L122">    public static String RETRACT_BEFORE_TRAVEL = &quot;retract_before_travel&quot;;</span>
+<span class="fc" id="L123">    public static String RETRACT_LIFT = &quot;retract_lift&quot;;</span>
+<span class="fc" id="L124">    public static String RETRACT_LAYER_CHANGE = &quot;retract_layer_change&quot;;</span>
+<span class="fc" id="L125">    public static String WIPE = &quot;wipe&quot;;</span>
+
+    // Retract Options for Multi_Extruder Setup
+<span class="fc" id="L128">    public static String RETRACT_LENGTH_TOOLCHANGE = &quot;retract_length_toolchange&quot;;</span>
+<span class="fc" id="L129">    public static String RETRACT_RESTART_EXTRA_TOOLCHANGE = &quot;retract_restart_extra_toolchange&quot;;</span>
+
+    // Cooling Options
+<span class="fc" id="L132">    public static String COOLING = &quot;cooling&quot;;</span>
+<span class="fc" id="L133">    public static String MIN_FAN_SPEED = &quot;min_fan_speed&quot;;</span>
+<span class="fc" id="L134">    public static String MAX_FAN_SPEED = &quot;max_fan_speed&quot;;</span>
+<span class="fc" id="L135">    public static String BRIDGE_FAN_SPEED = &quot;bridge_fan_speed&quot;;</span>
+<span class="fc" id="L136">    public static String FAN_BELOW_LAYER_TIME = &quot;fan_below_layer_time&quot;;</span>
+<span class="fc" id="L137">    public static String SLOWDOWN_BELOW_LAYER_TIME = &quot;slowdown_below_layer_time&quot;;</span>
+<span class="fc" id="L138">    public static String MIN_PRINT_SPEED = &quot;min_print_speed&quot;;</span>
+<span class="fc" id="L139">    public static String DISABLE_FAN_FIRST_LAYERS = &quot;disable_fan_first_layers&quot;;</span>
+<span class="fc" id="L140">    public static String FAN_ALWAYS_ON = &quot;fan_always_on&quot;;</span>
+
+    // Skirt Options
+<span class="fc" id="L143">    public static String SKIRTS = &quot;skirts&quot;;</span>
+<span class="fc" id="L144">    public static String SKIRT_DISTANCE = &quot;skirt_distance&quot;;</span>
+<span class="fc" id="L145">    public static String SKIRT_HEIGHT = &quot;skirt_height&quot;;</span>
+<span class="fc" id="L146">    public static String MIN_SKIRT_LENGTH = &quot;min_skirt_length&quot;;</span>
+<span class="fc" id="L147">    public static String BRIM_WIDTH = &quot;brim_width&quot;;</span>
+
+    // Extrusion Width Options
+<span class="fc" id="L150">    public static String EXTRUSION_WIDTH = &quot;extrusion_width&quot;;</span>
+<span class="fc" id="L151">    public static String FIRST_LAYER_EXTRUSION_WIDTH = &quot;first_layer_extrusion_width&quot;;</span>
+<span class="fc" id="L152">    public static String PERIMETER_EXTRUSION_WIDTH = &quot;perimeter_extrusion_width&quot;;</span>
+<span class="fc" id="L153">    public static String INFILL_EXTRUSION_WIDTH = &quot;infill_extrusion_width&quot;;</span>
+<span class="fc" id="L154">    public static String SOLID_INFILL_EXTRUSION_WIDTH = &quot;solid_infill_extrusion_width&quot;;</span>
+<span class="fc" id="L155">    public static String TOP_INFILL_EXTRUSION_WIDTH = &quot;top_infill_extrusion_width&quot;;</span>
+<span class="fc" id="L156">    public static String SUPPORT_MATERIAL_EXTRUSION_WIDTH = &quot;support_material_extrusion_width&quot;;</span>
+<span class="fc" id="L157">    public static String DEFAULT_EXTRUSION_WIDTH = &quot;extrusion_width&quot;;</span>
+<span class="fc" id="L158">    public static String PERIMETERS_EXTRUSION_WIDTH = &quot;perimeter_extrusion_width&quot;;</span>
+
+    // Flow Options 
+<span class="fc" id="L161">    public static String BRIDGE_FLOW_RATIO = &quot;bridge_flow_ratio&quot;;</span>
+
+    // Advanced Options
+<span class="fc" id="L164">    public static String THREADS = &quot;threads&quot;;</span>
+<span class="fc" id="L165">    public static String RESOLUTION = &quot;resolution&quot;;</span>
+
+    // Mulitple Extruder Options
+<span class="fc" id="L168">    public static String EXTRUDER_OFFSET = &quot;extruder_offset&quot;;</span>
+<span class="fc" id="L169">    public static String PERIMETER_EXTRUDER = &quot;perimeter_extruder&quot;;</span>
+<span class="fc" id="L170">    public static String INFILL_EXTRUDER = &quot;infill_extruder&quot;;</span>
+<span class="fc" id="L171">    public static String SUPPORT_MATERIAL_EXTRUDER = &quot;support_material_extruder&quot;;</span>
+<span class="fc" id="L172">    public static String SUPPORT_MATERIAL_INTERFACE_EXTRUDER = &quot;support_material_interface_extruder&quot;;</span>
+<span class="fc" id="L173">    public static String OOZE_PREVENTION = &quot;ooze_prevention&quot;;</span>
+<span class="fc" id="L174">    public static String STANDBY_TEMPERATURE_DELTA = &quot;standby_temperature_delta&quot;;</span>
+
+    // Output Options
+<span class="fc" id="L177">    public static String COMPLETE_OBJECTS = &quot;complete_objects&quot;;</span>
+<span class="fc" id="L178">    public static String EXTRUDER_CLEARANCE_HEIGHT = &quot;extruder_clearance_height&quot;;</span>
+<span class="fc" id="L179">    public static String EXTRUDER_CLEARANCE_RADIUS = &quot;extruder_clearance_radius&quot;;</span>
+<span class="fc" id="L180">    public static String VERBOSE_GCODE = &quot;gcode_comments&quot;;</span>
+<span class="fc" id="L181">    public static String OUTPUT_FILENAME_FORMAT = &quot;output_filename_format&quot;;</span>
+<span class="fc" id="L182">    public static String POST_PROCESSING_SCRIPTS = &quot;post_process&quot;;</span>
+
+    // Other Options
+<span class="fc" id="L185">    public static String EXTRUSION_AXIS = &quot;extrusion_axis&quot;;</span>
+<span class="fc" id="L186">    public static String GCODE_ARCS = &quot;gcode_arcs&quot;;</span>
+<span class="fc" id="L187">    public static String G0 = &quot;g0&quot;;</span>
+<span class="fc" id="L188">    public static String ROTATE = &quot;rotate&quot;;</span>
+<span class="fc" id="L189">    public static String SCALE = &quot;scale&quot;;</span>
+<span class="fc" id="L190">    public static String DUPLICATE = &quot;duplicate&quot;;</span>
+<span class="fc" id="L191">    public static String DUPLICATE_DISTANCE = &quot;duplicate_distance&quot;;</span>
+<span class="fc" id="L192">    public static String DUPLICATE_GRID = &quot;duplicate_grid&quot;;</span>
+
+<span class="fc" id="L194">    public static String SLIC3R_CONFIG_DIR = &quot;slic3r-configs&quot;;</span>
+<span class="fc" id="L195">    public static String GCODE_DIR = &quot;gcode&quot;;</span>
+<span class="fc" id="L196">    public static String GCODE_EXTENSION = &quot;.gcode&quot;;</span>
+<span class="fc" id="L197">    public static String CONFIG_EXTENSION = &quot;.ini&quot;;</span>
+
+<span class="fc" id="L199">    private static String SLIC3R_PATH = &quot;third-party&quot; + File.separator </span>
+            + &quot;Slic3r&quot; + File.separator + &quot;slic3r-console.exe&quot;;
+
+    @Override
+    public boolean generateGCode(PrintJobConfiguration printJobConfiguration) {
+<span class="fc" id="L204">        PrinterConfiguration printerConfiguration = printJobConfiguration.getPrinterConfiguration();</span>
+
+        // Create a string builder to build a string of config options
+<span class="fc" id="L207">        int subsetNum = 0;</span>
+<span class="fc" id="L208">        List&lt;SubsetConfiguration&gt; subsets = printJobConfiguration.getSubsetConfigurationList();</span>
+        // Append subset specific options
+<span class="pc bpc" id="L210" title="1 of 2 branches missed.">        for(SubsetConfiguration subset : subsets) {</span>
+<span class="fc" id="L211">            List&lt;FileConfiguration&gt; fileConfigs = subset.getFileConfigurations();</span>
+<span class="fc" id="L212">            List&lt;ExtruderConfiguration&gt; extruders = printerConfiguration.getExtruderList();</span>
+<span class="fc" id="L213">            List&lt;MaterialConfiguration&gt; materials = printJobConfiguration.getExtruderMaterials();</span>
+<span class="fc" id="L214">            PrintConfiguration printConfig = subset.getPrintConfiguration();</span>
+<span class="fc" id="L215">            InfillConfiguration infill = printConfig.getInfillConfiguration();</span>
+<span class="fc" id="L216">            LayerAndPerimeterConfiguration layerAndPerimeters = printConfig.getLayerPerimiterConfiguration();</span>
+<span class="fc" id="L217">            SkirtAndBrimConfiguration skirtAndBrim = printConfig.getSkirtAndBrimConfiguration();</span>
+<span class="fc" id="L218">            SpeedConfiguration speed = printConfig.getSpeedConfiguration();</span>
+<span class="fc" id="L219">            SupportMaterialConfiguration supportMaterial = printConfig.getSupportMaterialConfiguration();</span>
+<span class="fc" id="L220">            ExtrusionWidthConfiguration extrusionWidth = printConfig.getExtrusionWidthConfiguration();</span>
+<span class="fc" id="L221">            CoolingConfiguration cooling = printConfig.getCoolingConfiguration();</span>
+
+            // String builder to build config string
+<span class="fc" id="L224">            StringBuilder sb = new StringBuilder();</span>
+
+            // Special first subset options
+<span class="pc bpc" id="L227" title="1 of 2 branches missed.">            if(subsetNum == 0) {</span>
+<span class="fc" id="L228">                appendProperty(sb, FIRST_LAYER_TEMPERATURE, getFirstLayerTemperatures(materials));</span>
+<span class="fc" id="L229">                appendProperty(sb, FIRST_LAYER_BED_TEMPERATURE, 0);</span>
+<span class="fc" id="L230">                appendProperty(sb, FIRST_LAYER_SPEED, speed.getFirstLayerSpeed());</span>
+<span class="fc" id="L231">                appendProperty(sb, FIRST_LAYER_ACCELERATION, 0);</span>
+<span class="fc" id="L232">                appendProperty(sb, FIRST_LAYER_HEIGHT, layerAndPerimeters.getFirstLayerHeight());</span>
+<span class="fc" id="L233">                appendProperty(sb, BOTTOM_SOLID_LAYERS, layerAndPerimeters.getSolidBottomLayers());</span>
+<span class="fc" id="L234">                appendProperty(sb, FIRST_LAYER_EXTRUSION_WIDTH, extrusionWidth.getFirstLayerExtrusionWidth());</span>
+<span class="fc" id="L235">                appendProperty(sb, DISABLE_FAN_FIRST_LAYERS, 1);</span>
+<span class="fc" id="L236">                appendProperty(sb, SKIRTS, skirtAndBrim.getSkirtLoops());</span>
+<span class="fc" id="L237">                appendProperty(sb, SKIRT_DISTANCE, skirtAndBrim.getSkirtDistanceFromObject());</span>
+<span class="fc" id="L238">                appendProperty(sb, SKIRT_HEIGHT, skirtAndBrim.getSkirtHeight());</span>
+<span class="fc" id="L239">                appendProperty(sb, MIN_SKIRT_LENGTH, skirtAndBrim.getSkirtMinimumExtrusionLength());</span>
+<span class="fc" id="L240">                appendProperty(sb, BRIM_WIDTH, skirtAndBrim.getBrimWidth());</span>
+            }
+            else {
+<span class="nc" id="L243">                appendProperty(sb, FIRST_LAYER_TEMPERATURE, getExtrusionTemperatures(materials));</span>
+<span class="nc" id="L244">                appendProperty(sb, FIRST_LAYER_BED_TEMPERATURE, 0);</span>
+<span class="nc" id="L245">                appendProperty(sb, FIRST_LAYER_SPEED, &quot;100%&quot;);</span>
+<span class="nc" id="L246">                appendProperty(sb, FIRST_LAYER_ACCELERATION, 0);</span>
+<span class="nc" id="L247">                appendProperty(sb, FIRST_LAYER_HEIGHT, layerAndPerimeters.getLayerHeight());</span>
+<span class="nc" id="L248">                appendProperty(sb, BOTTOM_SOLID_LAYERS, 0);</span>
+<span class="nc" id="L249">                appendProperty(sb, FIRST_LAYER_EXTRUSION_WIDTH, extrusionWidth.getDefaultExtrusionWidth());</span>
+<span class="nc" id="L250">                appendProperty(sb, DISABLE_FAN_FIRST_LAYERS, 0);</span>
+<span class="nc" id="L251">                appendProperty(sb, SKIRTS, 0);</span>
+<span class="nc" id="L252">                appendProperty(sb, SKIRT_DISTANCE, skirtAndBrim.getSkirtDistanceFromObject());</span>
+<span class="nc" id="L253">                appendProperty(sb, SKIRT_HEIGHT, skirtAndBrim.getSkirtHeight());</span>
+<span class="nc" id="L254">                appendProperty(sb, MIN_SKIRT_LENGTH, skirtAndBrim.getSkirtMinimumExtrusionLength());</span>
+<span class="nc" id="L255">                appendProperty(sb, BRIM_WIDTH, 0);</span>
+
+            }
+
+            // Special last subset options
+<span class="pc bpc" id="L260" title="1 of 2 branches missed.">            if(subsetNum == subsets.size() - 1) {</span>
+<span class="nc" id="L261">                appendProperty(sb, TOP_SOLID_INFILL_SPEED, speed.getTopSolidInfillSpeed());</span>
+<span class="nc" id="L262">                appendProperty(sb, TOP_SOLID_LAYERS, layerAndPerimeters.getSolidTopLayers());</span>
+<span class="nc" id="L263">                appendProperty(sb, TOP_INFILL_EXTRUSION_WIDTH, extrusionWidth.getTopSolidInfillExtrusionWidth());</span>
+            }
+            else {
+<span class="fc" id="L266">                appendProperty(sb, TOP_SOLID_INFILL_SPEED, speed.getSolidInfillSpeed());</span>
+<span class="fc" id="L267">                appendProperty(sb, TOP_SOLID_LAYERS, 0);</span>
+<span class="fc" id="L268">                appendProperty(sb, TOP_INFILL_EXTRUSION_WIDTH, extrusionWidth.getDefaultExtrusionWidth());</span>
+            }
+
+            // Append printer options
+<span class="fc" id="L272">            appendProperty(sb, BED_SIZE, printerConfiguration.getBedX() + &quot;,&quot; + printerConfiguration.getBedY());</span>
+<span class="fc" id="L273">            appendProperty(sb, PRINT_CENTER, printerConfiguration.getPrintCenterX() </span>
+                    + &quot;,&quot; + printerConfiguration.getPrintCenterY());
+<span class="fc" id="L275">            appendProperty(sb, GCODE_FLAVOR, printerConfiguration.getgCodeFlavor());</span>
+<span class="fc" id="L276">            appendProperty(sb, USE_RELATIVE_E_DISTANCES, printerConfiguration.isUseRelativeEDistances());</span>
+<span class="fc" id="L277">            appendProperty(sb, VIBRATION_LIMIT, printerConfiguration.getVibrationLimit());</span>
+<span class="fc" id="L278">            appendProperty(sb, NOZZLE_DIAMTER, getNozzleDiameters(printerConfiguration.getExtruderList()));</span>
+<span class="fc" id="L279">            appendProperty(sb, USE_FIRMWARE_RETRACTION, printerConfiguration.isUseFirmwareRetraction());</span>
+            // Hardcode custom G-Code properties to empty (take care of this in post processing)
+<span class="fc" id="L281">            appendProperty(sb, START_GCODE, &quot;&quot;);</span>
+<span class="fc" id="L282">            appendProperty(sb, END_GCODE, &quot;&quot;);</span>
+<span class="fc" id="L283">            appendProperty(sb, TOOLCHANGE_GCODE, &quot;&quot;);</span>
+<span class="fc" id="L284">            appendProperty(sb, EXTRUDER_OFFSET, getExtruderOffsets(printerConfiguration.getExtruderList()));</span>
+
+<span class="fc" id="L286">            appendProperty(sb, LAYER_GCODE, printConfig.getLayerChangeGCode());</span>
+            
+<span class="fc" id="L288">            double zOffset = printerConfiguration.getzOffset() + subset.getBottomZ();</span>
+<span class="fc" id="L289">            appendProperty(sb, Z_OFFSET, zOffset);</span>
+<span class="fc" id="L290">            appendProperty(sb, FILAMENT_DIAMTER, getFilamentDiameters(materials));</span>
+<span class="fc" id="L291">            appendProperty(sb, EXTRUSION_MULTIPLIER, getExtrusionMultipliers(materials));</span>
+<span class="fc" id="L292">            appendProperty(sb, TEMPERATURE, getExtrusionTemperatures(materials));</span>
+<span class="fc" id="L293">            appendProperty(sb, BED_TEMPERATURE, printConfig.getBedTemperature());</span>
+
+            // Speed Options
+<span class="fc" id="L296">            appendProperty(sb, TRAVEL_SPEED, speed.getNonPrintMovesSpeed());</span>
+<span class="fc" id="L297">            appendProperty(sb, PERIMETER_SPEED, speed.getPerimetersSpeed());</span>
+<span class="fc" id="L298">            appendProperty(sb, SMALL_PERIMETER_SPEED, speed.getSmallPerimetersSpeed());</span>
+<span class="fc" id="L299">            appendProperty(sb, EXTERNAL_PERIMETER_SPEED, speed.getExternalPerimetersSpeed());</span>
+<span class="fc" id="L300">            appendProperty(sb, INFILL_SPEED, speed.getInfillSpeed());</span>
+<span class="fc" id="L301">            appendProperty(sb, SOLID_INFILL_SPEED, speed.getSolidInfillSpeed());</span>
+<span class="fc" id="L302">            appendProperty(sb, SUPPORT_MATERIAL_SPEED, speed.getSupportMaterialSpeed());</span>
+<span class="fc" id="L303">            appendProperty(sb, BRIDGE_SPEED, speed.getBridgesSpeed());</span>
+<span class="fc" id="L304">            appendProperty(sb, GAP_FILL_SPEED, speed.getGapFillSpeed());</span>
+
+            // Acceleration Options
+<span class="fc" id="L307">            appendProperty(sb, PERIMETER_ACCELERATION, speed.getPerimetersAcceleration());</span>
+<span class="fc" id="L308">            appendProperty(sb, INFILL_ACCELERATION, speed.getInfillAcceleration());</span>
+<span class="fc" id="L309">            appendProperty(sb, BRIDGE_ACCELERATION, speed.getBridgeAcceleration());</span>
+<span class="fc" id="L310">            appendProperty(sb, DEFAULT_ACCELERATION, speed.getDefaultAcceleration());</span>
+
+            // Accuracy Options
+<span class="fc" id="L313">            appendProperty(sb, LAYER_HEIGHT, layerAndPerimeters.getLayerHeight());</span>
+<span class="fc" id="L314">            appendProperty(sb, INFILL_EVERY_LAYERS, infill.getInfillEveryNLayers());</span>
+<span class="fc" id="L315">            appendProperty(sb, SOLID_INFILL_EVERY_LAYERS, infill.getSolidInfillEveryNLayers());</span>
+
+            // Print Options
+<span class="fc" id="L318">            appendProperty(sb, SPIRAL_VASE, layerAndPerimeters.isSpiralVase());</span>
+<span class="fc" id="L319">            appendProperty(sb, PERIMETERS, layerAndPerimeters.getPerimeters());</span>
+<span class="fc" id="L320">            appendProperty(sb, FILL_DENSITY, infill.getInfillDensity());</span>
+<span class="fc" id="L321">            appendProperty(sb, FILL_ANGLE, infill.getInfillAngle());</span>
+<span class="fc" id="L322">            appendProperty(sb, FILL_PATTERN, infill.getInfillPattern());</span>
+<span class="fc" id="L323">            appendProperty(sb, SOLID_FILL_PATTERN, infill.getTopBottomInfillPattern());</span>
+
+            // TODO:  Extrusion Width Options
+            // Hardcoded for now
+<span class="fc" id="L327">            appendProperty(sb, DEFAULT_EXTRUSION_WIDTH, extrusionWidth.getDefaultExtrusionWidth());</span>
+<span class="fc" id="L328">            appendProperty(sb, PERIMETERS_EXTRUSION_WIDTH, extrusionWidth.getPerimetersExtrusionWidth());</span>
+<span class="fc" id="L329">            appendProperty(sb, INFILL_EXTRUSION_WIDTH, extrusionWidth.getInfillExtrusionWidth());</span>
+<span class="fc" id="L330">            appendProperty(sb, SOLID_INFILL_EXTRUSION_WIDTH, extrusionWidth.getSolidInfillExtrusionWidth());</span>
+<span class="fc" id="L331">            appendProperty(sb, SUPPORT_MATERIAL_EXTRUSION_WIDTH, extrusionWidth.getSupportMaterialExtrusionWidth());</span>
+<span class="fc" id="L332">            appendProperty(sb, BRIDGE_FLOW_RATIO, printConfig.getBridgeFlowRatio());</span>
+
+            // Advanced Options
+<span class="fc" id="L335">            appendProperty(sb, THREADS, 2);</span>
+<span class="fc" id="L336">            appendProperty(sb, RESOLUTION, 0);</span>
+
+            // Layers and Perimeters -&gt; Quality
+<span class="fc" id="L339">            appendProperty(sb, EXTRA_PERIMETERS, layerAndPerimeters.isGenerateExtraPerimetersWhenNeeded());</span>
+<span class="fc" id="L340">            appendProperty(sb, AVOID_CROSSING_PERIMETERS, layerAndPerimeters.isAvoidCrossingPerimeters());</span>
+<span class="fc" id="L341">            appendProperty(sb, START_PERIMETERS_AT_CONCAVE, layerAndPerimeters.isStartPerimetersAtConcavePoints());</span>
+<span class="fc" id="L342">            appendProperty(sb, START_PERIMETERS_AT_NONOVERHANGS, layerAndPerimeters.isStartPerimetersAtNonOverhangPoints());</span>
+<span class="fc" id="L343">            appendProperty(sb, DETECT_THIN_WALLS, layerAndPerimeters.isDetectThinWalls());</span>
+<span class="fc" id="L344">            appendProperty(sb, DETECT_BRIDGING_PERIMETERS, layerAndPerimeters.isDetectBridgingPerimeters());</span>
+<span class="fc" id="L345">            appendProperty(sb, RANDOMIZE_START, layerAndPerimeters.isRandomizedStartingPoints());</span>
+<span class="fc" id="L346">            appendProperty(sb, EXTERNAL_PERIMETERS_FIRST, layerAndPerimeters.isExternalPerimetersFirst());</span>
+
+<span class="fc" id="L348">            appendProperty(sb, ONLY_RETRACT_WHEN_CROSSING_PERIMETERS, infill.isOnlyRetractInfillWhenCrossingPerimeters());</span>
+<span class="fc" id="L349">            appendProperty(sb, SOLID_INFILL_BELOW_AREA, infill.getSolidInfillThresholdArea());</span>
+<span class="fc" id="L350">            appendProperty(sb, INFILL_ONLY_WHERE_NEEDED, infill.isOnlyInfillWhereNeeded());</span>
+<span class="fc" id="L351">            appendProperty(sb, INFILL_FIRST, infill.isInfillBeforePerimeters());</span>
+
+            // Material Options
+<span class="fc" id="L354">            appendProperty(sb, SUPPORT_MATERIAL, supportMaterial.isGenerateSupportMaterial());</span>
+<span class="fc" id="L355">            appendProperty(sb, SUPPORT_MATERIAL_THRESHOLD, supportMaterial.getOverhangThreshold());</span>
+<span class="fc" id="L356">            appendProperty(sb, SUPPORT_MATERIAL_PATTERN, supportMaterial.getSupportMaterialPattern());</span>
+<span class="fc" id="L357">            appendProperty(sb, SUPPORT_MATERIAL_SPACING, supportMaterial.getSupportPatternSpacing());</span>
+<span class="fc" id="L358">            appendProperty(sb, SUPPORT_MATERIAL_ANGLE, supportMaterial.getSupportPatternAngle());</span>
+<span class="fc" id="L359">            appendProperty(sb, SUPPORT_MATERIAL_INTERFACE_LAYERS, supportMaterial.getInterfaceLayers() );</span>
+<span class="fc" id="L360">            appendProperty(sb, SUPPORT_MATERIAL_INTERFACE_SPACING, supportMaterial.getInterfacePatternSpacing());</span>
+<span class="fc" id="L361">            appendProperty(sb, RAFT_LAYERS, supportMaterial.getRaftLayers());</span>
+<span class="fc" id="L362">            appendProperty(sb, SUPPORT_MATERIAL_ENFORCE_LAYERS, supportMaterial.getEnforceSupportForFirstNLayers());</span>
+
+            // Retraction Options
+<span class="fc" id="L365">            appendProperty(sb, RETRACT_LENGTH, getRetractLengths(materials));</span>
+<span class="fc" id="L366">            appendProperty(sb, RETRACT_SPEED, getRetractSpeeds(materials));</span>
+<span class="fc" id="L367">            appendProperty(sb, RETRACT_RESTART_EXTRA, getExtraAfterRetracts(materials));</span>
+<span class="fc" id="L368">            appendProperty(sb, RETRACT_BEFORE_TRAVEL, getRetractBeforeTravelValues(materials));</span>
+<span class="fc" id="L369">            appendProperty(sb, RETRACT_LIFT, getRetractLifts(materials));</span>
+<span class="fc" id="L370">            appendProperty(sb, RETRACT_LAYER_CHANGE, getRetractOnLayerChangeValues(materials));</span>
+<span class="fc" id="L371">            appendProperty(sb, WIPE, getWipeBeforeRetract(materials));</span>
+<span class="fc" id="L372">            appendProperty(sb, RETRACT_LENGTH_TOOLCHANGE, getRetractBeforeToolChange(materials) );</span>
+<span class="fc" id="L373">            appendProperty(sb, RETRACT_RESTART_EXTRA_TOOLCHANGE, getExtraAfterRetractToolchange(materials));</span>
+            
+            // Cooling Options
+<span class="fc" id="L376">            appendProperty(sb, COOLING, cooling.isEnableAutoCooling());</span>
+<span class="fc" id="L377">            appendProperty(sb, FAN_ALWAYS_ON, cooling.isFanAlwaysOn());</span>
+<span class="fc" id="L378">            appendProperty(sb, MIN_FAN_SPEED, cooling.getMinFanSpeed());</span>
+<span class="fc" id="L379">            appendProperty(sb, MAX_FAN_SPEED, cooling.getMaxFanSpeed());</span>
+            // TODO:  Fix this mess.  Bridge fan speed probably needs to be an int instead of double
+<span class="fc" id="L381">            appendProperty(sb, BRIDGE_FAN_SPEED, String.valueOf(Math.round(cooling.getBridgeFanSpeedPercent())));</span>
+<span class="fc" id="L382">            appendProperty(sb, FAN_BELOW_LAYER_TIME, cooling.getEnableFanTimeThreshold());</span>
+<span class="fc" id="L383">            appendProperty(sb, SLOWDOWN_BELOW_LAYER_TIME, cooling.getSlowDownTimeTreshold());</span>
+<span class="fc" id="L384">            appendProperty(sb, MIN_PRINT_SPEED, cooling.getMinPrintSpeed());</span>
+
+            // Multiple Extruder Options
+<span class="fc" id="L387">            appendProperty(sb, PERIMETER_EXTRUDER, printConfig.getPerimeterExtruder());</span>
+<span class="fc" id="L388">            appendProperty(sb, INFILL_EXTRUDER, printConfig.getInfillExtruder());</span>
+<span class="fc" id="L389">            appendProperty(sb, SUPPORT_MATERIAL_EXTRUDER, printConfig.getSupportMaterialExtruder());</span>
+<span class="fc" id="L390">            appendProperty(sb, SUPPORT_MATERIAL_INTERFACE_EXTRUDER, printConfig.getSupportMaterialInterfaceExtruder());</span>
+<span class="fc" id="L391">            appendProperty(sb, OOZE_PREVENTION, printJobConfiguration.isOozePrevention());</span>
+<span class="fc" id="L392">            appendProperty(sb, STANDBY_TEMPERATURE_DELTA, printJobConfiguration.getTemperatureDelta());</span>
+
+            // Output Options
+<span class="fc" id="L395">            appendProperty(sb, COMPLETE_OBJECTS, printJobConfiguration.isCompleteIndividualObjects());</span>
+<span class="fc" id="L396">            appendProperty(sb, EXTRUDER_CLEARANCE_RADIUS, printJobConfiguration.getExtruderClearanceRadius());</span>
+<span class="fc" id="L397">            appendProperty(sb, EXTRUDER_CLEARANCE_HEIGHT, printJobConfiguration.getExtruderClearanceHeight());</span>
+<span class="fc" id="L398">            appendProperty(sb, VERBOSE_GCODE, printJobConfiguration.isVerboseGCode());</span>
+<span class="fc" id="L399">            appendProperty(sb, OUTPUT_FILENAME_FORMAT, &quot;[input_filename_base].gcode&quot;);</span>
+<span class="fc" id="L400">            appendProperty(sb, POST_PROCESSING_SCRIPTS, &quot;&quot;);</span>
+
+            // Other Options
+            // TODO:  Figure out exactly what &quot;duplicate&quot; is
+<span class="fc" id="L404">            appendProperty(sb, DUPLICATE, 1);</span>
+<span class="fc" id="L405">            appendProperty(sb, DUPLICATE_DISTANCE, 6);</span>
+<span class="fc" id="L406">            appendProperty(sb, DUPLICATE_GRID, &quot;1,1&quot;);</span>
+<span class="fc" id="L407">            appendProperty(sb, EXTRUSION_AXIS, &quot;E&quot;);</span>
+<span class="fc" id="L408">            appendProperty(sb, G0, 0);</span>
+<span class="fc" id="L409">            appendProperty(sb, GCODE_ARCS, false);</span>
+<span class="fc" id="L410">            appendProperty(sb, ROTATE, 0);</span>
+<span class="fc" id="L411">            appendProperty(sb, SCALE, 1);</span>
+
+            // Write to config file and create gcode file with Slic3r
+            try {
+<span class="fc" id="L415">                String baseDir = new File(&quot;&quot;).getAbsolutePath();</span>
+
+                // Create config filename based on print job and subsection number
+<span class="fc" id="L418">                String configFilename =</span>
+                        baseDir + File.separator + SLIC3R_CONFIG_DIR + File.separator
+                        + printJobConfiguration.getName() + File.separator
+                        + &quot;subsets&quot; + File.separator + &quot;sub&quot; + subsetNum + CONFIG_EXTENSION;
+
+                // Create directory for subset config files if one does not exist
+<span class="fc" id="L424">                File subsetConfigDir = new File(configFilename).getParentFile();</span>
+<span class="pc bpc" id="L425" title="1 of 2 branches missed.">                if(!subsetConfigDir.exists()) {</span>
+<span class="nc" id="L426">                    boolean success = subsetConfigDir.mkdirs();</span>
+<span class="nc bnc" id="L427" title="All 2 branches missed.">                    if(!success) {</span>
+<span class="nc" id="L428">                        throw new Exception(&quot;Could not create directory for subset config files.&quot;);</span>
+                    }
+                }
+
+                // Create subset config file and write properties
+<span class="fc" id="L433">                File subsetConfigFile = new File(configFilename);</span>
+<span class="fc" id="L434">                FileWriter fw = new FileWriter(subsetConfigFile);</span>
+<span class="fc" id="L435">                BufferedWriter bw = new BufferedWriter(fw);</span>
+<span class="fc" id="L436">                bw.write(sb.toString());</span>
+<span class="fc" id="L437">                bw.close();</span>
+
+                // Create GCode directory if it does not exist
+<span class="fc" id="L440">                String gCodeFilename =</span>
+                        baseDir + File.separator + GCODE_DIR + File.separator
+                        + printJobConfiguration.getName() + File.separator
+                        + &quot;subsets&quot; + File.separator + &quot;sub&quot; + subsetNum + GCODE_EXTENSION;
+
+<span class="fc" id="L445">                System.out.println(&quot;gCodeFilename = &quot; + gCodeFilename);</span>
+                
+<span class="fc" id="L447">                File subsetGCodeDir = new File(gCodeFilename).getParentFile();</span>
+<span class="pc bpc" id="L448" title="1 of 2 branches missed.">                if(!subsetGCodeDir.exists()) {</span>
+<span class="nc" id="L449">                    boolean success = subsetGCodeDir.mkdirs();</span>
+<span class="nc bnc" id="L450" title="All 2 branches missed.">                    if(!success) {</span>
+<span class="nc" id="L451">                        throw new Exception(&quot;Could not create directory for subset G-Code files files.&quot;);</span>
+                    }
+                }
+<span class="nc" id="L454">                String subsetAmfFilename = subset.getAmfFile().getAbsolutePath();</span>
+<span class="nc" id="L455">                String command = baseDir + File.separator + SLIC3R_PATH</span>
+                        + &quot; &quot; + &quot;--load \&quot;&quot; + configFilename + &quot;\&quot; --output \&quot;&quot; 
+                        + gCodeFilename + &quot;\&quot; &quot; + subsetAmfFilename;
+
+<span class="nc" id="L459">                System.out.println(command);</span>
+                
+<span class="nc" id="L461">                Process slic3rProcess = Runtime.getRuntime().exec(command);</span>
+<span class="nc" id="L462">                slic3rProcess.waitFor();</span>
+
+<span class="nc" id="L464">                File subsetGCodeFile = new File(gCodeFilename);</span>
+<span class="nc bnc" id="L465" title="All 2 branches missed.">                if(subsetGCodeFile.exists()) {</span>
+<span class="nc" id="L466">                    subset.setgCodeFile(subsetGCodeFile);</span>
+                }
+                else {
+<span class="nc" id="L469">                    throw new Exception(&quot;Could not create G-Code file&quot;);</span>
+                }
+            }
+<span class="fc" id="L472">            catch(IOException ex) {</span>
+<span class="fc" id="L473">                Logger.getLogger(Slic3rSlicingEngineWrapperImpl.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L474">                return false;</span>
+<span class="nc" id="L475">            } catch (InterruptedException ex) {</span>
+<span class="nc" id="L476">                Logger.getLogger(Slic3rSlicingEngineWrapperImpl.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L477">                return false;</span>
+<span class="nc" id="L478">            } catch (Exception ex) {</span>
+<span class="nc" id="L479">                Logger.getLogger(Slic3rSlicingEngineWrapperImpl.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L480">                return false;</span>
+<span class="nc" id="L481">            }</span>
+
+            // increment subset number for naming files
+<span class="nc" id="L484">            subsetNum++;</span>
+<span class="nc" id="L485">        }</span>
+<span class="nc" id="L486">        return true;</span>
+    }
+
+    /**
+     * Returns the x,y offsets of each extruder in a comma separated list as String.
+     * These offsets are in reference to the first extruder.
+     * @param extruders The list of extruders.
+     * @return  String of comma separated list of x,y offsets.
+     */
+    private String getExtruderOffsets(List&lt;ExtruderConfiguration&gt; extruders) {
+<span class="fc" id="L496">        int numExtruders = extruders.size();</span>
+<span class="fc" id="L497">        double[] slic3rXOffsets = new double[numExtruders];</span>
+<span class="fc" id="L498">        double[] slic3rYOffsets = new double[numExtruders];</span>
+
+        // The first extruder always has a 0 offset because the rest of
+        // the extruder offsets are relative to the first extruder.
+<span class="fc" id="L502">        slic3rXOffsets[0] = 0.0;</span>
+<span class="fc" id="L503">        slic3rYOffsets[0] = 0.0;</span>
+        
+<span class="fc" id="L505">        int i = 1;</span>
+<span class="fc bfc" id="L506" title="All 2 branches covered.">        while(i &lt; extruders.size()) {</span>
+<span class="fc" id="L507">            ExtruderConfiguration prevExtruder = extruders.get(i - 1);</span>
+<span class="fc" id="L508">            ExtruderConfiguration currentExtruder = extruders.get(i);</span>
+<span class="fc" id="L509">            double prevSlic3rXOffset = slic3rXOffsets[i-1];</span>
+<span class="fc" id="L510">            slic3rXOffsets[i] = prevExtruder.getxDimension() - prevExtruder.getxOffset() + currentExtruder.getxOffset() + prevSlic3rXOffset;</span>
+<span class="fc" id="L511">            slic3rYOffsets[i] = extruders.get(i).getyOffset() - extruders.get(0).getyOffset();</span>
+<span class="fc" id="L512">            i++;</span>
+<span class="fc" id="L513">        }</span>
+
+<span class="fc" id="L515">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L516">        i = 0;</span>
+<span class="fc bfc" id="L517" title="All 2 branches covered.">        while (i &lt; numExtruders - 1) {</span>
+<span class="fc" id="L518">            sb.append(String.valueOf(slic3rXOffsets[i]))</span>
+              .append(&quot;x&quot;)
+              .append(String.valueOf(slic3rYOffsets[i]))
+              .append(&quot;,&quot;);
+<span class="fc" id="L522">            i++;</span>
+        }
+<span class="fc" id="L524">        sb.append(String.valueOf(slic3rXOffsets[i]))</span>
+          .append(&quot;x&quot;)
+          .append(String.valueOf(slic3rYOffsets[i]));
+        
+<span class="fc" id="L528">        return sb.toString();</span>
+
+    }
+
+    private String getNozzleDiameters(List&lt;ExtruderConfiguration&gt; extruders) {
+<span class="fc" id="L533">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L534">        int i = 0;</span>
+<span class="fc bfc" id="L535" title="All 2 branches covered.">        while(i &lt; extruders.size() - 1) {</span>
+<span class="fc" id="L536">            sb.append(extruders.get(i).getNozzleDiameter());</span>
+<span class="fc" id="L537">            sb.append(&quot;,&quot;);</span>
+<span class="fc" id="L538">            i++;</span>
+        }
+<span class="fc" id="L540">        sb.append(extruders.get(i).getNozzleDiameter());</span>
+<span class="fc" id="L541">        return sb.toString();</span>
+    }
+
+    // Assumes FileConfigurations are sorted in order of extruder
+    private String getFilamentDiameters(List&lt;MaterialConfiguration&gt; materials) {
+<span class="fc" id="L546">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L547">        int i = 0;</span>
+<span class="fc bfc" id="L548" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L549">            sb.append(materials.get(i).getFilamentDiameter())</span>
+              .append(&quot;,&quot;);
+<span class="fc" id="L551">            i++;</span>
+        }
+<span class="fc" id="L553">        sb.append(materials.get(i).getFilamentDiameter());</span>
+<span class="fc" id="L554">        return sb.toString();</span>
+    }
+    
+    private String getExtrusionMultipliers(List&lt;MaterialConfiguration&gt; materials) {
+<span class="fc" id="L558">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L559">        int i = 0;</span>
+<span class="fc bfc" id="L560" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L561">            sb.append(materials.get(i).getExtrusionMultiplier())</span>
+              .append(&quot;,&quot;);
+<span class="fc" id="L563">            i++;</span>
+        }
+<span class="fc" id="L565">        sb.append(materials.get(i).getExtrusionMultiplier());</span>
+<span class="fc" id="L566">        return sb.toString();</span>
+    }
+
+    private String getFirstLayerTemperatures(List&lt;MaterialConfiguration&gt; materials) {
+<span class="fc" id="L570">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L571">        int i = 0;</span>
+<span class="fc bfc" id="L572" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L573">            sb.append(materials.get(i).getFirstLayerExtrusionTemperature())</span>
+              .append(&quot;,&quot;);
+<span class="fc" id="L575">            i++;</span>
+        }
+<span class="fc" id="L577">        sb.append(materials.get(i).getFirstLayerExtrusionTemperature());</span>
+<span class="fc" id="L578">        return sb.toString();</span>
+    }
+
+    private String getExtrusionTemperatures(List&lt;MaterialConfiguration&gt; materials) {
+<span class="fc" id="L582">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L583">        int i = 0;</span>
+<span class="fc bfc" id="L584" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L585">            sb.append(materials.get(i).getExtrusionTemperature())</span>
+              .append(&quot;,&quot;);
+<span class="fc" id="L587">            i++;</span>
+        }
+<span class="fc" id="L589">        sb.append(materials.get(i).getExtrusionTemperature());</span>
+<span class="fc" id="L590">        return sb.toString();</span>
+    }
+
+    private String getRetractBeforeTravelValues(List&lt;MaterialConfiguration&gt; materials) {
+<span class="fc" id="L594">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L595">        int i = 0;</span>
+<span class="fc bfc" id="L596" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L597">            sb.append(materials.get(i).getMinimumTravelAfterRetraction())</span>
+              .append(&quot;,&quot;);
+<span class="fc" id="L599">            i++;</span>
+        }
+<span class="fc" id="L601">        sb.append(materials.get(i).getMinimumTravelAfterRetraction());</span>
+<span class="fc" id="L602">        return sb.toString();</span>
+    }
+
+    private String getRetractOnLayerChangeValues(List&lt;MaterialConfiguration&gt; materials) {
+<span class="fc" id="L606">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L607">        int i = 0;</span>
+<span class="fc bfc" id="L608" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="pc bpc" id="L609" title="1 of 2 branches missed.">            sb.append(materials.get(i).isRetractOnLayerChange() ? &quot;1&quot; : &quot;0&quot;)</span>
+              .append(&quot;,&quot;);
+<span class="fc" id="L611">            i++;</span>
+        }
+<span class="pc bpc" id="L613" title="1 of 2 branches missed.">        sb.append(materials.get(i).isRetractOnLayerChange() ? &quot;1&quot; : &quot;0&quot;);</span>
+<span class="fc" id="L614">        return sb.toString();</span>
+    }
+
+    private String getRetractLengths(List&lt;MaterialConfiguration&gt; materials) {
+<span class="fc" id="L618">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L619">        int i = 0;</span>
+<span class="fc bfc" id="L620" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L621">            sb.append(materials.get(i).getRetractionLength())</span>
+              .append(&quot;,&quot;);
+<span class="fc" id="L623">            i++;</span>
+        }
+<span class="fc" id="L625">        sb.append(materials.get(i).getRetractionLength());</span>
+<span class="fc" id="L626">        return sb.toString();</span>
+    }
+
+    private String getRetractBeforeToolChange(List&lt;MaterialConfiguration&gt; materials) {
+<span class="fc" id="L630">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L631">        int i = 0;</span>
+<span class="fc bfc" id="L632" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L633">            sb.append(materials.get(i).getRetractionLengthBeforeToolChange())</span>
+              .append(&quot;,&quot;);
+<span class="fc" id="L635">            i++;</span>
+        }
+<span class="fc" id="L637">        sb.append(materials.get(i).getRetractionLengthBeforeToolChange());</span>
+<span class="fc" id="L638">        return sb.toString();</span>
+    }
+
+    private String getRetractLifts(List&lt;MaterialConfiguration&gt; materials) {
+<span class="fc" id="L642">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L643">        int i = 0;</span>
+<span class="fc bfc" id="L644" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L645">            sb.append(materials.get(i).getRetractionLiftZ())</span>
+              .append(&quot;,&quot;);
+<span class="fc" id="L647">            i++;</span>
+        }
+<span class="fc" id="L649">        sb.append(materials.get(i).getRetractionLiftZ());</span>
+<span class="fc" id="L650">        return sb.toString();</span>
+    }
+
+    private String getExtraAfterRetracts(List&lt;MaterialConfiguration&gt; materials) {
+<span class="fc" id="L654">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L655">        int i = 0;</span>
+<span class="fc bfc" id="L656" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L657">            sb.append(materials.get(i).getExtraLengthAfterRetraction())</span>
+              .append(&quot;,&quot;);
+<span class="fc" id="L659">            i++;</span>
+        }
+<span class="fc" id="L661">        sb.append(materials.get(i).getExtraLengthAfterRetraction());</span>
+<span class="fc" id="L662">        return sb.toString();</span>
+    }
+
+    private String getExtraAfterRetractToolchange(List&lt;MaterialConfiguration&gt; materials) {
+<span class="fc" id="L666">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L667">        int i = 0;</span>
+<span class="fc bfc" id="L668" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L669">            sb.append(materials.get(i).getExtraLengthOnToolReenable())</span>
+              .append(&quot;,&quot;);
+<span class="fc" id="L671">            i++;</span>
+        }
+<span class="fc" id="L673">        sb.append(materials.get(i).getExtraLengthOnToolReenable());</span>
+<span class="fc" id="L674">        return sb.toString();</span>
+    }
+
+    private String getRetractSpeeds(List&lt;MaterialConfiguration&gt; materials) {
+<span class="fc" id="L678">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L679">        int i = 0;</span>
+<span class="fc bfc" id="L680" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L681">            sb.append(materials.get(i).getRetractionSpeed())</span>
+              .append(&quot;,&quot;);
+<span class="fc" id="L683">            i++;</span>
+        }
+<span class="fc" id="L685">        sb.append(materials.get(i).getRetractionSpeed());</span>
+<span class="fc" id="L686">        return sb.toString();</span>
+    }
+
+    private String getWipeBeforeRetract(List&lt;MaterialConfiguration&gt; materials) {
+<span class="fc" id="L690">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L691">        int i = 0;</span>
+<span class="fc bfc" id="L692" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="pc bpc" id="L693" title="1 of 2 branches missed.">            sb.append(materials.get(i).isWipeBeforeRetract() ? &quot;1&quot; : &quot;0&quot;)</span>
+              .append(&quot;,&quot;);
+<span class="fc" id="L695">            i++;</span>
+        }
+<span class="pc bpc" id="L697" title="1 of 2 branches missed.">        sb.append(materials.get(i).isWipeBeforeRetract() ? &quot;1&quot; : &quot;0&quot;);</span>
+<span class="fc" id="L698">        return sb.toString();</span>
+    }
+
+    private StringBuilder appendProperty(StringBuilder sb, String property, String value) {
+<span class="fc" id="L702">        sb.append(property)</span>
+          .append(&quot; = &quot;)
+          .append(value)
+          .append(&quot;\n&quot;);
+<span class="fc" id="L706">        return sb;</span>
+    }
+
+    private StringBuilder appendProperty(StringBuilder sb, String property, boolean value) {
+<span class="fc bfc" id="L710" title="All 2 branches covered.">        sb.append(property)</span>
+          .append(&quot; = &quot;)
+          .append(value ? &quot;1&quot; : &quot;0&quot;)
+          .append(&quot;\n&quot;);
+<span class="fc" id="L714">        return sb;</span>
+    }
+
+    private StringBuilder appendProperty(StringBuilder sb, String property, int value) {
+<span class="fc" id="L718">        sb.append(property)</span>
+          .append(&quot; = &quot;)
+          .append(String.valueOf(value))
+          .append(&quot;\n&quot;);
+<span class="fc" id="L722">        return sb;</span>
+    }
+
+    private StringBuilder appendProperty(StringBuilder sb, String property, double value) {
+<span class="fc" id="L726">        sb.append(property)</span>
+          .append(&quot; = &quot;)
+          .append(String.valueOf(value))
+          .append(&quot;\n&quot;);
+<span class="fc" id="L730">        return sb;</span>
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

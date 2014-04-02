@@ -47,6 +47,7 @@ public class GetPrintJobConfigurationCommand extends CommandStructure{
                 fileConfig.setExtruderConfiguration(db.getExtruderConfiguration(select.getExtruder()));
                 fileConfig.setMaterialConfiguration(db.getMaterialConfiguration(select.getMaterial()));
                 fileConfig.setName(select.getFile());
+                fileConfig.setParentSTLFile(db.getStlFile(select.getFile()));
                 fileList.add(fileConfig);
             }
             
@@ -55,6 +56,7 @@ public class GetPrintJobConfigurationCommand extends CommandStructure{
             subset.setTopZ(set.getTopZ());
             subset.setPrintConfiguration(db.getPrintConfiguration(selection.getPrinterConfiguration()));
             subset.setFileConfigurations(fileList);
+            subsetList.add(subset);
         }
         
         printJob.setName(selection.getName());

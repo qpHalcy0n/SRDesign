@@ -1,10 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PrinterConfiguration.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ink3d.ConfigurationObjects</a> &gt; <span class="el_source">PrinterConfiguration.java</span></div><h1>PrinterConfiguration.java</h1><pre class="source lang-java linenums">package ink3d.ConfigurationObjects;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-<span class="fc" id="L7">public class PrinterConfiguration {</span>
+public class PrinterConfiguration {
+    public static final String DEFAULT_NAME = &quot;Default&quot;;
+    public static final double DEFAULT_BED_X = 200.0;
+    public static final double DEFAULT_BED_Y = 200.0;
+    public static final double DEFAULT_PRINT_CENTER_X = 100.0;
+    public static final double DEFAULT_PRINT_CENTER_Y = 100.0;
+    public static final double DEFAULT_Z_OFFSET = 0.0;
+    public static final String DEFAULT_GCODE_FLAVOR = &quot;reprap&quot;;
+    public static final boolean DEFAULT_USE_RELATIVE_E_DISTANCES = false;
+    public static final boolean DEFAULT_USE_FIRMWARE_RETRACTION = false;
+    public static final double DEFAULT_VIBRATION_LIMIT = 0.0;
+    public static final String DEFAULT_START_GCODE = &quot;&quot;;
+    public static final String DEFAULT_END_GCODE = &quot;&quot;;
+
+<span class="fc" id="L23">    public PrinterConfiguration() {</span>
+<span class="fc" id="L24">        name = DEFAULT_NAME;</span>
+<span class="fc" id="L25">        bedX = DEFAULT_BED_X;</span>
+<span class="fc" id="L26">        bedY = DEFAULT_BED_Y;</span>
+<span class="fc" id="L27">        printCenterX = DEFAULT_PRINT_CENTER_X;</span>
+<span class="fc" id="L28">        printCenterY = DEFAULT_PRINT_CENTER_Y;</span>
+<span class="fc" id="L29">        zOffset = DEFAULT_Z_OFFSET;</span>
+<span class="fc" id="L30">        gCodeFlavor = DEFAULT_GCODE_FLAVOR;</span>
+<span class="fc" id="L31">        useRelativeEDistances = DEFAULT_USE_RELATIVE_E_DISTANCES;</span>
+<span class="fc" id="L32">        vibrationLimit = DEFAULT_VIBRATION_LIMIT;</span>
+<span class="fc" id="L33">        useFirmwareRetraction = DEFAULT_USE_FIRMWARE_RETRACTION;</span>
+<span class="fc" id="L34">        startGCode = DEFAULT_START_GCODE;</span>
+<span class="fc" id="L35">        endGCode = DEFAULT_END_GCODE;</span>
+<span class="fc" id="L36">        extruderList = new ArrayList&lt;ExtruderConfiguration&gt;();</span>
+<span class="fc" id="L37">    }</span>
+
     private String name;
     /**
      * The max x of the bed.
@@ -54,135 +85,230 @@ import javax.xml.bind.annotation.XmlRootElement;
      */
     private double vibrationLimit;
 
+    private boolean useFirmwareRetraction;
+    private String startGCode;
+    private String endGCode;
+
+    /**
+     * List of the extruders on the printer.  In order of where they
+     * are on the printer (i.e. extruderList[0] is T0).
+     */
+    private List&lt;ExtruderConfiguration&gt; extruderList;
+
     public double getBedX() {
-<span class="fc" id="L58">        return bedX;</span>
+<span class="fc" id="L99">        return bedX;</span>
     }
 
     public void setBedX(double bedX) {
-<span class="fc" id="L62">        this.bedX = bedX;</span>
-<span class="fc" id="L63">    }</span>
+<span class="fc" id="L103">        this.bedX = bedX;</span>
+<span class="fc" id="L104">    }</span>
 
     public double getBedY() {
-<span class="fc" id="L66">        return bedY;</span>
+<span class="fc" id="L107">        return bedY;</span>
     }
 
     public void setBedY(double bedY) {
-<span class="fc" id="L70">        this.bedY = bedY;</span>
-<span class="fc" id="L71">    }</span>
+<span class="fc" id="L111">        this.bedY = bedY;</span>
+<span class="fc" id="L112">    }</span>
 
     public double getPrintCenterX() {
-<span class="fc" id="L74">        return printCenterX;</span>
+<span class="fc" id="L115">        return printCenterX;</span>
     }
 
     public void setPrintCenterX(double printCenterX) {
-<span class="fc" id="L78">        this.printCenterX = printCenterX;</span>
-<span class="fc" id="L79">    }</span>
+<span class="fc" id="L119">        this.printCenterX = printCenterX;</span>
+<span class="fc" id="L120">    }</span>
 
     public double getPrintCenterY() {
-<span class="fc" id="L82">        return printCenterY;</span>
+<span class="fc" id="L123">        return printCenterY;</span>
     }
 
     public void setPrintCenterY(double printCenterY) {
-<span class="fc" id="L86">        this.printCenterY = printCenterY;</span>
-<span class="fc" id="L87">    }</span>
+<span class="fc" id="L127">        this.printCenterY = printCenterY;</span>
+<span class="fc" id="L128">    }</span>
 
     public double getzOffset() {
-<span class="fc" id="L90">        return zOffset;</span>
+<span class="fc" id="L131">        return zOffset;</span>
     }
 
     public void setzOffset(double zOffset) {
-<span class="fc" id="L94">        this.zOffset = zOffset;</span>
-<span class="fc" id="L95">    }</span>
+<span class="fc" id="L135">        this.zOffset = zOffset;</span>
+<span class="fc" id="L136">    }</span>
 
     public String getgCodeFlavor() {
-<span class="fc" id="L98">        return gCodeFlavor;</span>
+<span class="fc" id="L139">        return gCodeFlavor;</span>
     }
 
     public void setgCodeFlavor(String gCodeFlavor) {
-<span class="fc" id="L102">        this.gCodeFlavor = gCodeFlavor;</span>
-<span class="fc" id="L103">    }</span>
+<span class="fc" id="L143">        this.gCodeFlavor = gCodeFlavor;</span>
+<span class="fc" id="L144">    }</span>
 
     public boolean isUseRelativeEDistances() {
-<span class="fc" id="L106">        return useRelativeEDistances;</span>
+<span class="fc" id="L147">        return useRelativeEDistances;</span>
     }
 
     public void setUseRelativeEDistances(boolean useRelativeEDistances) {
-<span class="fc" id="L110">        this.useRelativeEDistances = useRelativeEDistances;</span>
-<span class="fc" id="L111">    }</span>
+<span class="fc" id="L151">        this.useRelativeEDistances = useRelativeEDistances;</span>
+<span class="fc" id="L152">    }</span>
 
     public int getNumExtruders() {
-<span class="fc" id="L114">        return numExtruders;</span>
+<span class="fc" id="L155">        return numExtruders;</span>
     }
 
     public void setNumExtruders(int numExtruders) {
-<span class="fc" id="L118">        this.numExtruders = numExtruders;</span>
-<span class="fc" id="L119">    }</span>
+<span class="fc" id="L159">        this.numExtruders = numExtruders;</span>
+<span class="fc" id="L160">    }</span>
 
     public double getVibrationLimit() {
-<span class="fc" id="L122">        return vibrationLimit;</span>
+<span class="fc" id="L163">        return vibrationLimit;</span>
     }
 
     public void setVibrationLimit(double vibrationLimit) {
-<span class="fc" id="L126">        this.vibrationLimit = vibrationLimit;</span>
-<span class="fc" id="L127">    }</span>
+<span class="fc" id="L167">        this.vibrationLimit = vibrationLimit;</span>
+<span class="fc" id="L168">    }</span>
 
     public String getName() {
-<span class="fc" id="L130">        return name;</span>
+<span class="fc" id="L171">        return name;</span>
     }
 
     public void setName(String name) {
-<span class="fc" id="L134">        this.name = name;</span>
-<span class="fc" id="L135">    }        </span>
+<span class="fc" id="L175">        this.name = name;</span>
+<span class="fc" id="L176">    }        </span>
+
+    /**
+     * @return the extruderList
+     */
+    public List&lt;ExtruderConfiguration&gt; getExtruderList() {
+<span class="fc" id="L182">        return extruderList;</span>
+    }
+
+    /**
+     * @param extruderList the extruderList to set
+     */
+    public void setExtruderList(List&lt;ExtruderConfiguration&gt; extruderList) {
+<span class="fc" id="L189">        this.extruderList = extruderList;</span>
+<span class="fc" id="L190">    }</span>
+
+    /**
+     * @return the startGCode
+     */
+    public String getStartGCode() {
+<span class="fc" id="L196">        return startGCode;</span>
+    }
+
+    /**
+     * @param startGCode the startGCode to set
+     */
+    public void setStartGCode(String startGCode) {
+<span class="fc" id="L203">        this.startGCode = startGCode;</span>
+<span class="fc" id="L204">    }</span>
+
+    /**
+     * @return the endGCode
+     */
+    public String getEndGCode() {
+<span class="fc" id="L210">        return endGCode;</span>
+    }
+
+    /**
+     * @param endGCode the endGCode to set
+     */
+    public void setEndGCode(String endGCode) {
+<span class="fc" id="L217">        this.endGCode = endGCode;</span>
+<span class="fc" id="L218">    }</span>
+
+    /**
+     * @return the useFirmwareRetraction
+     */
+    public boolean isUseFirmwareRetraction() {
+<span class="fc" id="L224">        return useFirmwareRetraction;</span>
+    }
+
+    /**
+     * @param useFirmwareRetraction the useFirmwareRetraction to set
+     */
+    public void setUseFirmwareRetraction(boolean useFirmwareRetraction) {
+<span class="fc" id="L231">        this.useFirmwareRetraction = useFirmwareRetraction;</span>
+<span class="fc" id="L232">    }</span>
 
     @Override
     public int hashCode() {
-<span class="nc" id="L139">        int hash = 3;</span>
-<span class="nc" id="L140">        hash = 89 * hash + Objects.hashCode(this.name);</span>
-<span class="nc" id="L141">        return hash;</span>
+<span class="nc" id="L236">        int hash = 7;</span>
+<span class="nc" id="L237">        hash = 67 * hash + Objects.hashCode(this.name);</span>
+<span class="nc" id="L238">        hash = 67 * hash + (int) (Double.doubleToLongBits(this.bedX) ^ (Double.doubleToLongBits(this.bedX) &gt;&gt;&gt; 32));</span>
+<span class="nc" id="L239">        hash = 67 * hash + (int) (Double.doubleToLongBits(this.bedY) ^ (Double.doubleToLongBits(this.bedY) &gt;&gt;&gt; 32));</span>
+<span class="nc" id="L240">        hash = 67 * hash + (int) (Double.doubleToLongBits(this.printCenterX) ^ (Double.doubleToLongBits(this.printCenterX) &gt;&gt;&gt; 32));</span>
+<span class="nc" id="L241">        hash = 67 * hash + (int) (Double.doubleToLongBits(this.printCenterY) ^ (Double.doubleToLongBits(this.printCenterY) &gt;&gt;&gt; 32));</span>
+<span class="nc" id="L242">        hash = 67 * hash + (int) (Double.doubleToLongBits(this.zOffset) ^ (Double.doubleToLongBits(this.zOffset) &gt;&gt;&gt; 32));</span>
+<span class="nc" id="L243">        hash = 67 * hash + Objects.hashCode(this.gCodeFlavor);</span>
+<span class="nc bnc" id="L244" title="All 2 branches missed.">        hash = 67 * hash + (this.useRelativeEDistances ? 1 : 0);</span>
+<span class="nc" id="L245">        hash = 67 * hash + this.numExtruders;</span>
+<span class="nc" id="L246">        hash = 67 * hash + (int) (Double.doubleToLongBits(this.vibrationLimit) ^ (Double.doubleToLongBits(this.vibrationLimit) &gt;&gt;&gt; 32));</span>
+<span class="nc bnc" id="L247" title="All 2 branches missed.">        hash = 67 * hash + (this.useFirmwareRetraction ? 1 : 0);</span>
+<span class="nc" id="L248">        hash = 67 * hash + Objects.hashCode(this.startGCode);</span>
+<span class="nc" id="L249">        hash = 67 * hash + Objects.hashCode(this.endGCode);</span>
+<span class="nc" id="L250">        hash = 67 * hash + Objects.hashCode(this.extruderList);</span>
+<span class="nc" id="L251">        return hash;</span>
     }
 
     @Override
     public boolean equals(Object obj) {
-<span class="nc bnc" id="L146" title="All 2 branches missed.">        if (obj == null) {</span>
-<span class="nc" id="L147">            return false;</span>
+<span class="pc bpc" id="L256" title="1 of 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L257">            return false;</span>
         }
-<span class="nc bnc" id="L149" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
-<span class="nc" id="L150">            return false;</span>
+<span class="pc bpc" id="L259" title="1 of 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L260">            return false;</span>
         }
-<span class="nc" id="L152">        final PrinterConfiguration other = (PrinterConfiguration) obj;</span>
-<span class="nc bnc" id="L153" title="All 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
-<span class="nc" id="L154">            return false;</span>
+<span class="fc" id="L262">        final PrinterConfiguration other = (PrinterConfiguration) obj;</span>
+<span class="pc bpc" id="L263" title="1 of 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
+<span class="nc" id="L264">            return false;</span>
         }
-<span class="nc bnc" id="L156" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.bedX) != Double.doubleToLongBits(other.bedX)) {</span>
-<span class="nc" id="L157">            return false;</span>
+<span class="pc bpc" id="L266" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.bedX) != Double.doubleToLongBits(other.bedX)) {</span>
+<span class="nc" id="L267">            return false;</span>
         }
-<span class="nc bnc" id="L159" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.bedY) != Double.doubleToLongBits(other.bedY)) {</span>
-<span class="nc" id="L160">            return false;</span>
+<span class="pc bpc" id="L269" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.bedY) != Double.doubleToLongBits(other.bedY)) {</span>
+<span class="nc" id="L270">            return false;</span>
         }
-<span class="nc bnc" id="L162" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.printCenterX) != Double.doubleToLongBits(other.printCenterX)) {</span>
-<span class="nc" id="L163">            return false;</span>
+<span class="pc bpc" id="L272" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.printCenterX) != Double.doubleToLongBits(other.printCenterX)) {</span>
+<span class="nc" id="L273">            return false;</span>
         }
-<span class="nc bnc" id="L165" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.printCenterY) != Double.doubleToLongBits(other.printCenterY)) {</span>
-<span class="nc" id="L166">            return false;</span>
+<span class="pc bpc" id="L275" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.printCenterY) != Double.doubleToLongBits(other.printCenterY)) {</span>
+<span class="nc" id="L276">            return false;</span>
         }
-<span class="nc bnc" id="L168" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.zOffset) != Double.doubleToLongBits(other.zOffset)) {</span>
-<span class="nc" id="L169">            return false;</span>
+<span class="pc bpc" id="L278" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.zOffset) != Double.doubleToLongBits(other.zOffset)) {</span>
+<span class="nc" id="L279">            return false;</span>
         }
-<span class="nc bnc" id="L171" title="All 2 branches missed.">        if (!Objects.equals(this.gCodeFlavor, other.gCodeFlavor)) {</span>
-<span class="nc" id="L172">            return false;</span>
+<span class="pc bpc" id="L281" title="1 of 2 branches missed.">        if (!Objects.equals(this.gCodeFlavor, other.gCodeFlavor)) {</span>
+<span class="nc" id="L282">            return false;</span>
         }
-<span class="nc bnc" id="L174" title="All 2 branches missed.">        if (this.useRelativeEDistances != other.useRelativeEDistances) {</span>
-<span class="nc" id="L175">            return false;</span>
+<span class="pc bpc" id="L284" title="1 of 2 branches missed.">        if (this.useRelativeEDistances != other.useRelativeEDistances) {</span>
+<span class="nc" id="L285">            return false;</span>
         }
-<span class="nc bnc" id="L177" title="All 2 branches missed.">        if (this.numExtruders != other.numExtruders) {</span>
-<span class="nc" id="L178">            return false;</span>
+<span class="pc bpc" id="L287" title="1 of 2 branches missed.">        if (this.numExtruders != other.numExtruders) {</span>
+<span class="nc" id="L288">            return false;</span>
         }
-<span class="nc bnc" id="L180" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.vibrationLimit) != Double.doubleToLongBits(other.vibrationLimit)) {</span>
-<span class="nc" id="L181">            return false;</span>
+<span class="pc bpc" id="L290" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.vibrationLimit) != Double.doubleToLongBits(other.vibrationLimit)) {</span>
+<span class="nc" id="L291">            return false;</span>
         }
-<span class="nc" id="L183">        return true;</span>
+<span class="pc bpc" id="L293" title="1 of 2 branches missed.">        if (this.useFirmwareRetraction != other.useFirmwareRetraction) {</span>
+<span class="nc" id="L294">            return false;</span>
+        }
+<span class="pc bpc" id="L296" title="1 of 2 branches missed.">        if (!Objects.equals(this.startGCode, other.startGCode)) {</span>
+<span class="nc" id="L297">            return false;</span>
+        }
+<span class="pc bpc" id="L299" title="1 of 2 branches missed.">        if (!Objects.equals(this.endGCode, other.endGCode)) {</span>
+<span class="nc" id="L300">            return false;</span>
+        }
+<span class="pc bpc" id="L302" title="1 of 2 branches missed.">        if (!Objects.equals(this.extruderList, other.extruderList)) {</span>
+<span class="nc" id="L303">            return false;</span>
+        }
+<span class="fc" id="L305">        return true;</span>
     }
-    
+
+    @Override
+    public String toString() {
+<span class="fc" id="L310">        return &quot;PrinterConfiguration{&quot; + &quot;name=&quot; + name + &quot;, bedX=&quot; + bedX + &quot;, bedY=&quot; + bedY + &quot;, printCenterX=&quot; + printCenterX + &quot;, printCenterY=&quot; + printCenterY + &quot;, zOffset=&quot; + zOffset + &quot;, gCodeFlavor=&quot; + gCodeFlavor + &quot;, useRelativeEDistances=&quot; + useRelativeEDistances + &quot;, numExtruders=&quot; + numExtruders + &quot;, vibrationLimit=&quot; + vibrationLimit + &quot;, useFirmwareRetraction=&quot; + useFirmwareRetraction + &quot;, startGCode=&quot; + startGCode + &quot;, endGCode=&quot; + endGCode + &quot;, extruderList=&quot; + extruderList + '}';</span>
+    }
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

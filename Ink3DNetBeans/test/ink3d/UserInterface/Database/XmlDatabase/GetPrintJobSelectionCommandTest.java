@@ -56,7 +56,7 @@ public class GetPrintJobSelectionCommandTest {
         expected.getMaterials().add(new ExtruderMaterialSelection("extruder 3", "material 2"));
         expected.getSubsetConfigurationList().add(subset1);
         expected.getSubsetConfigurationList().add(subset2);
-        
+               
         String xml="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                     "<printjob>\n" +
                     "    <name>GetPrintJobSelectionTest</name>\n" +
@@ -78,16 +78,19 @@ public class GetPrintJobSelectionCommandTest {
                     "        <topZ>1.0</topZ>\n" +
                     "        <printConfiguration>GetPrintJobSelectionTest.Sub1.Print</printConfiguration>\n" +
                     "        <fileSelection>\n" +
-                    "            <file>extruder1</file>\n" +
-                    "            <extruder>file1</extruder>\n" +
+                    "            <file>file1</file>\n" +
+                    "            <extruder>extruder1</extruder>\n" +
+                    "            <material>material1</material>\n" +
                     "        </fileSelection>\n" +
                     "        <fileSelection>\n" +
-                    "            <file>extruder2</file>\n" +
-                    "            <extruder>file2</extruder>\n" +
+                    "            <file>file2</file>\n" +
+                    "            <extruder>extruder2</extruder>\n" +
+                    "            <material>material2</material>\n" +
                     "        </fileSelection>\n" +
                     "        <fileSelection>\n" +
-                    "            <file>extruder3</file>\n" +
-                    "            <extruder>file3</extruder>\n" +
+                    "            <file>file3</file>\n" +
+                    "            <extruder>extruder3</extruder>\n" +
+                    "            <material>material3</material>\n" +
                     "        </fileSelection>\n" +
                     "    </subsetSelection>\n" +
                     "    <subsetSelection>\n" +
@@ -95,16 +98,19 @@ public class GetPrintJobSelectionCommandTest {
                     "        <topZ>2.0</topZ>\n" +
                     "        <printConfiguration>GetPrintJobSelectionTest.Sub2.Print</printConfiguration>\n" +
                     "        <fileSelection>\n" +
-                    "            <file>extruder2</file>\n" +
-                    "            <extruder>file1</extruder>\n" +
+                    "            <file>file1</file>\n" +
+                    "            <extruder>extruder2</extruder>\n" +
+                    "            <material>material2</material>\n" +
                     "        </fileSelection>\n" +
                     "        <fileSelection>\n" +
-                    "            <file>extruder3</file>\n" +
-                    "            <extruder>file2</extruder>\n" +
+                    "            <file>file2</file>\n" +
+                    "            <extruder>extruder3</extruder>\n" +
+                    "            <material>material3</material>\n" +
                     "        </fileSelection>\n" +
                     "        <fileSelection>\n" +
-                    "            <file>extruder4</file>\n" +
-                    "            <extruder>file3</extruder>\n" +
+                    "            <file>file3</file>\n" +
+                    "            <extruder>extruder1</extruder>\n" +
+                    "            <material>material1</material>\n" +
                     "        </fileSelection>\n" +
                     "    </subsetSelection>\n" +
                     "</printjob>";
@@ -130,7 +136,7 @@ public class GetPrintJobSelectionCommandTest {
         GetPrintJobSelectionCommand instance = new GetPrintJobSelectionCommand(name);
         instance.execute();
         actual = (PrintJobSelection)instance.getResult();
-        System.out.printf(this.expected+"\n"+this.actual);
+        if(!expected.equals(actual)) System.out.printf("Test "+this.getClass().getName()+" expected: "+ expected+"\nGot: "+actual);
         assertTrue(expected.equals(actual));
     }
 }

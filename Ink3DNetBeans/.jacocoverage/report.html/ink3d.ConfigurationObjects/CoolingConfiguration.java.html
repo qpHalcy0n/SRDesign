@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>CoolingConfiguration.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ink3d.ConfigurationObjects</a> &gt; <span class="el_source">CoolingConfiguration.java</span></div><h1>CoolingConfiguration.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package ink3d.ConfigurationObjects;
+
+/**
+ *
+ * @author Tim
+ */
+public class CoolingConfiguration {
+
+    // Cooling Options
+    public static final String DEFAULT_NAME = &quot;Default&quot;;
+    public static final boolean DEFAULT_FAN_ALWAYS_ON = false;
+    public static final boolean DEFAULT_ENABLE_AUTO_COOLING = true;
+    public static final int DEFAULT_MIN_FAN_SPEED = 35;
+    public static final int DEFAULT_MAX_FAN_SPEED = 100;
+    public static final int DEFAULT_BRIDGE_FAN_SPEED_PERCENT = 100;
+    public static final int DEFAULT_DISABLE_FAN_FOR_FIRST_N_LAYERS = 1;
+    public static final int DEFAULT_ENABLE_FAN_TIME_THRESHOLD = 60;
+    public static final int DEFAULT_SLOW_DOWN_TIME_THRESHOLD = 30;
+    public static final int DEFAULT_MIN_PRINT_SPEED = 10;
+
+<span class="fc" id="L27">    public CoolingConfiguration() {</span>
+<span class="fc" id="L28">        name = DEFAULT_NAME;</span>
+<span class="fc" id="L29">        fanAlwaysOn = DEFAULT_FAN_ALWAYS_ON;</span>
+<span class="fc" id="L30">        enableAutoCooling = DEFAULT_ENABLE_AUTO_COOLING;</span>
+<span class="fc" id="L31">        minFanSpeed = DEFAULT_MIN_FAN_SPEED;</span>
+<span class="fc" id="L32">        maxFanSpeed = DEFAULT_MAX_FAN_SPEED;</span>
+<span class="fc" id="L33">        bridgeFanSpeedPercent = DEFAULT_BRIDGE_FAN_SPEED_PERCENT;</span>
+<span class="fc" id="L34">        disableFanForFirstNLayers = DEFAULT_DISABLE_FAN_FOR_FIRST_N_LAYERS;</span>
+<span class="fc" id="L35">        enableFanTimeThreshold = DEFAULT_ENABLE_FAN_TIME_THRESHOLD;</span>
+<span class="fc" id="L36">        slowDownTimeTreshold = DEFAULT_SLOW_DOWN_TIME_THRESHOLD;</span>
+<span class="fc" id="L37">        minPrintSpeed = DEFAULT_MIN_PRINT_SPEED;</span>
+<span class="fc" id="L38">    }</span>
+
+    private String name;
+    
+     /**
+     * When set to true, fan will always run at at least minimum speed.
+     */
+    private boolean fanAlwaysOn;
+    
+    /**
+     * When set to true, fan speed will automatically be set based on
+     * printing time.
+     */
+    private boolean enableAutoCooling;
+    
+    /**
+     * The minimum fan speed in PWM.
+     */
+    private int minFanSpeed;
+    
+    /**
+     * The maximum fan speed in PWM.
+     */
+    private int maxFanSpeed;
+    
+    /**
+     * The percentage of default fan speed used for bridges
+     * expressed as an int (100 = 100%)
+     */
+    private int bridgeFanSpeedPercent;
+    
+    /**
+     * The number of first layers to disable the fan for.
+     */
+    private int disableFanForFirstNLayers;
+    
+    /**
+     * If the print time of a layer is below this threshold (in seconds),
+     * the fan will be activated.
+     */
+    private int enableFanTimeThreshold;
+    
+    /**
+     * If the print time of a layer is below this threshold (in seconds),
+     * the move speed will be slowed to attempt to get the
+     * layer print time up to this threshold.
+     */
+    private int slowDownTimeTreshold;
+    
+    /**
+     * The move speed will not be scaled down below this speed (in mm/s).
+     */
+    private int minPrintSpeed;
+
+    /**
+     * @return the fanAlwaysOn
+     */
+    public boolean isFanAlwaysOn() {
+<span class="fc" id="L96">        return fanAlwaysOn;</span>
+    }
+
+    /**
+     * @param fanAlwaysOn the fanAlwaysOn to set
+     */
+    public void setFanAlwaysOn(boolean fanAlwaysOn) {
+<span class="fc" id="L103">        this.fanAlwaysOn = fanAlwaysOn;</span>
+<span class="fc" id="L104">    }</span>
+
+    /**
+     * @return the enableAutoCooling
+     */
+    public boolean isEnableAutoCooling() {
+<span class="fc" id="L110">        return enableAutoCooling;</span>
+    }
+
+    /**
+     * @param enableAutoCooling the enableAutoCooling to set
+     */
+    public void setEnableAutoCooling(boolean enableAutoCooling) {
+<span class="fc" id="L117">        this.enableAutoCooling = enableAutoCooling;</span>
+<span class="fc" id="L118">    }</span>
+
+    /**
+     * @return the minFanSpeed
+     */
+    public int getMinFanSpeed() {
+<span class="fc" id="L124">        return minFanSpeed;</span>
+    }
+
+    /**
+     * @param minFanSpeed the minFanSpeed to set
+     */
+    public void setMinFanSpeed(int minFanSpeed) {
+<span class="fc" id="L131">        this.minFanSpeed = minFanSpeed;</span>
+<span class="fc" id="L132">    }</span>
+
+    /**
+     * @return the maxFanSpeed
+     */
+    public int getMaxFanSpeed() {
+<span class="fc" id="L138">        return maxFanSpeed;</span>
+    }
+
+    /**
+     * @param maxFanSpeed the maxFanSpeed to set
+     */
+    public void setMaxFanSpeed(int maxFanSpeed) {
+<span class="fc" id="L145">        this.maxFanSpeed = maxFanSpeed;</span>
+<span class="fc" id="L146">    }</span>
+
+    /**
+     * @return the bridgeFanSpeedPercent
+     */
+    public int getBridgeFanSpeedPercent() {
+<span class="fc" id="L152">        return bridgeFanSpeedPercent;</span>
+    }
+
+    /**
+     * @param bridgeFanSpeedPercent the bridgeFanSpeedPercent to set
+     */
+    public void setBridgeFanSpeedPercent(int bridgeFanSpeedPercent) {
+<span class="fc" id="L159">        this.bridgeFanSpeedPercent = bridgeFanSpeedPercent;</span>
+<span class="fc" id="L160">    }</span>
+
+    /**
+     * @return the disableFanForFirstNLayers
+     */
+    public int getDisableFanForFirstNLayers() {
+<span class="fc" id="L166">        return disableFanForFirstNLayers;</span>
+    }
+
+    /**
+     * @param disableFanForFirstNLayers the disableFanForFirstNLayers to set
+     */
+    public void setDisableFanForFirstNLayers(int disableFanForFirstNLayers) {
+<span class="fc" id="L173">        this.disableFanForFirstNLayers = disableFanForFirstNLayers;</span>
+<span class="fc" id="L174">    }</span>
+
+    /**
+     * @return the enableFanTimeThreshold
+     */
+    public int getEnableFanTimeThreshold() {
+<span class="fc" id="L180">        return enableFanTimeThreshold;</span>
+    }
+
+    /**
+     * @param enableFanTimeThreshold the enableFanTimeThreshold to set
+     */
+    public void setEnableFanTimeThreshold(int enableFanTimeThreshold) {
+<span class="fc" id="L187">        this.enableFanTimeThreshold = enableFanTimeThreshold;</span>
+<span class="fc" id="L188">    }</span>
+
+    /**
+     * @return the slowDownTimeTreshold
+     */
+    public int getSlowDownTimeTreshold() {
+<span class="fc" id="L194">        return slowDownTimeTreshold;</span>
+    }
+
+    /**
+     * @param slowDownTimeTreshold the slowDownTimeTreshold to set
+     */
+    public void setSlowDownTimeTreshold(int slowDownTimeTreshold) {
+<span class="fc" id="L201">        this.slowDownTimeTreshold = slowDownTimeTreshold;</span>
+<span class="fc" id="L202">    }</span>
+
+    /**
+     * @return the minPrintSpeed
+     */
+    public int getMinPrintSpeed() {
+<span class="fc" id="L208">        return minPrintSpeed;</span>
+    }
+
+    /**
+     * @param minPrintSpeed the minPrintSpeed to set
+     */
+    public void setMinPrintSpeed(int minPrintSpeed) {
+<span class="fc" id="L215">        this.minPrintSpeed = minPrintSpeed;</span>
+<span class="fc" id="L216">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

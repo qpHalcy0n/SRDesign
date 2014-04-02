@@ -7,47 +7,90 @@
 package ink3d.ConfigurationObjects;
 
 import java.util.ArrayList;
+import java.util.Objects;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author daniellain
  */
+@XmlRootElement(name = &quot;subsetSelection&quot;)
+@XmlAccessorType (XmlAccessType.FIELD)
 public class SubsetSelection {
-        private double bottomZ;
-        private double topZ;
-        private String printConfiguration;
-        private ArrayList&lt;FileSelection&gt; fileConfigurations;
-        
-<span class="fc" id="L21">        public SubsetSelection(){</span>
-<span class="fc" id="L22">        fileConfigurations = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L23">        }</span>
+    private double bottomZ;
+    private double topZ;
+    private String printConfiguration;
+    
+    @XmlElement(name = &quot;fileSelection&quot;)
+    private ArrayList&lt;FileSelection&gt; fileConfigurations;
 
-        public double getBottomZ() {
-<span class="fc" id="L26">            return bottomZ;</span>
-        }
+<span class="fc" id="L30">    public SubsetSelection(){</span>
+<span class="fc" id="L31">    fileConfigurations = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L32">    }</span>
 
-        public void setBottomZ(double bottomZ) {
-<span class="fc" id="L30">            this.bottomZ = bottomZ;</span>
-<span class="fc" id="L31">        }</span>
-
-        public double getTopZ() {
-<span class="fc" id="L34">            return topZ;</span>
-        }
-
-        public void setTopZ(double topZ) {
-<span class="fc" id="L38">            this.topZ = topZ;</span>
-<span class="fc" id="L39">        }</span>
-
-        public void setPrintConfiguration(String printConfiguration) {
-<span class="fc" id="L42">            this.printConfiguration = printConfiguration;</span>
-<span class="fc" id="L43">        }</span>
-
-        public String getPrintConfiguration() {
-<span class="fc" id="L46">            return printConfiguration;</span>
-        }
-
-        public ArrayList&lt;FileSelection&gt; getFileConfigurations() {
-<span class="fc" id="L50">            return fileConfigurations;</span>
-        }
+    public double getBottomZ() {
+<span class="fc" id="L35">        return bottomZ;</span>
     }
+
+    public void setBottomZ(double bottomZ) {
+<span class="fc" id="L39">        this.bottomZ = bottomZ;</span>
+<span class="fc" id="L40">    }</span>
+
+    public double getTopZ() {
+<span class="fc" id="L43">        return topZ;</span>
+    }
+
+    public void setTopZ(double topZ) {
+<span class="fc" id="L47">        this.topZ = topZ;</span>
+<span class="fc" id="L48">    }</span>
+
+    public void setFileConfigurations(ArrayList&lt;FileSelection&gt; fileConfigurations) {
+<span class="fc" id="L51">        this.fileConfigurations = fileConfigurations;</span>
+<span class="fc" id="L52">    }</span>
+    
+    public void setPrintConfiguration(String printConfiguration) {
+<span class="fc" id="L55">        this.printConfiguration = printConfiguration;</span>
+<span class="fc" id="L56">    }</span>
+
+    public String getPrintConfiguration() {
+<span class="nc" id="L59">        return printConfiguration;</span>
+    }
+
+    public ArrayList&lt;FileSelection&gt; getFileConfigurations() {
+<span class="fc" id="L63">        return fileConfigurations;</span>
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L69">            return false;</span>
+        }
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L72">            return false;</span>
+        }
+<span class="fc" id="L74">        final SubsetSelection other = (SubsetSelection) obj;</span>
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.bottomZ) != Double.doubleToLongBits(other.bottomZ)) {</span>
+<span class="nc" id="L76">            return false;</span>
+        }
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.topZ) != Double.doubleToLongBits(other.topZ)) {</span>
+<span class="nc" id="L79">            return false;</span>
+        }
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">        if (!Objects.equals(this.printConfiguration, other.printConfiguration)) {</span>
+<span class="nc" id="L82">            return false;</span>
+        }
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        for(int i = 0; i&lt;this.fileConfigurations.size();i++)</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">        if (!this.fileConfigurations.get(i).equals(other.fileConfigurations.get(i))) {</span>
+<span class="nc" id="L86">            return false;</span>
+        }
+<span class="fc" id="L88">        return true;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L93">        return &quot;SubsetSelection{&quot; + &quot;bottomZ=&quot; + bottomZ + &quot;, topZ=&quot; + topZ + &quot;, printConfiguration=&quot; + printConfiguration + &quot;, fileConfigurations=&quot; + fileConfigurations + '}';</span>
+    }    
+}
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

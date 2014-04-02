@@ -76,6 +76,7 @@ public class GetPrinterConfigurationCommandTest {
         GetPrinterConfigurationCommand instance = new GetPrinterConfigurationCommand(name);
         instance.execute();
         actual = (PrinterConfiguration)instance.getResult();
+        if(!expected.equals(actual)) System.out.printf("Test "+this.getClass().getName()+" expected: "+ expected+"\nGot: "+actual);
         assertTrue(expected.equals(actual));
     }
 }

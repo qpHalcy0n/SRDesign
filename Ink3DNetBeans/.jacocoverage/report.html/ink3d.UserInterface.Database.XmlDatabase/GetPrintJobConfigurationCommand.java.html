@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>GetPrintJobConfigurationCommand.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ink3d.UserInterface.Database.XmlDatabase</a> &gt; <span class="el_source">GetPrintJobConfigurationCommand.java</span></div><h1>GetPrintJobConfigurationCommand.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package ink3d.UserInterface.Database.XmlDatabase;
+
+import ink3d.ConfigurationObjects.FileConfiguration;
+import ink3d.ConfigurationObjects.FileSelection;
+import ink3d.ConfigurationObjects.PrintJobConfiguration;
+import ink3d.ConfigurationObjects.PrintJobSelection;
+import ink3d.ConfigurationObjects.SubsetConfiguration;
+import ink3d.ConfigurationObjects.SubsetSelection;
+import ink3d.UserInterface.Database.CommandStructure;
+import ink3d.UserInterface.Database.PersistenceFramework;
+import java.util.ArrayList;
+
+/**
+ *
+ * @author daniellain
+ */
+public class GetPrintJobConfigurationCommand extends CommandStructure{
+    PrintJobSelection selection;
+    PrintJobConfiguration printJob;
+    ArrayList&lt;SubsetConfiguration&gt; subsetList;
+    ArrayList&lt;FileConfiguration&gt; fileList;
+    SubsetConfiguration subset;
+    FileConfiguration fileConfig;
+    PersistenceFramework db;
+    
+<span class="fc" id="L32">    GetPrintJobConfigurationCommand(PrintJobSelection selection){</span>
+<span class="fc" id="L33">        this.selection = selection;</span>
+<span class="fc" id="L34">        printJob = new PrintJobConfiguration();</span>
+<span class="fc" id="L35">    }</span>
+    
+    @Override
+    public void execute() {
+<span class="fc" id="L39">        db = new XmlPersistenceFramework();</span>
+        
+<span class="fc" id="L41">        subsetList = new ArrayList&lt;&gt;();</span>
+        
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        for(SubsetSelection set : selection.getSubsetConfigurationList()){            </span>
+<span class="fc" id="L44">            fileList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">            for(FileSelection select : set.getFileConfigurations()){</span>
+<span class="fc" id="L46">                fileConfig = new FileConfiguration();</span>
+<span class="fc" id="L47">                fileConfig.setExtruderConfiguration(db.getExtruderConfiguration(select.getExtruder()));</span>
+<span class="fc" id="L48">                fileConfig.setMaterialConfiguration(db.getMaterialConfiguration(select.getMaterial()));</span>
+<span class="fc" id="L49">                fileConfig.setName(select.getFile());</span>
+<span class="fc" id="L50">                fileConfig.setParentSTLFile(db.getStlFile(select.getFile()));</span>
+<span class="fc" id="L51">                fileList.add(fileConfig);</span>
+<span class="fc" id="L52">            }</span>
+            
+<span class="fc" id="L54">            subset = new SubsetConfiguration();</span>
+<span class="fc" id="L55">            subset.setBottomZ(set.getBottomZ());</span>
+<span class="fc" id="L56">            subset.setTopZ(set.getTopZ());</span>
+<span class="fc" id="L57">            subset.setPrintConfiguration(db.getPrintConfiguration(selection.getPrinterConfiguration()));</span>
+<span class="fc" id="L58">            subset.setFileConfigurations(fileList);</span>
+<span class="fc" id="L59">            subsetList.add(subset);</span>
+<span class="fc" id="L60">        }</span>
+        
+<span class="fc" id="L62">        printJob.setName(selection.getName());</span>
+<span class="fc" id="L63">        printJob.setPrinterConfiguration(db.getPrinterConfiguration(selection.getPrinterConfiguration()));</span>
+<span class="fc" id="L64">        printJob.setSubsetConfigurationList(subsetList);</span>
+        
+<span class="fc" id="L66">        this.result = printJob;</span>
+<span class="fc" id="L67">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

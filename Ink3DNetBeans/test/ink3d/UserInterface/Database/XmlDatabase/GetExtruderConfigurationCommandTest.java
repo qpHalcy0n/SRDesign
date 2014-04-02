@@ -70,7 +70,8 @@ public class GetExtruderConfigurationCommandTest {
     public void GetExtruderConfigurationTest() {
         GetExtruderConfigurationCommand instance = new GetExtruderConfigurationCommand(name);
         instance.execute();
-        actual = (ExtruderConfiguration)instance.getResult();
+        actual  = (ExtruderConfiguration)instance.getResult();
+        if(!expected.equals(actual)) System.out.printf("Test "+this.getClass().getName()+" expected: "+ expected+"\nGot: "+actual);
         assertTrue(expected.equals(actual));
     }
 }

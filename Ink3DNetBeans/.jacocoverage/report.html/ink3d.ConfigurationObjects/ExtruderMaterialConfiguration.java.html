@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ExtruderMaterialConfiguration.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ink3d.ConfigurationObjects</a> &gt; <span class="el_source">ExtruderMaterialConfiguration.java</span></div><h1>ExtruderMaterialConfiguration.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package ink3d.ConfigurationObjects;
+
+import java.util.Objects;
+
+/**
+ *
+ * @author daniellain
+ */
+public class ExtruderMaterialConfiguration {
+    private MaterialConfiguration material;
+    private ExtruderConfiguration extruder;
+
+<span class="nc" id="L19">    public ExtruderMaterialConfiguration(){</span>
+<span class="nc" id="L20">    }</span>
+    
+<span class="fc" id="L22">    public ExtruderMaterialConfiguration(ExtruderConfiguration extruder, MaterialConfiguration material){</span>
+<span class="fc" id="L23">        this.extruder = extruder;</span>
+<span class="fc" id="L24">        this.material = material;</span>
+<span class="fc" id="L25">    }</span>
+    
+    public MaterialConfiguration getMaterial() {
+<span class="nc" id="L28">        return material;</span>
+    }
+
+    public void setMaterial(MaterialConfiguration material) {
+<span class="nc" id="L32">        this.material = material;</span>
+<span class="nc" id="L33">    }</span>
+
+    public ExtruderConfiguration getExtruder() {
+<span class="nc" id="L36">        return extruder;</span>
+    }
+
+    public void setExtruder(ExtruderConfiguration extruder) {
+<span class="nc" id="L40">        this.extruder = extruder;</span>
+<span class="nc" id="L41">    }</span>
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L45">        int hash = 7;</span>
+<span class="nc" id="L46">        hash = 41 * hash + Objects.hashCode(this.material);</span>
+<span class="nc" id="L47">        hash = 41 * hash + Objects.hashCode(this.extruder);</span>
+<span class="nc" id="L48">        return hash;</span>
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L54">            return false;</span>
+        }
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L57">            return false;</span>
+        }
+<span class="nc" id="L59">        final ExtruderMaterialConfiguration other = (ExtruderMaterialConfiguration) obj;</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if (!Objects.equals(this.material, other.material)) {</span>
+<span class="nc" id="L61">            return false;</span>
+        }
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if (!Objects.equals(this.extruder, other.extruder)) {</span>
+<span class="nc" id="L64">            return false;</span>
+        }
+<span class="nc" id="L66">        return true;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L71">        return &quot;ExtruderMaterialConfiguration{&quot; + &quot;material=&quot; + material + &quot;, extruder=&quot; + extruder + '}';</span>
+    }    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

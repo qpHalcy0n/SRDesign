@@ -6,34 +6,66 @@
 
 package ink3d.ConfigurationObjects;
 
+import java.util.Objects;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author daniellain
  */
+@XmlRootElement(name = &quot;extruderMarterial&quot;)
+@XmlAccessorType (XmlAccessType.FIELD)
 public class ExtruderMaterialSelection {
-        private String extruder;
-        private String material;
-        
-<span class="fc" id="L17">        public ExtruderMaterialSelection(String extruder, String material){</span>
-<span class="fc" id="L18">            this.extruder = extruder;</span>
-<span class="fc" id="L19">            this.material = material;</span>
-<span class="fc" id="L20">        }</span>
-        
-        public String getExtruder() {
-<span class="fc" id="L23">            return extruder;</span>
-        }
+    private String extruder;
+    private String material;
 
-        public void setExtruder(String extruder) {
-<span class="nc" id="L27">            this.extruder = extruder;</span>
-<span class="nc" id="L28">        }</span>
+<span class="fc" id="L24">    public ExtruderMaterialSelection(){}</span>
 
-        public String getMaterial() {
-<span class="fc" id="L31">            return material;</span>
-        }
+<span class="fc" id="L26">    public ExtruderMaterialSelection(String extruder, String material){</span>
+<span class="fc" id="L27">        this.extruder = extruder;</span>
+<span class="fc" id="L28">        this.material = material;</span>
+<span class="fc" id="L29">    }</span>
 
-        public void setMaterial(String material) {
-<span class="nc" id="L35">            this.material = material;</span>
-<span class="nc" id="L36">        }</span>
-        
+    public String getExtruder() {
+<span class="nc" id="L32">        return extruder;</span>
     }
+
+    public void setExtruder(String extruder) {
+<span class="nc" id="L36">        this.extruder = extruder;</span>
+<span class="nc" id="L37">    }</span>
+
+    public String getMaterial() {
+<span class="nc" id="L40">        return material;</span>
+    }
+
+    public void setMaterial(String material) {
+<span class="nc" id="L44">        this.material = material;</span>
+<span class="nc" id="L45">    }</span>
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L50">            return false;</span>
+        }
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L53">            return false;</span>
+        }
+<span class="fc" id="L55">        final ExtruderMaterialSelection other = (ExtruderMaterialSelection) obj;</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (!Objects.equals(this.extruder, other.extruder)) {</span>
+<span class="nc" id="L57">            return false;</span>
+        }
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if (!Objects.equals(this.material, other.material)) {</span>
+<span class="nc" id="L60">            return false;</span>
+        }
+<span class="fc" id="L62">        return true;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L67">        return &quot;ExtruderMaterialSelection{&quot; + &quot;extruder=&quot; + extruder + &quot;, material=&quot; + material + '}';</span>
+    }
+
+}
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

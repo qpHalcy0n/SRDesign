@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ExtrusionWidthConfiguration.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ink3d.ConfigurationObjects</a> &gt; <span class="el_source">ExtrusionWidthConfiguration.java</span></div><h1>ExtrusionWidthConfiguration.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package ink3d.ConfigurationObjects;
+
+/**
+ *
+ * @author Tim
+ */
+public class ExtrusionWidthConfiguration {
+
+    public static final double DEFAULT_EXTRUSION_WIDTH = 0;
+    public static final double DEFAULT_FIRST_LAYER_EXTRUSION_WIDTH = 0;
+    public static final double DEFAULT_PERIMETERS_EXTRUSION_WIDTH = 0;
+    public static final double DEFAULT_INFILL_EXTRUSION_WIDTH = 0;
+    public static final double DEFAULT_SOLID_INFILL_EXTRUSION_WIDTH = 0;
+    public static final double DEFAULT_TOP_SOLID_INFILL_EXTRUSION_WIDTH = 0;
+    public static final double DEFAULT_SUPPORT_MATERIAL_EXTRUSION_WIDHT = 0;
+
+<span class="fc" id="L23">    public ExtrusionWidthConfiguration() {</span>
+<span class="fc" id="L24">        defaultExtrusionWidth = DEFAULT_EXTRUSION_WIDTH;</span>
+<span class="fc" id="L25">        firstLayerExtrusionWidth = DEFAULT_FIRST_LAYER_EXTRUSION_WIDTH;</span>
+<span class="fc" id="L26">        perimetersExtrusionWidth = DEFAULT_PERIMETERS_EXTRUSION_WIDTH;</span>
+<span class="fc" id="L27">        infillExtrusionWidth = DEFAULT_INFILL_EXTRUSION_WIDTH;</span>
+<span class="fc" id="L28">        solidInfillExtrusionWidth = DEFAULT_SOLID_INFILL_EXTRUSION_WIDTH;</span>
+<span class="fc" id="L29">        topSolidInfillExtrusionWidth = DEFAULT_TOP_SOLID_INFILL_EXTRUSION_WIDTH;</span>
+<span class="fc" id="L30">        supportMaterialExtrusionWidth = DEFAULT_SUPPORT_MATERIAL_EXTRUSION_WIDHT;</span>
+<span class="fc" id="L31">    }</span>
+
+    private double defaultExtrusionWidth;
+    private double firstLayerExtrusionWidth;
+    private double perimetersExtrusionWidth;
+    private double infillExtrusionWidth;
+    private double solidInfillExtrusionWidth;
+    private double topSolidInfillExtrusionWidth;
+    private double supportMaterialExtrusionWidth;
+
+    /**
+     * @return the defaultExtrusionWidth
+     */
+    public double getDefaultExtrusionWidth() {
+<span class="fc" id="L45">        return defaultExtrusionWidth;</span>
+    }
+
+    /**
+     * @param defaultExtrusionWidth the defaultExtrusionWidth to set
+     */
+    public void setDefaultExtrusionWidth(double defaultExtrusionWidth) {
+<span class="fc" id="L52">        this.defaultExtrusionWidth = defaultExtrusionWidth;</span>
+<span class="fc" id="L53">    }</span>
+
+    /**
+     * @return the firstLayerExtrusionWidth
+     */
+    public double getFirstLayerExtrusionWidth() {
+<span class="fc" id="L59">        return firstLayerExtrusionWidth;</span>
+    }
+
+    /**
+     * @param firstLayerExtrusionWidth the firstLayerExtrusionWidth to set
+     */
+    public void setFirstLayerExtrusionWidth(double firstLayerExtrusionWidth) {
+<span class="fc" id="L66">        this.firstLayerExtrusionWidth = firstLayerExtrusionWidth;</span>
+<span class="fc" id="L67">    }</span>
+
+    /**
+     * @return the perimetersExtrusionWidth
+     */
+    public double getPerimetersExtrusionWidth() {
+<span class="fc" id="L73">        return perimetersExtrusionWidth;</span>
+    }
+
+    /**
+     * @param perimetersExtrusionWidth the perimetersExtrusionWidth to set
+     */
+    public void setPerimetersExtrusionWidth(double perimetersExtrusionWidth) {
+<span class="fc" id="L80">        this.perimetersExtrusionWidth = perimetersExtrusionWidth;</span>
+<span class="fc" id="L81">    }</span>
+
+    /**
+     * @return the infillExtrusionWidth
+     */
+    public double getInfillExtrusionWidth() {
+<span class="fc" id="L87">        return infillExtrusionWidth;</span>
+    }
+
+    /**
+     * @param infillExtrusionWidth the infillExtrusionWidth to set
+     */
+    public void setInfillExtrusionWidth(double infillExtrusionWidth) {
+<span class="fc" id="L94">        this.infillExtrusionWidth = infillExtrusionWidth;</span>
+<span class="fc" id="L95">    }</span>
+
+    /**
+     * @return the solidInfillExtrusionWidth
+     */
+    public double getSolidInfillExtrusionWidth() {
+<span class="fc" id="L101">        return solidInfillExtrusionWidth;</span>
+    }
+
+    /**
+     * @param solidInfillExtrusionWidth the solidInfillExtrusionWidth to set
+     */
+    public void setSolidInfillExtrusionWidth(double solidInfillExtrusionWidth) {
+<span class="fc" id="L108">        this.solidInfillExtrusionWidth = solidInfillExtrusionWidth;</span>
+<span class="fc" id="L109">    }</span>
+
+    /**
+     * @return the topSolidInfillExtrusionWidth
+     */
+    public double getTopSolidInfillExtrusionWidth() {
+<span class="fc" id="L115">        return topSolidInfillExtrusionWidth;</span>
+    }
+
+    /**
+     * @param topSolidInfillExtrusionWidth the topSolidInfillExtrusionWidth to set
+     */
+    public void setTopSolidInfillExtrusionWidth(double topSolidInfillExtrusionWidth) {
+<span class="fc" id="L122">        this.topSolidInfillExtrusionWidth = topSolidInfillExtrusionWidth;</span>
+<span class="fc" id="L123">    }</span>
+
+    /**
+     * @return the supportMaterialExtrusionWidth
+     */
+    public double getSupportMaterialExtrusionWidth() {
+<span class="fc" id="L129">        return supportMaterialExtrusionWidth;</span>
+    }
+
+    /**
+     * @param supportMaterialExtrusionWidth the supportMaterialExtrusionWidth to set
+     */
+    public void setSupportMaterialExtrusionWidth(double supportMaterialExtrusionWidth) {
+<span class="fc" id="L136">        this.supportMaterialExtrusionWidth = supportMaterialExtrusionWidth;</span>
+<span class="fc" id="L137">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

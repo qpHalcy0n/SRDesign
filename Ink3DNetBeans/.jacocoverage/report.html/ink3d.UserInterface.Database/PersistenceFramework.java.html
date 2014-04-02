@@ -12,34 +12,39 @@ import ink3d.ConfigurationObjects.PrintConfiguration;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
 import ink3d.ConfigurationObjects.PrintJobSelection;
 import ink3d.ConfigurationObjects.PrinterConfiguration;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
  *
  * @author daniellain
  */
-<span class="nc" id="L21">public abstract class PersistenceFramework {</span>
+<span class="fc" id="L22">public abstract class PersistenceFramework {</span>
     public abstract ArrayList&lt;String&gt; getPrinterConfigurations();
     public abstract ArrayList&lt;String&gt; getExtruderConfigurations();
     public abstract ArrayList&lt;String&gt; getMaterialConfigurations();
     public abstract ArrayList&lt;String&gt; getPrintJobSelectionss();
     public abstract ArrayList&lt;String&gt; getPrintConfigurations();
+    public abstract ArrayList&lt;String&gt; getStlFiles();
     public abstract PrinterConfiguration getPrinterConfiguration(String name);
     public abstract ExtruderConfiguration getExtruderConfiguration(String name);
     public abstract MaterialConfiguration getMaterialConfiguration(String name);
     public abstract PrintJobConfiguration getPrintJobConfiguration(PrintJobSelection printJOb);
     public abstract PrintJobSelection getPrintJobSelection(String name);
     public abstract PrintConfiguration getPrintConfiguration(String fileName);
+    public abstract File getStlFile(String name);
     public abstract Boolean savePrinterConfiguration(PrinterConfiguration config);
     public abstract Boolean saveExtruderConfiguration(ExtruderConfiguration config);
     public abstract Boolean saveMaterialConfiguration(MaterialConfiguration config);
     public abstract Boolean savePrintJobSelection(PrintJobSelection config);
     public abstract Boolean savePrintConfiguration(PrintConfiguration config);
-    public abstract Boolean deletePrinterConfiguration(String fileName);
-    public abstract Boolean deleteExtruderConfiguration(String fileName);
-    public abstract Boolean deleteMaterialConfiguration(String fileName);
-    public abstract Boolean deletePrintJobSelection(String fileName);
-    public abstract Boolean deletePrintConfiguration(String fileName);
+    public abstract Boolean importStlFile(String path);
+    public abstract Boolean deletePrinterConfiguration(String name);
+    public abstract Boolean deleteExtruderConfiguration(String name);
+    public abstract Boolean deleteMaterialConfiguration(String name);
+    public abstract Boolean deletePrintJobSelection(String name);
+    public abstract Boolean deletePrintConfiguration(String name);
+    public abstract Boolean deleteStlFile(String name);
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

@@ -4,7 +4,46 @@ import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-<span class="fc" id="L7">public class SpeedConfiguration {</span>
+public class SpeedConfiguration {
+
+    public static final String DEFAULT_NAME = &quot;Default&quot;;
+    public static final double DEFAULT_PERIMETERS_SPEED = 30.0;
+    public static final double DEFAULT_SMALL_PERIMETERS_SPEED = 30.0;
+    public static final double DEFAULT_EXTERNAL_PERIMETERS_SPEED = 25.0;
+    public static final double DEFAULT_INFILL_SPEED = 60.0;
+    public static final double DEFAULT_SOLID_INFILL_SPEED = 60.0;
+    public static final double DEFAULT_TOP_SOLID_INFILL_SPEED = 50.0;
+    public static final double DEFAULT_SUPPORT_MATERIAL_SPEED = 60.0;
+    public static final double DEFAULT_BRIDGES_SPEED = 60.0;
+    public static final double DEFAULT_GAP_FILL_SPEED = 20.0;
+    public static final double DEFAULT_TRAVEL_SPEED = 120.0;
+    public static final double DEFAULT_FIRST_LAYER_SPEED = 10.0;
+    public static final double DEFAULT_PERIMETERS_ACCELERATION = 0.0;
+    public static final double DEFAULT_INFILL_ACCELERATION = 0.0;
+    public static final double DEFAULT_BRIDGE_ACCELERATION = 0.0;
+    public static final double DEFAULT_FIRST_LAYER_ACCELERATION = 0.0;
+    public static final double DEFAULT_ACCELERATION = 0.0;
+    
+<span class="fc" id="L27">    public SpeedConfiguration() {</span>
+<span class="fc" id="L28">        name = DEFAULT_NAME;</span>
+<span class="fc" id="L29">        perimetersSpeed = DEFAULT_PERIMETERS_SPEED;</span>
+<span class="fc" id="L30">        smallPerimetersSpeed = DEFAULT_SMALL_PERIMETERS_SPEED;</span>
+<span class="fc" id="L31">        externalPerimetersSpeed = DEFAULT_EXTERNAL_PERIMETERS_SPEED;</span>
+<span class="fc" id="L32">        infillSpeed = DEFAULT_INFILL_SPEED;</span>
+<span class="fc" id="L33">        solidInfillSpeed = DEFAULT_SOLID_INFILL_SPEED;</span>
+<span class="fc" id="L34">        topSolidInfillSpeed = DEFAULT_TOP_SOLID_INFILL_SPEED;</span>
+<span class="fc" id="L35">        supportMaterialSpeed = DEFAULT_SUPPORT_MATERIAL_SPEED;</span>
+<span class="fc" id="L36">        bridgesSpeed = DEFAULT_BRIDGES_SPEED;</span>
+<span class="fc" id="L37">        gapFillSpeed = DEFAULT_GAP_FILL_SPEED;</span>
+<span class="fc" id="L38">        nonPrintMovesSpeed = DEFAULT_TRAVEL_SPEED;</span>
+<span class="fc" id="L39">        firstLayerSpeed = DEFAULT_FIRST_LAYER_SPEED;</span>
+<span class="fc" id="L40">        perimetersAcceleration = DEFAULT_PERIMETERS_ACCELERATION;</span>
+<span class="fc" id="L41">        infillAcceleration = DEFAULT_INFILL_ACCELERATION;</span>
+<span class="fc" id="L42">        bridgeAcceleration = DEFAULT_BRIDGE_ACCELERATION;</span>
+<span class="fc" id="L43">        firstLayerAcceleration = DEFAULT_FIRST_LAYER_ACCELERATION;</span>
+<span class="fc" id="L44">        defaultAcceleration = DEFAULT_ACCELERATION;</span>
+<span class="fc" id="L45">    }</span>
+
     private String name;
     /**
      * Speed for perimeters (mm/s)
@@ -76,205 +115,226 @@ import javax.xml.bind.annotation.XmlRootElement;
      */
     private double bridgeAcceleration;
 
+    private double firstLayerAcceleration;
+
     /**
      * Default Acceleration (mm/s^2)
      */
     private double defaultAcceleration;
 
     public double getPerimetersSpeed() {
-<span class="fc" id="L85">        return perimetersSpeed;</span>
+<span class="fc" id="L126">        return perimetersSpeed;</span>
     }
 
     public void setPerimetersSpeed(double perimetersSpeed) {
-<span class="fc" id="L89">        this.perimetersSpeed = perimetersSpeed;</span>
-<span class="fc" id="L90">    }</span>
+<span class="fc" id="L130">        this.perimetersSpeed = perimetersSpeed;</span>
+<span class="fc" id="L131">    }</span>
 
     public double getSmallPerimetersSpeed() {
-<span class="fc" id="L93">        return smallPerimetersSpeed;</span>
+<span class="fc" id="L134">        return smallPerimetersSpeed;</span>
     }
 
     public void setSmallPerimetersSpeed(double smallPerimetersSpeed) {
-<span class="fc" id="L97">        this.smallPerimetersSpeed = smallPerimetersSpeed;</span>
-<span class="fc" id="L98">    }</span>
+<span class="fc" id="L138">        this.smallPerimetersSpeed = smallPerimetersSpeed;</span>
+<span class="fc" id="L139">    }</span>
 
     public double getExternalPerimetersSpeed() {
-<span class="fc" id="L101">        return externalPerimetersSpeed;</span>
+<span class="fc" id="L142">        return externalPerimetersSpeed;</span>
     }
 
     public void setExternalPerimetersSpeed(double externalPerimetersSpeed) {
-<span class="fc" id="L105">        this.externalPerimetersSpeed = externalPerimetersSpeed;</span>
-<span class="fc" id="L106">    }</span>
+<span class="fc" id="L146">        this.externalPerimetersSpeed = externalPerimetersSpeed;</span>
+<span class="fc" id="L147">    }</span>
 
     public double getInfillSpeed() {
-<span class="fc" id="L109">        return infillSpeed;</span>
+<span class="fc" id="L150">        return infillSpeed;</span>
     }
 
     public void setInfillSpeed(double infillSpeed) {
-<span class="fc" id="L113">        this.infillSpeed = infillSpeed;</span>
-<span class="fc" id="L114">    }</span>
+<span class="fc" id="L154">        this.infillSpeed = infillSpeed;</span>
+<span class="fc" id="L155">    }</span>
 
     public double getSolidInfillSpeed() {
-<span class="fc" id="L117">        return solidInfillSpeed;</span>
+<span class="fc" id="L158">        return solidInfillSpeed;</span>
     }
 
     public void setSolidInfillSpeed(double solidInfillSpeed) {
-<span class="fc" id="L121">        this.solidInfillSpeed = solidInfillSpeed;</span>
-<span class="fc" id="L122">    }</span>
+<span class="fc" id="L162">        this.solidInfillSpeed = solidInfillSpeed;</span>
+<span class="fc" id="L163">    }</span>
 
     public double getTopSolidInfillSpeed() {
-<span class="fc" id="L125">        return topSolidInfillSpeed;</span>
+<span class="fc" id="L166">        return topSolidInfillSpeed;</span>
     }
 
     public void setTopSolidInfillSpeed(double topSolidInfillSpeed) {
-<span class="fc" id="L129">        this.topSolidInfillSpeed = topSolidInfillSpeed;</span>
-<span class="fc" id="L130">    }</span>
+<span class="fc" id="L170">        this.topSolidInfillSpeed = topSolidInfillSpeed;</span>
+<span class="fc" id="L171">    }</span>
 
     public double getSupportMaterialSpeed() {
-<span class="fc" id="L133">        return supportMaterialSpeed;</span>
+<span class="fc" id="L174">        return supportMaterialSpeed;</span>
     }
 
     public void setSupportMaterialSpeed(double supportMaterialSpeed) {
-<span class="fc" id="L137">        this.supportMaterialSpeed = supportMaterialSpeed;</span>
-<span class="fc" id="L138">    }</span>
+<span class="fc" id="L178">        this.supportMaterialSpeed = supportMaterialSpeed;</span>
+<span class="fc" id="L179">    }</span>
 
     public double getBridgesSpeed() {
-<span class="fc" id="L141">        return bridgesSpeed;</span>
+<span class="fc" id="L182">        return bridgesSpeed;</span>
     }
 
     public void setBridgesSpeed(double bridgesSpeed) {
-<span class="fc" id="L145">        this.bridgesSpeed = bridgesSpeed;</span>
-<span class="fc" id="L146">    }</span>
+<span class="fc" id="L186">        this.bridgesSpeed = bridgesSpeed;</span>
+<span class="fc" id="L187">    }</span>
 
     public double getGapFillSpeed() {
-<span class="fc" id="L149">        return gapFillSpeed;</span>
+<span class="fc" id="L190">        return gapFillSpeed;</span>
     }
 
     public void setGapFillSpeed(double gapFillSpeed) {
-<span class="fc" id="L153">        this.gapFillSpeed = gapFillSpeed;</span>
-<span class="fc" id="L154">    }</span>
+<span class="fc" id="L194">        this.gapFillSpeed = gapFillSpeed;</span>
+<span class="fc" id="L195">    }</span>
 
     public double getNonPrintMovesSpeed() {
-<span class="fc" id="L157">        return nonPrintMovesSpeed;</span>
+<span class="fc" id="L198">        return nonPrintMovesSpeed;</span>
     }
 
     public void setNonPrintMovesSpeed(double nonPrintMovesSpeed) {
-<span class="fc" id="L161">        this.nonPrintMovesSpeed = nonPrintMovesSpeed;</span>
-<span class="fc" id="L162">    }</span>
+<span class="fc" id="L202">        this.nonPrintMovesSpeed = nonPrintMovesSpeed;</span>
+<span class="fc" id="L203">    }</span>
 
     public double getFirstLayerSpeed() {
-<span class="fc" id="L165">        return firstLayerSpeed;</span>
+<span class="fc" id="L206">        return firstLayerSpeed;</span>
     }
 
     public void setFirstLayerSpeed(double firstLayerSpeed) {
-<span class="fc" id="L169">        this.firstLayerSpeed = firstLayerSpeed;</span>
-<span class="fc" id="L170">    }</span>
+<span class="fc" id="L210">        this.firstLayerSpeed = firstLayerSpeed;</span>
+<span class="fc" id="L211">    }</span>
 
     public double getPerimetersAcceleration() {
-<span class="fc" id="L173">        return perimetersAcceleration;</span>
+<span class="fc" id="L214">        return perimetersAcceleration;</span>
     }
 
     public void setPerimetersAcceleration(double perimetersAcceleration) {
-<span class="fc" id="L177">        this.perimetersAcceleration = perimetersAcceleration;</span>
-<span class="fc" id="L178">    }</span>
+<span class="fc" id="L218">        this.perimetersAcceleration = perimetersAcceleration;</span>
+<span class="fc" id="L219">    }</span>
 
     public double getInfillAcceleration() {
-<span class="fc" id="L181">        return infillAcceleration;</span>
+<span class="fc" id="L222">        return infillAcceleration;</span>
     }
 
     public void setInfillAcceleration(double infillAcceleration) {
-<span class="fc" id="L185">        this.infillAcceleration = infillAcceleration;</span>
-<span class="fc" id="L186">    }</span>
+<span class="fc" id="L226">        this.infillAcceleration = infillAcceleration;</span>
+<span class="fc" id="L227">    }</span>
 
     public double getBridgeAcceleration() {
-<span class="fc" id="L189">        return bridgeAcceleration;</span>
+<span class="fc" id="L230">        return bridgeAcceleration;</span>
     }
 
     public void setBridgeAcceleration(double bridgeAcceleration) {
-<span class="fc" id="L193">        this.bridgeAcceleration = bridgeAcceleration;</span>
-<span class="fc" id="L194">    }</span>
+<span class="fc" id="L234">        this.bridgeAcceleration = bridgeAcceleration;</span>
+<span class="fc" id="L235">    }</span>
 
     public double getDefaultAcceleration() {
-<span class="fc" id="L197">        return defaultAcceleration;</span>
+<span class="fc" id="L238">        return defaultAcceleration;</span>
     }
 
     public void setDefaultAcceleration(double defaultAcceleration) {
-<span class="fc" id="L201">        this.defaultAcceleration = defaultAcceleration;</span>
-<span class="fc" id="L202">    }</span>
+<span class="fc" id="L242">        this.defaultAcceleration = defaultAcceleration;</span>
+<span class="fc" id="L243">    }</span>
 
     public String getName() {
-<span class="fc" id="L205">        return name;</span>
+<span class="fc" id="L246">        return name;</span>
     }
 
     public void setName(String name) {
-<span class="fc" id="L209">        this.name = name;</span>
-<span class="fc" id="L210">    }</span>
+<span class="fc" id="L250">        this.name = name;</span>
+<span class="fc" id="L251">    }</span>
 
     @Override
     public int hashCode() {
-<span class="nc" id="L214">        int hash = 7;</span>
-<span class="nc" id="L215">        hash = 13 * hash + Objects.hashCode(this.name);</span>
-<span class="nc" id="L216">        return hash;</span>
+<span class="nc" id="L255">        int hash = 7;</span>
+<span class="nc" id="L256">        hash = 13 * hash + Objects.hashCode(this.name);</span>
+<span class="nc" id="L257">        return hash;</span>
     }
 
     @Override
     public boolean equals(Object obj) {
-<span class="nc bnc" id="L221" title="All 2 branches missed.">        if (obj == null) {</span>
-<span class="nc" id="L222">            return false;</span>
+<span class="pc bpc" id="L262" title="1 of 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L263">            return false;</span>
         }
-<span class="nc bnc" id="L224" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
-<span class="nc" id="L225">            return false;</span>
+<span class="pc bpc" id="L265" title="1 of 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L266">            return false;</span>
         }
-<span class="nc" id="L227">        final SpeedConfiguration other = (SpeedConfiguration) obj;</span>
-<span class="nc bnc" id="L228" title="All 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
-<span class="nc" id="L229">            return false;</span>
+<span class="fc" id="L268">        final SpeedConfiguration other = (SpeedConfiguration) obj;</span>
+<span class="pc bpc" id="L269" title="1 of 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
+<span class="nc" id="L270">            return false;</span>
         }
-<span class="nc bnc" id="L231" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.perimetersSpeed) != Double.doubleToLongBits(other.perimetersSpeed)) {</span>
-<span class="nc" id="L232">            return false;</span>
+<span class="pc bpc" id="L272" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.perimetersSpeed) != Double.doubleToLongBits(other.perimetersSpeed)) {</span>
+<span class="nc" id="L273">            return false;</span>
         }
-<span class="nc bnc" id="L234" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.smallPerimetersSpeed) != Double.doubleToLongBits(other.smallPerimetersSpeed)) {</span>
-<span class="nc" id="L235">            return false;</span>
+<span class="pc bpc" id="L275" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.smallPerimetersSpeed) != Double.doubleToLongBits(other.smallPerimetersSpeed)) {</span>
+<span class="nc" id="L276">            return false;</span>
         }
-<span class="nc bnc" id="L237" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.externalPerimetersSpeed) != Double.doubleToLongBits(other.externalPerimetersSpeed)) {</span>
-<span class="nc" id="L238">            return false;</span>
+<span class="pc bpc" id="L278" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.externalPerimetersSpeed) != Double.doubleToLongBits(other.externalPerimetersSpeed)) {</span>
+<span class="nc" id="L279">            return false;</span>
         }
-<span class="nc bnc" id="L240" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.infillSpeed) != Double.doubleToLongBits(other.infillSpeed)) {</span>
-<span class="nc" id="L241">            return false;</span>
+<span class="pc bpc" id="L281" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.infillSpeed) != Double.doubleToLongBits(other.infillSpeed)) {</span>
+<span class="nc" id="L282">            return false;</span>
         }
-<span class="nc bnc" id="L243" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.solidInfillSpeed) != Double.doubleToLongBits(other.solidInfillSpeed)) {</span>
-<span class="nc" id="L244">            return false;</span>
+<span class="pc bpc" id="L284" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.solidInfillSpeed) != Double.doubleToLongBits(other.solidInfillSpeed)) {</span>
+<span class="nc" id="L285">            return false;</span>
         }
-<span class="nc bnc" id="L246" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.topSolidInfillSpeed) != Double.doubleToLongBits(other.topSolidInfillSpeed)) {</span>
-<span class="nc" id="L247">            return false;</span>
+<span class="pc bpc" id="L287" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.topSolidInfillSpeed) != Double.doubleToLongBits(other.topSolidInfillSpeed)) {</span>
+<span class="nc" id="L288">            return false;</span>
         }
-<span class="nc bnc" id="L249" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.supportMaterialSpeed) != Double.doubleToLongBits(other.supportMaterialSpeed)) {</span>
-<span class="nc" id="L250">            return false;</span>
+<span class="pc bpc" id="L290" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.supportMaterialSpeed) != Double.doubleToLongBits(other.supportMaterialSpeed)) {</span>
+<span class="nc" id="L291">            return false;</span>
         }
-<span class="nc bnc" id="L252" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.bridgesSpeed) != Double.doubleToLongBits(other.bridgesSpeed)) {</span>
-<span class="nc" id="L253">            return false;</span>
+<span class="pc bpc" id="L293" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.bridgesSpeed) != Double.doubleToLongBits(other.bridgesSpeed)) {</span>
+<span class="nc" id="L294">            return false;</span>
         }
-<span class="nc bnc" id="L255" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.gapFillSpeed) != Double.doubleToLongBits(other.gapFillSpeed)) {</span>
-<span class="nc" id="L256">            return false;</span>
+<span class="pc bpc" id="L296" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.gapFillSpeed) != Double.doubleToLongBits(other.gapFillSpeed)) {</span>
+<span class="nc" id="L297">            return false;</span>
         }
-<span class="nc bnc" id="L258" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.nonPrintMovesSpeed) != Double.doubleToLongBits(other.nonPrintMovesSpeed)) {</span>
-<span class="nc" id="L259">            return false;</span>
+<span class="pc bpc" id="L299" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.nonPrintMovesSpeed) != Double.doubleToLongBits(other.nonPrintMovesSpeed)) {</span>
+<span class="nc" id="L300">            return false;</span>
         }
-<span class="nc bnc" id="L261" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.firstLayerSpeed) != Double.doubleToLongBits(other.firstLayerSpeed)) {</span>
-<span class="nc" id="L262">            return false;</span>
+<span class="pc bpc" id="L302" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.firstLayerSpeed) != Double.doubleToLongBits(other.firstLayerSpeed)) {</span>
+<span class="nc" id="L303">            return false;</span>
         }
-<span class="nc bnc" id="L264" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.perimetersAcceleration) != Double.doubleToLongBits(other.perimetersAcceleration)) {</span>
-<span class="nc" id="L265">            return false;</span>
+<span class="pc bpc" id="L305" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.perimetersAcceleration) != Double.doubleToLongBits(other.perimetersAcceleration)) {</span>
+<span class="nc" id="L306">            return false;</span>
         }
-<span class="nc bnc" id="L267" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.infillAcceleration) != Double.doubleToLongBits(other.infillAcceleration)) {</span>
-<span class="nc" id="L268">            return false;</span>
+<span class="pc bpc" id="L308" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.infillAcceleration) != Double.doubleToLongBits(other.infillAcceleration)) {</span>
+<span class="nc" id="L309">            return false;</span>
         }
-<span class="nc bnc" id="L270" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.bridgeAcceleration) != Double.doubleToLongBits(other.bridgeAcceleration)) {</span>
-<span class="nc" id="L271">            return false;</span>
+<span class="pc bpc" id="L311" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.bridgeAcceleration) != Double.doubleToLongBits(other.bridgeAcceleration)) {</span>
+<span class="nc" id="L312">            return false;</span>
         }
-<span class="nc bnc" id="L273" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.defaultAcceleration) != Double.doubleToLongBits(other.defaultAcceleration)) {</span>
-<span class="nc" id="L274">            return false;</span>
+<span class="pc bpc" id="L314" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.defaultAcceleration) != Double.doubleToLongBits(other.defaultAcceleration)) {</span>
+<span class="nc" id="L315">            return false;</span>
         }
-<span class="nc" id="L276">        return true;</span>
+<span class="fc" id="L317">        return true;</span>
     }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L322">        return &quot;SpeedConfiguration{&quot; + &quot;name=&quot; + name + &quot;, perimetersSpeed=&quot; + perimetersSpeed + &quot;, smallPerimetersSpeed=&quot; + smallPerimetersSpeed + &quot;, externalPerimetersSpeed=&quot; + externalPerimetersSpeed + &quot;, infillSpeed=&quot; + infillSpeed + &quot;, solidInfillSpeed=&quot; + solidInfillSpeed + &quot;, topSolidInfillSpeed=&quot; + topSolidInfillSpeed + &quot;, supportMaterialSpeed=&quot; + supportMaterialSpeed + &quot;, bridgesSpeed=&quot; + bridgesSpeed + &quot;, gapFillSpeed=&quot; + gapFillSpeed + &quot;, nonPrintMovesSpeed=&quot; + nonPrintMovesSpeed + &quot;, firstLayerSpeed=&quot; + firstLayerSpeed + &quot;, perimetersAcceleration=&quot; + perimetersAcceleration + &quot;, infillAcceleration=&quot; + infillAcceleration + &quot;, bridgeAcceleration=&quot; + bridgeAcceleration + &quot;, defaultAcceleration=&quot; + defaultAcceleration + '}';</span>
+    }
+
+    /**
+     * @return the firstLayerAcceleration
+     */
+    public double getFirstLayerAcceleration() {
+<span class="fc" id="L329">        return firstLayerAcceleration;</span>
+    }
+
+    /**
+     * @param firstLayerAcceleration the firstLayerAcceleration to set
+     */
+    public void setFirstLayerAcceleration(double firstLayerAcceleration) {
+<span class="fc" id="L336">        this.firstLayerAcceleration = firstLayerAcceleration;</span>
+<span class="fc" id="L337">    }</span>
     
     
 }

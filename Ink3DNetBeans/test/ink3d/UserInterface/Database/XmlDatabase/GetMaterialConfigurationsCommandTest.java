@@ -117,10 +117,8 @@ public class GetMaterialConfigurationsCommandTest {
         GetMaterialConfigurationsCommand instance = new GetMaterialConfigurationsCommand();
         instance.execute();
         actual = (ArrayList<String>)instance.getResult();
-        
-        for(int i = 0; i < actual.size(); i++){
-            assertTrue(expected.equals(actual));
-        }
+        if(!expected.equals(actual)) System.out.printf("Test "+this.getClass().getName()+" expected: "+ expected+"\nGot: "+actual);
+        assertTrue(expected.equals(actual));
     }
     
 }

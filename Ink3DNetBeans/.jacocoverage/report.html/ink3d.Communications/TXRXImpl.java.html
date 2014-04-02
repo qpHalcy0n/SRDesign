@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TXRXImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ink3d.Communications</a> &gt; <span class="el_source">TXRXImpl.java</span></div><h1>TXRXImpl.java</h1><pre class="source lang-java linenums">/*
+    01 April, 2014
+    Transmit/Receive module developed for Team Ink3d 
+    Developed for the RepRapRumba/Marlin firmware 3D printer
+ */
+
+package ink3d.Communications;
+
+import jssc.SerialPort;
+import jssc.SerialPortException;
+import jssc.SerialPortList;
+import jssc.SerialPortEvent;
+import jssc.SerialPortEventListener;
+import java.util.ArrayList;
+import java.io.*;
+
+/**
+ *
+ * @author Shawn Simonson
+ */
+public class TXRXImpl implements TXRX 
+{
+<span class="nc" id="L23">    private static ArrayList&lt;byte[]&gt; printerFeedback    = new ArrayList&lt;byte[]&gt;();  // Printer feedback data</span>
+<span class="nc" id="L24">    private static boolean isOutBufEmpty                = false;                    // flag for output (to printer) buffer being empty</span>
+    private static SerialPortList serialPortList;                                   // Port listing
+    private static SerialPort serialPort;                                           // serial port object
+    
+    TXRXImpl()
+<span class="nc" id="L29">    {</span>
+<span class="nc" id="L30">        serialPortList = new SerialPortList();</span>
+<span class="nc" id="L31">    }</span>
+    
+    /**
+     * 
+     * @return String[] packed with available serial ports
+     */
+    public String[] getSerialPortNames()
+    {
+<span class="nc" id="L39">        String[] portNames = serialPortList.getPortNames();</span>
+<span class="nc" id="L40">        return portNames;</span>
+    }
+    
+    // FIXME: Don't return null
+    /**
+     * 
+     * @return ArrayList&lt;byte[]&gt; An array list packed with byte buffers of the latest data received from 
+     * the printer
+     */
+    public ArrayList&lt;byte[]&gt; getPrinterFeedback()
+    {
+        // Check that feedback buffer is packed
+<span class="nc bnc" id="L52" title="All 2 branches missed.">        if(!isPrinterFeedbackReady())</span>
+<span class="nc" id="L53">            return null;</span>
+        
+        // Copy printer feedback data and clear the current buffer
+<span class="nc" id="L56">        ArrayList&lt;byte[]&gt; pfRet = printerFeedback;</span>
+<span class="nc" id="L57">        printerFeedback.clear();</span>
+<span class="nc" id="L58">        return pfRet;</span>
+    }
+    
+    /**
+     * 
+     * @return boolean - indicating whether there is feedback data present
+     */
+    public boolean isPrinterFeedbackReady()
+    {
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        if(printerFeedback.size() &gt; 0)</span>
+<span class="nc" id="L68">            return true;</span>
+<span class="nc" id="L69">        return false;</span>
+    }
+    
+    /**
+     * 
+     * @param ppGcode - serialized G-Codes
+     * @return boolean indicating whether the operation succeeded or failed
+     */
+    public boolean addGcode(ArrayList&lt;String&gt; ppGcode)
+    {
+        // Sanity check
+<span class="nc bnc" id="L80" title="All 2 branches missed.">        if(ppGcode.size() &lt;= 0)</span>
+<span class="nc" id="L81">            return false;</span>
+        
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        for(int i = 0; i &lt; ppGcode.size(); ++i)</span>
+        {
+            // There may be some additional processing on G-Code here, so leave this open
+<span class="nc" id="L86">            gCodes.add(ppGcode.get(i));</span>
+        }
+<span class="nc" id="L88">        return true;</span>
+    }
+    
+    
+    /**
+     * 
+     * @return boolean indicating whether the operation succeeded or failed
+     */
+    public boolean connectToPrinter()
+    {
+        // Make new serial port object and attempt to open
+<span class="nc" id="L99">        serialPort = new SerialPort(comPort);</span>
+        try
+        {
+<span class="nc bnc" id="L102" title="All 2 branches missed.">            if(!serialPort.openPort())</span>
+<span class="nc" id="L103">                return false;</span>
+            
+<span class="nc bnc" id="L105" title="All 2 branches missed.">            if(!serialPort.setParams(BAUD, 8, 1, 0))</span>
+<span class="nc" id="L106">                return false;        </span>
+        }
+        
+<span class="nc" id="L109">        catch(SerialPortException ex)</span>
+        {
+<span class="nc" id="L111">            System.out.println(ex);</span>
+<span class="nc" id="L112">            return false;</span>
+<span class="nc" id="L113">        }</span>
+        
+<span class="nc" id="L115">        return true;</span>
+    }
+    
+    /**
+     * 
+     * @return boolean indicating whether the object succeeded or failed
+     */
+    public boolean sendGcode()
+    {
+<span class="nc" id="L124">        int mask = SerialPort.MASK_RXFLAG + SerialPort.MASK_TXEMPTY;</span>
+        
+        try
+        {
+<span class="nc bnc" id="L128" title="All 2 branches missed.">            if(!serialPort.setEventsMask(mask))</span>
+<span class="nc" id="L129">                return false;</span>
+            
+<span class="nc" id="L131">            serialPort.addEventListener(new SerialPortReader());</span>
+            
+<span class="nc bnc" id="L133" title="All 2 branches missed.">            while(!isOutBufEmpty){}</span>
+            
+<span class="nc bnc" id="L135" title="All 2 branches missed.">            if(!serialPort.removeEventListener())</span>
+<span class="nc" id="L136">                return false;</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">            if(!serialPort.closePort())</span>
+<span class="nc" id="L138">                return false;</span>
+        }
+        
+<span class="nc" id="L141">        catch(SerialPortException e)</span>
+        {
+<span class="nc" id="L143">            System.out.println(e);</span>
+<span class="nc" id="L144">            return false;</span>
+<span class="nc" id="L145">        }</span>
+<span class="nc" id="L146">        return true;</span>
+    }
+    
+    /**
+     * This was originally intended to be its own module. In reality, the method is so simple, small, 
+     * and really just allows us to do any processing on g-codes that might need to happen based on the printer
+     * firmware. Therefore it is a function. For marlin nothing needs to happen at this point.
+     * @return boolean - success or failure of method
+     */
+    public boolean serialize(String gCodeLine)
+    {
+<span class="nc" id="L157">        return true;</span>
+    }
+    
+    /**
+     * Same situation as serialize. In reality, this simply allows us to assemble the data into a readable type
+     * Does nothing for marlin as of yet.
+     * @return boolean - success or failure of method
+     */
+    public boolean deserialize(byte[] byteStream)
+    {
+<span class="nc" id="L167">        return true;</span>
+    }
+    
+    /**
+     * SerialPortReader defines the actions to be taken when the receive buffer becomes full
+     * and when the transmit buffer becomes empty
+     * 
+     * This is where the sending and receipt of data actually happens
+     */
+<span class="nc" id="L176">    class SerialPortReader implements SerialPortEventListener</span>
+    {
+        public void serialEvent(SerialPortEvent event)
+        {
+            // Receive buffer is available //
+<span class="nc bnc" id="L181" title="All 2 branches missed.">            if(event.isRXCHAR())</span>
+            {
+                try
+                {
+                    // getEventValue returns size of buffer on RXCHAR event //
+<span class="nc" id="L186">                    byte buffer[]   = serialPort.readBytes(event.getEventValue());</span>
+<span class="nc" id="L187">                    String inBuffer = new String(buffer);</span>
+                    
+<span class="nc" id="L189">                    printerFeedback.add(buffer);</span>
+                    
+                    // Just echo the printer feedback for now
+<span class="nc" id="L192">                    System.out.println(inBuffer);</span>
+                }
+                
+<span class="nc" id="L195">                catch(Exception ex)</span>
+                {
+<span class="nc" id="L197">                    System.out.println(ex);</span>
+<span class="nc" id="L198">                }</span>
+            }
+            
+            // transmission buffer is empty...send out G-Codes
+<span class="nc bnc" id="L202" title="All 2 branches missed.">            if(event.isTXEMPTY())</span>
+            {
+                try
+                {
+                    // Sanity check //
+<span class="nc bnc" id="L207" title="All 2 branches missed.">                    if(gCodes.size() &lt;= 0)</span>
+                    {
+<span class="nc" id="L209">                        isOutBufEmpty = true;</span>
+<span class="nc" id="L210">                        return;</span>
+                    }
+                    
+                    // G-codes are 128B long at most.
+                    // Ring buffer in Marlin is 5x128B
+                    // May require modification
+<span class="nc" id="L216">                    int bufBytes    = event.getEventValue();</span>
+<span class="nc" id="L217">                    int nGCodes     = bufBytes / 128;</span>
+                    
+                    // Send only as many as we have
+<span class="nc bnc" id="L220" title="All 2 branches missed.">                    if(nGCodes &gt; gCodes.size())</span>
+<span class="nc" id="L221">                        nGCodes = gCodes.size();</span>
+                    
+<span class="nc bnc" id="L223" title="All 2 branches missed.">                    for(int i = 0; i &lt; nGCodes; ++i)</span>
+                    {
+                        // Serialize the data //
+<span class="nc" id="L226">                        serialize(gCodes.get(0));</span>
+                        
+                        // The index into the gCodes ArrayList will always be zero because we're removing
+                        // at index 0 every time 
+<span class="nc bnc" id="L230" title="All 2 branches missed.">                        if(!serialPort.writeBytes(gCodes.get(0).toString().getBytes()))</span>
+<span class="nc" id="L231">                            break;</span>
+                        
+                        // Pull g-codes successfully sent from front of list
+<span class="nc" id="L234">                        gCodes.remove(0);</span>
+                    }
+                }
+                
+<span class="nc" id="L238">                catch(Exception ex)</span>
+                {
+<span class="nc" id="L240">                    System.out.println(ex); </span>
+<span class="nc" id="L241">                }</span>
+            }
+<span class="nc" id="L243">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

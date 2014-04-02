@@ -199,6 +199,7 @@ public class GetPrintJobConfigurationCommandTest {
         
         file.setExtruderConfiguration(extruder);
         file.setMaterialConfiguration(material);
+        file.setParentSTLFile(db.getStlFile("GetPrintJobTest"));
         file.setName("GetPrintJobTest");
         
         files.add(file);
@@ -216,19 +217,10 @@ public class GetPrintJobConfigurationCommandTest {
         printer.setVibrationLimit(1.1);
         printer.setgCodeFlavor("rep-rap");
         printer.setzOffset(1.34);
+        printer.setExtruderList(new ArrayList<ExtruderConfiguration>());
+        printer.getExtruderList().add(extruder);        
         
         db.savePrinterConfiguration(printer);
-    }
-    
-    private void setupSubsets(){
-        subset = new SubsetConfiguration();
-        subset.setBottomZ(0);
-        subset.setTopZ(1.1);
-        subset.setPrintConfiguration(print);
-        subset.setFileConfigurations(files);
-        
-        subsets = new ArrayList<>();
-        subsets.add(subset);
     }
     
     public void delete(){
@@ -246,6 +238,17 @@ public class GetPrintJobConfigurationCommandTest {
     public void setupFileSelection(){
         fileSelections = new ArrayList<>();
         fileSelections.add(new FileSelection(extruder.getName(), material.getName(), files.get(0).getName()));
+    }
+        
+    private void setupSubsets(){
+        subset = new SubsetConfiguration();
+        subset.setBottomZ(0);
+        subset.setTopZ(1.1);
+        subset.setPrintConfiguration(print);
+        subset.setFileConfigurations(files);
+        
+        subsets = new ArrayList<>();
+        subsets.add(subset);
     }
     
     public void setupSubsetSelection(){
@@ -269,6 +272,7 @@ public class GetPrintJobConfigurationCommandTest {
         this.setupPrinter(); 
         this.setupFiles();
         this.setupExtruderMaterial();
+        this.setupSubsets();
         
         expected = new PrintJobConfiguration();
         expected.setName("GetPrintJobTest");
@@ -293,7 +297,7 @@ public class GetPrintJobConfigurationCommandTest {
     @Test
     public void getPrintJobConfigurationTest() {
         actual = db.getPrintJobConfiguration(input);
-        if(!expected.equals(actual)) System.out.printf(expected+"\n"+actual+"\n");
+        if(!expected.equals(actual)) System.out.printf("Test "+this.getClass().getName()+"\nexpected: "+ expected+"\nGot:      "+actual);
         assertTrue(expected.equals(actual));
     }
     

@@ -3,7 +3,35 @@ import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-<span class="fc" id="L6">public class InfillConfiguration {</span>
+public class InfillConfiguration {
+
+    public static final String DEFAULT_NAME = &quot;Default&quot;;
+    public static final double DEFAULT_INFILL_DENSITY = 0.4;
+    public static final String DEFAULT_INFILL_PATTERN = &quot;honeycomb&quot;;
+    public static final String DEFAULT_TOP_BOTTOM_INFILL_PATTERN = &quot;rectilinear&quot;;
+    public static final int DEFAULT_INFILL_EVERY_N_LAYERS = 1;
+    public static final boolean DEFAULT_ONLY_INFILL_WHERE_NEEDED = false;
+    public static final int DEFAULT_SOLID_INFILL_EVERY_N_LAYERS = 0;
+    public static final int DEFAULT_INFILL_ANGLE = 45;
+    
+    // TODO:  Research if solidInfillThresholdArea needs to be floating point
+    public static final int DEFAULT_SOLID_INFILL_THRESHOLD_AREA = 70;
+    public static final boolean DEFAULT_ONLY_RETRACT_INFILL_WHEN_CROSSING_PERIMETERS = true;
+    public static final boolean DEFAULT_INFILL_BEFORE_PERIMETERS = false;
+
+<span class="fc" id="L22">    public InfillConfiguration() {</span>
+<span class="fc" id="L23">        name = DEFAULT_NAME;</span>
+<span class="fc" id="L24">        infillDensity = DEFAULT_INFILL_DENSITY;</span>
+<span class="fc" id="L25">        infillPattern = DEFAULT_INFILL_PATTERN;</span>
+<span class="fc" id="L26">        topBottomInfillPattern = DEFAULT_TOP_BOTTOM_INFILL_PATTERN;</span>
+<span class="fc" id="L27">        infillEveryNLayers = DEFAULT_INFILL_EVERY_N_LAYERS;</span>
+<span class="fc" id="L28">        onlyInfillWhereNeeded = DEFAULT_ONLY_INFILL_WHERE_NEEDED;</span>
+<span class="fc" id="L29">        solidInfillEveryNLayers = DEFAULT_SOLID_INFILL_EVERY_N_LAYERS;</span>
+<span class="fc" id="L30">        infillAngle = DEFAULT_INFILL_ANGLE;</span>
+<span class="fc" id="L31">        solidInfillThresholdArea = DEFAULT_SOLID_INFILL_THRESHOLD_AREA;</span>
+<span class="fc" id="L32">        onlyRetractInfillWhenCrossingPerimeters = DEFAULT_ONLY_RETRACT_INFILL_WHEN_CROSSING_PERIMETERS;</span>
+<span class="fc" id="L33">    }</span>
+
     private String name;
     /**
      * The density of infill from 0.0 - 1.0.  0.0 being no infill, 1.0 being a solid infill.
@@ -63,143 +91,148 @@ import javax.xml.bind.annotation.XmlRootElement;
     private boolean infillBeforePerimeters;
 
     public double getInfillDensity() {
-<span class="fc" id="L66">        return infillDensity;</span>
+<span class="fc" id="L94">        return infillDensity;</span>
     }
 
     public void setInfillDensity(double infillDensity) {
-<span class="fc" id="L70">        this.infillDensity = infillDensity;</span>
-<span class="fc" id="L71">    }</span>
+<span class="fc" id="L98">        this.infillDensity = infillDensity;</span>
+<span class="fc" id="L99">    }</span>
 
     public String getInfillPattern() {
-<span class="fc" id="L74">        return infillPattern;</span>
+<span class="fc" id="L102">        return infillPattern;</span>
     }
 
     public void setInfillPattern(String infillPattern) {
-<span class="fc" id="L78">        this.infillPattern = infillPattern;</span>
-<span class="fc" id="L79">    }</span>
+<span class="fc" id="L106">        this.infillPattern = infillPattern;</span>
+<span class="fc" id="L107">    }</span>
 
     public String getTopBottomInfillPattern() {
-<span class="fc" id="L82">        return topBottomInfillPattern;</span>
+<span class="fc" id="L110">        return topBottomInfillPattern;</span>
     }
 
     public void setTopBottomInfillPattern(String topBottomInfillPattern) {
-<span class="fc" id="L86">        this.topBottomInfillPattern = topBottomInfillPattern;</span>
-<span class="fc" id="L87">    }</span>
+<span class="fc" id="L114">        this.topBottomInfillPattern = topBottomInfillPattern;</span>
+<span class="fc" id="L115">    }</span>
 
     public int getInfillEveryNLayers() {
-<span class="fc" id="L90">        return infillEveryNLayers;</span>
+<span class="fc" id="L118">        return infillEveryNLayers;</span>
     }
 
     public void setInfillEveryNLayers(int infillEveryNLayers) {
-<span class="fc" id="L94">        this.infillEveryNLayers = infillEveryNLayers;</span>
-<span class="fc" id="L95">    }</span>
+<span class="fc" id="L122">        this.infillEveryNLayers = infillEveryNLayers;</span>
+<span class="fc" id="L123">    }</span>
 
     public boolean isOnlyInfillWhereNeeded() {
-<span class="fc" id="L98">        return onlyInfillWhereNeeded;</span>
+<span class="fc" id="L126">        return onlyInfillWhereNeeded;</span>
     }
 
     public void setOnlyInfillWhereNeeded(boolean onlyInfillWhereNeeded) {
-<span class="fc" id="L102">        this.onlyInfillWhereNeeded = onlyInfillWhereNeeded;</span>
-<span class="fc" id="L103">    }</span>
+<span class="fc" id="L130">        this.onlyInfillWhereNeeded = onlyInfillWhereNeeded;</span>
+<span class="fc" id="L131">    }</span>
 
     public int getSolidInfillEveryNLayers() {
-<span class="fc" id="L106">        return solidInfillEveryNLayers;</span>
+<span class="fc" id="L134">        return solidInfillEveryNLayers;</span>
     }
 
     public void setSolidInfillEveryNLayers(int solidInfillEveryNLayers) {
-<span class="fc" id="L110">        this.solidInfillEveryNLayers = solidInfillEveryNLayers;</span>
-<span class="fc" id="L111">    }</span>
+<span class="fc" id="L138">        this.solidInfillEveryNLayers = solidInfillEveryNLayers;</span>
+<span class="fc" id="L139">    }</span>
 
     public int getInfillAngle() {
-<span class="fc" id="L114">        return infillAngle;</span>
+<span class="fc" id="L142">        return infillAngle;</span>
     }
 
     public void setInfillAngle(int infillAngle) {
-<span class="fc" id="L118">        this.infillAngle = infillAngle;</span>
-<span class="fc" id="L119">    }</span>
+<span class="fc" id="L146">        this.infillAngle = infillAngle;</span>
+<span class="fc" id="L147">    }</span>
 
     public int getSolidInfillThresholdArea() {
-<span class="fc" id="L122">        return solidInfillThresholdArea;</span>
+<span class="fc" id="L150">        return solidInfillThresholdArea;</span>
     }
 
     public void setSolidInfillThresholdArea(int solidInfillThresholdArea) {
-<span class="fc" id="L126">        this.solidInfillThresholdArea = solidInfillThresholdArea;</span>
-<span class="fc" id="L127">    }</span>
+<span class="fc" id="L154">        this.solidInfillThresholdArea = solidInfillThresholdArea;</span>
+<span class="fc" id="L155">    }</span>
 
     public boolean isOnlyRetractInfillWhenCrossingPerimeters() {
-<span class="fc" id="L130">        return onlyRetractInfillWhenCrossingPerimeters;</span>
+<span class="fc" id="L158">        return onlyRetractInfillWhenCrossingPerimeters;</span>
     }
 
     public void setOnlyRetractInfillWhenCrossingPerimeters(boolean onlyRetractInfillWhenCrossingPerimeters) {
-<span class="fc" id="L134">        this.onlyRetractInfillWhenCrossingPerimeters = onlyRetractInfillWhenCrossingPerimeters;</span>
-<span class="fc" id="L135">    }</span>
+<span class="fc" id="L162">        this.onlyRetractInfillWhenCrossingPerimeters = onlyRetractInfillWhenCrossingPerimeters;</span>
+<span class="fc" id="L163">    }</span>
 
     public boolean isInfillBeforePerimeters() {
-<span class="fc" id="L138">        return infillBeforePerimeters;</span>
+<span class="fc" id="L166">        return infillBeforePerimeters;</span>
     }
 
     public void setInfillBeforePerimeters(boolean infillBeforePerimeters) {
-<span class="fc" id="L142">        this.infillBeforePerimeters = infillBeforePerimeters;</span>
-<span class="fc" id="L143">    }</span>
+<span class="fc" id="L170">        this.infillBeforePerimeters = infillBeforePerimeters;</span>
+<span class="fc" id="L171">    }</span>
 
     public String getName() {
-<span class="fc" id="L146">        return name;</span>
+<span class="fc" id="L174">        return name;</span>
     }
 
     public void setName(String name) {
-<span class="fc" id="L150">        this.name = name;</span>
-<span class="fc" id="L151">    }</span>
+<span class="fc" id="L178">        this.name = name;</span>
+<span class="fc" id="L179">    }</span>
 
     @Override
     public int hashCode() {
-<span class="nc" id="L155">        int hash = 3;</span>
-<span class="nc" id="L156">        hash = 53 * hash + Objects.hashCode(this.name);</span>
-<span class="nc" id="L157">        return hash;</span>
+<span class="nc" id="L183">        int hash = 3;</span>
+<span class="nc" id="L184">        hash = 53 * hash + Objects.hashCode(this.name);</span>
+<span class="nc" id="L185">        return hash;</span>
     }
 
     @Override
     public boolean equals(Object obj) {
-<span class="nc bnc" id="L162" title="All 2 branches missed.">        if (obj == null) {</span>
-<span class="nc" id="L163">            return false;</span>
-        }
-<span class="nc bnc" id="L165" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
-<span class="nc" id="L166">            return false;</span>
-        }
-<span class="nc" id="L168">        final InfillConfiguration other = (InfillConfiguration) obj;</span>
-<span class="nc bnc" id="L169" title="All 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
-<span class="nc" id="L170">            return false;</span>
-        }
-<span class="nc bnc" id="L172" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.infillDensity) != Double.doubleToLongBits(other.infillDensity)) {</span>
-<span class="nc" id="L173">            return false;</span>
-        }
-<span class="nc bnc" id="L175" title="All 2 branches missed.">        if (!Objects.equals(this.infillPattern, other.infillPattern)) {</span>
-<span class="nc" id="L176">            return false;</span>
-        }
-<span class="nc bnc" id="L178" title="All 2 branches missed.">        if (!Objects.equals(this.topBottomInfillPattern, other.topBottomInfillPattern)) {</span>
-<span class="nc" id="L179">            return false;</span>
-        }
-<span class="nc bnc" id="L181" title="All 2 branches missed.">        if (this.infillEveryNLayers != other.infillEveryNLayers) {</span>
-<span class="nc" id="L182">            return false;</span>
-        }
-<span class="nc bnc" id="L184" title="All 2 branches missed.">        if (this.onlyInfillWhereNeeded != other.onlyInfillWhereNeeded) {</span>
-<span class="nc" id="L185">            return false;</span>
-        }
-<span class="nc bnc" id="L187" title="All 2 branches missed.">        if (this.solidInfillEveryNLayers != other.solidInfillEveryNLayers) {</span>
-<span class="nc" id="L188">            return false;</span>
-        }
-<span class="nc bnc" id="L190" title="All 2 branches missed.">        if (this.infillAngle != other.infillAngle) {</span>
+<span class="pc bpc" id="L190" title="1 of 2 branches missed.">        if (obj == null) {</span>
 <span class="nc" id="L191">            return false;</span>
         }
-<span class="nc bnc" id="L193" title="All 2 branches missed.">        if (this.solidInfillThresholdArea != other.solidInfillThresholdArea) {</span>
+<span class="pc bpc" id="L193" title="1 of 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
 <span class="nc" id="L194">            return false;</span>
         }
-<span class="nc bnc" id="L196" title="All 2 branches missed.">        if (this.onlyRetractInfillWhenCrossingPerimeters != other.onlyRetractInfillWhenCrossingPerimeters) {</span>
-<span class="nc" id="L197">            return false;</span>
+<span class="fc" id="L196">        final InfillConfiguration other = (InfillConfiguration) obj;</span>
+<span class="pc bpc" id="L197" title="1 of 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
+<span class="nc" id="L198">            return false;</span>
         }
-<span class="nc bnc" id="L199" title="All 2 branches missed.">        if (this.infillBeforePerimeters != other.infillBeforePerimeters) {</span>
-<span class="nc" id="L200">            return false;</span>
+<span class="pc bpc" id="L200" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.infillDensity) != Double.doubleToLongBits(other.infillDensity)) {</span>
+<span class="nc" id="L201">            return false;</span>
         }
-<span class="nc" id="L202">        return true;</span>
+<span class="pc bpc" id="L203" title="1 of 2 branches missed.">        if (!Objects.equals(this.infillPattern, other.infillPattern)) {</span>
+<span class="nc" id="L204">            return false;</span>
+        }
+<span class="pc bpc" id="L206" title="1 of 2 branches missed.">        if (!Objects.equals(this.topBottomInfillPattern, other.topBottomInfillPattern)) {</span>
+<span class="nc" id="L207">            return false;</span>
+        }
+<span class="pc bpc" id="L209" title="1 of 2 branches missed.">        if (this.infillEveryNLayers != other.infillEveryNLayers) {</span>
+<span class="nc" id="L210">            return false;</span>
+        }
+<span class="pc bpc" id="L212" title="1 of 2 branches missed.">        if (this.onlyInfillWhereNeeded != other.onlyInfillWhereNeeded) {</span>
+<span class="nc" id="L213">            return false;</span>
+        }
+<span class="pc bpc" id="L215" title="1 of 2 branches missed.">        if (this.solidInfillEveryNLayers != other.solidInfillEveryNLayers) {</span>
+<span class="nc" id="L216">            return false;</span>
+        }
+<span class="pc bpc" id="L218" title="1 of 2 branches missed.">        if (this.infillAngle != other.infillAngle) {</span>
+<span class="nc" id="L219">            return false;</span>
+        }
+<span class="pc bpc" id="L221" title="1 of 2 branches missed.">        if (this.solidInfillThresholdArea != other.solidInfillThresholdArea) {</span>
+<span class="nc" id="L222">            return false;</span>
+        }
+<span class="pc bpc" id="L224" title="1 of 2 branches missed.">        if (this.onlyRetractInfillWhenCrossingPerimeters != other.onlyRetractInfillWhenCrossingPerimeters) {</span>
+<span class="nc" id="L225">            return false;</span>
+        }
+<span class="pc bpc" id="L227" title="1 of 2 branches missed.">        if (this.infillBeforePerimeters != other.infillBeforePerimeters) {</span>
+<span class="nc" id="L228">            return false;</span>
+        }
+<span class="fc" id="L230">        return true;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L235">        return &quot;InfillConfiguration{&quot; + &quot;name=&quot; + name + &quot;, infillDensity=&quot; + infillDensity + &quot;, infillPattern=&quot; + infillPattern + &quot;, topBottomInfillPattern=&quot; + topBottomInfillPattern + &quot;, infillEveryNLayers=&quot; + infillEveryNLayers + &quot;, onlyInfillWhereNeeded=&quot; + onlyInfillWhereNeeded + &quot;, solidInfillEveryNLayers=&quot; + solidInfillEveryNLayers + &quot;, infillAngle=&quot; + infillAngle + &quot;, solidInfillThresholdArea=&quot; + solidInfillThresholdArea + &quot;, onlyRetractInfillWhenCrossingPerimeters=&quot; + onlyRetractInfillWhenCrossingPerimeters + &quot;, infillBeforePerimeters=&quot; + infillBeforePerimeters + '}';</span>
     }
     
 }

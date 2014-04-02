@@ -12,6 +12,7 @@ import ink3d.ConfigurationObjects.PrintConfiguration;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
 import ink3d.ConfigurationObjects.PrintJobSelection;
 import ink3d.ConfigurationObjects.PrinterConfiguration;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -134,37 +135,65 @@ public class XmlPersistenceFramework extends ink3d.UserInterface.Database.Persis
 
     @Override
     public Boolean deletePrinterConfiguration(String name) {
-        DeletePrinterConfigurationCommand save = new DeletePrinterConfigurationCommand(name);
-        save.execute();
-        return (Boolean)save.getResult();
+        DeletePrinterConfigurationCommand delete = new DeletePrinterConfigurationCommand(name);
+        delete.execute();
+        return (Boolean)delete.getResult();
     }
 
     @Override
     public Boolean deleteExtruderConfiguration(String name) {
-        DeleteExtruderConfigurationCommand save = new DeleteExtruderConfigurationCommand(name);
-        save.execute();
-        return (Boolean)save.getResult();
+        DeleteExtruderConfigurationCommand delete = new DeleteExtruderConfigurationCommand(name);
+        delete.execute();
+        return (Boolean)delete.getResult();
     }
 
     @Override
     public Boolean deleteMaterialConfiguration(String name) {
-        DeleteMaterialConfigurationCommand save = new DeleteMaterialConfigurationCommand(name);
-        save.execute();
-        return (Boolean)save.getResult();
+        DeleteMaterialConfigurationCommand delete = new DeleteMaterialConfigurationCommand(name);
+        delete.execute();
+        return (Boolean)delete.getResult();
     }
 
     @Override
     public Boolean deletePrintJobSelection(String name) {
-        DeletePrintJobSelectionCommand save = new DeletePrintJobSelectionCommand(name);
-        save.execute();
-        return (Boolean)save.getResult();
+        DeletePrintJobSelectionCommand delete = new DeletePrintJobSelectionCommand(name);
+        delete.execute();
+        return (Boolean)delete.getResult();
     }
 
     @Override
     public Boolean deletePrintConfiguration(String name) {
-        DeletePrintConfigurationCommand save = new DeletePrintConfigurationCommand(name);
-        save.execute();
-        return (Boolean)save.getResult();
+        DeletePrintConfigurationCommand delete = new DeletePrintConfigurationCommand(name);
+        delete.execute();
+        return (Boolean)delete.getResult();
+    }
+
+    @Override
+    public ArrayList<String> getStlFiles() {
+        GetStlFilesCommand get = new GetStlFilesCommand();
+        get.execute();
+        return (ArrayList<String>)get.getResult();
+    }
+
+    @Override
+    public File getStlFile(String name) {
+        GetStlFileCommand get = new GetStlFileCommand(name);
+        get.execute();
+        return (File)get.getResult();
+    }
+
+    @Override
+    public Boolean importStlFile(String path) {
+        ImportStlFileCommand importStl = new ImportStlFileCommand(path);
+        importStl.execute();
+        return (Boolean) importStl.getResult();
+    }
+
+    @Override
+    public Boolean deleteStlFile(String name) {
+        DeleteStlFileCommand delete = new DeleteStlFileCommand(name);
+        delete.execute();
+        return (Boolean)delete.getResult();
     }
 
 }

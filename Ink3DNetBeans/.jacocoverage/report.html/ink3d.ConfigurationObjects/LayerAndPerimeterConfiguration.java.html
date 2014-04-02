@@ -3,7 +3,44 @@ import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-<span class="fc" id="L6">public class LayerAndPerimeterConfiguration {</span>
+public class LayerAndPerimeterConfiguration {
+
+    public static final String DEFAULT_NAME = &quot;Default&quot;;
+    public static final double DEFAULT_LAYER_HEIGHT = 0.4;
+    public static final double DEFAULT_FIRST_LAYER_HEIGHT = 0.35;
+    public static final int DEFAULT_PERIMETERS = 3;
+    public static final boolean DEFAULT_SPIRAL_VASE = false;
+    public static final boolean DEFAULT_RANDOMIZE_STARTING_POINTS = false;
+    public static final boolean DEFAULT_GENERATE_EXTRA_PERIMETERS_WHERE_NEEDED = true;
+    public static final int DEFAULT_SOLID_TOP_LAYERS = 3;
+    public static final int DEFAULT_SOLID_BOTTOM_LAYERS = 3;
+
+    public static final boolean DEFAULT_AVOID_CROSSING_PERIMETERS = false;
+    public static final boolean DEFAULT_START_PERIMETERS_AT_CONCAVE_POINTS = false;
+    public static final boolean DEFAULT_START_PERIMETERS_AT_NON_OVERHANG_POINTS = false;
+    public static final boolean DEFAULT_DETECT_THIN_WALLS = true;
+    public static final boolean DEFAULT_DETECT_BRIDGING_PERIMETERS = true;
+    public static final boolean DEFAULT_EXTERNAL_PERIMETERS_FIRST = false;
+
+<span class="fc" id="L25">    public LayerAndPerimeterConfiguration() {</span>
+<span class="fc" id="L26">        name = DEFAULT_NAME;</span>
+<span class="fc" id="L27">        layerHeight = DEFAULT_LAYER_HEIGHT;</span>
+<span class="fc" id="L28">        firstLayerHeight = DEFAULT_FIRST_LAYER_HEIGHT;</span>
+<span class="fc" id="L29">        perimeters = DEFAULT_PERIMETERS;</span>
+<span class="fc" id="L30">        spiralVase = DEFAULT_SPIRAL_VASE;</span>
+<span class="fc" id="L31">        randomizedStartingPoints = DEFAULT_RANDOMIZE_STARTING_POINTS;</span>
+<span class="fc" id="L32">        generateExtraPerimetersWhenNeeded = DEFAULT_GENERATE_EXTRA_PERIMETERS_WHERE_NEEDED;</span>
+<span class="fc" id="L33">        solidTopLayers = DEFAULT_SOLID_TOP_LAYERS;</span>
+<span class="fc" id="L34">        solidBottomLayers = DEFAULT_SOLID_BOTTOM_LAYERS;</span>
+<span class="fc" id="L35">        avoidCrossingPerimeters = DEFAULT_AVOID_CROSSING_PERIMETERS;</span>
+<span class="fc" id="L36">        startPerimetersAtConcavePoints = DEFAULT_START_PERIMETERS_AT_CONCAVE_POINTS;</span>
+<span class="fc" id="L37">        startPerimetersAtNonOverhangPoints = DEFAULT_START_PERIMETERS_AT_NON_OVERHANG_POINTS;</span>
+<span class="fc" id="L38">        detectThinWalls = DEFAULT_DETECT_THIN_WALLS;</span>
+<span class="fc" id="L39">        detectBridgingPerimeters = DEFAULT_DETECT_BRIDGING_PERIMETERS;</span>
+<span class="fc" id="L40">        externalPerimetersFirst = DEFAULT_EXTERNAL_PERIMETERS_FIRST;</span>
+<span class="fc" id="L41">    }</span>
+    
+
 	// Layers and Perimeters
     private String name;
 	
@@ -27,6 +64,8 @@ import javax.xml.bind.annotation.XmlRootElement;
      */
     private int perimeters;
 
+    private boolean spiralVase;
+
     /**
      * If true, each layer should start from a different vertex to avoid build up on
      * a specific corner.
@@ -49,112 +88,222 @@ import javax.xml.bind.annotation.XmlRootElement;
      */
     private int solidBottomLayers;
 
+    private boolean avoidCrossingPerimeters;
+    private boolean startPerimetersAtConcavePoints;
+    private boolean startPerimetersAtNonOverhangPoints;
+    private boolean detectThinWalls;
+    private boolean detectBridgingPerimeters;
+    private boolean externalPerimetersFirst;
+
     public double getLayerHeight() {
-<span class="fc" id="L53">        return layerHeight;</span>
+<span class="fc" id="L99">        return layerHeight;</span>
     }
 
     public void setLayerHeight(double layerHeight) {
-<span class="fc" id="L57">        this.layerHeight = layerHeight;</span>
-<span class="fc" id="L58">    }</span>
+<span class="fc" id="L103">        this.layerHeight = layerHeight;</span>
+<span class="fc" id="L104">    }</span>
 
     public double getFirstLayerHeight() {
-<span class="fc" id="L61">        return firstLayerHeight;</span>
+<span class="fc" id="L107">        return firstLayerHeight;</span>
     }
 
     public void setFirstLayerHeight(double firstLayerHeight) {
-<span class="fc" id="L65">        this.firstLayerHeight = firstLayerHeight;</span>
-<span class="fc" id="L66">    }</span>
+<span class="fc" id="L111">        this.firstLayerHeight = firstLayerHeight;</span>
+<span class="fc" id="L112">    }</span>
 
     public int getPerimeters() {
-<span class="fc" id="L69">        return perimeters;</span>
+<span class="fc" id="L115">        return perimeters;</span>
     }
 
     public void setPerimeters(int perimeters) {
-<span class="fc" id="L73">        this.perimeters = perimeters;</span>
-<span class="fc" id="L74">    }</span>
+<span class="fc" id="L119">        this.perimeters = perimeters;</span>
+<span class="fc" id="L120">    }</span>
 
     public boolean isRandomizedStartingPoints() {
-<span class="fc" id="L77">        return randomizedStartingPoints;</span>
+<span class="fc" id="L123">        return randomizedStartingPoints;</span>
     }
 
     public void setRandomizedStartingPoints(boolean randomizedStartingPoints) {
-<span class="fc" id="L81">        this.randomizedStartingPoints = randomizedStartingPoints;</span>
-<span class="fc" id="L82">    }</span>
+<span class="fc" id="L127">        this.randomizedStartingPoints = randomizedStartingPoints;</span>
+<span class="fc" id="L128">    }</span>
 
     public boolean isGenerateExtraPerimetersWhenNeeded() {
-<span class="fc" id="L85">        return generateExtraPerimetersWhenNeeded;</span>
+<span class="fc" id="L131">        return generateExtraPerimetersWhenNeeded;</span>
     }
 
     public void setGenerateExtraPerimetersWhenNeeded(boolean generateExtraPerimetersWhenNeeded) {
-<span class="fc" id="L89">        this.generateExtraPerimetersWhenNeeded = generateExtraPerimetersWhenNeeded;</span>
-<span class="fc" id="L90">    }</span>
+<span class="fc" id="L135">        this.generateExtraPerimetersWhenNeeded = generateExtraPerimetersWhenNeeded;</span>
+<span class="fc" id="L136">    }</span>
 
     public int getSolidTopLayers() {
-<span class="fc" id="L93">        return solidTopLayers;</span>
+<span class="fc" id="L139">        return solidTopLayers;</span>
     }
 
     public void setSolidTopLayers(int solidTopLayers) {
-<span class="fc" id="L97">        this.solidTopLayers = solidTopLayers;</span>
-<span class="fc" id="L98">    }</span>
+<span class="fc" id="L143">        this.solidTopLayers = solidTopLayers;</span>
+<span class="fc" id="L144">    }</span>
 
     public int getSolidBottomLayers() {
-<span class="fc" id="L101">        return solidBottomLayers;</span>
+<span class="fc" id="L147">        return solidBottomLayers;</span>
     }
 
     public void setSolidBottomLayers(int solidBottomLayers) {
-<span class="fc" id="L105">        this.solidBottomLayers = solidBottomLayers;</span>
-<span class="fc" id="L106">    }</span>
+<span class="fc" id="L151">        this.solidBottomLayers = solidBottomLayers;</span>
+<span class="fc" id="L152">    }</span>
 
     public String getName() {
-<span class="fc" id="L109">        return name;</span>
+<span class="fc" id="L155">        return name;</span>
     }
 
     public void setName(String name) {
-<span class="fc" id="L113">        this.name = name;</span>
-<span class="fc" id="L114">    }</span>
+<span class="fc" id="L159">        this.name = name;</span>
+<span class="fc" id="L160">    }</span>
 
     @Override
     public int hashCode() {
-<span class="nc" id="L118">        int hash = 7;</span>
-<span class="nc" id="L119">        hash = 29 * hash + Objects.hashCode(this.name);</span>
-<span class="nc" id="L120">        return hash;</span>
+<span class="nc" id="L164">        int hash = 7;</span>
+<span class="nc" id="L165">        hash = 29 * hash + Objects.hashCode(this.name);</span>
+<span class="nc" id="L166">        return hash;</span>
     }
 
     @Override
     public boolean equals(Object obj) {
-<span class="nc bnc" id="L125" title="All 2 branches missed.">        if (obj == null) {</span>
-<span class="nc" id="L126">            return false;</span>
+<span class="pc bpc" id="L171" title="1 of 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L172">            return false;</span>
         }
-<span class="nc bnc" id="L128" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
-<span class="nc" id="L129">            return false;</span>
+<span class="pc bpc" id="L174" title="1 of 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L175">            return false;</span>
         }
-<span class="nc" id="L131">        final LayerAndPerimeterConfiguration other = (LayerAndPerimeterConfiguration) obj;</span>
-<span class="nc bnc" id="L132" title="All 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
-<span class="nc" id="L133">            return false;</span>
+<span class="fc" id="L177">        final LayerAndPerimeterConfiguration other = (LayerAndPerimeterConfiguration) obj;</span>
+<span class="pc bpc" id="L178" title="1 of 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
+<span class="nc" id="L179">            return false;</span>
         }
-<span class="nc bnc" id="L135" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.layerHeight) != Double.doubleToLongBits(other.layerHeight)) {</span>
-<span class="nc" id="L136">            return false;</span>
+<span class="pc bpc" id="L181" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.layerHeight) != Double.doubleToLongBits(other.layerHeight)) {</span>
+<span class="nc" id="L182">            return false;</span>
         }
-<span class="nc bnc" id="L138" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.firstLayerHeight) != Double.doubleToLongBits(other.firstLayerHeight)) {</span>
-<span class="nc" id="L139">            return false;</span>
+<span class="pc bpc" id="L184" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.firstLayerHeight) != Double.doubleToLongBits(other.firstLayerHeight)) {</span>
+<span class="nc" id="L185">            return false;</span>
         }
-<span class="nc bnc" id="L141" title="All 2 branches missed.">        if (this.perimeters != other.perimeters) {</span>
-<span class="nc" id="L142">            return false;</span>
+<span class="pc bpc" id="L187" title="1 of 2 branches missed.">        if (this.perimeters != other.perimeters) {</span>
+<span class="nc" id="L188">            return false;</span>
         }
-<span class="nc bnc" id="L144" title="All 2 branches missed.">        if (this.randomizedStartingPoints != other.randomizedStartingPoints) {</span>
-<span class="nc" id="L145">            return false;</span>
+<span class="pc bpc" id="L190" title="1 of 2 branches missed.">        if (this.randomizedStartingPoints != other.randomizedStartingPoints) {</span>
+<span class="nc" id="L191">            return false;</span>
         }
-<span class="nc bnc" id="L147" title="All 2 branches missed.">        if (this.generateExtraPerimetersWhenNeeded != other.generateExtraPerimetersWhenNeeded) {</span>
-<span class="nc" id="L148">            return false;</span>
+<span class="pc bpc" id="L193" title="1 of 2 branches missed.">        if (this.generateExtraPerimetersWhenNeeded != other.generateExtraPerimetersWhenNeeded) {</span>
+<span class="nc" id="L194">            return false;</span>
         }
-<span class="nc bnc" id="L150" title="All 2 branches missed.">        if (this.solidTopLayers != other.solidTopLayers) {</span>
-<span class="nc" id="L151">            return false;</span>
+<span class="pc bpc" id="L196" title="1 of 2 branches missed.">        if (this.solidTopLayers != other.solidTopLayers) {</span>
+<span class="nc" id="L197">            return false;</span>
         }
-<span class="nc bnc" id="L153" title="All 2 branches missed.">        if (this.solidBottomLayers != other.solidBottomLayers) {</span>
-<span class="nc" id="L154">            return false;</span>
+<span class="pc bpc" id="L199" title="1 of 2 branches missed.">        if (this.solidBottomLayers != other.solidBottomLayers) {</span>
+<span class="nc" id="L200">            return false;</span>
         }
-<span class="nc" id="L156">        return true;</span>
+<span class="fc" id="L202">        return true;</span>
     }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L207">        return &quot;LayerAndPerimeterConfiguration{&quot; + &quot;name=&quot; + name + &quot;, layerHeight=&quot; + layerHeight + &quot;, firstLayerHeight=&quot; + firstLayerHeight + &quot;, perimeters=&quot; + perimeters + &quot;, randomizedStartingPoints=&quot; + randomizedStartingPoints + &quot;, generateExtraPerimetersWhenNeeded=&quot; + generateExtraPerimetersWhenNeeded + &quot;, solidTopLayers=&quot; + solidTopLayers + &quot;, solidBottomLayers=&quot; + solidBottomLayers + '}';</span>
+    }
+
+    /**
+     * @return the spiralVase
+     */
+    public boolean isSpiralVase() {
+<span class="fc" id="L214">        return spiralVase;</span>
+    }
+
+    /**
+     * @param spiralVase the spiralVase to set
+     */
+    public void setSpiralVase(boolean spiralVase) {
+<span class="fc" id="L221">        this.spiralVase = spiralVase;</span>
+<span class="fc" id="L222">    }</span>
+
+    /**
+     * @return the avoidCrossingPerimeters
+     */
+    public boolean isAvoidCrossingPerimeters() {
+<span class="fc" id="L228">        return avoidCrossingPerimeters;</span>
+    }
+
+    /**
+     * @param avoidCrossingPerimeters the avoidCrossingPerimeters to set
+     */
+    public void setAvoidCrossingPerimeters(boolean avoidCrossingPerimeters) {
+<span class="fc" id="L235">        this.avoidCrossingPerimeters = avoidCrossingPerimeters;</span>
+<span class="fc" id="L236">    }</span>
+
+    /**
+     * @return the startPerimetersAtConcavePoints
+     */
+    public boolean isStartPerimetersAtConcavePoints() {
+<span class="fc" id="L242">        return startPerimetersAtConcavePoints;</span>
+    }
+
+    /**
+     * @param startPerimetersAtConcavePoints the startPerimetersAtConcavePoints to set
+     */
+    public void setStartPerimetersAtConcavePoints(boolean startPerimetersAtConcavePoints) {
+<span class="fc" id="L249">        this.startPerimetersAtConcavePoints = startPerimetersAtConcavePoints;</span>
+<span class="fc" id="L250">    }</span>
+
+    /**
+     * @return the startPerimetersAtNonOverhangPoints
+     */
+    public boolean isStartPerimetersAtNonOverhangPoints() {
+<span class="fc" id="L256">        return startPerimetersAtNonOverhangPoints;</span>
+    }
+
+    /**
+     * @param startPerimetersAtNonOverhangPoints the startPerimetersAtNonOverhangPoints to set
+     */
+    public void setStartPerimetersAtNonOverhangPoints(boolean startPerimetersAtNonOverhangPoints) {
+<span class="fc" id="L263">        this.startPerimetersAtNonOverhangPoints = startPerimetersAtNonOverhangPoints;</span>
+<span class="fc" id="L264">    }</span>
+
+    /**
+     * @return the detectThinWalls
+     */
+    public boolean isDetectThinWalls() {
+<span class="fc" id="L270">        return detectThinWalls;</span>
+    }
+
+    /**
+     * @param detectThinWalls the detectThinWalls to set
+     */
+    public void setDetectThinWalls(boolean detectThinWalls) {
+<span class="fc" id="L277">        this.detectThinWalls = detectThinWalls;</span>
+<span class="fc" id="L278">    }</span>
+
+    /**
+     * @return the detectBridgingPerimeters
+     */
+    public boolean isDetectBridgingPerimeters() {
+<span class="fc" id="L284">        return detectBridgingPerimeters;</span>
+    }
+
+    /**
+     * @param detectBridgingPerimeters the detectBridgingPerimeters to set
+     */
+    public void setDetectBridgingPerimeters(boolean detectBridgingPerimeters) {
+<span class="fc" id="L291">        this.detectBridgingPerimeters = detectBridgingPerimeters;</span>
+<span class="fc" id="L292">    }</span>
+
+    /**
+     * @return the externalPerimetersFirst
+     */
+    public boolean isExternalPerimetersFirst() {
+<span class="fc" id="L298">        return externalPerimetersFirst;</span>
+    }
+
+    /**
+     * @param externalPerimetersFirst the externalPerimetersFirst to set
+     */
+    public void setExternalPerimetersFirst(boolean externalPerimetersFirst) {
+<span class="fc" id="L305">        this.externalPerimetersFirst = externalPerimetersFirst;</span>
+<span class="fc" id="L306">    }</span>
     
     
 }

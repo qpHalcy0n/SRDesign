@@ -8,67 +8,225 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class PrintJobConfiguration {
+
+    public static final String DEFAULT_NAME = &quot;Default&quot;;
+    public static final boolean DEFAULT_COMPLETE_INDIVIDUAL_OBJECTS = false;
+    public static final boolean DEFAULT_OOZE_PREVENTION = false;
+    public static final int DEFAULT_TEMPERATURE_DELTA = -5;
+    public static final double DEFAULT_EXTRUDER_CLEARANCE_RADIUS = 20.0;
+    public static final double DEFAULT_EXTRUDER_CLEARANCE_HEIGHT = 20.0;
+    public static final boolean DEFAULT_VERBOSE_GCODE = false;
+
     private String name;
     private PrinterConfiguration printerConfiguration;
     private List &lt;SubsetConfiguration&gt; subsetConfigurationList;
+    private boolean completeIndividualObjects;
+    private boolean oozePrevention;
+    private int temperatureDelta;
+    private double extruderClearanceRadius;
+    private double extruderClearanceHeight;
+    private boolean verboseGCode;
+    private File finalizedGCode;
 
-<span class="fc" id="L15">    public PrintJobConfiguration() {</span>
-<span class="fc" id="L16">        this.name = &quot;&quot;;</span>
-<span class="fc" id="L17">        this.printerConfiguration = new PrinterConfiguration();</span>
-<span class="fc" id="L18">        this.subsetConfigurationList = new ArrayList&lt;SubsetConfiguration&gt;();</span>
-<span class="fc" id="L19">    }</span>
+
+    /**
+     * Mapping of materials to extruders.
+     * i.e. extruderMaterials[0] is the material that is loaded into extruder 0
+     */
+    private List&lt;MaterialConfiguration&gt; extruderMaterials;
+
+<span class="fc" id="L38">    public PrintJobConfiguration() {</span>
+<span class="fc" id="L39">        this.name = DEFAULT_NAME;</span>
+<span class="fc" id="L40">        this.printerConfiguration = new PrinterConfiguration();</span>
+<span class="fc" id="L41">        this.subsetConfigurationList = new ArrayList&lt;SubsetConfiguration&gt;();</span>
+<span class="fc" id="L42">        this.extruderMaterials = new ArrayList&lt;MaterialConfiguration&gt;();</span>
+<span class="fc" id="L43">        this.completeIndividualObjects = DEFAULT_COMPLETE_INDIVIDUAL_OBJECTS;</span>
+<span class="fc" id="L44">        this.oozePrevention = DEFAULT_OOZE_PREVENTION;</span>
+<span class="fc" id="L45">        this.temperatureDelta = DEFAULT_TEMPERATURE_DELTA;</span>
+<span class="fc" id="L46">        this.extruderClearanceRadius = DEFAULT_EXTRUDER_CLEARANCE_RADIUS;</span>
+<span class="fc" id="L47">        this.extruderClearanceHeight = DEFAULT_EXTRUDER_CLEARANCE_HEIGHT;</span>
+<span class="fc" id="L48">        this.verboseGCode = DEFAULT_VERBOSE_GCODE;</span>
+<span class="fc" id="L49">    }</span>
+
+    public MaterialConfiguration getMaterialForExtruderPosition(int i) {
+<span class="nc" id="L52">        return extruderMaterials.get(i);</span>
+    }
 
     public PrinterConfiguration getPrinterConfiguration() {
-<span class="nc" id="L22">        return printerConfiguration;</span>
+<span class="fc" id="L56">        return printerConfiguration;</span>
     }
 
     public void setPrinterConfiguration(PrinterConfiguration printerConfiguration) {
-<span class="nc" id="L26">        this.printerConfiguration = printerConfiguration;</span>
-<span class="nc" id="L27">    }</span>
+<span class="fc" id="L60">        this.printerConfiguration = printerConfiguration;</span>
+<span class="fc" id="L61">    }</span>
 
     public List&lt;SubsetConfiguration&gt; getSubsetConfigurationList() {
-<span class="fc" id="L30">        return subsetConfigurationList;</span>
+<span class="fc" id="L64">        return subsetConfigurationList;</span>
     }
 
     public void setSubsetConfigurationList(List&lt;SubsetConfiguration&gt; subsetConfigurationList) {
-<span class="nc" id="L34">        this.subsetConfigurationList = subsetConfigurationList;</span>
-<span class="nc" id="L35">    }</span>
+<span class="fc" id="L68">        this.subsetConfigurationList = subsetConfigurationList;</span>
+<span class="fc" id="L69">    }</span>
 
     public String getName() {
-<span class="nc" id="L38">        return name;</span>
+<span class="fc" id="L72">        return name;</span>
     }
 
     public void setName(String name) {
-<span class="nc" id="L42">        this.name = name;</span>
-<span class="nc" id="L43">    }</span>
+<span class="fc" id="L76">        this.name = name;</span>
+<span class="fc" id="L77">    }</span>
 
     @Override
     public int hashCode() {
-<span class="nc" id="L47">        int hash = 7;</span>
-<span class="nc" id="L48">        hash = 61 * hash + Objects.hashCode(this.name);</span>
-<span class="nc" id="L49">        return hash;</span>
+<span class="nc" id="L81">        int hash = 5;</span>
+<span class="nc" id="L82">        hash = 17 * hash + Objects.hashCode(this.name);</span>
+<span class="nc" id="L83">        hash = 17 * hash + Objects.hashCode(this.printerConfiguration);</span>
+<span class="nc" id="L84">        hash = 17 * hash + Objects.hashCode(this.subsetConfigurationList);</span>
+<span class="nc" id="L85">        hash = 17 * hash + Objects.hashCode(this.getExtruderMaterials());</span>
+<span class="nc" id="L86">        return hash;</span>
     }
 
     @Override
     public boolean equals(Object obj) {
-<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (obj == null) {</span>
-<span class="nc" id="L55">            return false;</span>
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L92">            return false;</span>
         }
-<span class="nc bnc" id="L57" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
-<span class="nc" id="L58">            return false;</span>
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L95">            return false;</span>
         }
-<span class="nc" id="L60">        final PrintJobConfiguration other = (PrintJobConfiguration) obj;</span>
-<span class="nc bnc" id="L61" title="All 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
-<span class="nc" id="L62">            return false;</span>
+<span class="fc" id="L97">        final PrintJobConfiguration other = (PrintJobConfiguration) obj;</span>
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
+<span class="nc" id="L99">            return false;</span>
         }
-<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (!Objects.equals(this.printerConfiguration, other.printerConfiguration)) {</span>
-<span class="nc" id="L65">            return false;</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        if (!Objects.equals(this.printerConfiguration, other.printerConfiguration)) {</span>
+<span class="nc" id="L102">            return false;</span>
         }
-<span class="nc bnc" id="L67" title="All 2 branches missed.">        if (!Objects.equals(this.subsetConfigurationList, other.subsetConfigurationList)) {</span>
-<span class="nc" id="L68">            return false;</span>
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">        if (!Objects.equals(this.subsetConfigurationList, other.subsetConfigurationList)) {</span>
+<span class="nc" id="L105">            return false;</span>
         }
-<span class="nc" id="L70">        return true;</span>
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">        if (!Objects.equals(this.extruderMaterials, other.extruderMaterials)) {</span>
+<span class="nc" id="L108">            return false;</span>
+        }
+<span class="fc" id="L110">        return true;</span>
     }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L115">        return &quot;PrintJobConfiguration{&quot; + &quot;name=&quot; + name + &quot;, printerConfiguration=&quot; + printerConfiguration + &quot;, subsetConfigurationList=&quot; + subsetConfigurationList + &quot;, extruderMaterials=&quot; + getExtruderMaterials() + '}';</span>
+    }
+
+    /**
+     * @return the extruderMaterials
+     */
+    public List&lt;MaterialConfiguration&gt; getExtruderMaterials() {
+<span class="fc" id="L122">        return extruderMaterials;</span>
+    }
+
+    /**
+     * @param extruderMaterials the extruderMaterials to set
+     */
+    public void setExtruderMaterials(List&lt;MaterialConfiguration&gt; extruderMaterials) {
+<span class="nc" id="L129">        this.extruderMaterials = extruderMaterials;</span>
+<span class="nc" id="L130">    }</span>
+
+    /**
+     * @return the oozePrevention
+     */
+    public boolean isOozePrevention() {
+<span class="fc" id="L136">        return oozePrevention;</span>
+    }
+
+    /**
+     * @param oozePrevention the oozePrevention to set
+     */
+    public void setOozePrevention(boolean oozePrevention) {
+<span class="nc" id="L143">        this.oozePrevention = oozePrevention;</span>
+<span class="nc" id="L144">    }</span>
+
+    /**
+     * @return the temperatureDelta
+     */
+    public int getTemperatureDelta() {
+<span class="fc" id="L150">        return temperatureDelta;</span>
+    }
+
+    /**
+     * @param temperatureDelta the temperatureDelta to set
+     */
+    public void setTemperatureDelta(int temperatureDelta) {
+<span class="nc" id="L157">        this.setTemperatureDelta(temperatureDelta);</span>
+<span class="nc" id="L158">    }</span>
+
+    /**
+     * @return the extruderClearanceRadius
+     */
+    public double getExtruderClearanceRadius() {
+<span class="fc" id="L164">        return extruderClearanceRadius;</span>
+    }
+
+    /**
+     * @param extruderClearanceRadius the extruderClearanceRadius to set
+     */
+    public void setExtruderClearanceRadius(double extruderClearanceRadius) {
+<span class="nc" id="L171">        this.extruderClearanceRadius = extruderClearanceRadius;</span>
+<span class="nc" id="L172">    }</span>
+
+    /**
+     * @return the extruderClearanceHeight
+     */
+    public double getExtruderClearanceHeight() {
+<span class="fc" id="L178">        return extruderClearanceHeight;</span>
+    }
+
+    /**
+     * @param extruderClearanceHeight the extruderClearanceHeight to set
+     */
+    public void setExtruderClearanceHeight(double extruderClearanceHeight) {
+<span class="nc" id="L185">        this.extruderClearanceHeight = extruderClearanceHeight;</span>
+<span class="nc" id="L186">    }</span>
+
+    /**
+     * @return the finalizedGCode
+     */
+    public File getFinalizedGCode() {
+<span class="nc" id="L192">        return finalizedGCode;</span>
+    }
+
+    /**
+     * @param finalizedGCode the finalizedGCode to set
+     */
+    public void setFinalizedGCode(File finalizedGCode) {
+<span class="nc" id="L199">        this.finalizedGCode = finalizedGCode;</span>
+<span class="nc" id="L200">    }</span>
+
+    /**
+     * @return the completeIndividualObjects
+     */
+    public boolean isCompleteIndividualObjects() {
+<span class="fc" id="L206">        return completeIndividualObjects;</span>
+    }
+
+    /**
+     * @param completeIndividualObjects the completeIndividualObjects to set
+     */
+    public void setCompleteIndividualObjects(boolean completeIndividualObjects) {
+<span class="nc" id="L213">        this.completeIndividualObjects = completeIndividualObjects;</span>
+<span class="nc" id="L214">    }</span>
+
+    /**
+     * @return the verboseGCode
+     */
+    public boolean isVerboseGCode() {
+<span class="fc" id="L220">        return verboseGCode;</span>
+    }
+
+    /**
+     * @param verboseGCode the verboseGCode to set
+     */
+    public void setVerboseGCode(boolean verboseGCode) {
+<span class="nc" id="L227">        this.verboseGCode = verboseGCode;</span>
+<span class="nc" id="L228">    }</span>
+
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

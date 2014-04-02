@@ -7,54 +7,99 @@
 package ink3d.ConfigurationObjects;
 
 import java.util.ArrayList;
+import java.util.Objects;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author daniellain
  */
+@XmlRootElement(name = &quot;printJobSelection&quot;)
+@XmlAccessorType (XmlAccessType.FIELD)
 public class PrintJobSelection {
     private String name;
     private String printerConfiguration;
-    private ArrayList&lt;ExtruderMaterialSelection&gt; materials;
+    
+    @XmlElement(name = &quot;extruderMarterial&quot;)
+    private ArrayList &lt;ExtruderMaterialSelection&gt; materials;
+    
+    @XmlElement(name = &quot;subsetSelection&quot;)
     private ArrayList &lt;SubsetSelection&gt; subsetConfigurationList;
     
-<span class="fc" id="L21">    public PrintJobSelection(){</span>
-<span class="fc" id="L22">        materials = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L23">        subsetConfigurationList = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L24">    }</span>
+<span class="fc" id="L32">    public PrintJobSelection(){</span>
+<span class="fc" id="L33">        materials = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L34">        subsetConfigurationList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L35">    }</span>
 
     public String getName() {
-<span class="fc" id="L27">        return name;</span>
+<span class="fc" id="L38">        return name;</span>
     }
 
     public void setName(String name) {
-<span class="fc" id="L31">        this.name = name;</span>
-<span class="fc" id="L32">    }</span>
+<span class="fc" id="L42">        this.name = name;</span>
+<span class="fc" id="L43">    }</span>
 
     public String getPrinterConfiguration() {
-<span class="fc" id="L35">        return printerConfiguration;</span>
+<span class="fc" id="L46">        return printerConfiguration;</span>
     }
 
     public void setPrinterConfiguration(String printerConfiguration) {
-<span class="fc" id="L39">        this.printerConfiguration = printerConfiguration;</span>
-<span class="fc" id="L40">    }</span>
+<span class="fc" id="L50">        this.printerConfiguration = printerConfiguration;</span>
+<span class="fc" id="L51">    }</span>
 
     public ArrayList&lt;ExtruderMaterialSelection&gt; getMaterials() {
-<span class="fc" id="L43">        return materials;</span>
+<span class="fc" id="L54">        return materials;</span>
     }
 
     public void setMaterials(ArrayList&lt;ExtruderMaterialSelection&gt; materials) {
-<span class="nc" id="L47">        this.materials = materials;</span>
-<span class="nc" id="L48">    }</span>
+<span class="fc" id="L58">        this.materials = materials;</span>
+<span class="fc" id="L59">    }</span>
 
     public ArrayList&lt;SubsetSelection&gt; getSubsetConfigurationList() {
-<span class="fc" id="L51">        return subsetConfigurationList;</span>
+<span class="fc" id="L62">        return subsetConfigurationList;</span>
     }
 
     public void setSubsetConfigurationList(ArrayList&lt;SubsetSelection&gt; subsetConfigurationList) {
-<span class="nc" id="L55">        this.subsetConfigurationList = subsetConfigurationList;</span>
-<span class="nc" id="L56">    }</span>
+<span class="fc" id="L66">        this.subsetConfigurationList = subsetConfigurationList;</span>
+<span class="fc" id="L67">    }</span>
 
+    @Override
+    public boolean equals(Object obj) {
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L72">            return false;</span>
+        }
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L75">            return false;</span>
+        }
+<span class="fc" id="L77">        final PrintJobSelection other = (PrintJobSelection) obj;</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
+<span class="nc" id="L79">            return false;</span>
+        }
+
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">        if (!Objects.equals(this.printerConfiguration, other.printerConfiguration)) {</span>
+<span class="nc" id="L83">            return false;</span>
+        }
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        for(int i=0; i&lt; this.materials.size();i++){</span>
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">            if (!this.materials.get(i).equals(other.materials.get(i))) {</span>
+<span class="nc" id="L87">            return false;</span>
+            }
+        }
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        for(int i=0; i&lt; this.subsetConfigurationList.size();i++){</span>
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">            if (!this.subsetConfigurationList.get(i).equals(other.subsetConfigurationList.get(i))) {</span>
+<span class="nc" id="L92">            return false;</span>
+            }
+        }
+<span class="fc" id="L95">        return true;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L100">        return &quot;PrintJobSelection{&quot; + &quot;name=&quot; + name + &quot;, printerConfiguration=&quot; + printerConfiguration + &quot;, materials=&quot; + materials + &quot;, subsetConfigurationList=&quot; + subsetConfigurationList + '}';</span>
+    }
+   
 }
 
 

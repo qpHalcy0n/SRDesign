@@ -101,10 +101,8 @@ public class GetPrinterConfigurationsCommandTest {
         GetPrinterConfigurationsCommand instance = new GetPrinterConfigurationsCommand();
         instance.execute();
         actual = (ArrayList<String>)instance.getResult();
-        
-        for(int i = 0; i < actual.size(); i++){
-            assertTrue(expected.get(i).equals(actual.get(i)));
-        }
+        if(!expected.equals(actual)) System.out.printf("Test "+this.getClass().getName()+" expected: "+ expected+"\nGot: "+actual);
+        assertTrue(expected.equals(actual));
     }
     
 }

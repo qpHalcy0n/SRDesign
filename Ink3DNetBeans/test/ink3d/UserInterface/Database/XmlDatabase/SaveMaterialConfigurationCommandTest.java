@@ -101,9 +101,9 @@ public class SaveMaterialConfigurationCommandTest {
         assertTrue((Boolean)instance.getResult());
         actual = FileUtils.readFileToString(new File(path));
         
-        for(int i=0; i < expected.length(); i++){
-            assertTrue(expected.charAt(i) == actual.charAt(i));
-        }
+        actual = actual.substring(0, actual.length()-1);
+        if(!expected.equals(actual)) System.out.printf("Test "+this.getClass().getName()+" expected: "+ expected+"\nGot: "+actual);
+        assertTrue(expected.equals(actual));
     }
     
 }

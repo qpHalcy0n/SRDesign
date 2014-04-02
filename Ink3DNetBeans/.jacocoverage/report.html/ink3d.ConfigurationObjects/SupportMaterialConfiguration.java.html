@@ -4,7 +4,32 @@ import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-<span class="fc" id="L7">public class SupportMaterialConfiguration {</span>
+public class SupportMaterialConfiguration {
+
+    public static final String DEFAULT_NAME = &quot;Default&quot;;
+    public static final boolean DEFAULT_GENERATE_SUPPORT_MATERIAL = false;
+    public static final int DEFAULT_OVERHANG_THRESHOLD = 0;
+    public static final int DEFAULT_ENFORCE_SUPPORT_FOR_FIRST_N_LAYER = 0;
+    public static final int DEFAULT_RAFT_LAYERS = 0;
+    public static final String DEFAULT_SUPPORT_MATERIAL_PATTERN = &quot;rectilinear&quot;;
+    public static final double DEFAULT_SUPPORT_PATTERN_SPACING = 2.5;
+    public static final int DEFAULT_SUPPORT_PATTERN_ANGLE = 0;
+    public static final int DEFAULT_INTERFACE_LAYERS = 0;
+    public static final double DEFAULT_INTERFACE_PATTERN_SPACING = 0.0;
+
+<span class="fc" id="L20">    public SupportMaterialConfiguration() {</span>
+<span class="fc" id="L21">        name = DEFAULT_NAME;</span>
+<span class="fc" id="L22">        generateSupportMaterial = DEFAULT_GENERATE_SUPPORT_MATERIAL;</span>
+<span class="fc" id="L23">        overhangThreshold = DEFAULT_OVERHANG_THRESHOLD;</span>
+<span class="fc" id="L24">        enforceSupportForFirstNLayers = DEFAULT_ENFORCE_SUPPORT_FOR_FIRST_N_LAYER;</span>
+<span class="fc" id="L25">        raftLayers = DEFAULT_RAFT_LAYERS;</span>
+<span class="fc" id="L26">        supportMaterialPattern = DEFAULT_SUPPORT_MATERIAL_PATTERN;</span>
+<span class="fc" id="L27">        supportPatternSpacing = DEFAULT_SUPPORT_PATTERN_SPACING;</span>
+<span class="fc" id="L28">        supportPatternAngle = DEFAULT_SUPPORT_PATTERN_ANGLE;</span>
+<span class="fc" id="L29">        interfaceLayers = DEFAULT_INTERFACE_LAYERS;</span>
+<span class="fc" id="L30">        interfacePatternSpacing = DEFAULT_INTERFACE_PATTERN_SPACING;</span>
+<span class="fc" id="L31">    }</span>
+
     private String name;
     /**
      * When set to true, G-code for support material will be generated.
@@ -53,132 +78,137 @@ import javax.xml.bind.annotation.XmlRootElement;
     private double interfacePatternSpacing;
 
     public boolean isGenerateSupportMaterial() {
-<span class="fc" id="L56">        return generateSupportMaterial;</span>
+<span class="fc" id="L81">        return generateSupportMaterial;</span>
     }
 
     public void setGenerateSupportMaterial(boolean generateSupportMaterial) {
-<span class="nc" id="L60">        this.generateSupportMaterial = generateSupportMaterial;</span>
-<span class="nc" id="L61">    }</span>
+<span class="fc" id="L85">        this.generateSupportMaterial = generateSupportMaterial;</span>
+<span class="fc" id="L86">    }</span>
 
     public int getOverhangThreshold() {
-<span class="fc" id="L64">        return overhangThreshold;</span>
+<span class="fc" id="L89">        return overhangThreshold;</span>
     }
 
     public void setOverhangThreshold(int overhangThreshold) {
-<span class="fc" id="L68">        this.overhangThreshold = overhangThreshold;</span>
-<span class="fc" id="L69">    }</span>
+<span class="fc" id="L93">        this.overhangThreshold = overhangThreshold;</span>
+<span class="fc" id="L94">    }</span>
 
     public int getEnforceSupportForFirstNLayers() {
-<span class="fc" id="L72">        return enforceSupportForFirstNLayers;</span>
+<span class="fc" id="L97">        return enforceSupportForFirstNLayers;</span>
     }
 
     public void setEnforceSupportForFirstNLayers(int enforceSupportForFirstNLayers) {
-<span class="fc" id="L76">        this.enforceSupportForFirstNLayers = enforceSupportForFirstNLayers;</span>
-<span class="fc" id="L77">    }</span>
+<span class="fc" id="L101">        this.enforceSupportForFirstNLayers = enforceSupportForFirstNLayers;</span>
+<span class="fc" id="L102">    }</span>
 
     public int getRaftLayers() {
-<span class="fc" id="L80">        return raftLayers;</span>
+<span class="fc" id="L105">        return raftLayers;</span>
     }
 
     public void setRaftLayers(int raftLayers) {
-<span class="fc" id="L84">        this.raftLayers = raftLayers;</span>
-<span class="fc" id="L85">    }</span>
+<span class="fc" id="L109">        this.raftLayers = raftLayers;</span>
+<span class="fc" id="L110">    }</span>
 
     public String getSupportMaterialPattern() {
-<span class="fc" id="L88">        return supportMaterialPattern;</span>
+<span class="fc" id="L113">        return supportMaterialPattern;</span>
     }
 
     public void setSupportMaterialPattern(String supportMaterialPattern) {
-<span class="fc" id="L92">        this.supportMaterialPattern = supportMaterialPattern;</span>
-<span class="fc" id="L93">    }</span>
+<span class="fc" id="L117">        this.supportMaterialPattern = supportMaterialPattern;</span>
+<span class="fc" id="L118">    }</span>
 
     public double getSupportPatternSpacing() {
-<span class="fc" id="L96">        return supportPatternSpacing;</span>
+<span class="fc" id="L121">        return supportPatternSpacing;</span>
     }
 
     public void setSupportPatternSpacing(double supportPatternSpacing) {
-<span class="fc" id="L100">        this.supportPatternSpacing = supportPatternSpacing;</span>
-<span class="fc" id="L101">    }</span>
+<span class="fc" id="L125">        this.supportPatternSpacing = supportPatternSpacing;</span>
+<span class="fc" id="L126">    }</span>
 
     public int getSupportPatternAngle() {
-<span class="fc" id="L104">        return supportPatternAngle;</span>
+<span class="fc" id="L129">        return supportPatternAngle;</span>
     }
 
     public void setSupportPatternAngle(int supportPatternAngle) {
-<span class="fc" id="L108">        this.supportPatternAngle = supportPatternAngle;</span>
-<span class="fc" id="L109">    }</span>
+<span class="fc" id="L133">        this.supportPatternAngle = supportPatternAngle;</span>
+<span class="fc" id="L134">    }</span>
 
     public int getInterfaceLayers() {
-<span class="fc" id="L112">        return interfaceLayers;</span>
+<span class="fc" id="L137">        return interfaceLayers;</span>
     }
 
     public void setInterfaceLayers(int interfaceLayers) {
-<span class="fc" id="L116">        this.interfaceLayers = interfaceLayers;</span>
-<span class="fc" id="L117">    }</span>
+<span class="fc" id="L141">        this.interfaceLayers = interfaceLayers;</span>
+<span class="fc" id="L142">    }</span>
 
     public double getInterfacePatternSpacing() {
-<span class="fc" id="L120">        return interfacePatternSpacing;</span>
+<span class="fc" id="L145">        return interfacePatternSpacing;</span>
     }
 
     public void setInterfacePatternSpacing(double interfacePatternSpacing) {
-<span class="fc" id="L124">        this.interfacePatternSpacing = interfacePatternSpacing;</span>
-<span class="fc" id="L125">    }</span>
+<span class="fc" id="L149">        this.interfacePatternSpacing = interfacePatternSpacing;</span>
+<span class="fc" id="L150">    }</span>
 
     public String getName() {
-<span class="fc" id="L128">        return name;</span>
+<span class="fc" id="L153">        return name;</span>
     }
 
     public void setName(String name) {
-<span class="fc" id="L132">        this.name = name;</span>
-<span class="fc" id="L133">    }</span>
+<span class="fc" id="L157">        this.name = name;</span>
+<span class="fc" id="L158">    }</span>
 
     @Override
     public int hashCode() {
-<span class="nc" id="L137">        int hash = 7;</span>
-<span class="nc" id="L138">        hash = 59 * hash + Objects.hashCode(this.name);</span>
-<span class="nc" id="L139">        return hash;</span>
+<span class="nc" id="L162">        int hash = 7;</span>
+<span class="nc" id="L163">        hash = 59 * hash + Objects.hashCode(this.name);</span>
+<span class="nc" id="L164">        return hash;</span>
     }
 
     @Override
     public boolean equals(Object obj) {
-<span class="nc bnc" id="L144" title="All 2 branches missed.">        if (obj == null) {</span>
-<span class="nc" id="L145">            return false;</span>
-        }
-<span class="nc bnc" id="L147" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
-<span class="nc" id="L148">            return false;</span>
-        }
-<span class="nc" id="L150">        final SupportMaterialConfiguration other = (SupportMaterialConfiguration) obj;</span>
-<span class="nc bnc" id="L151" title="All 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
-<span class="nc" id="L152">            return false;</span>
-        }
-<span class="nc bnc" id="L154" title="All 2 branches missed.">        if (this.generateSupportMaterial != other.generateSupportMaterial) {</span>
-<span class="nc" id="L155">            return false;</span>
-        }
-<span class="nc bnc" id="L157" title="All 2 branches missed.">        if (this.overhangThreshold != other.overhangThreshold) {</span>
-<span class="nc" id="L158">            return false;</span>
-        }
-<span class="nc bnc" id="L160" title="All 2 branches missed.">        if (this.enforceSupportForFirstNLayers != other.enforceSupportForFirstNLayers) {</span>
-<span class="nc" id="L161">            return false;</span>
-        }
-<span class="nc bnc" id="L163" title="All 2 branches missed.">        if (this.raftLayers != other.raftLayers) {</span>
-<span class="nc" id="L164">            return false;</span>
-        }
-<span class="nc bnc" id="L166" title="All 2 branches missed.">        if (!Objects.equals(this.supportMaterialPattern, other.supportMaterialPattern)) {</span>
-<span class="nc" id="L167">            return false;</span>
-        }
-<span class="nc bnc" id="L169" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.supportPatternSpacing) != Double.doubleToLongBits(other.supportPatternSpacing)) {</span>
+<span class="pc bpc" id="L169" title="1 of 2 branches missed.">        if (obj == null) {</span>
 <span class="nc" id="L170">            return false;</span>
         }
-<span class="nc bnc" id="L172" title="All 2 branches missed.">        if (this.supportPatternAngle != other.supportPatternAngle) {</span>
+<span class="pc bpc" id="L172" title="1 of 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
 <span class="nc" id="L173">            return false;</span>
         }
-<span class="nc bnc" id="L175" title="All 2 branches missed.">        if (this.interfaceLayers != other.interfaceLayers) {</span>
-<span class="nc" id="L176">            return false;</span>
+<span class="fc" id="L175">        final SupportMaterialConfiguration other = (SupportMaterialConfiguration) obj;</span>
+<span class="pc bpc" id="L176" title="1 of 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
+<span class="nc" id="L177">            return false;</span>
         }
-<span class="nc bnc" id="L178" title="All 2 branches missed.">        if (Double.doubleToLongBits(this.interfacePatternSpacing) != Double.doubleToLongBits(other.interfacePatternSpacing)) {</span>
-<span class="nc" id="L179">            return false;</span>
+<span class="pc bpc" id="L179" title="1 of 2 branches missed.">        if (this.generateSupportMaterial != other.generateSupportMaterial) {</span>
+<span class="nc" id="L180">            return false;</span>
         }
-<span class="nc" id="L181">        return true;</span>
+<span class="pc bpc" id="L182" title="1 of 2 branches missed.">        if (this.overhangThreshold != other.overhangThreshold) {</span>
+<span class="nc" id="L183">            return false;</span>
+        }
+<span class="pc bpc" id="L185" title="1 of 2 branches missed.">        if (this.enforceSupportForFirstNLayers != other.enforceSupportForFirstNLayers) {</span>
+<span class="nc" id="L186">            return false;</span>
+        }
+<span class="pc bpc" id="L188" title="1 of 2 branches missed.">        if (this.raftLayers != other.raftLayers) {</span>
+<span class="nc" id="L189">            return false;</span>
+        }
+<span class="pc bpc" id="L191" title="1 of 2 branches missed.">        if (!Objects.equals(this.supportMaterialPattern, other.supportMaterialPattern)) {</span>
+<span class="nc" id="L192">            return false;</span>
+        }
+<span class="pc bpc" id="L194" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.supportPatternSpacing) != Double.doubleToLongBits(other.supportPatternSpacing)) {</span>
+<span class="nc" id="L195">            return false;</span>
+        }
+<span class="pc bpc" id="L197" title="1 of 2 branches missed.">        if (this.supportPatternAngle != other.supportPatternAngle) {</span>
+<span class="nc" id="L198">            return false;</span>
+        }
+<span class="pc bpc" id="L200" title="1 of 2 branches missed.">        if (this.interfaceLayers != other.interfaceLayers) {</span>
+<span class="nc" id="L201">            return false;</span>
+        }
+<span class="pc bpc" id="L203" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.interfacePatternSpacing) != Double.doubleToLongBits(other.interfacePatternSpacing)) {</span>
+<span class="nc" id="L204">            return false;</span>
+        }
+<span class="fc" id="L206">        return true;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L211">        return &quot;SupportMaterialConfiguration{&quot; + &quot;name=&quot; + name + &quot;, generateSupportMaterial=&quot; + generateSupportMaterial + &quot;, overhangThreshold=&quot; + overhangThreshold + &quot;, enforceSupportForFirstNLayers=&quot; + enforceSupportForFirstNLayers + &quot;, raftLayers=&quot; + raftLayers + &quot;, supportMaterialPattern=&quot; + supportMaterialPattern + &quot;, supportPatternSpacing=&quot; + supportPatternSpacing + &quot;, supportPatternAngle=&quot; + supportPatternAngle + &quot;, interfaceLayers=&quot; + interfaceLayers + &quot;, interfacePatternSpacing=&quot; + interfacePatternSpacing + '}';</span>
     }
     
 }

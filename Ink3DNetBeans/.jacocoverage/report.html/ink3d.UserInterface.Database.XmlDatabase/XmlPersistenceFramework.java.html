@@ -12,117 +12,188 @@ import ink3d.ConfigurationObjects.PrintConfiguration;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
 import ink3d.ConfigurationObjects.PrintJobSelection;
 import ink3d.ConfigurationObjects.PrinterConfiguration;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
  *
  * @author daniellain
  */
-<span class="nc" id="L21">public class XmlPersistenceFramework extends ink3d.UserInterface.Database.PersistenceFramework{</span>
+<span class="fc" id="L22">public class XmlPersistenceFramework extends ink3d.UserInterface.Database.PersistenceFramework{</span>
 
     @Override
     public ArrayList&lt;String&gt; getPrinterConfigurations() {
-<span class="nc" id="L25">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+<span class="nc" id="L26">        GetPrinterConfigurationsCommand get = new GetPrinterConfigurationsCommand();</span>
+<span class="nc" id="L27">        get.execute();</span>
+<span class="nc" id="L28">        return (ArrayList&lt;String&gt;)get.getResult();</span>
     }
 
     @Override
     public ArrayList&lt;String&gt; getExtruderConfigurations() {
-<span class="nc" id="L30">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+<span class="nc" id="L33">        GetExtruderConfigurationsCommand get = new GetExtruderConfigurationsCommand();</span>
+<span class="nc" id="L34">        get.execute();</span>
+<span class="nc" id="L35">        return (ArrayList&lt;String&gt;)get.getResult();</span>
     }
 
     @Override
     public ArrayList&lt;String&gt; getMaterialConfigurations() {
-<span class="nc" id="L35">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+<span class="nc" id="L40">        GetMaterialConfigurationsCommand get = new GetMaterialConfigurationsCommand();</span>
+<span class="nc" id="L41">        get.execute();</span>
+<span class="nc" id="L42">        return (ArrayList&lt;String&gt;)get.getResult();</span>
     }
 
     @Override
     public ArrayList&lt;String&gt; getPrintJobSelectionss() {
-<span class="nc" id="L40">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+<span class="nc" id="L47">       GetPrintJobSelectionsCommand get = new GetPrintJobSelectionsCommand();</span>
+<span class="nc" id="L48">       get.execute();</span>
+<span class="nc" id="L49">       return (ArrayList&lt;String&gt;)get.getResult();</span>
     }
 
     @Override
     public ArrayList&lt;String&gt; getPrintConfigurations() {
-<span class="nc" id="L45">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+<span class="nc" id="L54">       GetPrintConfigurationsCommand get = new GetPrintConfigurationsCommand();</span>
+<span class="nc" id="L55">       get.execute();</span>
+<span class="nc" id="L56">       return (ArrayList&lt;String&gt;)get.getResult();</span>
     }
 
     @Override
     public PrinterConfiguration getPrinterConfiguration(String name) {
-<span class="nc" id="L50">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+<span class="fc" id="L61">        GetPrinterConfigurationCommand get = new GetPrinterConfigurationCommand(name);</span>
+<span class="fc" id="L62">        get.execute();</span>
+<span class="fc" id="L63">        return (PrinterConfiguration)get.getResult();</span>
     }
 
     @Override
     public ExtruderConfiguration getExtruderConfiguration(String name) {
-<span class="nc" id="L55">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+<span class="fc" id="L68">        GetExtruderConfigurationCommand get = new GetExtruderConfigurationCommand(name);</span>
+<span class="fc" id="L69">        get.execute();</span>
+<span class="fc" id="L70">        return (ExtruderConfiguration)get.getResult();</span>
     }
 
     @Override
     public MaterialConfiguration getMaterialConfiguration(String name) {
-<span class="nc" id="L60">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+<span class="fc" id="L75">        GetMaterialConfigurationCommand get = new GetMaterialConfigurationCommand(name);</span>
+<span class="fc" id="L76">        get.execute();</span>
+<span class="fc" id="L77">        return (MaterialConfiguration)get.getResult();</span>
     }
 
     @Override
-    public PrintJobConfiguration getPrintJobConfiguration(PrintJobSelection printJOb) {
-<span class="nc" id="L65">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    public PrintJobConfiguration getPrintJobConfiguration(PrintJobSelection printJob) {
+<span class="fc" id="L82">        GetPrintJobConfigurationCommand get = new GetPrintJobConfigurationCommand(printJob);</span>
+<span class="fc" id="L83">        get.execute();</span>
+<span class="fc" id="L84">        return (PrintJobConfiguration)get.getResult();</span>
     }
 
     @Override
     public PrintJobSelection getPrintJobSelection(String name) {
-<span class="nc" id="L70">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+<span class="nc" id="L89">        GetPrintJobSelectionCommand get = new GetPrintJobSelectionCommand(name);</span>
+<span class="nc" id="L90">        get.execute();</span>
+<span class="nc" id="L91">        return (PrintJobSelection)get.getResult();</span>
     }
 
     @Override
-    public PrintConfiguration getPrintConfiguration(String fileName) {
-<span class="nc" id="L75">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    public PrintConfiguration getPrintConfiguration(String name) {
+<span class="fc" id="L96">        GetPrintConfigurationCommand get = new GetPrintConfigurationCommand(name);</span>
+<span class="fc" id="L97">        get.execute();</span>
+<span class="fc" id="L98">        return (PrintConfiguration)get.getResult();</span>
     }
 
     @Override
     public Boolean savePrinterConfiguration(PrinterConfiguration config) {
-<span class="nc" id="L80">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+<span class="fc" id="L103">        SavePrinterConfigurationCommand save = new SavePrinterConfigurationCommand(config);</span>
+<span class="fc" id="L104">        save.execute();</span>
+<span class="fc" id="L105">        return (Boolean)save.getResult();</span>
     }
 
     @Override
     public Boolean saveExtruderConfiguration(ExtruderConfiguration config) {
-<span class="nc" id="L85">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+<span class="fc" id="L110">        SaveExtruderConfigurationCommand save = new SaveExtruderConfigurationCommand(config);</span>
+<span class="fc" id="L111">        save.execute();</span>
+<span class="fc" id="L112">        return (Boolean)save.getResult();</span>
     }
 
     @Override
     public Boolean saveMaterialConfiguration(MaterialConfiguration config) {
-<span class="nc" id="L90">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+<span class="fc" id="L117">        SaveMaterialConfigurationCommand save = new SaveMaterialConfigurationCommand(config);</span>
+<span class="fc" id="L118">        save.execute();</span>
+<span class="fc" id="L119">        return (Boolean)save.getResult();</span>
     }
 
     @Override
     public Boolean savePrintJobSelection(PrintJobSelection config) {
-<span class="nc" id="L95">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+<span class="nc" id="L124">        SavePrintJobSelectionCommand save = new SavePrintJobSelectionCommand(config);</span>
+<span class="nc" id="L125">        save.execute();</span>
+<span class="nc" id="L126">        return (Boolean)save.getResult();</span>
     }
 
     @Override
     public Boolean savePrintConfiguration(PrintConfiguration config) {
-<span class="nc" id="L100">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+<span class="fc" id="L131">        SavePrintConfigurationCommand save = new SavePrintConfigurationCommand(config);</span>
+<span class="fc" id="L132">        save.execute();</span>
+<span class="fc" id="L133">        return (Boolean)save.getResult();</span>
     }
 
     @Override
-    public Boolean deletePrinterConfiguration(String fileName) {
-<span class="nc" id="L105">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    public Boolean deletePrinterConfiguration(String name) {
+<span class="fc" id="L138">        DeletePrinterConfigurationCommand delete = new DeletePrinterConfigurationCommand(name);</span>
+<span class="fc" id="L139">        delete.execute();</span>
+<span class="fc" id="L140">        return (Boolean)delete.getResult();</span>
     }
 
     @Override
-    public Boolean deleteExtruderConfiguration(String fileName) {
-<span class="nc" id="L110">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    public Boolean deleteExtruderConfiguration(String name) {
+<span class="fc" id="L145">        DeleteExtruderConfigurationCommand delete = new DeleteExtruderConfigurationCommand(name);</span>
+<span class="fc" id="L146">        delete.execute();</span>
+<span class="fc" id="L147">        return (Boolean)delete.getResult();</span>
     }
 
     @Override
-    public Boolean deleteMaterialConfiguration(String fileName) {
-<span class="nc" id="L115">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    public Boolean deleteMaterialConfiguration(String name) {
+<span class="fc" id="L152">        DeleteMaterialConfigurationCommand delete = new DeleteMaterialConfigurationCommand(name);</span>
+<span class="fc" id="L153">        delete.execute();</span>
+<span class="fc" id="L154">        return (Boolean)delete.getResult();</span>
     }
 
     @Override
-    public Boolean deletePrintJobSelection(String fileName) {
-<span class="nc" id="L120">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    public Boolean deletePrintJobSelection(String name) {
+<span class="nc" id="L159">        DeletePrintJobSelectionCommand delete = new DeletePrintJobSelectionCommand(name);</span>
+<span class="nc" id="L160">        delete.execute();</span>
+<span class="nc" id="L161">        return (Boolean)delete.getResult();</span>
     }
 
     @Override
-    public Boolean deletePrintConfiguration(String fileName) {
-<span class="nc" id="L125">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    public Boolean deletePrintConfiguration(String name) {
+<span class="fc" id="L166">        DeletePrintConfigurationCommand delete = new DeletePrintConfigurationCommand(name);</span>
+<span class="fc" id="L167">        delete.execute();</span>
+<span class="fc" id="L168">        return (Boolean)delete.getResult();</span>
+    }
+
+    @Override
+    public ArrayList&lt;String&gt; getStlFiles() {
+<span class="nc" id="L173">        GetStlFilesCommand get = new GetStlFilesCommand();</span>
+<span class="nc" id="L174">        get.execute();</span>
+<span class="nc" id="L175">        return (ArrayList&lt;String&gt;)get.getResult();</span>
+    }
+
+    @Override
+    public File getStlFile(String name) {
+<span class="fc" id="L180">        GetStlFileCommand get = new GetStlFileCommand(name);</span>
+<span class="fc" id="L181">        get.execute();</span>
+<span class="fc" id="L182">        return (File)get.getResult();</span>
+    }
+
+    @Override
+    public Boolean importStlFile(String path) {
+<span class="nc" id="L187">        ImportStlFileCommand importStl = new ImportStlFileCommand(path);</span>
+<span class="nc" id="L188">        importStl.execute();</span>
+<span class="nc" id="L189">        return (Boolean) importStl.getResult();</span>
+    }
+
+    @Override
+    public Boolean deleteStlFile(String name) {
+<span class="nc" id="L194">        DeleteStlFileCommand delete = new DeleteStlFileCommand(name);</span>
+<span class="nc" id="L195">        delete.execute();</span>
+<span class="nc" id="L196">        return (Boolean)delete.getResult();</span>
     }
 
 }
