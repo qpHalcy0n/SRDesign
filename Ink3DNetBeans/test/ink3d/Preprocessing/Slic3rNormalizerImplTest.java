@@ -92,8 +92,8 @@ public class Slic3rNormalizerImplTest {
         for(SubsetConfiguration sub : printJob.getSubsetConfigurationList()) {
             int fileConfigNum = 0;
             for(FileConfiguration fileConfig : sub.getFileConfigurations()) {
-                //Assert.assertNotNull("Subsection STL file reference must not be null. (Subset " 
-                  //  + subsetNum + "; FileConfig " + fileConfigNum + ")", fileConfig.getSubsetSTL());
+                Assert.assertNotNull("Subsection STL file reference must not be null. (Subset " 
+                    + subsetNum + "; FileConfig " + fileConfigNum + ")", fileConfig.getSubsetSTL());
                 fileConfigNum++;
             }
             subsetNum++;

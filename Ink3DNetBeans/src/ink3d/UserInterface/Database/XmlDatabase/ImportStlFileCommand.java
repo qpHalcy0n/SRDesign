@@ -28,7 +28,11 @@ public class ImportStlFileCommand extends CommandStructure{
     @Override
     public void execute() {
         try {
-            Files.copy(stlFile.toPath(), (new File("./Database/Files/"+stlFile.getName())).toPath(), StandardCopyOption.REPLACE_EXISTING);
+            StringBuilder sb = new StringBuilder();
+            sb.append("./Database/Files/");
+            sb.append(stlFile.getName().substring(0, stlFile.getName().length() - 4));
+            sb.append(".stl");
+            Files.copy(stlFile.toPath(), (new File(sb.toString())).toPath(), StandardCopyOption.REPLACE_EXISTING);
             result = Boolean.TRUE;
         } catch (IOException ex) {
             Logger.getLogger(ImportStlFileCommand.class.getName()).log(Level.SEVERE, null, ex);

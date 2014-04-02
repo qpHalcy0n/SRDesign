@@ -23,7 +23,9 @@ public class GetStlFileCommand extends CommandStructure{
 <span class="fc" id="L23">    }</span>
     @Override
     public void execute() {
-<span class="fc" id="L26">        result = new File(path+name+extention);</span>
-<span class="fc" id="L27">    }</span>
+<span class="fc" id="L26">        File file = new File(path+name+extention);</span>
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">        if(file.exists()) result = file;</span>
+<span class="fc" id="L28">        else result = null;</span>
+<span class="fc" id="L29">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

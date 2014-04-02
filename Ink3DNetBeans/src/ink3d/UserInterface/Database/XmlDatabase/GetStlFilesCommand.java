@@ -18,7 +18,7 @@ public class GetStlFilesCommand extends CommandStructure{
 
     @Override
     public void execute() {
-        File folder = new File("./Database/Filess/");
+        File folder = new File("./Database/Files/");
         File[] files = folder.listFiles();
         result = new ArrayList<String>();
         for(File f: files){

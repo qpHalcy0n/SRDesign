@@ -23,6 +23,8 @@ public class GetStlFileCommand extends CommandStructure{
     }
     @Override
     public void execute() {
-        result = new File(path+name+extention);
+        File file = new File(path+name+extention);
+        if(file.exists()) result = file;
+        else result = null;
     }
 }
