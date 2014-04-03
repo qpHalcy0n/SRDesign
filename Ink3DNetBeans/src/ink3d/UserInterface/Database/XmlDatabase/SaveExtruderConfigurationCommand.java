@@ -42,9 +42,12 @@ public class SaveExtruderConfigurationCommand extends ink3d.UserInterface.Databa
             OutputStream os = new FileOutputStream( path+config.getName()+extention );
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(je, os);
+            file = null;
+            System.gc();
             result = Boolean.TRUE;
         } catch (Exception ex) {
             Logger.getLogger(SaveExtruderConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
     

@@ -38,6 +38,7 @@ public class GetExtruderConfigurationsCommandTest {
             writer = new PrintWriter("./Database/Extruders/Trash.txt", "UTF-8");
             writer.println("Text");
             writer.close();
+            writer = null;
         } catch (Exception ex) {
             Logger.getLogger(GetExtruderConfigurationsCommandTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -80,6 +81,7 @@ public class GetExtruderConfigurationsCommandTest {
         file3 = new File("./Database/Extruders/GetTest3.xml");
         file4 = new File("./Database/Extruders/GetTest4.xml"); 
         file5 = new File("./Database/Extruders/Trash.txt");
+        System.gc();
         file1.delete();
         file2.delete();
         file3.delete();
@@ -96,7 +98,7 @@ public class GetExtruderConfigurationsCommandTest {
         instance.execute();
         actual = (ArrayList<String>)instance.getResult();
 
-        if(!expected.equals(actual)) System.out.printf("Test "+this.getClass().getName()+" expected: "+ expected+"\nGot: "+actual);
+        if(!expected.equals(actual)) System.out.printf("Test "+this.getClass().getName()+"\nExpected: "+ expected+"\nGot:      "+actual);
         assertTrue(expected.equals(actual));
     }
     
