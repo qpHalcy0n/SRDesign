@@ -209,6 +209,7 @@ public class SavePrintConfigurationCommandTest {
     @After
     public void tearDown() {
         print = null;
+        System.gc();
         File file = new File("./Database/Prints/SaveTest.xml");
         file.delete();
     }

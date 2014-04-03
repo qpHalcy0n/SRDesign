@@ -24,6 +24,7 @@ import org.junit.Test;
 public class SaveExtruderConfigurationCommandTest {
     ExtruderConfiguration extruder;
     String expected;
+    File file;
 
     @Before
     public void setUp() {
@@ -52,8 +53,11 @@ public class SaveExtruderConfigurationCommandTest {
     
     @After
     public void tearDown() {
+        file = null;
         extruder = null;
-        File file = new File("./Database/Extruders/SaveTest.xml");
+        expected = null;
+        System.gc();
+        file = new File("./Database/Extruders/SaveTest.xml");
         file.delete();
     }
 
@@ -68,7 +72,8 @@ public class SaveExtruderConfigurationCommandTest {
         SaveExtruderConfigurationCommand instance = new SaveExtruderConfigurationCommand(extruder);
         instance.execute();
         assertTrue((Boolean)instance.getResult());
-        actual = FileUtils.readFileToString(new File(path));
+        file = new File(path);
+        actual = FileUtils.readFileToString(file);
         actual = actual.substring(0, actual.length()-1);
         if(!expected.equals(actual)) System.out.printf("Test "+this.getClass().getName()+" expected: "+ expected+"\nGot: "+actual);
         assertTrue(expected.equals(actual));

@@ -152,6 +152,7 @@ public class GetPrintConfigurationsCommandTest {
         file3 = new File("./Database/Prints/GetPrintTest3.xml");
         file4 = new File("./Database/Prints/GetPrintTest4.xml"); 
         file5 = new File("./Database/Prints/Trash.txt");
+        System.gc();
         file1.delete();
         file2.delete();
         file3.delete();

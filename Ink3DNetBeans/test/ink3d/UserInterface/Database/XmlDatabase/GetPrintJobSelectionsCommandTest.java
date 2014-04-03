@@ -102,6 +102,7 @@ public class GetPrintJobSelectionsCommandTest {
         file3 = new File("./Database/PrintJobs/GetPrintJobsTest3.xml");
         file4 = new File("./Database/PrintJobs/GetPrintJobsTest4.xml"); 
         file5 = new File("./Database/PrintJobs/Trash.txt");
+        System.gc();
         file1.delete();
         file2.delete();
         file3.delete();
@@ -117,7 +118,7 @@ public class GetPrintJobSelectionsCommandTest {
         GetPrintJobSelectionsCommand instance = new GetPrintJobSelectionsCommand();
         instance.execute();
         actual = (ArrayList<String>)instance.getResult();
-        if(!expected.equals(actual)) System.out.printf("Test "+this.getClass().getName()+" expected: "+ expected+"\nGot: "+actual);
+        if(!expected.equals(actual)) System.out.printf("Test "+this.getClass().getName()+" \nexpected: "+ expected+"\nGot:      "+actual);
         assertTrue(expected.equals(actual));
     }
     

@@ -86,6 +86,7 @@ public class GetPrinterConfigurationsCommandTest {
         file3 = new File("./Database/Printers/GetPrintersTest3.xml");
         file4 = new File("./Database/Printers/GetPrintersTest4.xml"); 
         file5 = new File("./Database/Printers/Trash.txt");
+        System.gc();
         file1.delete();
         file2.delete();
         file3.delete();
@@ -101,7 +102,7 @@ public class GetPrinterConfigurationsCommandTest {
         GetPrinterConfigurationsCommand instance = new GetPrinterConfigurationsCommand();
         instance.execute();
         actual = (ArrayList<String>)instance.getResult();
-        if(!expected.equals(actual)) System.out.printf("Test "+this.getClass().getName()+" expected: "+ expected+"\nGot: "+actual);
+        if(!expected.equals(actual)) System.out.printf("Test "+this.getClass().getName()+" \nexpected: "+ expected+"\nGot:      "+actual);
         assertTrue(expected.equals(actual));
     }
     

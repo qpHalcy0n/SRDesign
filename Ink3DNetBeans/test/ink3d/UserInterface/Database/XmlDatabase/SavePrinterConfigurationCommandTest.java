@@ -58,6 +58,7 @@ public class SavePrinterConfigurationCommandTest {
     @After
     public void tearDown() {
         printer = null;
+        System.gc();
         File file = new File("./Database/Printers/SaveTest.xml");
         file.delete();
     }

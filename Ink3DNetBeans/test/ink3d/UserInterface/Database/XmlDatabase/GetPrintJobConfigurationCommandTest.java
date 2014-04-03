@@ -224,6 +224,7 @@ public class GetPrintJobConfigurationCommandTest {
     }
     
     public void delete(){
+        System.gc();
         db.deleteExtruderConfiguration(extruder.getName());
         db.deleteMaterialConfiguration(material.getName());
         db.deletePrintConfiguration(print.getName());

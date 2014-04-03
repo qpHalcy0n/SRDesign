@@ -104,7 +104,7 @@ public class GetMaterialConfigurationCommandTest {
         GetMaterialConfigurationCommand instance = new GetMaterialConfigurationCommand(name);
         instance.execute();
         actual = (MaterialConfiguration)instance.getResult();
-        if(!expected.equals(actual)) System.out.printf("Test "+this.getClass().getName()+" expected: "+ expected+"\nGot: "+actual);
+        if(!expected.equals(actual)) System.out.printf("Test "+this.getClass().getName()+" \nexpected: "+ expected+"\nGot: "+actual);
         assertTrue(expected.equals(actual));
     }
 }
