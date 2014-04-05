@@ -66,7 +66,7 @@ public class Slic3rNormalizerImpl implements Normalizer {
     
 
 	@Override
-	public boolean normalize(PrintJobConfiguration printJobConfiguration) {
+	public boolean normalize(PrintJobConfiguration printJobConfiguration) throws PreprocessorException {
         // Return false if any operation the process fails.
         // Otherwise return true.
         if(!subsectionFiles(printJobConfiguration)) {
@@ -99,21 +99,26 @@ public class Slic3rNormalizerImpl implements Normalizer {
                     if(!subsetStlDir.exists()) {
                         boolean success = subsetStlDir.mkdirs();
                         if(!success) {
-                            throw new Exception("Could not create directory for STL files.");
+                            throw new PreprocessorException("Could not create directory for STL files.");
                         }
                     }
 
                     // execute Open Scad to make subsection
-                    String baseDir = new File("").getAbsolutePath();
-                    String command = baseDir + File.separator + OPENSCAD_PATH + " -o " + "\"" + subsetStlFilename + "\" \"" + scadFile.getAbsolutePath() + "\"";
-                    Process openScadProcess = Runtime.getRuntime().exec(command);
-                    // TODO:  Read output/error stream from process to find error messages.
-                    //        Problems can occur where Open SCAD cannot subset STL files
-                    //        properly (try to Feed Housing from 0-10 10-22).
+                    try {
+                        String baseDir = new File("").getAbsolutePath();
+                        String command = baseDir + File.separator + OPENSCAD_PATH + " -o " + "\"" + subsetStlFilename + "\" \"" + scadFile.getAbsolutePath() + "\"";
+                        Process openScadProcess = Runtime.getRuntime().exec(command);
+                        // TODO:  Read output/error stream from process to find error messages.
+                        //        Problems can occur where Open SCAD cannot subset STL files
+                        //        properly (try to Feed Housing from 0-10 10-22).
 
-                    // wait for open scad to finish processing before continuing
-                    // TODO:  May want to optimize this in the future.
-                    openScadProcess.waitFor();
+                        // wait for open scad to finish processing before continuing
+                        // TODO:  May want to optimize this in the future.
+                        openScadProcess.waitFor();
+                    }
+                    catch(Exception ex) {
+                        throw new PreprocessorException("Unable to subset stl file:  " + subsetStlFilename + ".  Please check the file you are subsetting.");
+                    }
                     
                     // Create reference to file that Open Scad (should have) created
                     File subsetStlFile = new File(subsetStlFilename);

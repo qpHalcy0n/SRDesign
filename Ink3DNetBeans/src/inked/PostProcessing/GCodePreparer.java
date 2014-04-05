@@ -4,14 +4,15 @@
  * and open the template in the editor.
  */
 
-package ink3d.Preprocessing;
+package inked.PostProcessing;
 
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
 
 /**
- * Preprocessor Interface
+ *
  * @author Tim
  */
-public interface Preprocessor {
-    public boolean preprocess(PrintJobConfiguration printJobConfiguration) throws PreprocessorException;
+public interface GCodePreparer {
+    public boolean prepareGCode(PrintJobConfiguration printJob) throws PostProcessorException;
+    
 }
