@@ -192,7 +192,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
     public static String DUPLICATE_GRID = "duplicate_grid";
 
     public static String SLIC3R_CONFIG_DIR = "slic3r-configs";
-    public static String GCODE_DIR = "gcode";
+    public static String GCODE_DIR = "subset-gcode";
     public static String GCODE_EXTENSION = ".gcode";
     public static String CONFIG_EXTENSION = ".ini";
 
@@ -439,8 +439,8 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
                 // Create GCode directory if it does not exist
                 String gCodeFilename =
                         baseDir + File.separator + GCODE_DIR + File.separator
-                        + printJobConfiguration.getName() + File.separator
-                        + "subsets" + File.separator + "sub" + subsetNum + GCODE_EXTENSION;
+                        + printJobConfiguration.getName() + File.separator 
+                        + "sub" + subsetNum + GCODE_EXTENSION;
 
                 System.out.println("gCodeFilename = " + gCodeFilename);
                 

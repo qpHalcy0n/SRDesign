@@ -16,11 +16,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,7 +27,6 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.j3d.loaders.InvalidFormatException;
 import org.j3d.loaders.stl.STLFileReader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -56,13 +53,13 @@ public class Slic3rNormalizerImpl implements Normalizer {
     private static final String MATERIALID_ATTR = "materialid";
     private static final String TRIANGE_TAG = "triangle";
     private static final String NAME_VALUE = "name";
-    private static final String OPENSCAD_FILES_DIR = "openscad-files";
+    public static final String OPENSCAD_FILES_DIR = "subset-openscad-files";
     private static final String OPENSCAD_TEMPLATE =
             "intersection(){import(\"%s\");translate([%f,%f,%f]){cube(size=[%f,%f,%f],center=false);};}";
     private static final String OPENSCAD_EXTENSION = ".scad";
     private static final String STL_EXTENSION = ".stl";
-    private static final String STL_DIR = "stl-files";
-    private static final String AMF_DIR = "amf-files";
+    public static final String STL_DIR = "subset-stl-files";
+    public static final String AMF_DIR = "subset-amf-files";
     private static final String AMF_EXTENSION = ".amf";
     private static final String OPENSCAD_PATH = "third-party" + File.separator
             + "openscad" + File.separator + "openscad.exe";
@@ -90,12 +87,12 @@ public class Slic3rNormalizerImpl implements Normalizer {
             for(FileConfiguration fileConfig : subset.getFileConfigurations()) {
                 try {
                     File parentStlFile = fileConfig.getParentSTLFile();
-                    File scadFile = buildScadFile(parentStlFile,
+                    File scadFile = buildScadFile(printJobConfiguration.getName(), parentStlFile,
                             subsetNum, subset.getBottomZ(), subset.getTopZ());
                     
                     // build the name of the subset STL file based on parent STL filename and subset number
-                    // "<stlDir>/parentStlFilname-subxxx.stl"
-                    String subsetStlFilename = createSubsetStlFilename(parentStlFile.getName(), subsetNum);
+                    // "<stlDir>/parentStlFilname-sub#.stl"
+                    String subsetStlFilename = createSubsetStlFilename(printJobConfiguration.getName(), parentStlFile.getName(), subsetNum);
 
                     // build directory to store subset STL file
                     File subsetStlDir = new File(subsetStlFilename).getParentFile();
@@ -144,7 +141,7 @@ public class Slic3rNormalizerImpl implements Normalizer {
         return true;
     }
 
-    private File buildScadFile(File parentStl,
+    private File buildScadFile(String printJobName, File parentStl,
             int subsetNum, double zMin, double zMax) throws Exception {
         // Find the xMin, xMax, yMin, yMax of the parent STL file
         // TODO: Optimize
@@ -182,7 +179,7 @@ public class Slic3rNormalizerImpl implements Normalizer {
             }
         }
         
-        File scadFile = new File(createOpenScadFilename(parentStl.getName(), subsetNum));
+        File scadFile = new File(createOpenScadFilename(printJobName, parentStl.getName(), subsetNum));
         // Escape the file separators in the filename string so that they will be
         // escaped in open scad.
         // TODO: Currently hardcoded for windows.
@@ -212,20 +209,20 @@ public class Slic3rNormalizerImpl implements Normalizer {
 
     }
     
-    private String createOpenScadFilename(String parentFilename, int subsetNum) {
+    private String createOpenScadFilename(String printJobName, String parentFilename, int subsetNum) {
         String parentName = parentFilename
                 .substring(0, parentFilename.length() - STL_EXTENSION.length());
         String baseDir = new File("").getAbsolutePath();
-        return String.format("%s%s%s%s%s-sub%05d%s",
-                baseDir,File.separator,OPENSCAD_FILES_DIR,File.separator,parentName,subsetNum,OPENSCAD_EXTENSION);
+        return String.format("%s%s%s%s%s%s%s-sub%d%s",
+                baseDir,File.separator,OPENSCAD_FILES_DIR,File.separator,printJobName,File.separator,parentName,subsetNum,OPENSCAD_EXTENSION);
     }
 
-    private String createSubsetStlFilename(String parentFilename, int subsetNum) {
+    private String createSubsetStlFilename(String printJobName, String parentFilename, int subsetNum) {
         String parentName = parentFilename
                 .substring(0, parentFilename.length() - STL_EXTENSION.length());
         String baseDir = new File("").getAbsolutePath();
-        return String.format("%s%s%s%s%s-sub%05d%s",
-                baseDir,File.separator,STL_DIR,File.separator,parentName,subsetNum,STL_EXTENSION);
+        return String.format("%s%s%s%s%s%s%s-sub%d%s",
+                baseDir,File.separator,STL_DIR,File.separator,printJobName,File.separator,parentName,subsetNum,STL_EXTENSION);
     }
     
     private String createOpenScadScriptString(String inputFile, double xMin, 
@@ -286,7 +283,7 @@ public class Slic3rNormalizerImpl implements Normalizer {
                 objectElement.setAttribute(ID_ATTR, "0");
                 meshElement.appendChild(verticiesElement);
 
-                IndexedSet<Vertex> vertices = new IndexedSet<Vertex>();
+                IndexedSet<Vertex> vertices = new IndexedSet<>();
                 materialCount = 1;
                 for(FileConfiguration fileConfig : fileConfigs) {
                     File stlFile = fileConfig.getSubsetSTL();
@@ -297,10 +294,7 @@ public class Slic3rNormalizerImpl implements Normalizer {
                     volumeElement.setAttribute(MATERIALID_ATTR, String.valueOf(materialCount));
                     meshElement.appendChild(volumeElement);
                     materialCount++;
-
-                    int[][] faces = new int[numFacets[0]][];
                     
-                    int vertCount = 0;
                     for(int i = 0; i < numFacets[0]; i++) {
                         Element triangleElement = doc.createElement(TRIANGE_TAG);
                         volumeElement.appendChild(triangleElement);
@@ -308,7 +302,6 @@ public class Slic3rNormalizerImpl implements Normalizer {
                         double[][] faceVertices = new double[3][3];
                         reader.getNextFacet(normal, faceVertices);
 
-                        int[] face = new int[3];
                         for(int j = 0; j < 3; j++) {
                             double x = faceVertices[j][0];
                             double y = faceVertices[j][1];
@@ -345,9 +338,9 @@ public class Slic3rNormalizerImpl implements Normalizer {
                 }
 
                 String baseDir = new File("").getAbsolutePath();
-                String amfFilename = baseDir +File.separator + AMF_DIR + File.separator 
-                        + printJobConfiguration.getName() + File.separator 
-                        + "sub" + subsetNum + AMF_EXTENSION;
+                String amfFilename = baseDir + File.separator + AMF_DIR 
+                        + File.separator  + printJobConfiguration.getName()
+                        + File.separator + "sub" + subsetNum + AMF_EXTENSION;
                 
                 // Create AMF file directory if it does not exist
                 File amfFileDir = new File(amfFilename).getParentFile();
@@ -380,7 +373,6 @@ public class Slic3rNormalizerImpl implements Normalizer {
                 Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
             }
-
             subsetNum++;
         }
         return true;
