@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package inked.PostProcessing;
+package ink3d.PostProcessing;
 
 import ink3d.ConfigurationObjects.ExtruderConfiguration;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
@@ -90,7 +90,8 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
     private boolean writePrinterStartGCode(BufferedWriter outputFile) {
         String startGCode = printJob.getPrinterConfiguration().getStartGCode();
         try {
-            outputFile.write(startGCode);
+            outputFile.append(startGCode);
+            outputFile.append("\n");
         } catch (IOException ex) {
             Logger.getLogger(Slic3rGCodePreparerImpl.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -101,8 +102,9 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
     private boolean writePrinterEndGCode(BufferedWriter outputFile) {
         String endGCode = printJob.getPrinterConfiguration().getEndGCode();
         try {
-            outputFile.write(endGCode);
-            outputFile.write("\n");
+            outputFile.append(endGCode);
+            outputFile.append("\n");
+            outputFile.flush();
         } catch (IOException ex) {
             Logger.getLogger(Slic3rGCodePreparerImpl.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -118,6 +120,7 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
             scanForNextToolSelection(subsetGCode);
             String line = "";
             while((line = subsetGCode.readLine()) != null) {
+                System.out.println("line = " + line);
                 Matcher matcher = toolSelectionPattern.matcher(line);
                 if(matcher.find()) {
                     writeToolChangeEndGCode(outputFile, this.currentTool);
@@ -125,6 +128,8 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
                     this.currentTool = Integer.parseInt(tCode.substring(1));
                     writeToolChangeStartGCode(outputFile, this.currentTool);
                 }
+                outputFile.append(line);
+                outputFile.append("\n");
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Slic3rGCodePreparerImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -158,11 +163,12 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
 
         // Only write tool change end g code if the given extruder/tool
         // is specified.  Otherwise do nothing.
-        if(!(extruder >= 0 && extruder < extruderConfigList.size())) {
+        if(extruder >= 0 && extruder < extruderConfigList.size()) {
             ExtruderConfiguration extruderConfig = extruderConfigList.get(extruder);
 
             String toolChangeEndGCode = extruderConfig.getEndGCode();
-            outputFile.write(toolChangeEndGCode);
+            outputFile.append(toolChangeEndGCode);
+            outputFile.append("\n");
         }
 
     }
@@ -171,7 +177,8 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
         ExtruderConfiguration extruderConfig = printJob.getPrinterConfiguration()
                                                  .getExtruderList().get(extruder);
         String toolChangeStartGCode = extruderConfig.getStartGCode();
-        outputFile.write(toolChangeStartGCode);
+        outputFile.append(toolChangeStartGCode);
+        outputFile.append("\n");
         return true;
     }
  
