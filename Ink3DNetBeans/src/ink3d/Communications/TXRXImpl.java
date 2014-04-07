@@ -6,6 +6,7 @@
 
 package ink3d.Communications;
 
+import ink3d.ConfigurationObjects.PrintJobConfiguration;
 import jssc.SerialPort;
 import jssc.SerialPortException;
 import jssc.SerialPortList;
@@ -20,16 +21,21 @@ import java.io.*;
  */
 public class TXRXImpl implements TXRX 
 {
-    private static ArrayList<byte[]> printerFeedback    = new ArrayList<byte[]>();  // Printer feedback data
+//    private static ArrayList<byte[]> printerFeedback    = new ArrayList<byte[]>();  // Printer feedback data
     private static boolean isOutBufEmpty                = false;                    // flag for output (to printer) buffer being empty
     private static SerialPortList serialPortList;                                   // Port listing
     private static SerialPort serialPort;                                           // serial port object
+    private static String feedbackString                = new String("begin:");
+    private static boolean handshakeReceived            = false;
+    private static String lastGcodeSent                 = new String();
+    
     
     TXRXImpl()
     {
         serialPortList = new SerialPortList();
     }
     
+ 
     /**
      * 
      * @return String[] packed with available serial ports
@@ -46,15 +52,15 @@ public class TXRXImpl implements TXRX
      * @return ArrayList<byte[]> An array list packed with byte buffers of the latest data received from 
      * the printer
      */
-    public ArrayList<byte[]> getPrinterFeedback()
+    public String getPrinterFeedback()
     {
         // Check that feedback buffer is packed
         if(!isPrinterFeedbackReady())
             return null;
         
-        // Copy printer feedback data and clear the current buffer
-        ArrayList<byte[]> pfRet = printerFeedback;
-        printerFeedback.clear();
+        // Copy printer feedback data and clear the current feedback string
+        String pfRet = new String(feedbackString);
+        feedbackString = "";
         return pfRet;
     }
     
@@ -64,36 +70,36 @@ public class TXRXImpl implements TXRX
      */
     public boolean isPrinterFeedbackReady()
     {
-        if(printerFeedback.size() > 0)
+        if(feedbackString.length() > 0)
             return true;
         return false;
     }
     
-    /**
-     * 
-     * @param ppGcode - serialized G-Codes
-     * @return boolean indicating whether the operation succeeded or failed
-     */
-    public boolean addGcode(ArrayList<String> ppGcode)
-    {
-        // Sanity check
-        if(ppGcode.size() <= 0)
-            return false;
-        
-        for(int i = 0; i < ppGcode.size(); ++i)
-        {
-            // There may be some additional processing on G-Code here, so leave this open
-            gCodes.add(ppGcode.get(i));
-        }
-        return true;
-    }
+//    /**
+//     * 
+//     * @param ppGcode - serialized G-Codes
+//     * @return boolean indicating whether the operation succeeded or failed
+//     */
+//    public boolean addGcode(ArrayList<String> ppGcode)
+//    {
+//        // Sanity check
+//        if(ppGcode.size() <= 0)
+//            return false;
+//        
+//        for(int i = 0; i < ppGcode.size(); ++i)
+//        {
+//            // There may be some additional processing on G-Code here, so leave this open
+//            gCodes.add(ppGcode.get(i));
+//        }
+//        return true;
+//    }
     
     
     /**
      * 
      * @return boolean indicating whether the operation succeeded or failed
      */
-    public boolean connectToPrinter()
+    public boolean connectToPrinter(PrintJobConfiguration pjc)
     {
         // Make new serial port object and attempt to open
         serialPort = new SerialPort(comPort);
@@ -112,17 +118,7 @@ public class TXRXImpl implements TXRX
             return false;
         }
         
-        return true;
-    }
-    
-    /**
-     * 
-     * @return boolean indicating whether the object succeeded or failed
-     */
-    public boolean sendGcode()
-    {
-        int mask = SerialPort.MASK_RXFLAG + SerialPort.MASK_TXEMPTY;
-        
+        int mask = SerialPort.MASK_RXFLAG;
         try
         {
             if(!serialPort.setEventsMask(mask))
@@ -130,19 +126,77 @@ public class TXRXImpl implements TXRX
             
             serialPort.addEventListener(new SerialPortReader());
             
-            while(!isOutBufEmpty){}
+            while(!handshakeReceived){}
             
-            if(!serialPort.removeEventListener())
-                return false;
-            if(!serialPort.closePort())
-                return false;
+            // send init gcodes //
+            BufferedReader br = new BufferedReader(new FileReader(initFileName));
+            String line;
+            while((line = br.readLine()) != null)
+            {
+                if(line.length() <= 0 || line.charAt(0) == ';')
+                    continue;
+                
+                if(line.indexOf(';') != -1)
+                    line = line.substring(0, line.indexOf(';') - 1);
+                line = line + pjc.getHardwareConfiguration().getLineEnding();
+                
+                serialPort.writeBytes(line.getBytes());
+            }
         }
         
-        catch(SerialPortException e)
+        catch(Exception ex)
         {
-            System.out.println(e);
-            return false;
+            System.out.println(ex);
         }
+        
+        return true;
+    }
+    
+    /**
+     * 
+     * @return boolean indicating whether the object succeeded or failed
+     */
+    public boolean sendGcode(PrintJobConfiguration pjc, String gCode)
+    {
+        if(!handshakeReceived)
+            return false;
+        
+        serialize(pjc, gCode);
+        
+        try
+        {
+            serialPort.writeBytes(gCode.getBytes());
+        }
+        
+        catch(SerialPortException ex)
+        {
+            System.out.println(ex);
+        }
+        
+        
+        lastGcodeSent = gCode;
+//        int mask = SerialPort.MASK_RXFLAG + SerialPort.MASK_TXEMPTY;
+//        
+//        try
+//        {
+//            if(!serialPort.setEventsMask(mask))
+//                return false;
+//            
+//            serialPort.addEventListener(new SerialPortReader());
+//            
+//            while(!isOutBufEmpty){}
+//            
+//            if(!serialPort.removeEventListener())
+//                return false;
+//            if(!serialPort.closePort())
+//                return false;
+//        }
+//        
+//        catch(SerialPortException e)
+//        {
+//            System.out.println(e);
+//            return false;
+//        }
         return true;
     }
     
@@ -152,8 +206,18 @@ public class TXRXImpl implements TXRX
      * firmware. Therefore it is a function. For marlin nothing needs to happen at this point.
      * @return boolean - success or failure of method
      */
-    public boolean serialize(String gCodeLine)
+    public boolean serialize(PrintJobConfiguration pjc, String gCodeLine)
     {
+        // Just bail on comments or empty lines //
+        if(gCodeLine.length() <= 0 || gCodeLine.charAt(0) == ';')
+            return false;
+        
+        // Strip comments after commands //
+        if(gCodeLine.indexOf(';') != -1)
+            gCodeLine = gCodeLine.substring(0, gCodeLine.indexOf(';') - 1);
+        
+        gCodeLine = gCodeLine + pjc.getHardwareConfiguration().getLineEnding();
+        
         return true;
     }
     
@@ -186,7 +250,11 @@ public class TXRXImpl implements TXRX
                     byte buffer[]   = serialPort.readBytes(event.getEventValue());
                     String inBuffer = new String(buffer);
                     
-                    printerFeedback.add(buffer);
+                    feedbackString += inBuffer;
+                    
+ //                   printerFeedback.add(buffer);
+                    if(feedbackString.contains("M301"))
+                        handshakeReceived = true;
                     
                     // Just echo the printer feedback for now
                     System.out.println(inBuffer);
@@ -198,6 +266,9 @@ public class TXRXImpl implements TXRX
                 }
             }
             
+            // This code does not work on the Marlin firmware //
+            // Marlin only raises receive flags. Does not even raise CTS, DTS //
+ /*           
             // transmission buffer is empty...send out G-Codes
             if(event.isTXEMPTY())
             {
@@ -240,6 +311,7 @@ public class TXRXImpl implements TXRX
                     System.out.println(ex); 
                 }
             }
+*/
         }
     }
 }
