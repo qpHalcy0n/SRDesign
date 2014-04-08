@@ -71,11 +71,13 @@ public class SavePrinterConfigurationCommandTest {
         String actual;
 
         String path = "./Database/Printers/"+printer.getName()+".xml";
+        File fileToCheck;
         SavePrinterConfigurationCommand instance = new SavePrinterConfigurationCommand(printer);
         instance.execute();
         assertTrue((Boolean)instance.getResult());
-        actual = FileUtils.readFileToString(new File(path));
-        
+        fileToCheck = new File(path);
+        actual = FileUtils.readFileToString(fileToCheck);
+        fileToCheck = null;
         actual = actual.substring(0, actual.length()-1);
         if(!expected.equals(actual)) System.out.printf("Test "+this.getClass().getName()+" expected: "+ expected+"\nGot: "+actual);
         assertTrue(expected.equals(actual));
