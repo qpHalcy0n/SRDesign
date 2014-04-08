@@ -217,7 +217,10 @@ pip-log.txt
 Ink3DNetBeans/sub.amf
 Ink3DNetBeans/openscad-files/
 Ink3DNetBeans/stl-files/
-Ink3DNetBeans/Database/
 Ink3DNetBeans/amf-files/
 Ink3DNetBeans/gcode/
 Ink3DNetBeans/slic3r-configs/
+Ink3DNetBeans/subset-amf-files/
+Ink3DNetBeans/subset-gcode/
+Ink3DNetBeans/subset-openscad-files/
+Ink3DNetBeans/subset-stl-files/
