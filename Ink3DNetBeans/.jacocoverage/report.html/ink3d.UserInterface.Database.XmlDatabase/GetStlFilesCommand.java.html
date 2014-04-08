@@ -14,17 +14,18 @@ import java.util.ArrayList;
  *
  * @author daniellain
  */
-<span class="nc" id="L17">public class GetStlFilesCommand extends CommandStructure{</span>
+<span class="fc" id="L17">public class GetStlFilesCommand extends CommandStructure{</span>
 
     @Override
     public void execute() {
-<span class="nc" id="L21">        File folder = new File(&quot;./Database/Files/&quot;);</span>
-<span class="nc" id="L22">        File[] files = folder.listFiles();</span>
-<span class="nc" id="L23">        result = new ArrayList&lt;String&gt;();</span>
-<span class="nc bnc" id="L24" title="All 2 branches missed.">        for(File f: files){</span>
-<span class="nc bnc" id="L25" title="All 2 branches missed.">            if(f.getName().contains(&quot;.stl&quot;))((ArrayList&lt;String&gt;)result).add(f.getName().substring(0,f.getName().length()-4 ));</span>
+<span class="fc" id="L21">        File folder = new File(&quot;./Database/Files/&quot;);</span>
+<span class="fc" id="L22">        File[] files = folder.listFiles();</span>
+<span class="fc" id="L23">        result = new ArrayList&lt;String&gt;();</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        for(File f: files){</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">            if(f.getName().contains(&quot;.stl&quot;))((ArrayList&lt;String&gt;)result).add(f.getName().substring(0,f.getName().length()-4 ));</span>
         }
-<span class="nc" id="L27">    }</span>
+<span class="fc" id="L27">        files = null;</span>
+<span class="fc" id="L28">    }</span>
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

@@ -23,37 +23,37 @@ import java.util.ArrayList;
 
     @Override
     public ArrayList&lt;String&gt; getPrinterConfigurations() {
-<span class="nc" id="L26">        GetPrinterConfigurationsCommand get = new GetPrinterConfigurationsCommand();</span>
-<span class="nc" id="L27">        get.execute();</span>
-<span class="nc" id="L28">        return (ArrayList&lt;String&gt;)get.getResult();</span>
+<span class="fc" id="L26">        GetPrinterConfigurationsCommand get = new GetPrinterConfigurationsCommand();</span>
+<span class="fc" id="L27">        get.execute();</span>
+<span class="fc" id="L28">        return (ArrayList&lt;String&gt;)get.getResult();</span>
     }
 
     @Override
     public ArrayList&lt;String&gt; getExtruderConfigurations() {
-<span class="nc" id="L33">        GetExtruderConfigurationsCommand get = new GetExtruderConfigurationsCommand();</span>
-<span class="nc" id="L34">        get.execute();</span>
-<span class="nc" id="L35">        return (ArrayList&lt;String&gt;)get.getResult();</span>
+<span class="fc" id="L33">        GetExtruderConfigurationsCommand get = new GetExtruderConfigurationsCommand();</span>
+<span class="fc" id="L34">        get.execute();</span>
+<span class="fc" id="L35">        return (ArrayList&lt;String&gt;)get.getResult();</span>
     }
 
     @Override
     public ArrayList&lt;String&gt; getMaterialConfigurations() {
-<span class="nc" id="L40">        GetMaterialConfigurationsCommand get = new GetMaterialConfigurationsCommand();</span>
-<span class="nc" id="L41">        get.execute();</span>
-<span class="nc" id="L42">        return (ArrayList&lt;String&gt;)get.getResult();</span>
+<span class="fc" id="L40">        GetMaterialConfigurationsCommand get = new GetMaterialConfigurationsCommand();</span>
+<span class="fc" id="L41">        get.execute();</span>
+<span class="fc" id="L42">        return (ArrayList&lt;String&gt;)get.getResult();</span>
     }
 
     @Override
     public ArrayList&lt;String&gt; getPrintJobSelectionss() {
-<span class="nc" id="L47">       GetPrintJobSelectionsCommand get = new GetPrintJobSelectionsCommand();</span>
-<span class="nc" id="L48">       get.execute();</span>
-<span class="nc" id="L49">       return (ArrayList&lt;String&gt;)get.getResult();</span>
+<span class="fc" id="L47">       GetPrintJobSelectionsCommand get = new GetPrintJobSelectionsCommand();</span>
+<span class="fc" id="L48">       get.execute();</span>
+<span class="fc" id="L49">       return (ArrayList&lt;String&gt;)get.getResult();</span>
     }
 
     @Override
     public ArrayList&lt;String&gt; getPrintConfigurations() {
-<span class="nc" id="L54">       GetPrintConfigurationsCommand get = new GetPrintConfigurationsCommand();</span>
-<span class="nc" id="L55">       get.execute();</span>
-<span class="nc" id="L56">       return (ArrayList&lt;String&gt;)get.getResult();</span>
+<span class="fc" id="L54">       GetPrintConfigurationsCommand get = new GetPrintConfigurationsCommand();</span>
+<span class="fc" id="L55">       get.execute();</span>
+<span class="fc" id="L56">       return (ArrayList&lt;String&gt;)get.getResult();</span>
     }
 
     @Override
@@ -86,9 +86,9 @@ import java.util.ArrayList;
 
     @Override
     public PrintJobSelection getPrintJobSelection(String name) {
-<span class="nc" id="L89">        GetPrintJobSelectionCommand get = new GetPrintJobSelectionCommand(name);</span>
-<span class="nc" id="L90">        get.execute();</span>
-<span class="nc" id="L91">        return (PrintJobSelection)get.getResult();</span>
+<span class="fc" id="L89">        GetPrintJobSelectionCommand get = new GetPrintJobSelectionCommand(name);</span>
+<span class="fc" id="L90">        get.execute();</span>
+<span class="fc" id="L91">        return (PrintJobSelection)get.getResult();</span>
     }
 
     @Override
@@ -121,9 +121,9 @@ import java.util.ArrayList;
 
     @Override
     public Boolean savePrintJobSelection(PrintJobSelection config) {
-<span class="nc" id="L124">        SavePrintJobSelectionCommand save = new SavePrintJobSelectionCommand(config);</span>
-<span class="nc" id="L125">        save.execute();</span>
-<span class="nc" id="L126">        return (Boolean)save.getResult();</span>
+<span class="fc" id="L124">        SavePrintJobSelectionCommand save = new SavePrintJobSelectionCommand(config);</span>
+<span class="fc" id="L125">        save.execute();</span>
+<span class="fc" id="L126">        return (Boolean)save.getResult();</span>
     }
 
     @Override
@@ -156,9 +156,9 @@ import java.util.ArrayList;
 
     @Override
     public Boolean deletePrintJobSelection(String name) {
-<span class="nc" id="L159">        DeletePrintJobSelectionCommand delete = new DeletePrintJobSelectionCommand(name);</span>
-<span class="nc" id="L160">        delete.execute();</span>
-<span class="nc" id="L161">        return (Boolean)delete.getResult();</span>
+<span class="fc" id="L159">        DeletePrintJobSelectionCommand delete = new DeletePrintJobSelectionCommand(name);</span>
+<span class="fc" id="L160">        delete.execute();</span>
+<span class="fc" id="L161">        return (Boolean)delete.getResult();</span>
     }
 
     @Override
@@ -170,9 +170,9 @@ import java.util.ArrayList;
 
     @Override
     public ArrayList&lt;String&gt; getStlFiles() {
-<span class="nc" id="L173">        GetStlFilesCommand get = new GetStlFilesCommand();</span>
-<span class="nc" id="L174">        get.execute();</span>
-<span class="nc" id="L175">        return (ArrayList&lt;String&gt;)get.getResult();</span>
+<span class="fc" id="L173">        GetStlFilesCommand get = new GetStlFilesCommand();</span>
+<span class="fc" id="L174">        get.execute();</span>
+<span class="fc" id="L175">        return (ArrayList&lt;String&gt;)get.getResult();</span>
     }
 
     @Override
@@ -184,16 +184,16 @@ import java.util.ArrayList;
 
     @Override
     public Boolean importStlFile(String path) {
-<span class="nc" id="L187">        ImportStlFileCommand importStl = new ImportStlFileCommand(path);</span>
-<span class="nc" id="L188">        importStl.execute();</span>
-<span class="nc" id="L189">        return (Boolean) importStl.getResult();</span>
+<span class="fc" id="L187">        ImportStlFileCommand importStl = new ImportStlFileCommand(path);</span>
+<span class="fc" id="L188">        importStl.execute();</span>
+<span class="fc" id="L189">        return (Boolean) importStl.getResult();</span>
     }
 
     @Override
     public Boolean deleteStlFile(String name) {
-<span class="nc" id="L194">        DeleteStlFileCommand delete = new DeleteStlFileCommand(name);</span>
-<span class="nc" id="L195">        delete.execute();</span>
-<span class="nc" id="L196">        return (Boolean)delete.getResult();</span>
+<span class="fc" id="L194">        DeleteStlFileCommand delete = new DeleteStlFileCommand(name);</span>
+<span class="fc" id="L195">        delete.execute();</span>
+<span class="fc" id="L196">        return (Boolean)delete.getResult();</span>
     }
 
 }
