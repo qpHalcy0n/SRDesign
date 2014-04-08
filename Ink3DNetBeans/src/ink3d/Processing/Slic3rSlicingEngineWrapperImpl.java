@@ -329,7 +329,6 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, FILL_PATTERN, infill.getInfillPattern());
             appendProperty(sb, SOLID_FILL_PATTERN, infill.getTopBottomInfillPattern());
 
-            // TODO:  Extrusion Width Options
             // Hardcoded for now
             appendProperty(sb, DEFAULT_EXTRUSION_WIDTH, extrusionWidth.getDefaultExtrusionWidth());
             appendProperty(sb, PERIMETERS_EXTRUSION_WIDTH, extrusionWidth.getPerimetersExtrusionWidth());
