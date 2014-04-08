@@ -67,6 +67,7 @@ public class GetPrinterConfigurationCommandTest {
     
     @After
     public void tearDown() {
+        System.gc();
         File file = new File(path+name+".xml");
         file.delete();
     }

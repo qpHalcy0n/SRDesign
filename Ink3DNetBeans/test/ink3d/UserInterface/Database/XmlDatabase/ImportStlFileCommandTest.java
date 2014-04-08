@@ -7,6 +7,10 @@
 package ink3d.UserInterface.Database.XmlDatabase;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -16,7 +20,6 @@ import static org.junit.Assert.*;
  * @author daniellain
  */
 public class ImportStlFileCommandTest {
-    String importedPath;
     String expected = "./Database/Files/Feed-Housing.stl";
     String name = "./test-files/stl/Feed-Housing.STL";
     File newFile;
@@ -35,6 +38,12 @@ public class ImportStlFileCommandTest {
         importStl.execute();
         newFile = new File(expected);
         assertTrue(newFile.exists());
+        try {
+            String actual = FileUtils.readFileToString(new File(name));
+            expected =  FileUtils.readFileToString(newFile);
+        } catch (IOException ex) {
+            Logger.getLogger(ImportStlFileCommandTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

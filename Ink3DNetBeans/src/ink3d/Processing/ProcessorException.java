@@ -6,12 +6,17 @@
 
 package ink3d.Processing;
 
-import ink3d.ConfigurationObjects.PrintJobConfiguration;
-
 /**
  *
  * @author Tim
  */
-public interface SlicingEngineWrapper {
-    public boolean generateGCode(PrintJobConfiguration printJobConfiguration) throws ProcessorException;
+public class ProcessorException extends Exception {
+    private String message;
+    ProcessorException(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 }

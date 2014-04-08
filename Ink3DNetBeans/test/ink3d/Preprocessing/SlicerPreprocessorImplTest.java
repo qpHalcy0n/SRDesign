@@ -13,6 +13,8 @@ import ink3d.ConfigurationObjects.SubsetConfiguration;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -22,7 +24,7 @@ import org.junit.Test;
  *
  * @author Tim
  */
-public class Slic3rNormalizerImplTest {
+public class SlicerPreprocessorImplTest {
     private static final String BASE_PATH = new File("").getAbsolutePath();
     private static final String PRINT_JOB_NAME = "Normalizer Test";
     private static final String STL_EXTENSION = ".stl";
@@ -81,42 +83,45 @@ public class Slic3rNormalizerImplTest {
     }
     
     @Test
-    public void testSubsectionFiles() {
+    public void testSlic3rPreprocessor() {
         String stlFilePath0 = SUBSET_TEST_FILE_DIR + File.separator + subsectionTestFiles[0];
         String stlFilePath1 = SUBSET_TEST_FILE_DIR + File.separator + subsectionTestFiles[1];
 
-        String materialName = "PLA";
+        String materialName0 = "PLA_0";
+        String materialName1 = "PLA_1";
         double bottomZ_0 = 0.0;
         double topZ_0 = 7.0;
         double bottomZ_1 = 7.0;
         double topZ_1 = 22.0;
 
         // Build Print Job Config
-        MaterialConfiguration materialConfig = new MaterialConfiguration();
-        materialConfig.setName(materialName);
+        MaterialConfiguration materialConfig0 = new MaterialConfiguration();
+        materialConfig0.setName(materialName0);
+        MaterialConfiguration materialConfig1 = new MaterialConfiguration();
+        materialConfig1.setName(materialName1);
 
         // Create two file configs that have the same parent STL file.
 
         // This file config is placed in subset 0
         FileConfiguration fileConfig_00 = new FileConfiguration();
         fileConfig_00.setParentSTLFile(new File(stlFilePath0));
-        fileConfig_00.setMaterialConfiguration(materialConfig);
+        fileConfig_00.setMaterialConfiguration(materialConfig0);
         fileConfig_00.setExtruderNum(0);
 
         FileConfiguration fileConfig_01 = new FileConfiguration();
         fileConfig_01.setParentSTLFile(new File(stlFilePath1));
-        fileConfig_01.setMaterialConfiguration(materialConfig);
+        fileConfig_01.setMaterialConfiguration(materialConfig1);
         fileConfig_01.setExtruderNum(1);
 
         // This file config is placed in subset 1
         FileConfiguration fileConfig_10 = new FileConfiguration();
         fileConfig_10.setParentSTLFile(new File(stlFilePath0));
-        fileConfig_10.setMaterialConfiguration(materialConfig);
+        fileConfig_10.setMaterialConfiguration(materialConfig0);
         fileConfig_10.setExtruderNum(0);
 
         FileConfiguration fileConfig_11 = new FileConfiguration();
         fileConfig_11.setParentSTLFile(new File(stlFilePath1));
-        fileConfig_11.setMaterialConfiguration(materialConfig);
+        fileConfig_11.setMaterialConfiguration(materialConfig1);
         fileConfig_11.setExtruderNum(1);
 
         // Initialize subset 0
@@ -137,12 +142,18 @@ public class Slic3rNormalizerImplTest {
         this.printJob.getSubsetConfigurationList().add(subset_0);
         this.printJob.getSubsetConfigurationList().add(subset_1);
 
-        Slic3rNormalizerImpl normalizer = new Slic3rNormalizerImpl();
-        normalizer.subsectionFiles(printJob);
+        Preprocessor preprocessor = new Slic3rPreprocessorImpl();
+        boolean success = false;
+        try {
+            success = preprocessor.preprocess(printJob);
+        } catch (PreprocessorException ex) {
+            Logger.getLogger(SlicerPreprocessorImplTest.class.getName()).log(Level.SEVERE, null, ex);
+            Assert.fail();
+        }
 
-        // Run the test to make sure not subset stl file references are null.
+        Assert.assertTrue("Preprocess must succeed.", success);
         int subsetNum = 0;
-        for(SubsetConfiguration sub : printJob.getSubsetConfigurationList()) {
+        for(SubsetConfiguration sub : this.printJob.getSubsetConfigurationList()) {
             int fileConfigNum = 0;
             for(FileConfiguration fileConfig : sub.getFileConfigurations()) {
                 Assert.assertNotNull("Subsection STL file reference must not be null. (Subset " 
@@ -150,70 +161,10 @@ public class Slic3rNormalizerImplTest {
                 fileConfigNum++;
             }
             subsetNum++;
+            
+            Assert.assertNotNull("AMF file reference must not be null. (Subset " + subsetNum + ")", sub.getAmfFile());
+            subsetNum++;
         }
-    }
 
-    @Test
-    public void testTranslateFiles() {
-        String stlFilePath_A0 = FILE_TRANSLATION_TEST_FILE_DIR + File.separator 
-                + fileTranslationTestFiles[0][0];
-        String stlFilePath_A1 = FILE_TRANSLATION_TEST_FILE_DIR + File.separator 
-                + fileTranslationTestFiles[0][1];
-
-        String stlFilePath_B0 = FILE_TRANSLATION_TEST_FILE_DIR + File.separator 
-                + fileTranslationTestFiles[1][0];
-        String stlFilePath_B1 = FILE_TRANSLATION_TEST_FILE_DIR + File.separator 
-                + fileTranslationTestFiles[1][1];
-
-        String materialA = "Material A";
-        String materialB = "Material B";
-
-        // Build Print Job Config
-        MaterialConfiguration materialConfigA = new MaterialConfiguration();
-        materialConfigA.setName(materialA);
-
-        MaterialConfiguration materialConfigB = new MaterialConfiguration();
-        materialConfigB.setName(materialB);
-
-        FileConfiguration fileConfig_A0 = new FileConfiguration();
-        fileConfig_A0.setExtruderNum(0);
-        fileConfig_A0.setSubsetSTL(new File(stlFilePath_A0));
-        fileConfig_A0.setMaterialConfiguration(materialConfigA);
-
-        FileConfiguration fileConfig_A1 = new FileConfiguration();
-        fileConfig_A1.setExtruderNum(0);
-        fileConfig_A1.setSubsetSTL(new File(stlFilePath_A1));
-        fileConfig_A1.setMaterialConfiguration(materialConfigA);
-
-        FileConfiguration fileConfig_B0 = new FileConfiguration();
-        fileConfig_B0.setExtruderNum(1);
-        fileConfig_B0.setSubsetSTL(new File(stlFilePath_B0));
-        fileConfig_B0.setMaterialConfiguration(materialConfigB);
-
-        FileConfiguration fileConfig_B1 = new FileConfiguration();
-        fileConfig_B1.setExtruderNum(1);
-        fileConfig_B1.setSubsetSTL(new File(stlFilePath_B1));
-        fileConfig_B1.setMaterialConfiguration(materialConfigB);
-
-        SubsetConfiguration subset_0 = new SubsetConfiguration();
-        subset_0.getFileConfigurations().add(fileConfig_A0);
-        subset_0.getFileConfigurations().add(fileConfig_B0);
-
-        SubsetConfiguration subset_1 = new SubsetConfiguration();
-        subset_1.getFileConfigurations().add(fileConfig_A1);
-        subset_1.getFileConfigurations().add(fileConfig_B1);
-
-        this.printJob.getSubsetConfigurationList().add(subset_0);
-        this.printJob.getSubsetConfigurationList().add(subset_1);
-
-        Slic3rNormalizerImpl normalizer = new Slic3rNormalizerImpl();
-        normalizer.translateFiles(this.printJob);
-        
-        int count = 0;
-        for(SubsetConfiguration sub : this.printJob.getSubsetConfigurationList()) {
-            Assert.assertNotNull("AMF file reference must not be null. (Subset " + count + ")", sub.getAmfFile());
-            count++;
-        }
-        
     }
 }

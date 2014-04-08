@@ -26,7 +26,7 @@ public class DeletePrintConfigurationCommandTest {
      */
     @Test
     public void DeletePrintValidFileTest() {
-         file = new File(name);
+        file = new File(name);
         try {
             file.createNewFile();
         } catch (IOException ex) {

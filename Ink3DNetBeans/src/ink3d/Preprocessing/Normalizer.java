@@ -13,6 +13,5 @@ import ink3d.ConfigurationObjects.PrintJobConfiguration;
  * @author Tim
  */
 public interface Normalizer {
-    public static final String FILE_TRANSLATION_TEMP_DIR = "";
-    public boolean normalize(PrintJobConfiguration printJobConfiguration);
+    public boolean normalize(PrintJobConfiguration printJobConfiguration) throws PreprocessorException;
 }
