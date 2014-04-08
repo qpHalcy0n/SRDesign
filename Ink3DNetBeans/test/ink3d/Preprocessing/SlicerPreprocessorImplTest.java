@@ -6,12 +6,10 @@
 
 package ink3d.Preprocessing;
 
-import ink3d.ConfigurationObjects.PrintJobConfiguration;
-
 /**
- * Preprocessor Interface
+ *
  * @author Tim
  */
-public interface Preprocessor {
-    public boolean preprocess(PrintJobConfiguration printJobConfiguration) throws PreprocessorException;
+public class SlicerPreprocessorImplTest {
+    
 }

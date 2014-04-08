@@ -26,7 +26,7 @@ public class DeleteExtruderConfigurationCommandTest {
      */
     @Test
     public void DeleteExtruderValidFileTest() {
-         file = new File(name);
+        file = new File(name);
         try {
             file.createNewFile();
         } catch (IOException ex) {

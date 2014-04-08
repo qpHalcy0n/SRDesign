@@ -26,7 +26,7 @@ public class DeleteMaterialConfigurationCommandTest {
      */
     @Test
     public void DeleteMaterialValidFileTest() {
-         file = new File(name);
+        file = new File(name);
         try {
             file.createNewFile();
         } catch (IOException ex) {

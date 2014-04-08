@@ -11,7 +11,11 @@ import ink3d.ConfigurationObjects.MaterialConfiguration;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
 import ink3d.ConfigurationObjects.SubsetConfiguration;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -19,17 +23,67 @@ import org.junit.Test;
  * @author Tim
  */
 public class Slic3rNormalizerImplTest {
-    private static String TEST_FILE_DIR = File.separator + "test-files" + File.separator + "stl" + File.separator;
+    private static final String BASE_PATH = new File("").getAbsolutePath();
+    private static final String PRINT_JOB_NAME = "Normalizer Test";
+    private static final String STL_EXTENSION = ".stl";
+
+    private static final String SUBSET_STL_DIR = Slic3rNormalizerImpl.STL_DIR;
+    private static final String SUBSET_AMF_DIR = Slic3rNormalizerImpl.AMF_DIR;
+    private static final String SUBSET_OPENSCAD_DIR = Slic3rNormalizerImpl.OPENSCAD_FILES_DIR;
     
+    private static final String SUBSET_TEST_FILE_DIR = BASE_PATH + File.separator + "test-files" + File.separator + "subsection" + File.separator + "stl";
+
+    private static final String[] subsectionTestFiles = {"Feed-Housing-PartA.stl", "Feed-Housing-PartB.stl"};
+
+    private static final String FILE_TRANSLATION_TEST_FILE_DIR = BASE_PATH + File.separator 
+            + "test-files" + File.separator + "file-translation" + File.separator + "stl";
+    private static final String[][] fileTranslationTestFiles = {{"Feed-Housing-PartA-sub0.stl", "Feed-Housing-PartA-sub1.stl"},
+                                                                {"Feed-Housing-PartB-sub0.stl", "Feed-Housing-PartB-sub1.stl"}};
+
+    private PrintJobConfiguration printJob;
+
     // TODO:  Clean up openscad, stl, amf files (if they exist) before tests
+    @BeforeClass
+    public static void clean() {
+        // Delete old test files
+        List<String> filenames = new ArrayList<>();
+        filenames.add(SUBSET_STL_DIR + File.separator + PRINT_JOB_NAME + File.separator + "Feed-Housing-PartA-sub0.stl");
+        filenames.add(SUBSET_STL_DIR + File.separator + PRINT_JOB_NAME + File.separator + "Feed-Housing-PartA-sub1.stl");
+        filenames.add(SUBSET_STL_DIR + File.separator + PRINT_JOB_NAME + File.separator + "Feed-Housing-PartB-sub0.stl");
+        filenames.add(SUBSET_STL_DIR + File.separator + PRINT_JOB_NAME + File.separator + "Feed-Housing-PartB-sub1.stl");
+        filenames.add(SUBSET_OPENSCAD_DIR + File.separator + PRINT_JOB_NAME + File.separator + "Feed-Housing-PartA-sub0.scad");
+        filenames.add(SUBSET_OPENSCAD_DIR + File.separator + PRINT_JOB_NAME + File.separator + "Feed-Housing-PartA-sub1.scad");
+        filenames.add(SUBSET_OPENSCAD_DIR + File.separator + PRINT_JOB_NAME + File.separator + "Feed-Housing-PartB-sub0.scad");
+        filenames.add(SUBSET_OPENSCAD_DIR + File.separator + PRINT_JOB_NAME + File.separator + "Feed-Housing-PartB-sub1.scad");
+        filenames.add(SUBSET_AMF_DIR + File.separator + PRINT_JOB_NAME + File.separator + "sub0.amf");
+        filenames.add(SUBSET_AMF_DIR + File.separator + PRINT_JOB_NAME + File.separator + "sub1.amf");
+
+        // Delete test print job dirs
+        filenames.add(SUBSET_STL_DIR + File.separator + PRINT_JOB_NAME);
+        filenames.add(SUBSET_OPENSCAD_DIR + File.separator + PRINT_JOB_NAME);
+        filenames.add(SUBSET_AMF_DIR + File.separator + PRINT_JOB_NAME);
+
+        for(String filename : filenames) {
+            File file = new File(filename);
+            try {
+                file.delete();
+            }
+            catch(Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
+
+    @Before
+    public void initialize() {
+        this.printJob = new PrintJobConfiguration();
+        this.printJob.setName(PRINT_JOB_NAME);
+    }
     
     @Test
     public void testSubsectionFiles() {
-        String basePath = new File("").getAbsolutePath();
-        String stlFilePath0 = basePath + File.separator + "test-files" + File.separator 
-                + "subsection" + File.separator + "stl" + File.separator + "Feed-Housing-PartA.stl";
-        String stlFilePath1 = basePath + File.separator + "test-files" + File.separator 
-                + "subsection" + File.separator + "stl" + File.separator + "Feed-Housing-PartB.stl";
+        String stlFilePath0 = SUBSET_TEST_FILE_DIR + File.separator + subsectionTestFiles[0];
+        String stlFilePath1 = SUBSET_TEST_FILE_DIR + File.separator + subsectionTestFiles[1];
 
         String materialName = "PLA";
         double bottomZ_0 = 0.0;
@@ -80,9 +134,8 @@ public class Slic3rNormalizerImplTest {
         subset_1.getFileConfigurations().add(fileConfig_11);
 
         // Initialize the print job config object
-        PrintJobConfiguration printJob = new PrintJobConfiguration();
-        printJob.getSubsetConfigurationList().add(subset_0);
-        printJob.getSubsetConfigurationList().add(subset_1);
+        this.printJob.getSubsetConfigurationList().add(subset_0);
+        this.printJob.getSubsetConfigurationList().add(subset_1);
 
         Slic3rNormalizerImpl normalizer = new Slic3rNormalizerImpl();
         normalizer.subsectionFiles(printJob);
@@ -102,20 +155,15 @@ public class Slic3rNormalizerImplTest {
 
     @Test
     public void testTranslateFiles() {
-        String basePath = new File("").getAbsolutePath();
-        String stlFilePath_A0 = basePath + File.separator + "test-files" + File.separator
-                + "file-translation" + File.separator + "stl" 
-                + File.separator + "Feed-Housing-PartA-sub0.stl";
-        String stlFilePath_A1 = basePath + File.separator + "test-files" + File.separator  
-                + "file-translation" + File.separator + "stl" 
-                + File.separator + "Feed-Housing-PartA-sub1.stl";
+        String stlFilePath_A0 = FILE_TRANSLATION_TEST_FILE_DIR + File.separator 
+                + fileTranslationTestFiles[0][0];
+        String stlFilePath_A1 = FILE_TRANSLATION_TEST_FILE_DIR + File.separator 
+                + fileTranslationTestFiles[0][1];
 
-        String stlFilePath_B0 = basePath + File.separator + "test-files" + File.separator
-                + "file-translation" + File.separator + "stl" 
-                + File.separator + "Feed-Housing-PartB-sub0.stl";
-        String stlFilePath_B1 = basePath + File.separator + "test-files" + File.separator  
-                + "file-translation" + File.separator + "stl" 
-                + File.separator + "Feed-Housing-PartB-sub1.stl";
+        String stlFilePath_B0 = FILE_TRANSLATION_TEST_FILE_DIR + File.separator 
+                + fileTranslationTestFiles[1][0];
+        String stlFilePath_B1 = FILE_TRANSLATION_TEST_FILE_DIR + File.separator 
+                + fileTranslationTestFiles[1][1];
 
         String materialA = "Material A";
         String materialB = "Material B";
@@ -155,16 +203,14 @@ public class Slic3rNormalizerImplTest {
         subset_1.getFileConfigurations().add(fileConfig_A1);
         subset_1.getFileConfigurations().add(fileConfig_B1);
 
-        PrintJobConfiguration printJob = new PrintJobConfiguration();
-        printJob.setName("Feed Housing Two Material File Translation Test");
-        printJob.getSubsetConfigurationList().add(subset_0);
-        printJob.getSubsetConfigurationList().add(subset_1);
+        this.printJob.getSubsetConfigurationList().add(subset_0);
+        this.printJob.getSubsetConfigurationList().add(subset_1);
 
         Slic3rNormalizerImpl normalizer = new Slic3rNormalizerImpl();
-        normalizer.translateFiles(printJob);
+        normalizer.translateFiles(this.printJob);
         
         int count = 0;
-        for(SubsetConfiguration sub : printJob.getSubsetConfigurationList()) {
+        for(SubsetConfiguration sub : this.printJob.getSubsetConfigurationList()) {
             Assert.assertNotNull("AMF file reference must not be null. (Subset " + count + ")", sub.getAmfFile());
             count++;
         }

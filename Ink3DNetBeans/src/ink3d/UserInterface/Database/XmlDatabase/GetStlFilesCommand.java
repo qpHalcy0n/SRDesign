@@ -24,6 +24,7 @@ public class GetStlFilesCommand extends CommandStructure{
         for(File f: files){
             if(f.getName().contains(".stl"))((ArrayList<String>)result).add(f.getName().substring(0,f.getName().length()-4 ));
         }
+        files = null;
     }
     
 }

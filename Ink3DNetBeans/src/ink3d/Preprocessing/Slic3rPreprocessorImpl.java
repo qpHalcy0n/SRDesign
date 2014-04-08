@@ -14,13 +14,10 @@ import ink3d.ConfigurationObjects.PrintJobConfiguration;
  */
 public class Slic3rPreprocessorImpl implements Preprocessor {
 
-    @Override
-    public boolean preprocess(PrintJobConfiguration printJobConfiguration) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    private boolean normalize(PrintJobConfiguration printJobConfiguration) {
-        return true;
-    }
+    private Normalizer normalizer;
 
+    @Override
+    public boolean preprocess(PrintJobConfiguration printJobConfiguration) throws PreprocessorException {
+        return normalizer.normalize(printJobConfiguration);
+    }
 }

@@ -16,33 +16,34 @@ import java.util.ArrayList;
 public interface TXRX
 {
     // FIXME: Items here are contained in PrintJobConfiguration object. These are placeholders
-    public static ArrayList<String> gCodes      = new ArrayList<String>();
+//    public static ArrayList<String> gCodes      = new ArrayList<String>();
+    public static String initFileName           = "init.gcode";
     public static int BAUD                      = 250000;
     public static int MAX_OUT_BUF_LEN           = 5;
     
     public static String comPort                = "COM1";
     
-    
+
     // Get list of COM port identifiers as strings
     public String[] getSerialPortNames();
     
     // Get printer feedback information
-    public ArrayList<byte[]> getPrinterFeedback();
+    public String getPrinterFeedback();
     
     // Initialize connection to printer
-    public boolean connectToPrinter();
+    public boolean connectToPrinter(PrintJobConfiguration pjc);
     
     // Send G-Codes to printer to be printed
-    public boolean sendGcode();
+    public boolean sendGcode(PrintJobConfiguration pjc, String gCode);
     
     // Query whether printer feedback buffer has data
     public boolean isPrinterFeedbackReady();
     
     // Pass G-Codes from into communications
-    public boolean addGcode(ArrayList<String> ppGcode);
+//    public boolean addGcode(ArrayList<String> ppGcode);
     
     // Serialize data (do processing on g-codes)
-    public boolean serialize(String gCodeLine);
+    public boolean serialize(PrintJobConfiguration pjc, String gCodeLine);
     
     // Deserialize data (process byte stream from printer)
     public boolean deserialize(byte[] byteStream);

@@ -7,12 +7,14 @@
 package ink3d.Processing;
 
 import ink3d.ConfigurationObjects.ExtruderConfiguration;
-import ink3d.ConfigurationObjects.FileConfiguration;
 import ink3d.ConfigurationObjects.MaterialConfiguration;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
 import ink3d.ConfigurationObjects.SubsetConfiguration;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -20,7 +22,35 @@ import org.junit.Test;
  * @author Tim
  */
 public class Slic3rSlicingEngineWrapperImplTest {
+    private static final String PRINT_JOB_NAME = "Slic3r Slicing Engine Wrapper Test";
+    private static final String GCODE_DIR = Slic3rSlicingEngineWrapperImpl.GCODE_DIR;
     private PrintJobConfiguration printJobConfiguration;
+
+    @BeforeClass
+    public static void clean() {
+        // Delete old test files
+        List<String> filenames = new ArrayList<>();
+        filenames.add(GCODE_DIR + File.separator + PRINT_JOB_NAME + File.separator + "sub0.gcode");
+        filenames.add(GCODE_DIR + File.separator + PRINT_JOB_NAME + File.separator + "sub1.gcode");
+
+        // Delete test print job dirs
+        filenames.add(GCODE_DIR + File.separator + PRINT_JOB_NAME);
+
+        for(String filename : filenames) {
+            File file = new File(filename);
+            try {
+                if(file.delete()) {
+                    System.out.println("Deleted " + filename);
+                }
+                else {
+                    System.out.println("Failed to delete " + filename);
+                }
+            }
+            catch(Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
 
     @Before
     public void initialize() {
@@ -30,7 +60,7 @@ public class Slic3rSlicingEngineWrapperImplTest {
         String subset1AmfFilename = amfDir + File.separator + "sub1.amf";
 
         printJobConfiguration = new PrintJobConfiguration();
-        printJobConfiguration.setName("G-Code Generator Test");
+        printJobConfiguration.setName(PRINT_JOB_NAME);
         printJobConfiguration.getPrinterConfiguration().getExtruderList().add(new ExtruderConfiguration());
         printJobConfiguration.getPrinterConfiguration().getExtruderList().add(new ExtruderConfiguration());
         printJobConfiguration.getExtruderMaterials().add(new MaterialConfiguration());
