@@ -224,3 +224,5 @@ Ink3DNetBeans/subset-amf-files/
 Ink3DNetBeans/subset-gcode/
 Ink3DNetBeans/subset-openscad-files/
 Ink3DNetBeans/subset-stl-files/
+Ink3DNetBeans/third-party/Slic3r/lib/std/Mozilla/CA.pm
+Ink3DNetBeans/third-party/Slic3r/lib/std/Mozilla/CA/cacert.pem
