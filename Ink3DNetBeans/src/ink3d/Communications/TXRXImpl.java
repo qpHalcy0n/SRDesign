@@ -26,8 +26,11 @@ public class TXRXImpl implements TXRX
     private static SerialPortList serialPortList;                                   // Port listing
     private static SerialPort serialPort;                                           // serial port object
     private static String feedbackString                = new String("begin:");
+    private static String ackString                     = new String(" ");
     private static boolean handshakeReceived            = false;
     private static String lastGcodeSent                 = new String();
+    private static boolean ackSent                      = false;
+    private static boolean initCodesSent                = false;
     
     
     TXRXImpl()
@@ -35,6 +38,10 @@ public class TXRXImpl implements TXRX
         serialPortList = new SerialPortList();
     }
     
+    private boolean initCodesSent()
+    {
+        return initCodesSent;
+    }
  
     /**
      * 
@@ -46,7 +53,6 @@ public class TXRXImpl implements TXRX
         return portNames;
     }
     
-    // FIXME: Don't return null
     /**
      * 
      * @return ArrayList<byte[]> An array list packed with byte buffers of the latest data received from 
@@ -75,24 +81,6 @@ public class TXRXImpl implements TXRX
         return false;
     }
     
-//    /**
-//     * 
-//     * @param ppGcode - serialized G-Codes
-//     * @return boolean indicating whether the operation succeeded or failed
-//     */
-//    public boolean addGcode(ArrayList<String> ppGcode)
-//    {
-//        // Sanity check
-//        if(ppGcode.size() <= 0)
-//            return false;
-//        
-//        for(int i = 0; i < ppGcode.size(); ++i)
-//        {
-//            // There may be some additional processing on G-Code here, so leave this open
-//            gCodes.add(ppGcode.get(i));
-//        }
-//        return true;
-//    }
     
     
     /**
@@ -128,6 +116,16 @@ public class TXRXImpl implements TXRX
             
             while(!handshakeReceived){}
             
+            // FIXME: Sometimes the handshake happens too fast so just sleep for 4 seconds (this only happens once)
+            try
+            {
+                Thread.sleep(4000);
+            }
+            catch(InterruptedException ex)
+            {
+                System.out.println(ex);
+            }
+            
             // send init gcodes //
             BufferedReader br = new BufferedReader(new FileReader(initFileName));
             String line;
@@ -142,6 +140,8 @@ public class TXRXImpl implements TXRX
                 
                 serialPort.writeBytes(line.getBytes());
             }
+            
+            initCodesSent = true;
         }
         
         catch(Exception ex)
@@ -152,20 +152,46 @@ public class TXRXImpl implements TXRX
         return true;
     }
     
+    public boolean ackReceived()
+    {
+        return false;
+    }
+    
+    
     /**
      * 
      * @return boolean indicating whether the object succeeded or failed
      */
     public boolean sendGcode(PrintJobConfiguration pjc, String gCode)
     {
-        if(!handshakeReceived)
+        if(!handshakeReceived || !initCodesSent)
             return false;
         
         serialize(pjc, gCode);
         
+        ackString = "";
+        ackSent = false;
+        
         try
         {
             serialPort.writeBytes(gCode.getBytes());
+            
+            // Spin in the loop until the ack is received by the printer
+            // Some commands demand waiting (M109, M28, etc...).
+            // Move commands usually ack immediately
+            while(ackString.contains("ok") == false){}
+            ackSent = true;
+            lastGcodeSent = gCode;
+            
+            // Sleep: otherwise we end up clobbering the buffer and garbling g-codes
+            try
+            {
+                Thread.sleep(50);
+            }
+            catch(InterruptedException ex)
+            {
+                System.out.println(ex);
+            }
         }
         
         catch(SerialPortException ex)
@@ -175,28 +201,7 @@ public class TXRXImpl implements TXRX
         
         
         lastGcodeSent = gCode;
-//        int mask = SerialPort.MASK_RXFLAG + SerialPort.MASK_TXEMPTY;
-//        
-//        try
-//        {
-//            if(!serialPort.setEventsMask(mask))
-//                return false;
-//            
-//            serialPort.addEventListener(new SerialPortReader());
-//            
-//            while(!isOutBufEmpty){}
-//            
-//            if(!serialPort.removeEventListener())
-//                return false;
-//            if(!serialPort.closePort())
-//                return false;
-//        }
-//        
-//        catch(SerialPortException e)
-//        {
-//            System.out.println(e);
-//            return false;
-//        }
+
         return true;
     }
     
@@ -251,8 +256,8 @@ public class TXRXImpl implements TXRX
                     String inBuffer = new String(buffer);
                     
                     feedbackString += inBuffer;
+                    ackString += inBuffer;
                     
- //                   printerFeedback.add(buffer);
                     if(feedbackString.contains("M301"))
                         handshakeReceived = true;
                     
@@ -265,53 +270,6 @@ public class TXRXImpl implements TXRX
                     System.out.println(ex);
                 }
             }
-            
-            // This code does not work on the Marlin firmware //
-            // Marlin only raises receive flags. Does not even raise CTS, DTS //
- /*           
-            // transmission buffer is empty...send out G-Codes
-            if(event.isTXEMPTY())
-            {
-                try
-                {
-                    // Sanity check //
-                    if(gCodes.size() <= 0)
-                    {
-                        isOutBufEmpty = true;
-                        return;
-                    }
-                    
-                    // G-codes are 128B long at most.
-                    // Ring buffer in Marlin is 5x128B
-                    // May require modification
-                    int bufBytes    = event.getEventValue();
-                    int nGCodes     = bufBytes / 128;
-                    
-                    // Send only as many as we have
-                    if(nGCodes > gCodes.size())
-                        nGCodes = gCodes.size();
-                    
-                    for(int i = 0; i < nGCodes; ++i)
-                    {
-                        // Serialize the data //
-                        serialize(gCodes.get(0));
-                        
-                        // The index into the gCodes ArrayList will always be zero because we're removing
-                        // at index 0 every time 
-                        if(!serialPort.writeBytes(gCodes.get(0).toString().getBytes()))
-                            break;
-                        
-                        // Pull g-codes successfully sent from front of list
-                        gCodes.remove(0);
-                    }
-                }
-                
-                catch(Exception ex)
-                {
-                    System.out.println(ex); 
-                }
-            }
-*/
         }
     }
 }

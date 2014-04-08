@@ -12,16 +12,14 @@ import ink3d.ConfigurationObjects.PrintJobConfiguration;
  *
  * @author Tim
  */
-<span class="nc" id="L15">public class Slic3rPreprocessorImpl implements Preprocessor {</span>
+<span class="fc" id="L15">public class Slic3rPreprocessorImpl implements Preprocessor {</span>
+
+    private Normalizer normalizer;
 
     @Override
-    public boolean preprocess(PrintJobConfiguration printJobConfiguration) {
-<span class="nc" id="L19">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    public boolean preprocess(PrintJobConfiguration printJobConfiguration) throws PreprocessorException {
+<span class="fc" id="L21">        normalizer = new Slic3rNormalizerImpl();</span>
+<span class="fc" id="L22">        return normalizer.normalize(printJobConfiguration);</span>
     }
-    
-    private boolean normalize(PrintJobConfiguration printJobConfiguration) {
-<span class="nc" id="L23">        return true;</span>
-    }
-
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

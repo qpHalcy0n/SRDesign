@@ -16,18 +16,18 @@ import java.io.File;
 public class DeleteStlFileCommand extends CommandStructure {
    private String fileName;
     
-<span class="nc" id="L19">    public DeleteStlFileCommand(String fileName){</span>
-<span class="nc" id="L20">        this.fileName = fileName;</span>
-<span class="nc" id="L21">    }</span>
+<span class="fc" id="L19">    public DeleteStlFileCommand(String fileName){</span>
+<span class="fc" id="L20">        this.fileName = fileName;</span>
+<span class="fc" id="L21">    }</span>
     @Override
     public void execute() {
         try{
-<span class="nc" id="L25">            File file = new File(&quot;./Database/Files/&quot;+fileName+&quot;.xml&quot;);</span>
-<span class="nc" id="L26">            result = file.delete();</span>
+<span class="fc" id="L25">            File file = new File(&quot;./Database/Files/&quot;+fileName+&quot;.xml&quot;);</span>
+<span class="fc" id="L26">            result = file.delete();</span>
 <span class="nc" id="L27">     	}catch(Exception e){</span>
 <span class="nc" id="L28">             e.printStackTrace();</span>
-<span class="nc" id="L29">     	}</span>
-<span class="nc" id="L30">    }</span>
+<span class="fc" id="L29">     	}</span>
+<span class="fc" id="L30">    }</span>
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

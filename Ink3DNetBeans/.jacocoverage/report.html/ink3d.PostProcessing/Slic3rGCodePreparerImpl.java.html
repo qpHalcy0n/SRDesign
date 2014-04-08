@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Slic3rGCodePreparerImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ink3d.PostProcessing</a> &gt; <span class="el_source">Slic3rGCodePreparerImpl.java</span></div><h1>Slic3rGCodePreparerImpl.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package ink3d.PostProcessing;
+
+import ink3d.ConfigurationObjects.ExtruderConfiguration;
+import ink3d.ConfigurationObjects.PrintJobConfiguration;
+import ink3d.ConfigurationObjects.SubsetConfiguration;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ *
+ * @author Tim
+ */
+<span class="fc" id="L29">public class Slic3rGCodePreparerImpl implements GCodePreparer {</span>
+<span class="fc" id="L30">    private static final String BASE_DIR = new File(&quot;&quot;).getAbsolutePath();</span>
+<span class="fc" id="L31">    public static String GCODE_DIR = BASE_DIR + File.separator + &quot;gcode&quot;;</span>
+    public static final int FILE_MARK_LIMIT = 500;
+    public static final String GCODE_EXTENSION = &quot;.gcode&quot;;
+
+    private PrintJobConfiguration printJob;
+    private int currentTool;
+
+    @Override
+    public boolean prepareGCode(PrintJobConfiguration printJob) throws PostProcessorException {
+<span class="fc" id="L40">        this.printJob = printJob;</span>
+<span class="fc" id="L41">        this.currentTool = -1;</span>
+<span class="fc" id="L42">        return postProcessGCodes();</span>
+    }
+
+    private boolean postProcessGCodes() throws PostProcessorException {
+<span class="fc" id="L46">        String finalizedGCodeFilename = GCODE_DIR + File.separator + printJob.getName() + GCODE_EXTENSION;</span>
+<span class="fc" id="L47">        File finalizedGCode = new File(finalizedGCodeFilename);</span>
+        // Create directory for finalize gcode file if it does not exist.
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        if(!finalizedGCode.exists()) {</span>
+<span class="fc" id="L50">            File finalizedGCodeDir = finalizedGCode.getParentFile();</span>
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">            if(!finalizedGCodeDir.exists()) {</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">                if(!finalizedGCodeDir.mkdirs()) {</span>
+<span class="nc" id="L53">                    throw new PostProcessorException(&quot;Could not create directory to store finalized G-Code.&quot;);</span>
+                }
+            }
+        }
+
+<span class="fc" id="L58">        BufferedWriter outFile = null;</span>
+        try {
+<span class="fc" id="L60">            finalizedGCode.createNewFile();</span>
+
+            // Open the file to write to
+<span class="fc" id="L63">            outFile = new BufferedWriter(new FileWriter(finalizedGCode));</span>
+        } 
+<span class="nc" id="L65">        catch (IOException ex) {</span>
+<span class="nc" id="L66">            Logger.getLogger(Slic3rGCodePreparerImpl.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L67">            throw new PostProcessorException(&quot;Could not create finalized G-Code file.&quot;);</span>
+<span class="fc" id="L68">        }</span>
+
+        // Write printer start gcode.
+<span class="fc" id="L71">        writePrinterStartGCode(outFile);</span>
+
+        // Write each subset's gcode to the finalized file.
+        // This includes custom G-Code for tool changes that happen within
+        // each subset.
+<span class="fc" id="L76">        List&lt;SubsetConfiguration&gt; subsets = printJob.getSubsetConfigurationList();</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        for(SubsetConfiguration subset : subsets) {</span>
+<span class="fc" id="L78">            writeSubsetGCode(outFile, subset);</span>
+<span class="fc" id="L79">        }</span>
+
+        // Write printer end gcode.
+<span class="fc" id="L82">        writePrinterEndGCode(outFile);</span>
+
+        // Set the reference for the finalized GCode in the Print Job.
+<span class="fc" id="L85">        printJob.setFinalizedGCode(finalizedGCode);</span>
+
+<span class="fc" id="L87">        return true;</span>
+
+    }
+
+    private boolean writePrinterStartGCode(BufferedWriter outputFile) {
+<span class="fc" id="L92">        String startGCode = printJob.getPrinterConfiguration().getStartGCode();</span>
+        try {
+<span class="fc" id="L94">            outputFile.append(startGCode);</span>
+<span class="fc" id="L95">            outputFile.append(&quot;\n&quot;);</span>
+<span class="nc" id="L96">        } catch (IOException ex) {</span>
+<span class="nc" id="L97">            Logger.getLogger(Slic3rGCodePreparerImpl.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L98">            return false;</span>
+<span class="fc" id="L99">        }</span>
+<span class="fc" id="L100">        return true;</span>
+    }
+
+    private boolean writePrinterEndGCode(BufferedWriter outputFile) {
+<span class="fc" id="L104">        String endGCode = printJob.getPrinterConfiguration().getEndGCode();</span>
+        try {
+<span class="fc" id="L106">            outputFile.append(endGCode);</span>
+<span class="fc" id="L107">            outputFile.append(&quot;\n&quot;);</span>
+<span class="fc" id="L108">            outputFile.flush();</span>
+<span class="nc" id="L109">        } catch (IOException ex) {</span>
+<span class="nc" id="L110">            Logger.getLogger(Slic3rGCodePreparerImpl.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L111">            return false;</span>
+<span class="fc" id="L112">        }</span>
+<span class="fc" id="L113">        return true;</span>
+    }
+
+    private boolean writeSubsetGCode(BufferedWriter outputFile, SubsetConfiguration subset) {
+<span class="fc" id="L117">        File subsetGCodeFile = subset.getgCodeFile();</span>
+<span class="fc" id="L118">        Pattern toolSelectionPattern = Pattern.compile(&quot;^(T[0-9])&quot;);</span>
+        try {
+<span class="fc" id="L120">            BufferedReader subsetGCode = new BufferedReader(new FileReader(subsetGCodeFile));</span>
+<span class="fc" id="L121">            scanForNextToolSelection(subsetGCode);</span>
+<span class="fc" id="L122">            String line = &quot;&quot;;</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">            while((line = subsetGCode.readLine()) != null) {</span>
+<span class="fc" id="L124">                Matcher matcher = toolSelectionPattern.matcher(line);</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">                if(matcher.find()) {</span>
+<span class="fc" id="L126">                    writeToolChangeEndGCode(outputFile, this.currentTool);</span>
+<span class="fc" id="L127">                    String tCode = matcher.group();</span>
+<span class="fc" id="L128">                    this.currentTool = Integer.parseInt(tCode.substring(1));</span>
+<span class="fc" id="L129">                    writeToolChangeStartGCode(outputFile, this.currentTool);</span>
+                }
+<span class="fc" id="L131">                outputFile.append(line);</span>
+<span class="fc" id="L132">                outputFile.append(&quot;\n&quot;);</span>
+<span class="fc" id="L133">            }</span>
+<span class="nc" id="L134">        } catch (FileNotFoundException ex) {</span>
+<span class="nc" id="L135">            Logger.getLogger(Slic3rGCodePreparerImpl.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L136">            return false;</span>
+<span class="nc" id="L137">        } catch (IOException ex) {</span>
+<span class="nc" id="L138">            Logger.getLogger(Slic3rGCodePreparerImpl.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L139">            return false;</span>
+<span class="fc" id="L140">        }</span>
+<span class="fc" id="L141">        return true;</span>
+    }
+
+    private boolean scanForNextToolSelection(BufferedReader gCodeFile) throws IOException {
+<span class="fc" id="L145">        String line = &quot;&quot;;</span>
+<span class="fc" id="L146">        Pattern toolSelectionPattern = Pattern.compile(&quot;^(T[0-9])&quot;);</span>
+<span class="fc" id="L147">        gCodeFile.mark(FILE_MARK_LIMIT);</span>
+<span class="pc bpc" id="L148" title="1 of 2 branches missed.">        while((line = gCodeFile.readLine()) != null) {</span>
+<span class="fc" id="L149">            Matcher matcher = toolSelectionPattern.matcher(line);</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">            if(matcher.find()) {</span>
+<span class="fc" id="L151">                gCodeFile.reset();</span>
+<span class="fc" id="L152">                return true;</span>
+            }
+            // mark this position so we can reset to it when we find a tool selection
+<span class="fc" id="L155">            gCodeFile.mark(FILE_MARK_LIMIT);</span>
+<span class="fc" id="L156">        }</span>
+<span class="nc" id="L157">        return false;</span>
+    }
+
+    private void writeToolChangeEndGCode(BufferedWriter outputFile, int extruder) throws IOException {
+<span class="fc" id="L161">        List&lt;ExtruderConfiguration&gt; extruderConfigList = </span>
+                printJob.getPrinterConfiguration().getExtruderList();
+
+        // Only write tool change end g code if the given extruder/tool
+        // is specified.  Otherwise do nothing.
+<span class="pc bpc" id="L166" title="1 of 4 branches missed.">        if(extruder &gt;= 0 &amp;&amp; extruder &lt; extruderConfigList.size()) {</span>
+<span class="fc" id="L167">            ExtruderConfiguration extruderConfig = extruderConfigList.get(extruder);</span>
+
+<span class="fc" id="L169">            String toolChangeEndGCode = extruderConfig.getEndGCode();</span>
+<span class="fc" id="L170">            outputFile.append(toolChangeEndGCode);</span>
+<span class="fc" id="L171">            outputFile.append(&quot;\n&quot;);</span>
+        }
+
+<span class="fc" id="L174">    }</span>
+
+    private boolean writeToolChangeStartGCode(BufferedWriter outputFile, int extruder) throws IOException {
+<span class="fc" id="L177">        ExtruderConfiguration extruderConfig = printJob.getPrinterConfiguration()</span>
+                                                 .getExtruderList().get(extruder);
+<span class="fc" id="L179">        String toolChangeStartGCode = extruderConfig.getStartGCode();</span>
+<span class="fc" id="L180">        outputFile.append(toolChangeStartGCode);</span>
+<span class="fc" id="L181">        outputFile.append(&quot;\n&quot;);</span>
+<span class="fc" id="L182">        return true;</span>
+    }
+ 
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>
