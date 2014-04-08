@@ -226,5 +226,6 @@ Ink3DNetBeans/subset-openscad-files/
 Ink3DNetBeans/subset-stl-files/
 Ink3DNetBeans/third-party/Slic3r/lib/std/Mozilla/CA.pm
 Ink3DNetBeans/third-party/Slic3r/lib/std/Mozilla/CA/cacert.pem
-Inked3DNetBeans/.jacocoverage/*
+/Ink3DNetBeans/\.jacocoverage
 *.html
+*.css
