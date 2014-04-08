@@ -13,6 +13,9 @@ import ink3d.ConfigurationObjects.SubsetConfiguration;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -83,6 +86,19 @@ public class Slic3rSlicingEngineWrapperImplTest {
     public void testGenerateGCode() {
         System.out.println(printJobConfiguration);
         Slic3rSlicingEngineWrapperImpl slicingEngine = new Slic3rSlicingEngineWrapperImpl();
-        slicingEngine.generateGCode(printJobConfiguration);
+        boolean success = false;
+        try {
+            success = slicingEngine.generateGCode(printJobConfiguration);
+        } catch (ProcessorException ex) {
+            Logger.getLogger(Slic3rSlicingEngineWrapperImplTest.class.getName()).log(Level.SEVERE, null, ex);
+            Assert.fail();
+        }
+
+        Assert.assertTrue("Generate G Code must succeed.", success);
+
+        List<SubsetConfiguration> subsets = printJobConfiguration.getSubsetConfigurationList();
+        for(SubsetConfiguration subset : subsets) {
+            Assert.assertNotNull(subset.getgCodeFile());
+        }
     }
 }

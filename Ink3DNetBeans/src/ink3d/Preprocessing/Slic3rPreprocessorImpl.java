@@ -18,6 +18,7 @@ public class Slic3rPreprocessorImpl implements Preprocessor {
 
     @Override
     public boolean preprocess(PrintJobConfiguration printJobConfiguration) throws PreprocessorException {
+        normalizer = new Slic3rNormalizerImpl();
         return normalizer.normalize(printJobConfiguration);
     }
 }

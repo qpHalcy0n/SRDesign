@@ -20,13 +20,18 @@ import ink3d.ConfigurationObjects.SkirtAndBrimConfiguration;
 import ink3d.ConfigurationObjects.SpeedConfiguration;
 import ink3d.ConfigurationObjects.SubsetConfiguration;
 import ink3d.ConfigurationObjects.SupportMaterialConfiguration;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -200,11 +205,14 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             + "Slic3r" + File.separator + "slic3r-console.exe";
 
     @Override
-    public boolean generateGCode(PrintJobConfiguration printJobConfiguration) {
+    public boolean generateGCode(PrintJobConfiguration printJobConfiguration) throws ProcessorException {
         PrinterConfiguration printerConfiguration = printJobConfiguration.getPrinterConfiguration();
 
         // Create a string builder to build a string of config options
         int subsetNum = 0;
+
+        // initialize first zOffset
+        double zOffset = printerConfiguration.getzOffset();
         List<SubsetConfiguration> subsets = printJobConfiguration.getSubsetConfigurationList();
         // Append subset specific options
         for(SubsetConfiguration subset : subsets) {
@@ -285,7 +293,6 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
 
             appendProperty(sb, LAYER_GCODE, printConfig.getLayerChangeGCode());
             
-            double zOffset = printerConfiguration.getzOffset() + subset.getBottomZ();
             appendProperty(sb, Z_OFFSET, zOffset);
             appendProperty(sb, FILAMENT_DIAMTER, getFilamentDiameters(materials));
             appendProperty(sb, EXTRUSION_MULTIPLIER, getExtrusionMultipliers(materials));
@@ -411,6 +418,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, SCALE, 1);
 
             // Write to config file and create gcode file with Slic3r
+            File subsetGCodeFile = null;
             try {
                 String baseDir = new File("").getAbsolutePath();
 
@@ -461,7 +469,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
                 Process slic3rProcess = Runtime.getRuntime().exec(command);
                 slic3rProcess.waitFor();
 
-                File subsetGCodeFile = new File(gCodeFilename);
+                subsetGCodeFile = new File(gCodeFilename);
                 if(subsetGCodeFile.exists()) {
                     subset.setgCodeFile(subsetGCodeFile);
                 }
@@ -479,11 +487,33 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
                 Logger.getLogger(Slic3rSlicingEngineWrapperImpl.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
             }
-
+            try {
+                // calculate new z-offset based on the last z value from the created GCode file
+                zOffset = calculateNextZOffset(subsetGCodeFile);
+            } catch (Exception ex) {
+                Logger.getLogger(Slic3rSlicingEngineWrapperImpl.class.getName()).log(Level.SEVERE, null, ex);
+                throw new ProcessorException("Could not properly calculate Z Offset for subset " + (subsetNum + 1));
+            }
+            
             // increment subset number for naming files
             subsetNum++;
         }
         return true;
+    }
+
+    private double calculateNextZOffset(File gCodeFile) throws FileNotFoundException, IOException, NumberFormatException {
+        BufferedReader reader = new BufferedReader(new FileReader(gCodeFile));
+        double zOffset = 0.0;
+        Pattern pattern = Pattern.compile("Z[0-9]+.[0-9]+");
+        String line = "";
+        while((line = reader.readLine()) != null) {
+            Matcher matcher = pattern.matcher(line);
+            if(matcher.find()) {
+                String match = matcher.group();
+                zOffset = Double.parseDouble(match.substring(1));
+            }
+        }
+        return zOffset;
     }
 
     /**

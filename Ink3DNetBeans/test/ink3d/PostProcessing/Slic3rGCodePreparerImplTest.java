@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import junit.framework.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -25,7 +26,14 @@ import org.junit.Test;
  */
 public class Slic3rGCodePreparerImplTest {
     private PrintJobConfiguration printJob;
+    private static final String PRINT_JOB_NAME = "GCode Preparer Test";
     private static final String BASE_DIR = new File("").getAbsolutePath();
+
+    @BeforeClass
+    public static void clean() {
+        File finalizedGCodeFile = new File(BASE_DIR + File.separator + "gcode" + File.separator + "GCode Preparer Test.gcode");
+        finalizedGCodeFile.delete();
+    }
 
     @Before
     public void initialize() {
@@ -66,6 +74,7 @@ public class Slic3rGCodePreparerImplTest {
         subsets.add(subset1);
 
         this.printJob = new PrintJobConfiguration();
+        this.printJob.setName(PRINT_JOB_NAME);
         this.printJob.setPrinterConfiguration(printerConfig);
         this.printJob.setSubsetConfigurationList(subsets);
     }

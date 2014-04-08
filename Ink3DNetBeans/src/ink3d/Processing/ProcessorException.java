@@ -11,5 +11,12 @@ package ink3d.Processing;
  * @author Tim
  */
 public class ProcessorException extends Exception {
-    
+    private String message;
+    ProcessorException(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 }

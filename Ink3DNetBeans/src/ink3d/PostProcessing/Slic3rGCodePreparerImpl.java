@@ -30,6 +30,7 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
     private static final String BASE_DIR = new File("").getAbsolutePath();
     public static String GCODE_DIR = BASE_DIR + File.separator + "gcode";
     public static final int FILE_MARK_LIMIT = 500;
+    public static final String GCODE_EXTENSION = ".gcode";
 
     private PrintJobConfiguration printJob;
     private int currentTool;
@@ -42,7 +43,7 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
     }
 
     private boolean postProcessGCodes() throws PostProcessorException {
-        String finalizedGCodeFilename = GCODE_DIR + File.separator + printJob.getName();
+        String finalizedGCodeFilename = GCODE_DIR + File.separator + printJob.getName() + GCODE_EXTENSION;
         File finalizedGCode = new File(finalizedGCodeFilename);
         // Create directory for finalize gcode file if it does not exist.
         if(!finalizedGCode.exists()) {
