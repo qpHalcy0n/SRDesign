@@ -15,7 +15,6 @@ import java.util.ArrayList;
  */
 public interface TXRX
 {
-    // FIXME: Items here are contained in PrintJobConfiguration object. These are placeholders
 //    public static ArrayList<String> gCodes      = new ArrayList<String>();
     public static String initFileName           = "init.gcode";
     public static int BAUD                      = 250000;
@@ -38,6 +37,8 @@ public interface TXRX
     
     // Query whether printer feedback buffer has data
     public boolean isPrinterFeedbackReady();
+    
+    public boolean ackReceived();
     
     // Pass G-Codes from into communications
 //    public boolean addGcode(ArrayList<String> ppGcode);
