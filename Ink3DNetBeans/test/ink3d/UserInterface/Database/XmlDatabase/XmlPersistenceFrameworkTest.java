@@ -1212,16 +1212,17 @@ public class XmlPersistenceFrameworkTest {
         assertTrue(instance.savePrinterConfiguration(printer));
         
         String path = "./Database/Printers/"+printer.getName()+".xml";
-        
+        File newfile = new File(path);
         String result;
         try {
-            result = FileUtils.readFileToString(new File(path));
+            result = FileUtils.readFileToString(newfile);
             result = result.substring(0, result.length()-1);
             assertEquals(expResult, result);
         } catch (IOException ex) {
             Logger.getLogger(XmlPersistenceFrameworkTest.class.getName()).log(Level.SEVERE, null, ex);
             fail("Could not read saved printer configuration");
             printer = null;
+            newfile = null;
             System.gc();
             File file = new File("./Database/Printers/SaveTest.xml");
             file.delete();
