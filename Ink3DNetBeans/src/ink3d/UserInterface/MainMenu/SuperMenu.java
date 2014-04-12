@@ -5,7 +5,11 @@
  */
 
 package ink3d.UserInterface.MainMenu;
+import ink3d.UserInterface.Import.ImportController;
 import ink3d.UserInterface.MainMenu.SubsectionGUI;
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -13,7 +17,7 @@ import javax.swing.JPanel;
  * @author courtney
  */
 public class SuperMenu extends javax.swing.JFrame {
-
+    public static ImportController importController = new ImportController();
     /**
      * Creates new form SuperMenu
      */
@@ -54,7 +58,7 @@ public class SuperMenu extends javax.swing.JFrame {
         jScrollPane17 = new javax.swing.JScrollPane();
         jList6 = new javax.swing.JList();
         jPanel2 = new javax.swing.JPanel();
-        jPanel52 = new javax.swing.JPanel();
+        ImportPanel = new javax.swing.JPanel();
         jScrollPane11 = new javax.swing.JScrollPane();
         StlList = new javax.swing.JList();
         jPanel53 = new javax.swing.JPanel();
@@ -649,10 +653,11 @@ public class SuperMenu extends javax.swing.JFrame {
         jTabbedPane1.addTab("Print Job", jPanel1);
 
         StlList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            private ImportController  controller = new ImportController();
+            public int getSize() { return controller.getStlFiles().size(); }
+            public Object getElementAt(int i) { return controller.getStlFiles().get(i); }
         });
+        StlList.setToolTipText("");
         jScrollPane11.setViewportView(StlList);
 
         jPanel53.setBackground(new java.awt.Color(153, 153, 153));
@@ -672,50 +677,60 @@ public class SuperMenu extends javax.swing.JFrame {
         jLabel205.setText("STL Models");
 
         importImpBttn.setText("Import");
+        importImpBttn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                importImpBttnMouseReleased(evt);
+            }
+        });
 
         deleteImpBttn.setText("Delete");
+        deleteImpBttn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                deleteImpBttnMouseReleased(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel52Layout = new javax.swing.GroupLayout(jPanel52);
-        jPanel52.setLayout(jPanel52Layout);
-        jPanel52Layout.setHorizontalGroup(
-            jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout ImportPanelLayout = new javax.swing.GroupLayout(ImportPanel);
+        ImportPanel.setLayout(ImportPanelLayout);
+        ImportPanelLayout.setHorizontalGroup(
+            ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 600, Short.MAX_VALUE)
-            .addGroup(jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel52Layout.createSequentialGroup()
+            .addGroup(ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ImportPanelLayout.createSequentialGroup()
                     .addGap(15, 15, 15)
-                    .addGroup(jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel52Layout.createSequentialGroup()
+                    .addGroup(ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(ImportPanelLayout.createSequentialGroup()
                             .addGap(207, 207, 207)
                             .addComponent(importImpBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(47, 47, 47)
                             .addComponent(deleteImpBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel52Layout.createSequentialGroup()
+                        .addGroup(ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ImportPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel205)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel52Layout.createSequentialGroup()
+                            .addGroup(ImportPanelLayout.createSequentialGroup()
                                 .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(44, 44, 44)
                                 .addComponent(jPanel53, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGap(16, 16, 16)))
         );
-        jPanel52Layout.setVerticalGroup(
-            jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        ImportPanelLayout.setVerticalGroup(
+            ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 300, Short.MAX_VALUE)
-            .addGroup(jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel52Layout.createSequentialGroup()
+            .addGroup(ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ImportPanelLayout.createSequentialGroup()
                     .addGap(20, 20, 20)
-                    .addGroup(jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(importImpBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(deleteImpBttn))
                     .addGap(1, 1, 1)
                     .addComponent(jLabel205)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                         .addComponent(jPanel53, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap(20, Short.MAX_VALUE)))
+                    .addGap(20, 20, 20)))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -723,14 +738,14 @@ public class SuperMenu extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addComponent(ImportPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 32, Short.MAX_VALUE)
-                .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addComponent(ImportPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Import", jPanel2);
@@ -3696,6 +3711,42 @@ public class SuperMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_speedPrintMovesPCText1ActionPerformed
 
+    private void importImpBttnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_importImpBttnMouseReleased
+       final JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            if(!importController.importStl(file.getPath())){
+                JOptionPane.showMessageDialog(null, "File Read Error", "InfoBox: " + "Unable to read file", JOptionPane.INFORMATION_MESSAGE);
+            }         
+            this.StlList.setModel(new javax.swing.AbstractListModel() {
+                    private final ImportController  controller = new ImportController();
+                    @Override
+                    public int getSize() { return controller.getStlFiles().size(); }
+                    @Override
+                    public Object getElementAt(int i) { return controller.getStlFiles().get(i); }
+                }
+            );
+            
+        }
+    }//GEN-LAST:event_importImpBttnMouseReleased
+
+    private void deleteImpBttnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteImpBttnMouseReleased
+        String fileName = (String)this.StlList.getSelectedValue();
+        if(!importController.deleteStl(fileName)){
+            System.out.println(fileName);
+            JOptionPane.showMessageDialog(null, "File Delete Error", "InfoBox: " + "Unable to delete file", JOptionPane.INFORMATION_MESSAGE);
+        }
+        this.StlList.setModel(new javax.swing.AbstractListModel() {
+                    private final ImportController  controller = new ImportController();
+                    @Override
+                    public int getSize() { return controller.getStlFiles().size(); }
+                    @Override
+                    public Object getElementAt(int i) { return controller.getStlFiles().get(i); }
+                }
+            );
+    }//GEN-LAST:event_deleteImpBttnMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -3733,6 +3784,7 @@ public class SuperMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList ExtrudList;
+    private javax.swing.JPanel ImportPanel;
     private javax.swing.JList MatList;
     private javax.swing.JList PCList;
     private javax.swing.JCheckBox SeqPrintPCCheckBox;
@@ -4047,7 +4099,6 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel50;
     private javax.swing.JPanel jPanel51;
-    private javax.swing.JPanel jPanel52;
     private javax.swing.JPanel jPanel53;
     private javax.swing.JPanel jPanel54;
     private javax.swing.JPanel jPanel6;

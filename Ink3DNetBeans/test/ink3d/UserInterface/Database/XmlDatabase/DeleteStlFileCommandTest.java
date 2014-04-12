@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
  */
 public class DeleteStlFileCommandTest {
     private File file;
-    private String name = "./Database/Files/DeleteTest.xml";
+    private String name = "./Database/Files/DeleteTest.stl";
     
     public DeleteStlFileCommandTest() {
     }
@@ -56,9 +56,14 @@ public class DeleteStlFileCommandTest {
             fail("Could not create File to delete");
             Logger.getLogger(DeleteStlFileCommandTest.class.getName()).log(Level.SEVERE, null, ex);
         }
+        file = null;
+        System.gc();
         DeleteStlFileCommand delete = new DeleteStlFileCommand("DeleteTest");
         delete.execute();
-        assertTrue((Boolean)delete.getResult());
+        Boolean expResult =Boolean.TRUE;
+        Boolean result = (Boolean)delete.getResult();
+        assertEquals(expResult, result);
+
     }
     
     /**

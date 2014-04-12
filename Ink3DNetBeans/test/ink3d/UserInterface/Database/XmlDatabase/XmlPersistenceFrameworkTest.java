@@ -1943,7 +1943,7 @@ public class XmlPersistenceFrameworkTest {
      */
     @Test
     public void testDeleteStlFileValidFile() {
-        String name = "./Database/Files/DeleteTest.xml";
+        String name = "./Database/Files/DeleteTest.stl";
         file = new File(name);
         try {
             file.createNewFile();
@@ -1951,6 +1951,8 @@ public class XmlPersistenceFrameworkTest {
             fail("Could not create File to delete");
             Logger.getLogger(DeleteStlFileCommandTest.class.getName()).log(Level.SEVERE, null, ex);
         }
+        file = null;
+        System.gc();
         System.out.println("deleteStlFileValidFile");
         name = "DeleteTest";
         XmlPersistenceFramework instance = new XmlPersistenceFramework();

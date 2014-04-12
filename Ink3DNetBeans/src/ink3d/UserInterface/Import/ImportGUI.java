@@ -6,17 +6,58 @@
 
 package ink3d.UserInterface.Import;
 
+import java.util.ArrayList;
+import javax.swing.ListModel;
+import javax.swing.event.ListDataListener;
+
 /**
  *
  * @author courtney
  */
 public class ImportGUI extends javax.swing.JPanel {
+    private ImportController controller;
+    private StlListModel litModel;
+    
+    private class StlListModel implements ListModel{
+        ArrayList<String> stlFiles;       
+        
+        public void update(){
+            stlFiles = controller.getStlFiles();
+        }
+        
+        @Override
+        public int getSize() {
+            return stlFiles.size();
+        }
 
+        @Override
+        public Object getElementAt(int i) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void addListDataListener(ListDataListener ll) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void removeListDataListener(ListDataListener ll) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+        
+    }
     /**
      * Creates new form ImportPanel
      */
     public ImportGUI() {
+        this.controller = new ImportController();
+        this.litModel = new StlListModel();
         initComponents();
+        jList1.setModel(new javax.swing.AbstractListModel() {
+            private ImportController controller;
+            public int getSize() { return controller.getStlFiles().size(); }
+            public Object getElementAt(int i) { return controller.getStlFiles().get(i); }
+        });
     }
 
     /**
@@ -35,11 +76,6 @@ public class ImportGUI extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(jList1);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
@@ -82,7 +118,7 @@ public class ImportGUI extends javax.swing.JPanel {
                                 .addComponent(jLabel1)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                 .addGap(44, 44, 44)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGap(16, 16, 16)))
@@ -99,10 +135,10 @@ public class ImportGUI extends javax.swing.JPanel {
                     .addGap(1, 1, 1)
                     .addComponent(jLabel1)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap(20, Short.MAX_VALUE)))
+                    .addGap(20, 20, 20)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -115,4 +151,5 @@ public class ImportGUI extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
 }
