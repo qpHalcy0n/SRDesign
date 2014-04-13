@@ -5,9 +5,15 @@
  */
 
 package ink3d.UserInterface.MainMenu;
+import ink3d.ConfigurationObjects.PrinterConfiguration;
 import ink3d.UserInterface.Import.ImportController;
 import ink3d.UserInterface.MainMenu.SubsectionGUI;
+import ink3d.UserInterface.PrinterConfig.PrinterController;
+import ink3d.UserInterface.PrinterConfig.PrinterController.BadFieldException;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -18,6 +24,7 @@ import javax.swing.JPanel;
  */
 public class SuperMenu extends javax.swing.JFrame {
     public static ImportController importController = new ImportController();
+    public static PrinterController printerController = new PrinterController();
     /**
      * Creates new form SuperMenu
      */
@@ -63,8 +70,8 @@ public class SuperMenu extends javax.swing.JFrame {
         StlList = new javax.swing.JList();
         jPanel53 = new javax.swing.JPanel();
         jLabel205 = new javax.swing.JLabel();
-        importImpBttn = new javax.swing.JButton();
-        deleteImpBttn = new javax.swing.JButton();
+        importImportButton = new javax.swing.JButton();
+        deleteImportButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
         newPCBttn = new javax.swing.JButton();
@@ -268,56 +275,6 @@ public class SuperMenu extends javax.swing.JFrame {
         jLabel157 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         postProcPCTextArea = new javax.swing.JTextArea();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel14 = new javax.swing.JPanel();
-        newPtrBttn = new javax.swing.JButton();
-        savePtrBttn = new javax.swing.JButton();
-        deletePtrBttn = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jPanel15 = new javax.swing.JPanel();
-        jPanel16 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        bedXPtrText = new javax.swing.JTextField();
-        bedYPtrText = new javax.swing.JTextField();
-        zOffsetPtrText = new javax.swing.JTextField();
-        printCenterXPtrText = new javax.swing.JTextField();
-        printCenterYPtrText = new javax.swing.JTextField();
-        jPanel17 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        gCodeFlavorPtrText = new javax.swing.JTextField();
-        compPortDescriptPtrText = new javax.swing.JTextField();
-        relativeEPtrText = new javax.swing.JTextField();
-        vibrationPtrText = new javax.swing.JTextField();
-        numExtrudersPtrText = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
-        jPanel18 = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        offsetXPtrText = new javax.swing.JTextField();
-        offsetYPtrText = new javax.swing.JTextField();
-        offsetZPtrText = new javax.swing.JTextField();
-        jPanel19 = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        startGCodePtrTextArea = new javax.swing.JTextArea();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        endGCodePtrTextArea = new javax.swing.JTextArea();
-        jScrollPane12 = new javax.swing.JScrollPane();
-        StlList1 = new javax.swing.JList();
-        jTextField2 = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jPanel43 = new javax.swing.JPanel();
         newMatBttn = new javax.swing.JButton();
@@ -460,6 +417,48 @@ public class SuperMenu extends javax.swing.JFrame {
         javax.swing.JTextField toolDisabledExtraLengthExtrudText = new javax.swing.JTextField();
         jLabel64 = new javax.swing.JLabel();
         jLabel65 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        newPrinterButton = new javax.swing.JButton();
+        savePrinterButton = new javax.swing.JButton();
+        loadPrinterButton = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jPanel15 = new javax.swing.JPanel();
+        jPanel16 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        bedXPrinterText = new javax.swing.JTextField();
+        bedYPrinterText = new javax.swing.JTextField();
+        zOffsetPrinterText = new javax.swing.JTextField();
+        printCenterXPrinterText = new javax.swing.JTextField();
+        printCenterYPrinterText = new javax.swing.JTextField();
+        jPanel17 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        vibrationPrinterText = new javax.swing.JTextField();
+        numExtrudersPrinterText = new javax.swing.JTextField();
+        relativeEDistancePrinterCombo = new javax.swing.JComboBox();
+        gCodeFlavorPrinterCombo = new javax.swing.JComboBox();
+        jLabel206 = new javax.swing.JLabel();
+        firmwareRetractionPrinterCombo = new javax.swing.JComboBox();
+        jPanel19 = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        startGCodePrinterTextArea = new javax.swing.JTextArea();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        endGCodePrinterTextArea = new javax.swing.JTextArea();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        printerListPrinter = new javax.swing.JList();
+        namePrinterText = new javax.swing.JTextField();
+        deletePriinterButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -648,7 +647,7 @@ public class SuperMenu extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 11, Short.MAX_VALUE)
+                .addGap(0, 92, Short.MAX_VALUE)
                 .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -678,17 +677,17 @@ public class SuperMenu extends javax.swing.JFrame {
         jLabel205.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel205.setText("STL Models");
 
-        importImpBttn.setText("Import");
-        importImpBttn.addMouseListener(new java.awt.event.MouseAdapter() {
+        importImportButton.setText("Import");
+        importImportButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                importImpBttnMouseReleased(evt);
+                importImportButtonMouseReleased(evt);
             }
         });
 
-        deleteImpBttn.setText("Delete");
-        deleteImpBttn.addMouseListener(new java.awt.event.MouseAdapter() {
+        deleteImportButton.setText("Delete");
+        deleteImportButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                deleteImpBttnMouseReleased(evt);
+                deleteImportButtonMouseReleased(evt);
             }
         });
 
@@ -696,16 +695,16 @@ public class SuperMenu extends javax.swing.JFrame {
         ImportPanel.setLayout(ImportPanelLayout);
         ImportPanelLayout.setHorizontalGroup(
             ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 762, Short.MAX_VALUE)
             .addGroup(ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ImportPanelLayout.createSequentialGroup()
                     .addGap(15, 15, 15)
                     .addGroup(ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(ImportPanelLayout.createSequentialGroup()
                             .addGap(207, 207, 207)
-                            .addComponent(importImpBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(importImportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(47, 47, 47)
-                            .addComponent(deleteImpBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(deleteImportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(ImportPanelLayout.createSequentialGroup()
@@ -719,13 +718,13 @@ public class SuperMenu extends javax.swing.JFrame {
         );
         ImportPanelLayout.setVerticalGroup(
             ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 381, Short.MAX_VALUE)
             .addGroup(ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ImportPanelLayout.createSequentialGroup()
                     .addGap(20, 20, 20)
                     .addGroup(ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(importImpBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(deleteImpBttn))
+                        .addComponent(importImportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(deleteImportButton))
                     .addGap(1, 1, 1)
                     .addComponent(jLabel205)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2133,446 +2132,11 @@ public class SuperMenu extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 32, Short.MAX_VALUE)
+                .addGap(0, 113, Short.MAX_VALUE)
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane1.addTab("Print Config", jPanel3);
-
-        newPtrBttn.setText("New");
-        newPtrBttn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newPtrBttnActionPerformed(evt);
-            }
-        });
-
-        savePtrBttn.setText("Save");
-
-        deletePtrBttn.setText("Delete");
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setText("Name:");
-
-        jScrollPane3.setBackground(new java.awt.Color(102, 102, 102));
-
-        jPanel15.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel15.setFocusTraversalPolicyProvider(true);
-
-        jLabel7.setText("Bed X:");
-
-        jLabel8.setText("Bed Y:");
-
-        jLabel11.setText("Print Center X:");
-
-        jLabel12.setText("Print Center Y:");
-
-        jLabel13.setText("Z Offset:");
-
-        bedXPtrText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bedXPtrTextActionPerformed(evt);
-            }
-        });
-
-        bedYPtrText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bedYPtrTextActionPerformed(evt);
-            }
-        });
-
-        zOffsetPtrText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                zOffsetPtrTextActionPerformed(evt);
-            }
-        });
-
-        printCenterXPtrText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                printCenterXPtrTextActionPerformed(evt);
-            }
-        });
-
-        printCenterYPtrText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                printCenterYPtrTextActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
-        jPanel16.setLayout(jPanel16Layout);
-        jPanel16Layout.setHorizontalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(32, 32, 32)
-                                .addComponent(bedXPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bedYPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(printCenterYPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(printCenterXPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(123, 123, 123))
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addGap(18, 18, 18)
-                        .addComponent(zOffsetPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        jPanel16Layout.setVerticalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel11)
-                    .addComponent(bedXPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(printCenterXPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel12)
-                    .addComponent(bedYPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(printCenterYPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(zOffsetPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
-
-        jLabel14.setText("G Code Flavor:");
-
-        jLabel15.setText("Relative E Distance:");
-
-        jLabel16.setText("Number of Extruders:");
-
-        jLabel17.setText("Vibration Limit");
-
-        jLabel18.setText("Computer Port Descriptor");
-
-        gCodeFlavorPtrText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gCodeFlavorPtrTextActionPerformed(evt);
-            }
-        });
-
-        compPortDescriptPtrText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                compPortDescriptPtrTextActionPerformed(evt);
-            }
-        });
-
-        relativeEPtrText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                relativeEPtrTextActionPerformed(evt);
-            }
-        });
-
-        vibrationPtrText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                vibrationPtrTextActionPerformed(evt);
-            }
-        });
-
-        numExtrudersPtrText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numExtrudersPtrTextActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
-        jPanel17.setLayout(jPanel17Layout);
-        jPanel17Layout.setHorizontalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel17Layout.createSequentialGroup()
-                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel17Layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addGap(18, 18, 18)
-                                .addComponent(numExtrudersPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel17Layout.createSequentialGroup()
-                                    .addComponent(jLabel17)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(vibrationPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel17Layout.createSequentialGroup()
-                                    .addComponent(jLabel15)
-                                    .addGap(26, 26, 26)
-                                    .addComponent(relativeEPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel17Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(gCodeFlavorPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                        .addComponent(jLabel18)
-                        .addGap(18, 18, 18)
-                        .addComponent(compPortDescriptPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(90, 90, 90))))
-        );
-        jPanel17Layout.setVerticalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel18)
-                    .addComponent(gCodeFlavorPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(compPortDescriptPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(relativeEPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(numExtrudersPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(vibrationPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
-
-        jLabel19.setText("Z Offset:");
-
-        jLabel21.setText("Positions:");
-
-        jLabel22.setText("Offset X:");
-
-        jLabel23.setText("Offset Y:");
-
-        jLabel24.setText("Offset Z:");
-
-        offsetXPtrText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                offsetXPtrTextActionPerformed(evt);
-            }
-        });
-
-        offsetYPtrText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                offsetYPtrTextActionPerformed(evt);
-            }
-        });
-
-        offsetZPtrText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                offsetZPtrTextActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
-        jPanel18.setLayout(jPanel18Layout);
-        jPanel18Layout.setHorizontalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel21)
-                    .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel22)
-                            .addComponent(jLabel23)
-                            .addComponent(jLabel24))
-                        .addGap(78, 78, 78)
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(offsetZPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(offsetYPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(offsetXPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel18Layout.setVerticalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel21)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22)
-                    .addComponent(offsetXPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel23)
-                    .addComponent(offsetYPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
-                    .addComponent(offsetZPtrText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(39, Short.MAX_VALUE))
-        );
-
-        jLabel25.setText("Custom Gcode:");
-
-        jLabel26.setText("Start G Code:");
-
-        jLabel27.setText("End G Code:");
-
-        startGCodePtrTextArea.setColumns(20);
-        startGCodePtrTextArea.setRows(5);
-        jScrollPane4.setViewportView(startGCodePtrTextArea);
-
-        endGCodePtrTextArea.setColumns(20);
-        endGCodePtrTextArea.setRows(5);
-        jScrollPane5.setViewportView(endGCodePtrTextArea);
-
-        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
-        jPanel19.setLayout(jPanel19Layout);
-        jPanel19Layout.setHorizontalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel19Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel25)
-                    .addComponent(jLabel26)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
-                    .addComponent(jLabel27)
-                    .addComponent(jScrollPane5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel19Layout.setVerticalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel19Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel25)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel26)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel27)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel15Layout.createSequentialGroup()
-                    .addGap(264, 264, 264)
-                    .addComponent(jLabel19)
-                    .addContainerGap(263, Short.MAX_VALUE)))
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
-            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel15Layout.createSequentialGroup()
-                    .addGap(218, 218, 218)
-                    .addComponent(jLabel19)
-                    .addContainerGap(519, Short.MAX_VALUE)))
-        );
-
-        jScrollPane3.setViewportView(jPanel15);
-
-        StlList1.setModel(new javax.swing.AbstractListModel() {
-            private ImportController  controller = new ImportController();
-            public int getSize() { return controller.getStlFiles().size(); }
-            public Object getElementAt(int i) { return controller.getStlFiles().get(i); }
-        });
-        StlList1.setToolTipText("");
-        jScrollPane12.setViewportView(StlList1);
-
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addContainerGap(130, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
-            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel14Layout.createSequentialGroup()
-                    .addGap(130, 130, 130)
-                    .addComponent(newPtrBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(79, 79, 79)
-                    .addComponent(savePtrBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(78, 78, 78)
-                    .addComponent(deletePtrBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(49, Short.MAX_VALUE))
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                    .addGap(167, 167, 167)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)))
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel14Layout.createSequentialGroup()
-                    .addGap(5, 5, 5)
-                    .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(newPtrBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(savePtrBttn)
-                        .addComponent(deletePtrBttn))
-                    .addGap(32, 32, 32)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Printer Config", jPanel4);
 
         newMatBttn.setText("New");
 
@@ -3169,7 +2733,7 @@ public class SuperMenu extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 32, Short.MAX_VALUE)
+                .addGap(0, 113, Short.MAX_VALUE)
                 .addComponent(jPanel43, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -3548,7 +3112,7 @@ public class SuperMenu extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 762, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -3557,7 +3121,7 @@ public class SuperMenu extends javax.swing.JFrame {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 332, Short.MAX_VALUE)
+            .addGap(0, 413, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -3567,6 +3131,370 @@ public class SuperMenu extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Extruders", jPanel6);
 
+        newPrinterButton.setText("New");
+        newPrinterButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                newPrinterButtonMouseReleased(evt);
+            }
+        });
+        newPrinterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newPrinterButtonActionPerformed(evt);
+            }
+        });
+
+        savePrinterButton.setText("Save");
+        savePrinterButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                savePrinterButtonMouseReleased(evt);
+            }
+        });
+
+        loadPrinterButton.setText("Load");
+        loadPrinterButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                loadPrinterButtonMouseReleased(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setText("Name:");
+
+        jScrollPane3.setBackground(new java.awt.Color(102, 102, 102));
+
+        jPanel15.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel15.setFocusTraversalPolicyProvider(true);
+        jPanel15.setPreferredSize(new java.awt.Dimension(300, 602));
+
+        jPanel16.setPreferredSize(new java.awt.Dimension(300, 119));
+        jPanel16.setVerifyInputWhenFocusTarget(false);
+
+        jLabel7.setText("Bed X:");
+
+        jLabel8.setText("Bed Y:");
+
+        jLabel11.setText("Print Center X:");
+
+        jLabel12.setText("Print Center Y:");
+
+        jLabel13.setText("Z Offset:");
+
+        bedXPrinterText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bedXPrinterTextActionPerformed(evt);
+            }
+        });
+
+        bedYPrinterText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bedYPrinterTextActionPerformed(evt);
+            }
+        });
+
+        zOffsetPrinterText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zOffsetPrinterTextActionPerformed(evt);
+            }
+        });
+
+        printCenterXPrinterText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printCenterXPrinterTextActionPerformed(evt);
+            }
+        });
+
+        printCenterYPrinterText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printCenterYPrinterTextActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
+        jPanel16.setLayout(jPanel16Layout);
+        jPanel16Layout.setHorizontalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel16Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(32, 32, 32)
+                                .addComponent(bedXPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel16Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(bedYPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel11))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(printCenterXPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(printCenterYPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addGap(18, 18, 18)
+                        .addComponent(zOffsetPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(172, Short.MAX_VALUE))
+        );
+        jPanel16Layout.setVerticalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel11)
+                    .addComponent(bedXPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(printCenterXPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel12)
+                    .addComponent(bedYPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(printCenterYPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(zOffsetPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+
+        jLabel14.setText("G Code Flavor:");
+
+        jLabel15.setText("Relative E Distance:");
+
+        jLabel16.setText("Number of Extruders:");
+
+        jLabel17.setText("Vibration Limit");
+
+        vibrationPrinterText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vibrationPrinterTextActionPerformed(evt);
+            }
+        });
+
+        numExtrudersPrinterText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numExtrudersPrinterTextActionPerformed(evt);
+            }
+        });
+
+        relativeEDistancePrinterCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "True", "False" }));
+
+        gCodeFlavorPrinterCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "reprap", "teacup", "makerbot", "sailfish", "mach3", "no-extrusion" }));
+
+        jLabel206.setText("Firmware Restraction:");
+
+        firmwareRetractionPrinterCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "True", "False" }));
+
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel14))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(relativeEDistancePrinterCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(gCodeFlavorPrinterCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel17))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(vibrationPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(numExtrudersPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addComponent(jLabel206, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(firmwareRetractionPrinterCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(gCodeFlavorPrinterCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(relativeEDistancePrinterCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(numExtrudersPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(vibrationPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel206)
+                    .addComponent(firmwareRetractionPrinterCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
+        jLabel25.setText("Custom Gcode:");
+
+        jLabel26.setText("Start G Code:");
+
+        jLabel27.setText("End G Code:");
+
+        startGCodePrinterTextArea.setColumns(20);
+        startGCodePrinterTextArea.setRows(5);
+        jScrollPane4.setViewportView(startGCodePrinterTextArea);
+
+        endGCodePrinterTextArea.setColumns(20);
+        endGCodePrinterTextArea.setRows(5);
+        jScrollPane5.setViewportView(endGCodePrinterTextArea);
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel26)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
+                    .addComponent(jLabel27)
+                    .addComponent(jScrollPane5))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+                    .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jScrollPane3.setViewportView(jPanel15);
+
+        printerListPrinter.setModel(new javax.swing.AbstractListModel() {
+            private PrinterController  controller = new PrinterController();
+            public int getSize() { return controller.getPrinterConfigurations().size(); }
+            public Object getElementAt(int i) { return controller.getPrinterConfigurations().get(i); }
+        });
+        printerListPrinter.setToolTipText("");
+        jScrollPane12.setViewportView(printerListPrinter);
+
+        deletePriinterButton.setText("Delete");
+        deletePriinterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletePriinterButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE))
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel14Layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(namePrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel14Layout.createSequentialGroup()
+                                .addComponent(newPrinterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(savePrinterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(loadPrinterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(deletePriinterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newPrinterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(savePrinterButton)
+                    .addComponent(loadPrinterButton)
+                    .addComponent(deletePriinterButton))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(namePrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Printer Config", jPanel4);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -3575,7 +3503,7 @@ public class SuperMenu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jTabbedPane1)
         );
 
         pack();
@@ -3585,61 +3513,37 @@ public class SuperMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nozzDiameterExtrudTextActionPerformed
 
-    private void newPtrBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newPtrBttnActionPerformed
+    private void newPrinterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newPrinterButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_newPtrBttnActionPerformed
+    }//GEN-LAST:event_newPrinterButtonActionPerformed
 
-    private void bedXPtrTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedXPtrTextActionPerformed
+    private void bedXPrinterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedXPrinterTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bedXPtrTextActionPerformed
+    }//GEN-LAST:event_bedXPrinterTextActionPerformed
 
-    private void bedYPtrTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedYPtrTextActionPerformed
+    private void bedYPrinterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedYPrinterTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bedYPtrTextActionPerformed
+    }//GEN-LAST:event_bedYPrinterTextActionPerformed
 
-    private void zOffsetPtrTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zOffsetPtrTextActionPerformed
+    private void zOffsetPrinterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zOffsetPrinterTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_zOffsetPtrTextActionPerformed
+    }//GEN-LAST:event_zOffsetPrinterTextActionPerformed
 
-    private void printCenterXPtrTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printCenterXPtrTextActionPerformed
+    private void printCenterXPrinterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printCenterXPrinterTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_printCenterXPtrTextActionPerformed
+    }//GEN-LAST:event_printCenterXPrinterTextActionPerformed
 
-    private void printCenterYPtrTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printCenterYPtrTextActionPerformed
+    private void printCenterYPrinterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printCenterYPrinterTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_printCenterYPtrTextActionPerformed
+    }//GEN-LAST:event_printCenterYPrinterTextActionPerformed
 
-    private void gCodeFlavorPtrTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gCodeFlavorPtrTextActionPerformed
+    private void vibrationPrinterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vibrationPrinterTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_gCodeFlavorPtrTextActionPerformed
+    }//GEN-LAST:event_vibrationPrinterTextActionPerformed
 
-    private void compPortDescriptPtrTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compPortDescriptPtrTextActionPerformed
+    private void numExtrudersPrinterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numExtrudersPrinterTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_compPortDescriptPtrTextActionPerformed
-
-    private void relativeEPtrTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relativeEPtrTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_relativeEPtrTextActionPerformed
-
-    private void vibrationPtrTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vibrationPtrTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_vibrationPtrTextActionPerformed
-
-    private void numExtrudersPtrTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numExtrudersPtrTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_numExtrudersPtrTextActionPerformed
-
-    private void offsetXPtrTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_offsetXPtrTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_offsetXPtrTextActionPerformed
-
-    private void offsetYPtrTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_offsetYPtrTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_offsetYPtrTextActionPerformed
-
-    private void offsetZPtrTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_offsetZPtrTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_offsetZPtrTextActionPerformed
+    }//GEN-LAST:event_numExtrudersPrinterTextActionPerformed
 
     private void layerHeightPCTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_layerHeightPCTextActionPerformed
         // TODO add your handling code here:
@@ -3724,8 +3628,8 @@ public class SuperMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_speedPrintMovesPCText1ActionPerformed
 
-    private void importImpBttnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_importImpBttnMouseReleased
-       final JFileChooser fc = new JFileChooser();
+    private void importImportButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_importImportButtonMouseReleased
+        final JFileChooser fc = new JFileChooser();
         int returnVal = fc.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
@@ -3742,9 +3646,9 @@ public class SuperMenu extends javax.swing.JFrame {
             );
             
         }
-    }//GEN-LAST:event_importImpBttnMouseReleased
+    }//GEN-LAST:event_importImportButtonMouseReleased
 
-    private void deleteImpBttnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteImpBttnMouseReleased
+    private void deleteImportButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteImportButtonMouseReleased
         String fileName = (String)this.StlList.getSelectedValue();
         if(!importController.deleteStl(fileName)){
             System.out.println(fileName);
@@ -3758,7 +3662,86 @@ public class SuperMenu extends javax.swing.JFrame {
                     public Object getElementAt(int i) { return controller.getStlFiles().get(i); }
                 }
             );
-    }//GEN-LAST:event_deleteImpBttnMouseReleased
+    }//GEN-LAST:event_deleteImportButtonMouseReleased
+
+    private void savePrinterButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_savePrinterButtonMouseReleased
+        ArrayList<String> varList = new ArrayList<>();
+        varList.add(this.namePrinterText.getText());
+        varList.add(this.bedXPrinterText.getText());
+        varList.add(this.bedYPrinterText.getText());
+        varList.add(this.printCenterXPrinterText.getText());
+        varList.add(this.printCenterYPrinterText.getText());
+        varList.add(this.zOffsetPrinterText.getText());
+        varList.add(this.gCodeFlavorPrinterCombo.getSelectedItem().toString());
+        varList.add(this.relativeEDistancePrinterCombo.getSelectedItem().toString());
+        varList.add(this.numExtrudersPrinterText.getText());
+        varList.add(this.vibrationPrinterText.getText());
+        varList.add(this.firmwareRetractionPrinterCombo.getSelectedItem().toString());
+        varList.add(this.startGCodePrinterTextArea.getText());
+        varList.add(this.endGCodePrinterTextArea.getText());
+        try{
+            printerController.savePrinterConfiguratoin(varList);
+            this.printerListPrinter.setModel(new javax.swing.AbstractListModel() {
+                    private final PrinterController  controller = new PrinterController();
+                    @Override
+                    public int getSize() { return controller.getPrinterConfigurations().size(); }
+                    @Override
+                    public Object getElementAt(int i) { return controller.getPrinterConfigurations().get(i); }
+                }
+            );
+        }catch(BadFieldException e){
+            JOptionPane.showMessageDialog(null, e.getMessage() , "InfoBox: " + "Bad Field Data",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_savePrinterButtonMouseReleased
+
+    private void newPrinterButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newPrinterButtonMouseReleased
+        this.namePrinterText.setText(null);
+        this.bedXPrinterText.setText(null);
+        this.bedYPrinterText.setText(null);
+        this.printCenterXPrinterText.setText(null);
+        this.printCenterYPrinterText.setText(null);
+        this.zOffsetPrinterText.setText(null);
+        this.gCodeFlavorPrinterCombo.setSelectedIndex(0);
+        this.relativeEDistancePrinterCombo.setSelectedIndex(0);
+        this.numExtrudersPrinterText.setText(null);
+        this.vibrationPrinterText.setText(null);
+        this.firmwareRetractionPrinterCombo.setSelectedItem(0);
+        this.startGCodePrinterTextArea.setText(null);
+        this.endGCodePrinterTextArea.setText(null);
+    }//GEN-LAST:event_newPrinterButtonMouseReleased
+
+    private void deletePriinterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePriinterButtonActionPerformed
+        String fileName = (String)this.printerListPrinter.getSelectedValue();
+        if(!printerController.deletePrinterConfiguration(fileName)){
+            System.out.println(fileName);
+            JOptionPane.showMessageDialog(null,"InfoBox: " + "Unable to delete file", "File Delete Error" , JOptionPane.INFORMATION_MESSAGE);
+        }
+        this.printerListPrinter.setModel(new javax.swing.AbstractListModel() {
+                    private final PrinterController  controller = new PrinterController();
+                    @Override
+                    public int getSize() { return controller.getPrinterConfigurations().size(); }
+                    @Override
+                    public Object getElementAt(int i) { return controller.getPrinterConfigurations().get(i); }
+                }
+            );
+    }//GEN-LAST:event_deletePriinterButtonActionPerformed
+
+    private void loadPrinterButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loadPrinterButtonMouseReleased
+        ArrayList<String> varList = printerController.loadPrinterConfiguration((String) this.printerListPrinter.getSelectedValue());
+        this.namePrinterText.setText(varList.get(0));
+        this.bedXPrinterText.setText(varList.get(1));
+        this.bedYPrinterText.setText(varList.get(2));
+        this.printCenterXPrinterText.setText(varList.get(3));
+        this.printCenterYPrinterText.setText(varList.get(4));
+        this.zOffsetPrinterText.setText(varList.get(5));
+        this.gCodeFlavorPrinterCombo.setSelectedItem(varList.get(6));
+        this.relativeEDistancePrinterCombo.setSelectedItem(varList.get(7));
+        this.numExtrudersPrinterText.setText(varList.get(8));
+        this.vibrationPrinterText.setText(varList.get(9));
+        this.firmwareRetractionPrinterCombo.setSelectedItem(varList.get(10));
+        this.startGCodePrinterTextArea.setText(varList.get(11));
+        this.endGCodePrinterTextArea.setText(varList.get(12));
+    }//GEN-LAST:event_loadPrinterButtonMouseReleased
 
     /**
      * @param args the command line arguments
@@ -3802,7 +3785,6 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JList PCList;
     private javax.swing.JCheckBox SeqPrintPCCheckBox;
     private javax.swing.JList StlList;
-    private javax.swing.JList StlList1;
     private javax.swing.JTextField accelPCText1;
     private javax.swing.JTextField accelPCText2;
     private javax.swing.JTextField accelPCText3;
@@ -3813,24 +3795,23 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JCheckBox advancedPCCheckBox2;
     private javax.swing.JSpinner bed1stLayerMatSpinner;
     private javax.swing.JSpinner bedOtherMatSpinner;
-    private javax.swing.JTextField bedXPtrText;
-    private javax.swing.JTextField bedYPtrText;
+    private javax.swing.JTextField bedXPrinterText;
+    private javax.swing.JTextField bedYPrinterText;
     private javax.swing.JSpinner bridgeSpeedMatSpinner;
     private javax.swing.JTextField brimPCText;
     private javax.swing.JSpinner combineInfillPCSpinner;
-    private javax.swing.JTextField compPortDescriptPtrText;
     private javax.swing.JSpinner coolingThresholdMatSpinner2;
     private javax.swing.JSpinner coolingThresholdsMatSpinner1;
     private javax.swing.JSpinner coolingThresholdsMatSpinner3;
     private javax.swing.JButton deleteExtrudBttn;
-    private javax.swing.JButton deleteImpBttn;
+    private javax.swing.JButton deleteImportButton;
     private javax.swing.JButton deleteMatBttn;
     private javax.swing.JButton deletePJBttn;
-    private javax.swing.JButton deletePtrBttn;
+    private javax.swing.JButton deletePriinterButton;
     private javax.swing.JTextField diameterMatText;
     private javax.swing.JSpinner disableFanMatSpinner;
     private javax.swing.JTextField distanceObjectPCText;
-    private javax.swing.JTextArea endGCodePtrTextArea;
+    private javax.swing.JTextArea endGCodePrinterTextArea;
     private javax.swing.JSpinner enforceSupportPCSpinner;
     private javax.swing.JTextField extrudeClearHeightPCText;
     private javax.swing.JTextField extrudeClearRadiusPCText;
@@ -3844,9 +3825,10 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JSpinner fillAnglePCSpinner;
     private javax.swing.JTextField fillDensityPCText;
     private javax.swing.JComboBox fillPatternPCCombo;
+    private javax.swing.JComboBox firmwareRetractionPrinterCombo;
     private javax.swing.JTextField firstLayerHeightPCText;
-    private javax.swing.JTextField gCodeFlavorPtrText;
-    private javax.swing.JButton importImpBttn;
+    private javax.swing.JComboBox gCodeFlavorPrinterCombo;
+    private javax.swing.JButton importImportButton;
     private javax.swing.JCheckBox infillNeededPCCheckBox;
     private javax.swing.JSpinner interfaceLayersPCSpinner;
     private javax.swing.JTextField interfacePatternSpacePCText;
@@ -3945,7 +3927,6 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel177;
     private javax.swing.JLabel jLabel178;
     private javax.swing.JLabel jLabel179;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel180;
     private javax.swing.JLabel jLabel181;
     private javax.swing.JLabel jLabel182;
@@ -3956,7 +3937,6 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel187;
     private javax.swing.JLabel jLabel188;
     private javax.swing.JLabel jLabel189;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel190;
     private javax.swing.JLabel jLabel191;
     private javax.swing.JLabel jLabel192;
@@ -3975,10 +3955,7 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel203;
     private javax.swing.JLabel jLabel204;
     private javax.swing.JLabel jLabel205;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel206;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
@@ -4075,7 +4052,6 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
@@ -4139,26 +4115,24 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField91;
     private javax.swing.JTextField jTextField92;
     private javax.swing.JTextField layerHeightPCText;
+    private javax.swing.JButton loadPrinterButton;
     private javax.swing.JTextField minExtrusionLengthPCText;
     private javax.swing.JTextField nameMatText;
     private javax.swing.JTextField namePCField;
+    private javax.swing.JTextField namePrinterText;
     private javax.swing.JButton newExtrudBttn;
     private javax.swing.JButton newMatBttn;
     private javax.swing.JButton newPCBttn;
     private javax.swing.JButton newPJBttn;
-    private javax.swing.JButton newPtrBttn;
+    private javax.swing.JButton newPrinterButton;
     private javax.swing.JButton newSubsectionBttn;
     private javax.swing.JTextField nozzDiameterExtrudText;
-    private javax.swing.JTextField numExtrudersPtrText;
+    private javax.swing.JTextField numExtrudersPrinterText;
     private javax.swing.JTextField offsetXExtrudText;
-    private javax.swing.JTextField offsetXPtrText;
     private javax.swing.JTextField offsetYExtrudText;
-    private javax.swing.JTextField offsetYPtrText;
-    private javax.swing.JTextField offsetZPtrText;
     private javax.swing.JTextField outputFilenamePCCheckBox;
     private javax.swing.JSpinner overhangPCSpinner;
     private javax.swing.JSpinner patternAnglePCSpinner;
@@ -4166,8 +4140,9 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JTextField patternSpacePCText;
     private javax.swing.JSpinner perimetersPCSpinner;
     private javax.swing.JTextArea postProcPCTextArea;
-    private javax.swing.JTextField printCenterXPtrText;
-    private javax.swing.JTextField printCenterYPtrText;
+    private javax.swing.JTextField printCenterXPrinterText;
+    private javax.swing.JTextField printCenterYPrinterText;
+    private javax.swing.JList printerListPrinter;
     private javax.swing.JCheckBox qualityPCCheckBox1;
     private javax.swing.JCheckBox qualityPCCheckBox2;
     private javax.swing.JCheckBox qualityPCCheckBox3;
@@ -4175,7 +4150,7 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JCheckBox qualityPCCheckBox5;
     private javax.swing.JCheckBox qualityPCCheckBox6;
     private javax.swing.JSpinner raftPCSpinner;
-    private javax.swing.JTextField relativeEPtrText;
+    private javax.swing.JComboBox relativeEDistancePrinterCombo;
     private javax.swing.JTextField retractExtraLengthExtrudText;
     private javax.swing.JTextField retractExtraLengthMatText;
     private javax.swing.JCheckBox retractLayerChangeExtrudCheckBox;
@@ -4191,7 +4166,7 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JButton saveExtrudeBttn;
     private javax.swing.JButton saveMatBttn;
     private javax.swing.JButton savePJBttn;
-    private javax.swing.JButton savePtrBttn;
+    private javax.swing.JButton savePrinterButton;
     private javax.swing.JPanel sectionPane;
     private javax.swing.JSpinner skirtHeightPCSpinner;
     private javax.swing.JSpinner skirtLoopsPCSpinner;
@@ -4211,7 +4186,7 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JTextField speedPrintMovesPCText8;
     private javax.swing.JTextField speedPrintMovesPCText9;
     private javax.swing.JCheckBox spiralVasePCCheckBox;
-    private javax.swing.JTextArea startGCodePtrTextArea;
+    private javax.swing.JTextArea startGCodePrinterTextArea;
     private javax.swing.JButton startPrintBttn;
     private javax.swing.JPanel staticSection;
     private javax.swing.JCheckBox supportMaterialPCCheckBox;
@@ -4219,8 +4194,8 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JTextField toolDisabledExtraLengthRestartMatText;
     private javax.swing.JComboBox topBottomPCCombo;
     private javax.swing.JCheckBox verboseGCodePCCheckBox;
-    private javax.swing.JTextField vibrationPtrText;
-    private javax.swing.JTextField zOffsetPtrText;
+    private javax.swing.JTextField vibrationPrinterText;
+    private javax.swing.JTextField zOffsetPrinterText;
     // End of variables declaration//GEN-END:variables
     
            

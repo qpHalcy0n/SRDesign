@@ -43,6 +43,7 @@ public class SavePrinterConfigurationCommand extends ink3d.UserInterface.Databas
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(je, os);
             file = null;
+            os = null;
             System.gc();
             result = Boolean.TRUE;
         } catch (Exception ex) {

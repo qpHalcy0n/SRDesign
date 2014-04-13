@@ -144,6 +144,10 @@ public class PrinterConfiguration {
         this.gCodeFlavor = gCodeFlavor;
     }
 
+    public boolean getUseRelativeEDistances() {
+        return useRelativeEDistances;
+    }
+    
     public boolean isUseRelativeEDistances() {
         return useRelativeEDistances;
     }
@@ -233,6 +237,9 @@ public class PrinterConfiguration {
         return useFirmwareRetraction;
     }
 
+    public boolean getUseFirmwareRetraction() {
+        return useFirmwareRetraction;
+    }
     /**
      * @param useFirmwareRetraction the useFirmwareRetraction to set
      */
