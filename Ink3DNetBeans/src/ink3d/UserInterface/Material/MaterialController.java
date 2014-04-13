@@ -7,7 +7,6 @@
 package ink3d.UserInterface.Material;
 
 import ink3d.ConfigurationObjects.MaterialConfiguration;
-import ink3d.ConfigurationObjects.PrinterConfiguration;
 import ink3d.UserInterface.Database.PersistenceFramework;
 import ink3d.UserInterface.MainMenu.BadFieldException;
 import java.util.ArrayList;
@@ -27,11 +26,36 @@ public class MaterialController {
         return db.deleteMaterialConfiguration(name);
     }
     
-    public ArrayList<String> loadMaterialConfiguration(String name){
+    public ArrayList<String> loadMaterialConfiguration(String name) throws BadFieldException{
         MaterialConfiguration material;
+        if(name == null || name =="")throw new BadFieldException("Please select a file to load");
         material = db.getMaterialConfiguration(name);
         ArrayList<String> varList = new ArrayList<>();
         varList.add(name);
+        varList.add(Double.toString(material.getFilamentDiameter()));
+        varList.add(Double.toString(material.getExtrusionMultiplier()));
+        varList.add(Integer.toString(material.getFirstLayerExtrusionTemperature()));
+        varList.add(Integer.toString(material.getExtrusionTemperature()));
+        varList.add(Double.toString(material.getRetractionLength()));
+        varList.add(Double.toString(material.getRetractionLiftZ()));
+        varList.add(material.getRetractionSpeed()== 0 ? "true":"false");
+        varList.add(Double.toString(material.getExtraLengthAfterRetraction()));
+        varList.add(Double.toString(material.getMinimumTravelAfterRetraction()));
+        varList.add(Boolean.toString(material.isRetractOnLayerChange()));
+        varList.add(Boolean.toString(material.isWipeBeforeRetract()));
+        varList.add(Double.toString(material.getRetractionLengthBeforeToolChange()));
+        varList.add(Double.toString(material.getExtraLengthOnToolReenable()));
+        varList.add(Boolean.toString(material.isFanAlwaysOn()));
+        varList.add(Boolean.toString(material.isEnableAutoCooling()));
+        varList.add(Integer.toString(material.getMinFanSpeed()));
+        varList.add(Integer.toString(material.getMaxFanSpeed()));
+        varList.add(Integer.toString(material.getBridgeFanSpeedPercent()));
+        varList.add(Integer.toString(material.getDisableFanForFirstNLayers()));
+        varList.add(Integer.toString(material.getEnableFanTimeThreshold()));
+        varList.add(Integer.toString(material.getSlowDownTimeTreshold()));
+        varList.add(Integer.toString(material.getMinPrintSpeed()));
+        varList.add(material.getgCodeStart());
+        varList.add(material.getgCodeEnd());
         
         return varList;
     }
@@ -69,7 +93,7 @@ public class MaterialController {
             else {
                 throw new BadFieldException("Retraction Length must be a double precision value greater than or equal to 0.");
             }
-            
+     
             d = new Double(vars.get(6));
             if(d>=0)config.setRetractionLiftZ(d);
             else{
@@ -97,7 +121,7 @@ public class MaterialController {
             config.setRetractOnLayerChange(Boolean.getBoolean(vars.get(10)));
             config.setWipeBeforeRetract(Boolean.getBoolean(vars.get(11)));
             
-          /*  d = new Double(vars.get(12));
+            d = new Double(vars.get(12));
             if(d>=0)config.setRetractionLengthBeforeToolChange(d);
             else{
                 throw new BadFieldException("Retraction Legth Before Tool Change must be a double precision value greater then or equal to 0.");
@@ -126,38 +150,38 @@ public class MaterialController {
                 throw new BadFieldException("Maximum Fan Speed must be an integer that is less than or equal to 100");
             }
             
-            i = new Integer(vars.get(19));
+            i = new Integer(vars.get(18));
             if(i>=0 && i<=100)config.setBridgeFanSpeedPercent(i);
             else{
                 throw new BadFieldException("Bridge Fan Speed Percent must be an integer value between 0 and 100");
             }
             
-            i = new Integer(vars.get(20));
+            i = new Integer(vars.get(19));
             if(i>=0)config.setDisableFanForFirstNLayers(i);
             else{
                 throw new BadFieldException("Disable Fan for First N Layers must be an integer greater than or equal to 0.");
             }
             
-            i = new Integer(vars.get(21));
+            i = new Integer(vars.get(20));
             if(i>=0)config.setEnableFanTimeThreshold(i);
             else{
                 throw new BadFieldException("Enable Fan Time Threshold must be an integer greater than or equal to 0.");
             }
             
-            i = new Integer(vars.get(22));
+            i = new Integer(vars.get(21));
             if(i>=0)config.setSlowDownTimeTreshold(i);
             else {
                 throw new BadFieldException("Slow Down Time Threshold must be an integer greater than or equal to 0.");
             }
             
-            i = new Integer(vars.get(23));
+            i = new Integer(vars.get(22));
             if(i>=0)config.setMinPrintSpeed(i);
             else {
                 throw new BadFieldException("Minimum Print Speed must be an integer greater than 0.");
             }
             
-            config.setgCodeStart(vars.get(24));
-            config.setgCodeEnd(vars.get(25));*/
+            config.setgCodeStart(vars.get(23));
+            config.setgCodeEnd(vars.get(24));
         }catch(NumberFormatException e){
             throw new BadFieldException("All Fields need to be filed out to save a Printer");
         }

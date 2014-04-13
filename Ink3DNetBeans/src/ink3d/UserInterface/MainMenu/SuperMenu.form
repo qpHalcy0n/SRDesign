@@ -28,7 +28,10 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" pref="484" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jTabbedPane1" pref="808" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -58,7 +61,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="135" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="459" max="32767" attributes="0"/>
                       <Component id="jPanel54" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -381,7 +384,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="870" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="890" max="32767" attributes="0"/>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
@@ -412,7 +415,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="424" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="748" max="32767" attributes="0"/>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -520,7 +523,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="156" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="480" max="32767" attributes="0"/>
                       <Component id="jPanel20" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -2836,9 +2839,10 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel43" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -2871,7 +2875,7 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="171" max="-2" attributes="0"/>
-                          <Component id="jScrollPane10" pref="679" max="32767" attributes="0"/>
+                          <Component id="jScrollPane10" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
@@ -2899,13 +2903,13 @@
                               <Component id="nameMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                          <Component id="jScrollPane10" pref="349" max="32767" attributes="0"/>
+                          <Component id="jScrollPane10" pref="662" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
-                              <Component id="jScrollPane9" pref="345" max="32767" attributes="0"/>
+                              <Component id="jScrollPane9" pref="1153" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -2917,6 +2921,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="New"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="newMaterialButtonMouseReleased"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="saveMaterialButton">
                   <Properties>
@@ -2930,6 +2937,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Delete"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="deleteMaterialButtonMouseReleased"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="nameMaterialText">
                 </Component>
@@ -2948,7 +2958,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JList" name="MatList">
+                    <Component class="javax.swing.JList" name="MaterialList">
                       <Properties>
                         <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="new javax.swing.AbstractListModel() {&#xa;            private MaterialController  controller = new MaterialController();&#xa;            public int getSize() { return controller.getMaterialConfigurations().size(); }&#xa;            public Object getElementAt(int i) { return controller.getMaterialConfigurations().get(i); }&#xa;        }" type="code"/>
@@ -2979,7 +2989,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jPanel45" max="32767" attributes="0"/>
-                                  <EmptySpace pref="17" max="32767" attributes="0"/>
+                                  <EmptySpace pref="26" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -3005,17 +3015,18 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jPanel51" alignment="1" max="32767" attributes="0"/>
                                           <Component id="jPanel50" alignment="1" max="32767" attributes="0"/>
                                           <Component id="jPanel49" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jPanel48" alignment="1" pref="623" max="32767" attributes="0"/>
+                                          <Component id="jPanel48" alignment="1" min="-2" pref="651" max="-2" attributes="0"/>
                                           <Component id="jPanel47" alignment="1" max="32767" attributes="0"/>
                                           <Component id="jPanel46" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="jPanel52" alignment="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -3034,7 +3045,8 @@
                                       <Component id="jPanel50" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jPanel51" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="50" max="32767" attributes="0"/>
+                                      <EmptySpace pref="21" max="32767" attributes="0"/>
+                                      <Component id="jPanel52" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -3150,20 +3162,20 @@
                                               </Group>
                                           </Group>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="bed1stLayerMaterialSpinner" pref="91" max="32767" attributes="0"/>
-                                              <Component id="firstLayerTemperatureMaterialSpinner" max="32767" attributes="0"/>
+                                              <Component id="bed1stLayerMaterialText" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <Component id="firstLayerTemperatureMaterialText" min="-2" pref="63" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel169" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="bedOtherMaterialSpinner" min="-2" pref="38" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="bedOtherMaterialText" max="32767" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel168" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="extruderTemperatureMaterialSpinner" min="-2" pref="38" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="extruderTemperatureMaterialText" min="-2" pref="63" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace max="32767" attributes="0"/>
@@ -3172,26 +3184,26 @@
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
                                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                           <Component id="jLabel163" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="jLabel164" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="firstLayerTemperatureMaterialSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="extruderTemperatureMaterialSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel166" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel168" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="firstLayerTemperatureMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="extruderTemperatureMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="jLabel165" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="bed1stLayerMaterialSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="bedOtherMaterialSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel167" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel169" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="bed1stLayerMaterialText" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="bedOtherMaterialText" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace pref="33" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -3215,14 +3227,6 @@
                                     <Property name="text" type="java.lang.String" value="Bed:"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JSpinner" name="firstLayerTemperatureMaterialSpinner">
-                                </Component>
-                                <Component class="javax.swing.JSpinner" name="extruderTemperatureMaterialSpinner">
-                                </Component>
-                                <Component class="javax.swing.JSpinner" name="bed1stLayerMaterialSpinner">
-                                </Component>
-                                <Component class="javax.swing.JSpinner" name="bedOtherMaterialSpinner">
-                                </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel166">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="First Layer:"/>
@@ -3243,6 +3247,22 @@
                                     <Property name="text" type="java.lang.String" value="Other Layers:"/>
                                   </Properties>
                                 </Component>
+                                <Component class="javax.swing.JTextField" name="firstLayerTemperatureMaterialText">
+                                </Component>
+                                <Component class="javax.swing.JTextField" name="bed1stLayerMaterialText">
+                                  <Properties>
+                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[6, 20]"/>
+                                    </Property>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bed1stLayerMaterialTextActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JTextField" name="extruderTemperatureMaterialText">
+                                </Component>
+                                <Component class="javax.swing.JTextField" name="bedOtherMaterialText">
+                                </Component>
                               </SubComponents>
                             </Container>
                             <Container class="javax.swing.JPanel" name="jPanel48">
@@ -3260,53 +3280,55 @@
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jLabel170" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel177" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel174" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="jLabel171" min="-2" max="-2" attributes="0"/>
                                                       <Group type="102" attributes="0">
-                                                          <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Group type="102" alignment="0" attributes="0">
-                                                                  <Component id="fanSpeedMinMaterialSpinner" min="-2" pref="44" max="-2" attributes="0"/>
-                                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                                  <Component id="jLabel176" min="-2" max="-2" attributes="0"/>
-                                                              </Group>
-                                                              <Group type="102" alignment="0" attributes="0">
-                                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                                      <Component id="disableFanMaterialSpinner" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
-                                                                      <Component id="bridgeSpeedMaterialSpinner" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
-                                                                  </Group>
-                                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                                      <Component id="jLabel179" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="jLabel178" min="-2" max="-2" attributes="0"/>
-                                                                  </Group>
-                                                              </Group>
-                                                          </Group>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                                                          <Component id="jLabel174" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace max="32767" attributes="0"/>
                                                           <Component id="jLabel173" min="-2" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="fanSpinnerMaxMaterialSpinner" min="-2" pref="38" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="fanAlwaysOnMaterialCheckBox" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                          <Component id="jLabel172" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                          <Component id="enableAutoCoolingMaterialCheckBox" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="fanSpeedMinMaterialText1" min="-2" pref="63" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="jLabel176" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="fanSpinnerMaxMaterialText" min="-2" pref="63" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jLabel172" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="enableAutoCoolingMaterialCheckBox" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel177" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel175" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="bridgeSpeedMaterialText" pref="63" max="32767" attributes="0"/>
+                                                      <Component id="disableFanMaterialText" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                                          <Component id="jLabel178" min="-2" pref="46" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" alignment="1" attributes="0">
+                                                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                                          <Component id="jLabel179" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
                                               </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jLabel171" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="keepFanAlwaysOnMaterialCheckBox" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="jLabel175" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
+                                          <EmptySpace pref="370" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -3316,41 +3338,38 @@
                                           <Component id="jLabel170" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="keepFanAlwaysOnMaterialCheckBox" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel171" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jLabel172" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="enableAutoCoolingMaterialCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel171" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="jLabel174" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel174" min="-2" max="-2" attributes="0"/>
+                                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel173" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="fanSpeedMinMaterialText1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel176" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="fanSpinnerMaxMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="3" attributes="0">
                                                       <Component id="jLabel175" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="bridgeSpeedMaterialSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="jLabel177" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="disableFanMaterialSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel178" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="bridgeSpeedMaterialText" alignment="3" max="-2" attributes="0"/>
+                                                      <Component id="jLabel179" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
-                                              <Group type="102" attributes="0">
-                                                  <Component id="enableAutoCoolingMaterialCheckBox" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="jLabel173" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="fanSpeedMinMaterialSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel176" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="fanSpinnerMaxMaterialSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jLabel179" min="-2" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="fanAlwaysOnMaterialCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel172" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="jLabel177" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="disableFanMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel178" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -3374,10 +3393,6 @@
                                     <Property name="text" type="java.lang.String" value="Enable Auto-Cooling:"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JSpinner" name="fanSpeedMinMaterialSpinner">
-                                </Component>
-                                <Component class="javax.swing.JSpinner" name="fanSpinnerMaxMaterialSpinner">
-                                </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel173">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="Min:"/>
@@ -3398,7 +3413,7 @@
                                     <Property name="text" type="java.lang.String" value="Max:"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JCheckBox" name="keepFanAlwaysOnMaterialCheckBox">
+                                <Component class="javax.swing.JCheckBox" name="fanAlwaysOnMaterialCheckBox">
                                 </Component>
                                 <Component class="javax.swing.JCheckBox" name="enableAutoCoolingMaterialCheckBox">
                                 </Component>
@@ -3407,19 +3422,23 @@
                                     <Property name="text" type="java.lang.String" value="Disable fan for the first:"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JSpinner" name="disableFanMaterialSpinner">
-                                </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel178">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="layers"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JSpinner" name="bridgeSpeedMaterialSpinner">
-                                </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel179">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="%"/>
                                   </Properties>
+                                </Component>
+                                <Component class="javax.swing.JTextField" name="fanSpinnerMaxMaterialText">
+                                </Component>
+                                <Component class="javax.swing.JTextField" name="bridgeSpeedMaterialText">
+                                </Component>
+                                <Component class="javax.swing.JTextField" name="disableFanMaterialText">
+                                </Component>
+                                <Component class="javax.swing.JTextField" name="fanSpeedMinMaterialText1">
                                 </Component>
                               </SubComponents>
                             </Container>
@@ -3430,33 +3449,28 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="jLabel180" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Component id="jLabel183" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel185" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                          <Component id="minPrintSpeedMaterialSpinner" pref="37" max="32767" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                                          <Component id="slowDownIfLayerPrintTimeBelowMaterialSpinner" max="32767" attributes="0"/>
-                                                      </Group>
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="slowDownIfLayerPrintTimeBelowMaterialText" alignment="1" min="-2" pref="63" max="-2" attributes="0"/>
+                                                      <Component id="minPrintSpeedMaterialText" alignment="1" min="-2" pref="63" max="-2" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel186" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel184" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel184" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel186" alignment="1" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel181" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="enableFanIfLayerPrintTimeBelowMaterialSpinner" min="-2" pref="37" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="enableFanIfLayerPrintTimeBelowMaterialText" min="-2" pref="63" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jLabel182" min="-2" max="-2" attributes="0"/>
                                               </Group>
@@ -3473,24 +3487,24 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="jLabel181" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="enableFanIfLayerPrintTimeBelowMaterialSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel182" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="enableFanIfLayerPrintTimeBelowMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="jLabel183" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="slowDownIfLayerPrintTimeBelowMaterialSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel184" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="slowDownIfLayerPrintTimeBelowMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jLabel185" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                                  <Component id="minPrintSpeedMaterialSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel186" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="minPrintSpeedMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
+                                          <EmptySpace pref="20" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -3509,8 +3523,6 @@
                                     <Property name="text" type="java.lang.String" value="Enable fan if layer print time is below:"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JSpinner" name="enableFanIfLayerPrintTimeBelowMaterialSpinner">
-                                </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel182">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="seconds"/>
@@ -3520,8 +3532,6 @@
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="Slow down if layer print time is below:"/>
                                   </Properties>
-                                </Component>
-                                <Component class="javax.swing.JSpinner" name="slowDownIfLayerPrintTimeBelowMaterialSpinner">
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel184">
                                   <Properties>
@@ -3533,12 +3543,16 @@
                                     <Property name="text" type="java.lang.String" value="Min print speed:"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JSpinner" name="minPrintSpeedMaterialSpinner">
-                                </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel186">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="mm/s"/>
                                   </Properties>
+                                </Component>
+                                <Component class="javax.swing.JTextField" name="enableFanIfLayerPrintTimeBelowMaterialText">
+                                </Component>
+                                <Component class="javax.swing.JTextField" name="slowDownIfLayerPrintTimeBelowMaterialText">
+                                </Component>
+                                <Component class="javax.swing.JTextField" name="minPrintSpeedMaterialText">
                                 </Component>
                               </SubComponents>
                             </Container>
@@ -3561,14 +3575,27 @@
                                           </Group>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                                                          <Component id="retractLengthMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
+                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                          <Component id="jLabel195" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
                                                       <Group type="102" alignment="0" attributes="0">
                                                           <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="retractLiftZMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
-                                                              <Component id="retractSpeedMaterialSpinner" min="-2" pref="59" max="-2" attributes="0"/>
-                                                              <Component id="extraLengthOnRestartMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
-                                                              <Component id="retractMinTravelMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
+                                                              <Group type="102" alignment="1" attributes="0">
+                                                                  <EmptySpace max="-2" attributes="0"/>
+                                                                  <Component id="retractSpeedMaterialText" min="-2" pref="63" max="-2" attributes="0"/>
+                                                              </Group>
+                                                              <Group type="102" attributes="0">
+                                                                  <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
+                                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                                      <Component id="retractLiftZMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
+                                                                      <Component id="extraLengthOnRestartMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
+                                                                      <Component id="retractMinTravelMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
+                                                                  </Group>
+                                                              </Group>
                                                           </Group>
                                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                           <Group type="103" groupAlignment="0" attributes="0">
@@ -3577,11 +3604,6 @@
                                                               <Component id="jLabel198" min="-2" max="-2" attributes="0"/>
                                                               <Component id="jLabel199" min="-2" max="-2" attributes="0"/>
                                                           </Group>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="retractLengthMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
-                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                          <Component id="jLabel195" min="-2" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                                   <EmptySpace max="32767" attributes="0"/>
@@ -3614,11 +3636,18 @@
                                               <Component id="retractLiftZMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel196" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="jLabel190" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="retractSpeedMaterialSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel197" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="jLabel190" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel197" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="retractSpeedMaterialText" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
@@ -3642,7 +3671,7 @@
                                               <Component id="wipeWhileRetractingMaterialCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel194" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace pref="11" max="32767" attributes="0"/>
+                                          <EmptySpace pref="14" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -3693,8 +3722,6 @@
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="retractLengthMaterialText">
                                 </Component>
-                                <Component class="javax.swing.JSpinner" name="retractSpeedMaterialSpinner">
-                                </Component>
                                 <Component class="javax.swing.JCheckBox" name="retractOnLayerChangeCheckBox">
                                 </Component>
                                 <Component class="javax.swing.JCheckBox" name="wipeWhileRetractingMaterialCheckBox">
@@ -3730,6 +3757,8 @@
                                     <Property name="text" type="java.lang.String" value="mm"/>
                                   </Properties>
                                 </Component>
+                                <Component class="javax.swing.JTextField" name="retractSpeedMaterialText">
+                                </Component>
                               </SubComponents>
                             </Container>
                             <Container class="javax.swing.JPanel" name="jPanel51">
@@ -3746,7 +3775,7 @@
                                                       <Group type="102" alignment="0" attributes="0">
                                                           <Component id="jLabel201" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace max="32767" attributes="0"/>
-                                                          <Component id="retractionWhenToolIsDisabledLengthMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
+                                                          <Component id="retractionLengthBeforeToolChangeMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
                                                       </Group>
                                                       <Group type="102" alignment="0" attributes="0">
                                                           <Component id="jLabel202" min="-2" max="-2" attributes="0"/>
@@ -3761,7 +3790,7 @@
                                                   </Group>
                                               </Group>
                                           </Group>
-                                          <EmptySpace pref="274" max="32767" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -3773,7 +3802,7 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="jLabel201" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="retractionWhenToolIsDisabledLengthMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="retractionLengthBeforeToolChangeMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel203" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -3808,7 +3837,7 @@
                                     <Property name="text" type="java.lang.String" value="Extra length on restart:"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JTextField" name="retractionWhenToolIsDisabledLengthMaterialText">
+                                <Component class="javax.swing.JTextField" name="retractionLengthBeforeToolChangeMaterialText">
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="extraLengthOnRestartWhenToolIsDisabledMaterialText">
                                 </Component>
@@ -3824,6 +3853,90 @@
                                 </Component>
                               </SubComponents>
                             </Container>
+                            <Container class="javax.swing.JPanel" name="jPanel52">
+
+                              <Layout>
+                                <DimensionLayout dim="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="jLabel207" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel208" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jScrollPane13" alignment="0" pref="508" max="32767" attributes="0"/>
+                                              <Component id="jLabel209" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jScrollPane14" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                </DimensionLayout>
+                                <DimensionLayout dim="1">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jLabel207" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jLabel208" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jScrollPane13" min="-2" pref="83" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jLabel209" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jScrollPane14" min="-2" pref="87" max="-2" attributes="0"/>
+                                          <EmptySpace pref="21" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                </DimensionLayout>
+                              </Layout>
+                              <SubComponents>
+                                <Component class="javax.swing.JLabel" name="jLabel207">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Custom Gcode:"/>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JLabel" name="jLabel208">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Start G Code:"/>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JLabel" name="jLabel209">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="End G Code:"/>
+                                  </Properties>
+                                </Component>
+                                <Container class="javax.swing.JScrollPane" name="jScrollPane13">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTextArea" name="startGCodeMaterialTextArea">
+                                      <Properties>
+                                        <Property name="columns" type="int" value="20"/>
+                                        <Property name="rows" type="int" value="5"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JScrollPane" name="jScrollPane14">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTextArea" name="endGCodeMaterialTextArea">
+                                      <Properties>
+                                        <Property name="columns" type="int" value="20"/>
+                                        <Property name="rows" type="int" value="5"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                              </SubComponents>
+                            </Container>
                           </SubComponents>
                         </Container>
                       </SubComponents>
@@ -3834,6 +3947,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Load"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="loadMaterialButtonMouseReleased"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -3851,7 +3967,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="870" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="890" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -3863,7 +3979,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="456" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="780" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -4537,7 +4653,7 @@
                               <Group type="102" attributes="0">
                                   <Component id="jScrollPane12" min="-2" pref="152" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane3" pref="680" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane3" pref="700" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -4579,7 +4695,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane12" pref="358" max="32767" attributes="0"/>
+                              <Component id="jScrollPane12" pref="682" max="32767" attributes="0"/>
                               <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -4648,7 +4764,7 @@
                                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="jPanel19" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="jPanel16" alignment="1" pref="633" max="32767" attributes="0"/>
+                                      <Component id="jPanel16" alignment="1" pref="670" max="32767" attributes="0"/>
                                       <Component id="jPanel17" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -4714,7 +4830,7 @@
                                               <Component id="zOffsetPrinterText" min="-2" pref="88" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace pref="277" max="32767" attributes="0"/>
+                                      <EmptySpace pref="314" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>

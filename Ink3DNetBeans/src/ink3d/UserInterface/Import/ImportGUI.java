@@ -18,13 +18,13 @@ import javax.swing.event.ListDataListener;
  * @author courtney
  */
 public class ImportGUI extends javax.swing.JPanel {
-    private ImportController controller;
+    private ImportController importController;
        
     /**
      * Creates new form ImportPanel
      */
     public ImportGUI() {
-        this.controller = new ImportController();
+        this.importController = new ImportController();
         initComponents();
         StlList = new javax.swing.JList();
         StlList.setModel(

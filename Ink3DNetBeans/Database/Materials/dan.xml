@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <material>
-    <bridgeFanSpeedPercent>100</bridgeFanSpeedPercent>
-    <disableFanForFirstNLayers>1</disableFanForFirstNLayers>
-    <enableAutoCooling>true</enableAutoCooling>
-    <enableFanTimeThreshold>60</enableFanTimeThreshold>
+    <bridgeFanSpeedPercent>0</bridgeFanSpeedPercent>
+    <disableFanForFirstNLayers>0</disableFanForFirstNLayers>
+    <enableAutoCooling>false</enableAutoCooling>
+    <enableFanTimeThreshold>0</enableFanTimeThreshold>
     <extraLengthAfterRetraction>1.0</extraLengthAfterRetraction>
-    <extraLengthOnToolReenable>0.0</extraLengthOnToolReenable>
-    <extrusionMultiplier>1.0</extrusionMultiplier>
-    <extrusionTemperature>110</extrusionTemperature>
+    <extraLengthOnToolReenable>1.0</extraLengthOnToolReenable>
+    <extrusionMultiplier>1.5</extrusionMultiplier>
+    <extrusionTemperature>0</extrusionTemperature>
     <fanAlwaysOn>false</fanAlwaysOn>
-    <filamentDiameter>1.2</filamentDiameter>
-    <firstLayerExtrusionTemperature>100</firstLayerExtrusionTemperature>
-    <maxFanSpeed>100</maxFanSpeed>
-    <minFanSpeed>35</minFanSpeed>
-    <minPrintSpeed>10</minPrintSpeed>
+    <filamentDiameter>1.1</filamentDiameter>
+    <firstLayerExtrusionTemperature>0</firstLayerExtrusionTemperature>
+    <maxFanSpeed>0</maxFanSpeed>
+    <minFanSpeed>0</minFanSpeed>
+    <minPrintSpeed>0</minPrintSpeed>
     <minimumTravelAfterRetraction>1.0</minimumTravelAfterRetraction>
     <name>dan</name>
     <retractOnLayerChange>false</retractOnLayerChange>
-    <retractionLength>1.0</retractionLength>
-    <retractionLengthBeforeToolChange>10.0</retractionLengthBeforeToolChange>
-    <retractionLiftZ>1.0</retractionLiftZ>
-    <retractionSpeed>0</retractionSpeed>
-    <slowDownTimeTreshold>30</slowDownTimeTreshold>
+    <retractionLength>10.0</retractionLength>
+    <retractionLengthBeforeToolChange>0.0</retractionLengthBeforeToolChange>
+    <retractionLiftZ>0.0</retractionLiftZ>
+    <retractionSpeed>10</retractionSpeed>
+    <slowDownTimeTreshold>0</slowDownTimeTreshold>
     <wipeBeforeRetract>false</wipeBeforeRetract>
+    <gCodeEnd>lol</gCodeEnd>
+    <gCodeStart>Haha</gCodeStart>
 </material>

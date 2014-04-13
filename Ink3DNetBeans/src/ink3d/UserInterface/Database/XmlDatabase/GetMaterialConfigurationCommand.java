@@ -39,6 +39,7 @@ public class GetMaterialConfigurationCommand extends CommandStructure{
             result = je1.getValue();
         }catch (JAXBException ex) {
             Logger.getLogger(GetMaterialConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);
+            result = Boolean.FALSE;
         }
     }
     

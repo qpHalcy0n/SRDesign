@@ -285,7 +285,7 @@ public class MaterialConfiguration {
     public boolean isRetractOnLayerChange() {
         return retractOnLayerChange;
     }
-
+ 
     public void setRetractOnLayerChange(boolean retractOnLayerChange) {
         this.retractOnLayerChange = retractOnLayerChange;
     }
