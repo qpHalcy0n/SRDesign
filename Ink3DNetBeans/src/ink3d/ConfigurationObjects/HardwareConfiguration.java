@@ -38,7 +38,7 @@ public class HardwareConfiguration
         {
             public String toString()
             {
-                return "r\n";
+                return "\r\n";
             }
         },
         
@@ -52,24 +52,30 @@ public class HardwareConfiguration
     }
     
     
-    public static String DEFAULT_LINE_ENDING        = LineEnding.RN.toString();
+    public static int DEFAULT_LINE_ENDING           = 3;
     public static String DEFAULT_COM_PORT           = "COM1";
     public static int DEFAULT_BAUD_RATE             = 115200;
     
-    private String lineEnding;
+    private int lineEnd;
     private String comPort;
     private int baudRate;
     
     public HardwareConfiguration()
     {
-        this.lineEnding     = DEFAULT_LINE_ENDING;
+        this.lineEnd        = DEFAULT_LINE_ENDING;
         this.comPort        = DEFAULT_COM_PORT;
         this.baudRate       = DEFAULT_BAUD_RATE;
     }
     
     public String getLineEnding()
     {
-        return lineEnding;
+        switch (lineEnd){
+            case 1:return LineEnding.NONE.toString();
+            case 2:return LineEnding.NR.toString();
+            case 3:return LineEnding.RN.toString();
+            default:return LineEnding.N.toString();
+        }
+                
     }
     
     public String getComPort()
@@ -82,9 +88,13 @@ public class HardwareConfiguration
         return baudRate;
     }
     
-    public void setLineEnding(String l)
+    public void setLineEnd(int l)
     {
-        this.lineEnding = l;
+        this.lineEnd = l;
+    }
+
+    public int getLineEnd() {
+        return lineEnd;
     }
     
     public void setComPort(String c)
@@ -114,7 +124,7 @@ public class HardwareConfiguration
             return false;
         
         final HardwareConfiguration other = (HardwareConfiguration)obj;
-        if(!Objects.equals(this.lineEnding, other.lineEnding))
+        if(!Objects.equals(this.lineEnd, other.lineEnd))
             return false;
         
         if(!Objects.equals(this.comPort, other.comPort))
@@ -129,6 +139,6 @@ public class HardwareConfiguration
     @Override
     public String toString()
     {
-        return "HardwareConfiguration{" + "lineEnding=" + lineEnding + "comPort=" + comPort + "baudRate=" + baudRate;
+        return "HardwareConfiguration{" + " lineEnding=" + lineEnd + " comPort=" + comPort + " baudRate=" + baudRate+"}";
     }
 }

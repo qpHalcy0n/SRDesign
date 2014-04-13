@@ -1190,21 +1190,26 @@ public class XmlPersistenceFrameworkTest {
         printer.setzOffset(1.34);
         
         String expResult ="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                    "<printer>\n" +
-                    "    <bedX>150.0</bedX>\n" +
-                    "    <bedY>100.0</bedY>\n" +
-                    "    <endGCode></endGCode>\n" +
-                    "    <name>SaveTest</name>\n" +
-                    "    <numExtruders>5</numExtruders>\n" +
-                    "    <printCenterX>75.0</printCenterX>\n" +
-                    "    <printCenterY>50.0</printCenterY>\n" +
-                    "    <startGCode></startGCode>\n" +
-                    "    <useFirmwareRetraction>false</useFirmwareRetraction>\n" +
-                    "    <useRelativeEDistances>true</useRelativeEDistances>\n" +
-                    "    <vibrationLimit>1.1</vibrationLimit>\n" +
-                    "    <gCodeFlavor>rep-rap</gCodeFlavor>\n" +
-                    "    <zOffset>1.34</zOffset>\n" +
-                    "</printer>";
+                            "<printer>\n" +
+                            "    <bedX>150.0</bedX>\n" +
+                            "    <bedY>100.0</bedY>\n" +
+                            "    <endGCode></endGCode>\n" +
+                            "    <hardware>\n" +
+                            "        <baudRate>115200</baudRate>\n" +
+                            "        <comPort>COM1</comPort>\n" +
+                            "        <lineEnd>3</lineEnd>\n" +
+                            "    </hardware>\n" +
+                            "    <name>SaveTest</name>\n" +
+                            "    <numExtruders>5</numExtruders>\n" +
+                            "    <printCenterX>75.0</printCenterX>\n" +
+                            "    <printCenterY>50.0</printCenterY>\n" +
+                            "    <startGCode></startGCode>\n" +
+                            "    <useFirmwareRetraction>false</useFirmwareRetraction>\n" +
+                            "    <useRelativeEDistances>true</useRelativeEDistances>\n" +
+                            "    <vibrationLimit>1.1</vibrationLimit>\n" +
+                            "    <gCodeFlavor>rep-rap</gCodeFlavor>\n" +
+                            "    <zOffset>1.34</zOffset>\n" +
+                            "</printer>";
         
         System.out.println("savePrinterConfiguration");
         XmlPersistenceFramework instance = new XmlPersistenceFramework(); 
@@ -1217,6 +1222,7 @@ public class XmlPersistenceFrameworkTest {
         try {
             result = FileUtils.readFileToString(newfile);
             result = result.substring(0, result.length()-1);
+            if(!expResult.equals(result)) System.out.printf("Test "+this.getClass().getName()+"\nexpected: "+ expResult+"\nGot: "+result);
             assertEquals(expResult, result);
         } catch (IOException ex) {
             Logger.getLogger(XmlPersistenceFrameworkTest.class.getName()).log(Level.SEVERE, null, ex);

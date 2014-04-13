@@ -12,6 +12,7 @@ import ink3d.ConfigurationObjects.PrintConfiguration;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
 import ink3d.ConfigurationObjects.PrintJobSelection;
 import ink3d.ConfigurationObjects.PrinterConfiguration;
+import ink3d.UserInterface.Database.XmlDatabase.XmlPersistenceFramework;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -19,7 +20,13 @@ import java.util.ArrayList;
  *
  * @author daniellain
  */
-<span class="fc" id="L22">public abstract class PersistenceFramework {</span>
+<span class="fc" id="L23">public abstract class PersistenceFramework {</span>
+<span class="fc" id="L24">    private static PersistenceFramework db= new XmlPersistenceFramework();</span>
+    
+    public static PersistenceFramework getDB(){
+<span class="nc" id="L27">        return db;</span>
+    }
+    
     public abstract ArrayList&lt;String&gt; getPrinterConfigurations();
     public abstract ArrayList&lt;String&gt; getExtruderConfigurations();
     public abstract ArrayList&lt;String&gt; getMaterialConfigurations();

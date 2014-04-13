@@ -6,7 +6,11 @@
 
 package ink3d.UserInterface.Import;
 
+import static ink3d.UserInterface.MainMenu.SuperMenu.importController;
+import java.io.File;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 import javax.swing.event.ListDataListener;
 
@@ -16,48 +20,23 @@ import javax.swing.event.ListDataListener;
  */
 public class ImportGUI extends javax.swing.JPanel {
     private ImportController controller;
-    private StlListModel litModel;
-    
-    private class StlListModel implements ListModel{
-        ArrayList<String> stlFiles;       
-        
-        public void update(){
-            stlFiles = controller.getStlFiles();
-        }
-        
-        @Override
-        public int getSize() {
-            return stlFiles.size();
-        }
-
-        @Override
-        public Object getElementAt(int i) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public void addListDataListener(ListDataListener ll) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public void removeListDataListener(ListDataListener ll) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-        
-    }
+       
     /**
      * Creates new form ImportPanel
      */
     public ImportGUI() {
         this.controller = new ImportController();
-        this.litModel = new StlListModel();
         initComponents();
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            private ImportController controller;
-            public int getSize() { return controller.getStlFiles().size(); }
-            public Object getElementAt(int i) { return controller.getStlFiles().get(i); }
-        });
+        StlList = new javax.swing.JList();
+        StlList.setModel(
+                new javax.swing.AbstractListModel() {
+                    private ImportController controller = new ImportController();
+                    @Override
+                    public int getSize() { return controller.getStlFiles().size(); }
+                    @Override
+                    public Object getElementAt(int i) { return controller.getStlFiles().get(i); }
+                    }
+        );
     }
 
     /**
@@ -70,13 +49,18 @@ public class ImportGUI extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        StlList = new javax.swing.JList();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        ImportButton = new javax.swing.JButton();
+        DeleteButton = new javax.swing.JButton();
 
-        jScrollPane1.setViewportView(jList1);
+        StlList.setModel(new javax.swing.AbstractListModel() {
+            private ImportController  controller = new ImportController();
+            public int getSize() { return controller.getStlFiles().size(); }
+            public Object getElementAt(int i) { return controller.getStlFiles().get(i); }
+        });
+        jScrollPane1.setViewportView(StlList);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -94,9 +78,19 @@ public class ImportGUI extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("STL Models");
 
-        jButton1.setText("Import");
+        ImportButton.setText("Import");
+        ImportButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                ImportButtonMouseReleased(evt);
+            }
+        });
 
-        jButton2.setText("Delete");
+        DeleteButton.setText("Delete");
+        DeleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                DeleteButtonMouseReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -109,9 +103,9 @@ public class ImportGUI extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(207, 207, 207)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ImportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(47, 47, 47)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -130,8 +124,8 @@ public class ImportGUI extends javax.swing.JPanel {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(20, 20, 20)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2))
+                        .addComponent(ImportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(DeleteButton))
                     .addGap(1, 1, 1)
                     .addComponent(jLabel1)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -142,12 +136,48 @@ public class ImportGUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ImportButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ImportButtonMouseReleased
+    final JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            if(!importController.importStl(file.getPath())){
+                JOptionPane.showMessageDialog(null, "File Read Error", "InfoBox: " + "Unable to read file", JOptionPane.INFORMATION_MESSAGE);
+            }         
+            this.StlList.setModel(new javax.swing.AbstractListModel() {
+                    private final ImportController  controller = new ImportController();
+                    @Override
+                    public int getSize() { return controller.getStlFiles().size(); }
+                    @Override
+                    public Object getElementAt(int i) { return controller.getStlFiles().get(i); }
+                }
+            );
+            this.updateUI();
+        }      
+    }//GEN-LAST:event_ImportButtonMouseReleased
+
+    private void DeleteButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteButtonMouseReleased
+        String fileName = (String)StlList.getSelectedValue();
+        if(!importController.deleteStl(fileName)){
+            System.out.println(fileName);
+            JOptionPane.showMessageDialog(null, "File Delete Error", "InfoBox: " + "Unable to delete file", JOptionPane.INFORMATION_MESSAGE);
+        }
+        this.StlList.setModel(new javax.swing.AbstractListModel() {
+            private final ImportController  controller = new ImportController();
+            @Override
+            public int getSize() { return controller.getStlFiles().size(); }
+            @Override
+            public Object getElementAt(int i) { return controller.getStlFiles().get(i); }
+        }
+        );
+    }//GEN-LAST:event_DeleteButtonMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton DeleteButton;
+    private javax.swing.JButton ImportButton;
+    private javax.swing.JList StlList;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

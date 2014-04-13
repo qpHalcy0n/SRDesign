@@ -21,7 +21,7 @@ import java.util.ArrayList;
 <span class="fc" id="L21">        File folder = new File(&quot;./Database/Files/&quot;);</span>
 <span class="fc" id="L22">        File[] files = folder.listFiles();</span>
 <span class="fc" id="L23">        result = new ArrayList&lt;String&gt;();</span>
-<span class="fc bfc" id="L24" title="All 2 branches covered.">        for(File f: files){</span>
+<span class="pc bpc" id="L24" title="1 of 4 branches missed.">        if(files!=null)for(File f: files){</span>
 <span class="fc bfc" id="L25" title="All 2 branches covered.">            if(f.getName().contains(&quot;.stl&quot;))((ArrayList&lt;String&gt;)result).add(f.getName().substring(0,f.getName().length()-4 ));</span>
         }
 <span class="fc" id="L27">        files = null;</span>

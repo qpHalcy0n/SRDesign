@@ -42,6 +42,11 @@ public class SavePrinterConfigurationCommandTest {
                     "    <bedX>150.0</bedX>\n" +
                     "    <bedY>100.0</bedY>\n" +
                     "    <endGCode></endGCode>\n" +
+                    "    <hardware>\n" +
+                    "        <baudRate>115200</baudRate>\n" +
+                    "        <comPort>COM1</comPort>\n" +
+                    "        <lineEnd>3</lineEnd>\n" +
+                    "    </hardware>\n" +
                     "    <name>SaveTest</name>\n" +
                     "    <numExtruders>5</numExtruders>\n" +
                     "    <printCenterX>75.0</printCenterX>\n" +
@@ -77,10 +82,10 @@ public class SavePrinterConfigurationCommandTest {
         assertTrue((Boolean)instance.getResult());
         fileToCheck = new File(path);
         actual = FileUtils.readFileToString(fileToCheck);
-        fileToCheck = null;
         actual = actual.substring(0, actual.length()-1);
         if(!expected.equals(actual)) System.out.printf("Test "+this.getClass().getName()+" expected: "+ expected+"\nGot: "+actual);
         assertTrue(expected.equals(actual));
+        fileToCheck = null;
     }
     
 }

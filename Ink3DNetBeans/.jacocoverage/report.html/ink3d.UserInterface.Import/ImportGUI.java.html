@@ -6,18 +6,38 @@
 
 package ink3d.UserInterface.Import;
 
+import static ink3d.UserInterface.MainMenu.SuperMenu.importController;
+import java.io.File;
+import java.util.ArrayList;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.ListModel;
+import javax.swing.event.ListDataListener;
+
 /**
  *
  * @author courtney
  */
-public class ImportGUI extends javax.swing.JFrame {
-
+public class ImportGUI extends javax.swing.JPanel {
+    private ImportController controller;
+       
     /**
-     * Creates new form ImportGUI
+     * Creates new form ImportPanel
      */
-<span class="nc" id="L18">    public ImportGUI() {</span>
-<span class="nc" id="L19">        initComponents();</span>
-<span class="nc" id="L20">    }</span>
+<span class="nc" id="L27">    public ImportGUI() {</span>
+<span class="nc" id="L28">        this.controller = new ImportController();</span>
+<span class="nc" id="L29">        initComponents();</span>
+<span class="nc" id="L30">        StlList = new javax.swing.JList();</span>
+<span class="nc" id="L31">        StlList.setModel(</span>
+<span class="nc" id="L32">                new javax.swing.AbstractListModel() {</span>
+<span class="nc" id="L33">                    private ImportController controller = new ImportController();</span>
+                    @Override
+<span class="nc" id="L35">                    public int getSize() { return controller.getStlFiles().size(); }</span>
+                    @Override
+<span class="nc" id="L37">                    public Object getElementAt(int i) { return controller.getStlFiles().get(i); }</span>
+                    }
+        );
+<span class="nc" id="L40">    }</span>
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,125 +48,139 @@ public class ImportGUI extends javax.swing.JFrame {
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
     private void initComponents() {
 
-<span class="nc" id="L31">        jScrollPane1 = new javax.swing.JScrollPane();</span>
-<span class="nc" id="L32">        jList1 = new javax.swing.JList();</span>
-<span class="nc" id="L33">        jButton1 = new javax.swing.JButton();</span>
-<span class="nc" id="L34">        jButton2 = new javax.swing.JButton();</span>
-<span class="nc" id="L35">        jPanel1 = new javax.swing.JPanel();</span>
-<span class="nc" id="L36">        jLabel1 = new javax.swing.JLabel();</span>
+<span class="nc" id="L51">        jScrollPane1 = new javax.swing.JScrollPane();</span>
+<span class="nc" id="L52">        StlList = new javax.swing.JList();</span>
+<span class="nc" id="L53">        jPanel1 = new javax.swing.JPanel();</span>
+<span class="nc" id="L54">        jLabel1 = new javax.swing.JLabel();</span>
+<span class="nc" id="L55">        ImportButton = new javax.swing.JButton();</span>
+<span class="nc" id="L56">        DeleteButton = new javax.swing.JButton();</span>
 
-<span class="nc" id="L38">        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);</span>
-
-<span class="nc" id="L40">        jList1.setModel(new javax.swing.AbstractListModel() {</span>
-<span class="nc" id="L41">            String[] strings = { &quot;Item 1&quot;, &quot;Item 2&quot;, &quot;Item 3&quot;, &quot;Item 4&quot;, &quot;Item 5&quot; };</span>
-<span class="nc" id="L42">            public int getSize() { return strings.length; }</span>
-<span class="nc" id="L43">            public Object getElementAt(int i) { return strings[i]; }</span>
+<span class="nc" id="L58">        StlList.setModel(new javax.swing.AbstractListModel() {</span>
+<span class="nc" id="L59">            private ImportController  controller = new ImportController();</span>
+<span class="nc" id="L60">            public int getSize() { return controller.getStlFiles().size(); }</span>
+<span class="nc" id="L61">            public Object getElementAt(int i) { return controller.getStlFiles().get(i); }</span>
         });
-<span class="nc" id="L45">        jScrollPane1.setViewportView(jList1);</span>
+<span class="nc" id="L63">        jScrollPane1.setViewportView(StlList);</span>
 
-<span class="nc" id="L47">        jButton1.setText(&quot;Import&quot;);</span>
+<span class="nc" id="L65">        jPanel1.setBackground(new java.awt.Color(153, 153, 153));</span>
 
-<span class="nc" id="L49">        jButton2.setText(&quot;Delete&quot;);</span>
-
-<span class="nc" id="L51">        jPanel1.setBackground(new java.awt.Color(153, 153, 153));</span>
-
-<span class="nc" id="L53">        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);</span>
-<span class="nc" id="L54">        jPanel1.setLayout(jPanel1Layout);</span>
-<span class="nc" id="L55">        jPanel1Layout.setHorizontalGroup(</span>
+<span class="nc" id="L67">        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);</span>
+<span class="nc" id="L68">        jPanel1.setLayout(jPanel1Layout);</span>
+<span class="nc" id="L69">        jPanel1Layout.setHorizontalGroup(</span>
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-<span class="nc" id="L59">        jPanel1Layout.setVerticalGroup(</span>
+<span class="nc" id="L73">        jPanel1Layout.setVerticalGroup(</span>
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-<span class="nc" id="L64">        jLabel1.setFont(new java.awt.Font(&quot;Tahoma&quot;, 0, 12)); // NOI18N</span>
-<span class="nc" id="L65">        jLabel1.setText(&quot;STL Models&quot;);</span>
+<span class="nc" id="L78">        jLabel1.setFont(new java.awt.Font(&quot;Tahoma&quot;, 0, 12)); // NOI18N</span>
+<span class="nc" id="L79">        jLabel1.setText(&quot;STL Models&quot;);</span>
 
-<span class="nc" id="L67">        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());</span>
-<span class="nc" id="L68">        getContentPane().setLayout(layout);</span>
-<span class="nc" id="L69">        layout.setHorizontalGroup(</span>
+<span class="nc" id="L81">        ImportButton.setText(&quot;Import&quot;);</span>
+<span class="nc" id="L82">        ImportButton.addMouseListener(new java.awt.event.MouseAdapter() {</span>
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+<span class="nc" id="L84">                ImportButtonMouseReleased(evt);</span>
+<span class="nc" id="L85">            }</span>
+        });
+
+<span class="nc" id="L88">        DeleteButton.setText(&quot;Delete&quot;);</span>
+<span class="nc" id="L89">        DeleteButton.addMouseListener(new java.awt.event.MouseAdapter() {</span>
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+<span class="nc" id="L91">                DeleteButtonMouseReleased(evt);</span>
+<span class="nc" id="L92">            }</span>
+        });
+
+<span class="nc" id="L95">        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);</span>
+<span class="nc" id="L96">        this.setLayout(layout);</span>
+<span class="nc" id="L97">        layout.setHorizontalGroup(</span>
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(228, 228, 228)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(147, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addGap(0, 600, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(15, 15, 15)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(207, 207, 207)
+                            .addComponent(ImportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(47, 47, 47)
+                            .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addGap(44, 44, 44)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGap(16, 16, 16)))
         );
-<span class="nc" id="L89">        layout.setVerticalGroup(</span>
+<span class="nc" id="L120">        layout.setVerticalGroup(</span>
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(59, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addGap(1, 1, 1)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(ImportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(DeleteButton))
+                    .addGap(1, 1, 1)
+                    .addComponent(jLabel1)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGap(20, 20, 20)))
         );
+<span class="nc" id="L137">    }// &lt;/editor-fold&gt;//GEN-END:initComponents</span>
 
-<span class="nc" id="L105">        pack();</span>
-<span class="nc" id="L106">    }// &lt;/editor-fold&gt;//GEN-END:initComponents</span>
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //&lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot; Look and feel setting code (optional) &quot;&gt;
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-<span class="nc bnc" id="L118" title="All 2 branches missed.">            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {</span>
-<span class="nc bnc" id="L119" title="All 2 branches missed.">                if (&quot;Nimbus&quot;.equals(info.getName())) {</span>
-<span class="nc" id="L120">                    javax.swing.UIManager.setLookAndFeel(info.getClassName());</span>
-<span class="nc" id="L121">                    break;</span>
+    private void ImportButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ImportButtonMouseReleased
+<span class="nc" id="L140">    final JFileChooser fc = new JFileChooser();</span>
+<span class="nc" id="L141">        int returnVal = fc.showOpenDialog(this);</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">        if (returnVal == JFileChooser.APPROVE_OPTION) {</span>
+<span class="nc" id="L143">            File file = fc.getSelectedFile();</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">            if(!importController.importStl(file.getPath())){</span>
+<span class="nc" id="L145">                JOptionPane.showMessageDialog(null, &quot;File Read Error&quot;, &quot;InfoBox: &quot; + &quot;Unable to read file&quot;, JOptionPane.INFORMATION_MESSAGE);</span>
+            }         
+<span class="nc" id="L147">            this.StlList.setModel(new javax.swing.AbstractListModel() {</span>
+<span class="nc" id="L148">                    private final ImportController  controller = new ImportController();</span>
+                    @Override
+<span class="nc" id="L150">                    public int getSize() { return controller.getStlFiles().size(); }</span>
+                    @Override
+<span class="nc" id="L152">                    public Object getElementAt(int i) { return controller.getStlFiles().get(i); }</span>
                 }
-            }
-<span class="nc" id="L124">        } catch (ClassNotFoundException ex) {</span>
-<span class="nc" id="L125">            java.util.logging.Logger.getLogger(ImportGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);</span>
-<span class="nc" id="L126">        } catch (InstantiationException ex) {</span>
-<span class="nc" id="L127">            java.util.logging.Logger.getLogger(ImportGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);</span>
-<span class="nc" id="L128">        } catch (IllegalAccessException ex) {</span>
-<span class="nc" id="L129">            java.util.logging.Logger.getLogger(ImportGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);</span>
-<span class="nc" id="L130">        } catch (javax.swing.UnsupportedLookAndFeelException ex) {</span>
-<span class="nc" id="L131">            java.util.logging.Logger.getLogger(ImportGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);</span>
-<span class="nc" id="L132">        }</span>
-        //&lt;/editor-fold&gt;
+            );
+<span class="nc" id="L155">            this.updateUI();</span>
+        }      
+<span class="nc" id="L157">    }//GEN-LAST:event_ImportButtonMouseReleased</span>
 
-        /* Create and display the form */
-<span class="nc" id="L136">        java.awt.EventQueue.invokeLater(new Runnable() {</span>
-            public void run() {
-<span class="nc" id="L138">                new ImportGUI().setVisible(true);</span>
-<span class="nc" id="L139">            }</span>
-        });
-<span class="nc" id="L141">    }</span>
+    private void DeleteButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteButtonMouseReleased
+<span class="nc" id="L160">        String fileName = (String)StlList.getSelectedValue();</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">        if(!importController.deleteStl(fileName)){</span>
+<span class="nc" id="L162">            System.out.println(fileName);</span>
+<span class="nc" id="L163">            JOptionPane.showMessageDialog(null, &quot;File Delete Error&quot;, &quot;InfoBox: &quot; + &quot;Unable to delete file&quot;, JOptionPane.INFORMATION_MESSAGE);</span>
+        }
+<span class="nc" id="L165">        this.StlList.setModel(new javax.swing.AbstractListModel() {</span>
+<span class="nc" id="L166">            private final ImportController  controller = new ImportController();</span>
+            @Override
+<span class="nc" id="L168">            public int getSize() { return controller.getStlFiles().size(); }</span>
+            @Override
+<span class="nc" id="L170">            public Object getElementAt(int i) { return controller.getStlFiles().get(i); }</span>
+        }
+        );
+<span class="nc" id="L173">    }//GEN-LAST:event_DeleteButtonMouseReleased</span>
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton DeleteButton;
+    private javax.swing.JButton ImportButton;
+    private javax.swing.JList StlList;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

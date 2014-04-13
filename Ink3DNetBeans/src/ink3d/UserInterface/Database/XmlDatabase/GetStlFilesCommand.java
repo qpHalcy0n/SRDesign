@@ -21,7 +21,7 @@ public class GetStlFilesCommand extends CommandStructure{
         File folder = new File("./Database/Files/");
         File[] files = folder.listFiles();
         result = new ArrayList<String>();
-        for(File f: files){
+        if(files!=null)for(File f: files){
             if(f.getName().contains(".stl"))((ArrayList<String>)result).add(f.getName().substring(0,f.getName().length()-4 ));
         }
         files = null;

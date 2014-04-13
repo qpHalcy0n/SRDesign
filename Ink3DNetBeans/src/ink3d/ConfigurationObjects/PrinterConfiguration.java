@@ -34,8 +34,9 @@ public class PrinterConfiguration {
         startGCode = DEFAULT_START_GCODE;
         endGCode = DEFAULT_END_GCODE;
         extruderList = new ArrayList<ExtruderConfiguration>();
+        hardware = new HardwareConfiguration();
     }
-
+    private HardwareConfiguration hardware;
     private String name;
     /**
      * The max x of the bed.
@@ -175,6 +176,14 @@ public class PrinterConfiguration {
         this.name = name;
     }        
 
+    public HardwareConfiguration getHardware() {
+        return hardware;
+    }
+
+    public void setHardware(HardwareConfiguration hardware) {
+        this.hardware = hardware;
+    }
+
     /**
      * @return the extruderList
      */
@@ -233,21 +242,22 @@ public class PrinterConfiguration {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.name);
-        hash = 67 * hash + (int) (Double.doubleToLongBits(this.bedX) ^ (Double.doubleToLongBits(this.bedX) >>> 32));
-        hash = 67 * hash + (int) (Double.doubleToLongBits(this.bedY) ^ (Double.doubleToLongBits(this.bedY) >>> 32));
-        hash = 67 * hash + (int) (Double.doubleToLongBits(this.printCenterX) ^ (Double.doubleToLongBits(this.printCenterX) >>> 32));
-        hash = 67 * hash + (int) (Double.doubleToLongBits(this.printCenterY) ^ (Double.doubleToLongBits(this.printCenterY) >>> 32));
-        hash = 67 * hash + (int) (Double.doubleToLongBits(this.zOffset) ^ (Double.doubleToLongBits(this.zOffset) >>> 32));
-        hash = 67 * hash + Objects.hashCode(this.gCodeFlavor);
-        hash = 67 * hash + (this.useRelativeEDistances ? 1 : 0);
-        hash = 67 * hash + this.numExtruders;
-        hash = 67 * hash + (int) (Double.doubleToLongBits(this.vibrationLimit) ^ (Double.doubleToLongBits(this.vibrationLimit) >>> 32));
-        hash = 67 * hash + (this.useFirmwareRetraction ? 1 : 0);
-        hash = 67 * hash + Objects.hashCode(this.startGCode);
-        hash = 67 * hash + Objects.hashCode(this.endGCode);
-        hash = 67 * hash + Objects.hashCode(this.extruderList);
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.hardware);
+        hash = 97 * hash + Objects.hashCode(this.name);
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.bedX) ^ (Double.doubleToLongBits(this.bedX) >>> 32));
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.bedY) ^ (Double.doubleToLongBits(this.bedY) >>> 32));
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.printCenterX) ^ (Double.doubleToLongBits(this.printCenterX) >>> 32));
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.printCenterY) ^ (Double.doubleToLongBits(this.printCenterY) >>> 32));
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.zOffset) ^ (Double.doubleToLongBits(this.zOffset) >>> 32));
+        hash = 97 * hash + Objects.hashCode(this.gCodeFlavor);
+        hash = 97 * hash + (this.useRelativeEDistances ? 1 : 0);
+        hash = 97 * hash + this.numExtruders;
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.vibrationLimit) ^ (Double.doubleToLongBits(this.vibrationLimit) >>> 32));
+        hash = 97 * hash + (this.useFirmwareRetraction ? 1 : 0);
+        hash = 97 * hash + Objects.hashCode(this.startGCode);
+        hash = 97 * hash + Objects.hashCode(this.endGCode);
+        hash = 97 * hash + Objects.hashCode(this.extruderList);
         return hash;
     }
 
@@ -260,6 +270,9 @@ public class PrinterConfiguration {
             return false;
         }
         final PrinterConfiguration other = (PrinterConfiguration) obj;
+        if (!Objects.equals(this.hardware, other.hardware)) {
+            return false;
+        }
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
@@ -307,7 +320,7 @@ public class PrinterConfiguration {
 
     @Override
     public String toString() {
-        return "PrinterConfiguration{" + "name=" + name + ", bedX=" + bedX + ", bedY=" + bedY + ", printCenterX=" + printCenterX + ", printCenterY=" + printCenterY + ", zOffset=" + zOffset + ", gCodeFlavor=" + gCodeFlavor + ", useRelativeEDistances=" + useRelativeEDistances + ", numExtruders=" + numExtruders + ", vibrationLimit=" + vibrationLimit + ", useFirmwareRetraction=" + useFirmwareRetraction + ", startGCode=" + startGCode + ", endGCode=" + endGCode + ", extruderList=" + extruderList + '}';
+        return "PrinterConfiguration{" + "hardware=" + hardware + ", name=" + name + ", bedX=" + bedX + ", bedY=" + bedY + ", printCenterX=" + printCenterX + ", printCenterY=" + printCenterY + ", zOffset=" + zOffset + ", gCodeFlavor=" + gCodeFlavor + ", useRelativeEDistances=" + useRelativeEDistances + ", numExtruders=" + numExtruders + ", vibrationLimit=" + vibrationLimit + ", useFirmwareRetraction=" + useFirmwareRetraction + ", startGCode=" + startGCode + ", endGCode=" + endGCode + ", extruderList=" + extruderList + '}';
     }
-    
+
 }

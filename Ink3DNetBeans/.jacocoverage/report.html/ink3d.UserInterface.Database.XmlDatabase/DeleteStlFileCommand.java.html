@@ -22,7 +22,7 @@ public class DeleteStlFileCommand extends CommandStructure {
     @Override
     public void execute() {
         try{
-<span class="fc" id="L25">            File file = new File(&quot;./Database/Files/&quot;+fileName+&quot;.xml&quot;);</span>
+<span class="fc" id="L25">            File file = new File(&quot;./Database/Files/&quot;+fileName+&quot;.stl&quot;);</span>
 <span class="fc" id="L26">            result = file.delete();</span>
 <span class="nc" id="L27">     	}catch(Exception e){</span>
 <span class="nc" id="L28">             e.printStackTrace();</span>
