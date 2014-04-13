@@ -9,6 +9,7 @@ package ink3d.UserInterface.PrinterConfig;
 import ink3d.ConfigurationObjects.HardwareConfiguration;
 import ink3d.ConfigurationObjects.PrinterConfiguration;
 import ink3d.UserInterface.Database.PersistenceFramework;
+import ink3d.UserInterface.MainMenu.BadFieldException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -121,11 +122,5 @@ public class PrinterController {
             throw new BadFieldException("All Fields need to be filed out to save a Printer");
         }
         return db.savePrinterConfiguration(config);
-    }
-    
-    public class BadFieldException extends Exception{
-        public BadFieldException(String message){
-            super(message);
-        }  
     }
 }

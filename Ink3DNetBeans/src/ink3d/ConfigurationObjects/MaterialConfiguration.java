@@ -191,6 +191,25 @@ public class MaterialConfiguration {
      */
     private int minPrintSpeed;
 
+    private String gCodeStart;
+    private String gCodeEnd;
+
+    public String getgCodeStart() {
+        return gCodeStart;
+    }
+
+    public void setgCodeStart(String gCodeStart) {
+        this.gCodeStart = gCodeStart;
+    }
+
+    public String getgCodeEnd() {
+        return gCodeEnd;
+    }
+
+    public void setgCodeEnd(String gCodeEnd) {
+        this.gCodeEnd = gCodeEnd;
+    }
+    
     public double getFilamentDiameter() {
         return filamentDiameter;
     }

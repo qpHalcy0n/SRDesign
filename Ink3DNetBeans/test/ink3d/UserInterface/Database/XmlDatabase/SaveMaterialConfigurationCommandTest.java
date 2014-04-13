@@ -52,6 +52,8 @@ public class SaveMaterialConfigurationCommandTest {
         material.setRetractionSpeed(12);
         material.setSlowDownTimeTreshold(13);
         material.setWipeBeforeRetract(true);
+        material.setgCodeStart("haha");
+        material.setgCodeEnd("lol");
         
         expected ="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                     "<material>\n" +
@@ -78,6 +80,8 @@ public class SaveMaterialConfigurationCommandTest {
                     "    <retractionSpeed>12</retractionSpeed>\n" +
                     "    <slowDownTimeTreshold>13</slowDownTimeTreshold>\n" +
                     "    <wipeBeforeRetract>true</wipeBeforeRetract>\n" +
+                    "    <gCodeEnd>lol</gCodeEnd>\n" +
+                    "    <gCodeStart>haha</gCodeStart>\n" +
                     "</material>";
     }
     

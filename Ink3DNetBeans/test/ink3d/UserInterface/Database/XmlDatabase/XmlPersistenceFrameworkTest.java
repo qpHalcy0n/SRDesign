@@ -1321,33 +1321,37 @@ public class XmlPersistenceFrameworkTest {
         config.setRetractionSpeed(12);
         config.setSlowDownTimeTreshold(13);
         config.setWipeBeforeRetract(true);
+        config.setgCodeStart("haha");
+        config.setgCodeEnd("lol");
         
         String expResult ="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                    "<material>\n" +
-                    "    <bridgeFanSpeedPercent>1</bridgeFanSpeedPercent>\n" +
-                    "    <disableFanForFirstNLayers>2</disableFanForFirstNLayers>\n" +
-                    "    <enableAutoCooling>true</enableAutoCooling>\n" +
-                    "    <enableFanTimeThreshold>3</enableFanTimeThreshold>\n" +
-                    "    <extraLengthAfterRetraction>1.4</extraLengthAfterRetraction>\n" +
-                    "    <extraLengthOnToolReenable>1.5</extraLengthOnToolReenable>\n" +
-                    "    <extrusionMultiplier>1.6</extrusionMultiplier>\n" +
-                    "    <extrusionTemperature>124</extrusionTemperature>\n" +
-                    "    <fanAlwaysOn>false</fanAlwaysOn>\n" +
-                    "    <filamentDiameter>0.98</filamentDiameter>\n" +
-                    "    <firstLayerExtrusionTemperature>129</firstLayerExtrusionTemperature>\n" +
-                    "    <maxFanSpeed>6</maxFanSpeed>\n" +
-                    "    <minFanSpeed>0</minFanSpeed>\n" +
-                    "    <minPrintSpeed>9</minPrintSpeed>\n" +
-                    "    <minimumTravelAfterRetraction>0.01</minimumTravelAfterRetraction>\n" +
-                    "    <name>SaveTest</name>\n" +
-                    "    <retractOnLayerChange>true</retractOnLayerChange>\n" +
-                    "    <retractionLength>0.04</retractionLength>\n" +
-                    "    <retractionLengthBeforeToolChange>0.13</retractionLengthBeforeToolChange>\n" +
-                    "    <retractionLiftZ>0.2</retractionLiftZ>\n" +
-                    "    <retractionSpeed>12</retractionSpeed>\n" +
-                    "    <slowDownTimeTreshold>13</slowDownTimeTreshold>\n" +
-                    "    <wipeBeforeRetract>true</wipeBeforeRetract>\n" +
-                    "</material>";
+                            "<material>\n" +
+                            "    <bridgeFanSpeedPercent>1</bridgeFanSpeedPercent>\n" +
+                            "    <disableFanForFirstNLayers>2</disableFanForFirstNLayers>\n" +
+                            "    <enableAutoCooling>true</enableAutoCooling>\n" +
+                            "    <enableFanTimeThreshold>3</enableFanTimeThreshold>\n" +
+                            "    <extraLengthAfterRetraction>1.4</extraLengthAfterRetraction>\n" +
+                            "    <extraLengthOnToolReenable>1.5</extraLengthOnToolReenable>\n" +
+                            "    <extrusionMultiplier>1.6</extrusionMultiplier>\n" +
+                            "    <extrusionTemperature>124</extrusionTemperature>\n" +
+                            "    <fanAlwaysOn>false</fanAlwaysOn>\n" +
+                            "    <filamentDiameter>0.98</filamentDiameter>\n" +
+                            "    <firstLayerExtrusionTemperature>129</firstLayerExtrusionTemperature>\n" +
+                            "    <maxFanSpeed>6</maxFanSpeed>\n" +
+                            "    <minFanSpeed>0</minFanSpeed>\n" +
+                            "    <minPrintSpeed>9</minPrintSpeed>\n" +
+                            "    <minimumTravelAfterRetraction>0.01</minimumTravelAfterRetraction>\n" +
+                            "    <name>SaveTest</name>\n" +
+                            "    <retractOnLayerChange>true</retractOnLayerChange>\n" +
+                            "    <retractionLength>0.04</retractionLength>\n" +
+                            "    <retractionLengthBeforeToolChange>0.13</retractionLengthBeforeToolChange>\n" +
+                            "    <retractionLiftZ>0.2</retractionLiftZ>\n" +
+                            "    <retractionSpeed>12</retractionSpeed>\n" +
+                            "    <slowDownTimeTreshold>13</slowDownTimeTreshold>\n" +
+                            "    <wipeBeforeRetract>true</wipeBeforeRetract>\n" +
+                            "    <gCodeEnd>lol</gCodeEnd>\n" +
+                            "    <gCodeStart>haha</gCodeStart>\n" +
+                            "</material>";
         
         System.out.println("saveMaterialConfiguration");
         XmlPersistenceFramework instance = new XmlPersistenceFramework();

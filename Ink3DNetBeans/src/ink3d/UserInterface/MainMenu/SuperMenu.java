@@ -8,8 +8,8 @@ package ink3d.UserInterface.MainMenu;
 import ink3d.ConfigurationObjects.PrinterConfiguration;
 import ink3d.UserInterface.Import.ImportController;
 import ink3d.UserInterface.MainMenu.SubsectionGUI;
+import ink3d.UserInterface.Material.MaterialController;
 import ink3d.UserInterface.PrinterConfig.PrinterController;
-import ink3d.UserInterface.PrinterConfig.PrinterController.BadFieldException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -23,8 +23,9 @@ import javax.swing.JPanel;
  * @author courtney
  */
 public class SuperMenu extends javax.swing.JFrame {
-    public static ImportController importController = new ImportController();
-    public static PrinterController printerController = new PrinterController();
+    private static ImportController importController = new ImportController();
+    private static PrinterController printerController = new PrinterController();
+    private static MaterialController materialController = new MaterialController();
     /**
      * Creates new form SuperMenu
      */
@@ -277,10 +278,10 @@ public class SuperMenu extends javax.swing.JFrame {
         postProcPCTextArea = new javax.swing.JTextArea();
         jPanel5 = new javax.swing.JPanel();
         jPanel43 = new javax.swing.JPanel();
-        newMatBttn = new javax.swing.JButton();
-        saveMatBttn = new javax.swing.JButton();
-        deleteMatBttn = new javax.swing.JButton();
-        nameMatText = new javax.swing.JTextField();
+        newMaterialButton = new javax.swing.JButton();
+        saveMaterialButton = new javax.swing.JButton();
+        deleteMaterialButton = new javax.swing.JButton();
+        nameMaterialText = new javax.swing.JTextField();
         jLabel158 = new javax.swing.JLabel();
         jScrollPane9 = new javax.swing.JScrollPane();
         MatList = new javax.swing.JList();
@@ -290,18 +291,18 @@ public class SuperMenu extends javax.swing.JFrame {
         jPanel46 = new javax.swing.JPanel();
         jLabel159 = new javax.swing.JLabel();
         jLabel160 = new javax.swing.JLabel();
-        diameterMatText = new javax.swing.JTextField();
-        extrusionMultiMatText = new javax.swing.JTextField();
+        filimentDiameterMaterialText = new javax.swing.JTextField();
+        extrusionMultiplierMaterialText = new javax.swing.JTextField();
         jLabel161 = new javax.swing.JLabel();
         jLabel162 = new javax.swing.JLabel();
         jPanel47 = new javax.swing.JPanel();
         jLabel163 = new javax.swing.JLabel();
         jLabel164 = new javax.swing.JLabel();
         jLabel165 = new javax.swing.JLabel();
-        extruder1stLayerMatSpinner = new javax.swing.JSpinner();
-        extruderOtherMatSpinner = new javax.swing.JSpinner();
-        bed1stLayerMatSpinner = new javax.swing.JSpinner();
-        bedOtherMatSpinner = new javax.swing.JSpinner();
+        firstLayerTemperatureMaterialSpinner = new javax.swing.JSpinner();
+        extruderTemperatureMaterialSpinner = new javax.swing.JSpinner();
+        bed1stLayerMaterialSpinner = new javax.swing.JSpinner();
+        bedOtherMaterialSpinner = new javax.swing.JSpinner();
         jLabel166 = new javax.swing.JLabel();
         jLabel167 = new javax.swing.JLabel();
         jLabel168 = new javax.swing.JLabel();
@@ -310,29 +311,29 @@ public class SuperMenu extends javax.swing.JFrame {
         jLabel170 = new javax.swing.JLabel();
         jLabel171 = new javax.swing.JLabel();
         jLabel172 = new javax.swing.JLabel();
-        fanSpeedMinMatSpinner = new javax.swing.JSpinner();
-        fanSpinnerMaxMatSpinner = new javax.swing.JSpinner();
+        fanSpeedMinMaterialSpinner = new javax.swing.JSpinner();
+        fanSpinnerMaxMaterialSpinner = new javax.swing.JSpinner();
         jLabel173 = new javax.swing.JLabel();
         jLabel174 = new javax.swing.JLabel();
         jLabel175 = new javax.swing.JLabel();
         jLabel176 = new javax.swing.JLabel();
-        fanSettingsMatCheckBox1 = new javax.swing.JCheckBox();
-        fanSettingsMatCheckBox2 = new javax.swing.JCheckBox();
+        keepFanAlwaysOnMaterialCheckBox = new javax.swing.JCheckBox();
+        enableAutoCoolingMaterialCheckBox = new javax.swing.JCheckBox();
         jLabel177 = new javax.swing.JLabel();
-        disableFanMatSpinner = new javax.swing.JSpinner();
+        disableFanMaterialSpinner = new javax.swing.JSpinner();
         jLabel178 = new javax.swing.JLabel();
-        bridgeSpeedMatSpinner = new javax.swing.JSpinner();
+        bridgeSpeedMaterialSpinner = new javax.swing.JSpinner();
         jLabel179 = new javax.swing.JLabel();
         jPanel49 = new javax.swing.JPanel();
         jLabel180 = new javax.swing.JLabel();
         jLabel181 = new javax.swing.JLabel();
-        coolingThresholdsMatSpinner1 = new javax.swing.JSpinner();
+        enableFanIfLayerPrintTimeBelowMaterialSpinner = new javax.swing.JSpinner();
         jLabel182 = new javax.swing.JLabel();
         jLabel183 = new javax.swing.JLabel();
-        coolingThresholdMatSpinner2 = new javax.swing.JSpinner();
+        slowDownIfLayerPrintTimeBelowMaterialSpinner = new javax.swing.JSpinner();
         jLabel184 = new javax.swing.JLabel();
         jLabel185 = new javax.swing.JLabel();
-        coolingThresholdsMatSpinner3 = new javax.swing.JSpinner();
+        minPrintSpeedMaterialSpinner = new javax.swing.JSpinner();
         jLabel186 = new javax.swing.JLabel();
         jPanel50 = new javax.swing.JPanel();
         jLabel187 = new javax.swing.JLabel();
@@ -343,13 +344,13 @@ public class SuperMenu extends javax.swing.JFrame {
         jLabel192 = new javax.swing.JLabel();
         jLabel193 = new javax.swing.JLabel();
         jLabel194 = new javax.swing.JLabel();
-        retractLengthMatText = new javax.swing.JTextField();
-        retractSpeedMatSpinner = new javax.swing.JSpinner();
-        jCheckBox20 = new javax.swing.JCheckBox();
-        retractWipeMatCheckBox = new javax.swing.JCheckBox();
-        retractLiftZMatText = new javax.swing.JTextField();
-        retractExtraLengthMatText = new javax.swing.JTextField();
-        retractMinTravelMatText = new javax.swing.JTextField();
+        retractLengthMaterialText = new javax.swing.JTextField();
+        retractSpeedMaterialSpinner = new javax.swing.JSpinner();
+        retractOnLayerChangeCheckBox = new javax.swing.JCheckBox();
+        wipeWhileRetractingMaterialCheckBox = new javax.swing.JCheckBox();
+        retractLiftZMaterialText = new javax.swing.JTextField();
+        extraLengthOnRestartMaterialText = new javax.swing.JTextField();
+        retractMinTravelMaterialText = new javax.swing.JTextField();
         jLabel195 = new javax.swing.JLabel();
         jLabel196 = new javax.swing.JLabel();
         jLabel197 = new javax.swing.JLabel();
@@ -359,10 +360,11 @@ public class SuperMenu extends javax.swing.JFrame {
         jLabel200 = new javax.swing.JLabel();
         jLabel201 = new javax.swing.JLabel();
         jLabel202 = new javax.swing.JLabel();
-        toolDisableLengthMatText = new javax.swing.JTextField();
-        toolDisabledExtraLengthRestartMatText = new javax.swing.JTextField();
+        retractionWhenToolIsDisabledLengthMaterialText = new javax.swing.JTextField();
+        extraLengthOnRestartWhenToolIsDisabledMaterialText = new javax.swing.JTextField();
         jLabel203 = new javax.swing.JLabel();
         jLabel204 = new javax.swing.JLabel();
+        loadMaterialButton = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         newExtrudBttn = new javax.swing.JButton();
@@ -647,7 +649,7 @@ public class SuperMenu extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 92, Short.MAX_VALUE)
+                .addGap(0, 135, Short.MAX_VALUE)
                 .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -695,7 +697,7 @@ public class SuperMenu extends javax.swing.JFrame {
         ImportPanel.setLayout(ImportPanelLayout);
         ImportPanelLayout.setHorizontalGroup(
             ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 762, Short.MAX_VALUE)
+            .addGap(0, 870, Short.MAX_VALUE)
             .addGroup(ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ImportPanelLayout.createSequentialGroup()
                     .addGap(15, 15, 15)
@@ -718,7 +720,7 @@ public class SuperMenu extends javax.swing.JFrame {
         );
         ImportPanelLayout.setVerticalGroup(
             ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 381, Short.MAX_VALUE)
+            .addGap(0, 424, Short.MAX_VALUE)
             .addGroup(ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ImportPanelLayout.createSequentialGroup()
                     .addGap(20, 20, 20)
@@ -2132,25 +2134,30 @@ public class SuperMenu extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 113, Short.MAX_VALUE)
+                .addGap(0, 156, Short.MAX_VALUE)
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane1.addTab("Print Config", jPanel3);
 
-        newMatBttn.setText("New");
+        newMaterialButton.setText("New");
 
-        saveMatBttn.setText("Save");
+        saveMaterialButton.setText("Save");
+        saveMaterialButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                saveMaterialButtonMouseReleased(evt);
+            }
+        });
 
-        deleteMatBttn.setText("Delete");
+        deleteMaterialButton.setText("Delete");
 
         jLabel158.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel158.setText("Name:");
 
         MatList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            private MaterialController  controller = new MaterialController();
+            public int getSize() { return controller.getMaterialConfigurations().size(); }
+            public Object getElementAt(int i) { return controller.getMaterialConfigurations().get(i); }
         });
         jScrollPane9.setViewportView(MatList);
 
@@ -2165,18 +2172,6 @@ public class SuperMenu extends javax.swing.JFrame {
         jLabel159.setText("Diameter:");
 
         jLabel160.setText("Extrusion Multiplier: ");
-
-        diameterMatText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                diameterMatTextActionPerformed(evt);
-            }
-        });
-
-        extrusionMultiMatText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                extrusionMultiMatTextActionPerformed(evt);
-            }
-        });
 
         jLabel161.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel161.setText("Filament");
@@ -2195,11 +2190,11 @@ public class SuperMenu extends javax.swing.JFrame {
                             .addGroup(jPanel46Layout.createSequentialGroup()
                                 .addComponent(jLabel159)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(diameterMatText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(filimentDiameterMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel46Layout.createSequentialGroup()
                                 .addComponent(jLabel160)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(extrusionMultiMatText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(extrusionMultiplierMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel162))
                     .addComponent(jLabel161))
@@ -2213,12 +2208,12 @@ public class SuperMenu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel159)
-                    .addComponent(diameterMatText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(filimentDiameterMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel162))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel160)
-                    .addComponent(extrusionMultiMatText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(extrusionMultiplierMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -2258,18 +2253,20 @@ public class SuperMenu extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel166)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bed1stLayerMatSpinner)
-                    .addComponent(extruder1stLayerMatSpinner))
+                .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bed1stLayerMaterialSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                    .addComponent(firstLayerTemperatureMaterialSpinner))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel168, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel169, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(extruderOtherMatSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addComponent(bedOtherMatSpinner))
-                .addGap(41, 41, 41))
+                    .addGroup(jPanel47Layout.createSequentialGroup()
+                        .addComponent(jLabel169)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bedOtherMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel47Layout.createSequentialGroup()
+                        .addComponent(jLabel168)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(extruderTemperatureMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel47Layout.setVerticalGroup(
             jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2279,19 +2276,21 @@ public class SuperMenu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel164)
-                    .addComponent(extruder1stLayerMatSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(extruderOtherMatSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(firstLayerTemperatureMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(extruderTemperatureMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel166)
                     .addComponent(jLabel168))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel165)
-                    .addComponent(bed1stLayerMatSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bedOtherMatSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bed1stLayerMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bedOtherMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel167)
                     .addComponent(jLabel169))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
+
+        jPanel48.setPreferredSize(new java.awt.Dimension(250, 173));
 
         jLabel170.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel170.setText("Fan Settings");
@@ -2321,68 +2320,77 @@ public class SuperMenu extends javax.swing.JFrame {
             .addGroup(jPanel48Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel48Layout.createSequentialGroup()
-                        .addComponent(jLabel174)
-                        .addGap(64, 64, 64)
-                        .addComponent(jLabel173))
                     .addComponent(jLabel170)
-                    .addComponent(jLabel172)
-                    .addComponent(jLabel171)
-                    .addComponent(jLabel175)
-                    .addComponent(jLabel177))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel48Layout.createSequentialGroup()
                         .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fanSettingsMatCheckBox2)
-                            .addComponent(fanSettingsMatCheckBox1)
-                            .addComponent(fanSpeedMinMatSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel176)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fanSpinnerMaxMatSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel48Layout.createSequentialGroup()
-                        .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(disableFanMatSpinner)
-                            .addComponent(bridgeSpeedMatSpinner))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel177)
+                            .addComponent(jLabel174))
                         .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel179)
-                            .addComponent(jLabel178))
-                        .addGap(118, 118, 118))))
+                            .addGroup(jPanel48Layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel48Layout.createSequentialGroup()
+                                        .addComponent(fanSpeedMinMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel176))
+                                    .addGroup(jPanel48Layout.createSequentialGroup()
+                                        .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(disableFanMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(bridgeSpeedMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel179)
+                                            .addComponent(jLabel178)))))
+                            .addGroup(jPanel48Layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel173)))
+                        .addGap(18, 18, 18)
+                        .addComponent(fanSpinnerMaxMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel48Layout.createSequentialGroup()
+                        .addComponent(jLabel172)
+                        .addGap(18, 18, 18)
+                        .addComponent(enableAutoCoolingMaterialCheckBox))
+                    .addGroup(jPanel48Layout.createSequentialGroup()
+                        .addComponent(jLabel171)
+                        .addGap(18, 18, 18)
+                        .addComponent(keepFanAlwaysOnMaterialCheckBox))
+                    .addComponent(jLabel175))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel48Layout.setVerticalGroup(
             jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel48Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
                 .addComponent(jLabel170)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fanSettingsMatCheckBox1)
+                    .addComponent(keepFanAlwaysOnMaterialCheckBox)
                     .addComponent(jLabel171))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel172)
-                    .addComponent(fanSettingsMatCheckBox2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel174)
-                    .addComponent(jLabel173)
-                    .addComponent(fanSpeedMinMatSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel176)
-                    .addComponent(fanSpinnerMaxMatSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel175)
-                    .addComponent(bridgeSpeedMatSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel179))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel177)
-                    .addComponent(disableFanMatSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel178))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel48Layout.createSequentialGroup()
+                        .addComponent(jLabel172)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel174)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel175)
+                            .addComponent(bridgeSpeedMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel177)
+                            .addComponent(disableFanMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel178)))
+                    .addGroup(jPanel48Layout.createSequentialGroup()
+                        .addComponent(enableAutoCoolingMaterialCheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel173)
+                            .addComponent(fanSpeedMinMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel176)
+                            .addComponent(fanSpinnerMaxMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel179)))
+                .addGap(27, 27, 27))
         );
 
         jLabel180.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -2415,10 +2423,10 @@ public class SuperMenu extends javax.swing.JFrame {
                         .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel49Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(coolingThresholdsMatSpinner3, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
+                                .addComponent(minPrintSpeedMaterialSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel49Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(coolingThresholdMatSpinner2)))
+                                .addComponent(slowDownIfLayerPrintTimeBelowMaterialSpinner)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel186)
@@ -2426,7 +2434,7 @@ public class SuperMenu extends javax.swing.JFrame {
                     .addGroup(jPanel49Layout.createSequentialGroup()
                         .addComponent(jLabel181)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(coolingThresholdsMatSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(enableFanIfLayerPrintTimeBelowMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel182)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -2439,18 +2447,18 @@ public class SuperMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel181)
-                    .addComponent(coolingThresholdsMatSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(enableFanIfLayerPrintTimeBelowMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel182))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel183)
-                    .addComponent(coolingThresholdMatSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(slowDownIfLayerPrintTimeBelowMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel184))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel185)
                     .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(coolingThresholdsMatSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(minPrintSpeedMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel186)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -2488,43 +2496,41 @@ public class SuperMenu extends javax.swing.JFrame {
             jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel50Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel194)
+                    .addComponent(jLabel188, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel187, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel189, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel190, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel191, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel192, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel193, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel188)
-                    .addComponent(jLabel187)
-                    .addComponent(jLabel189)
-                    .addComponent(jLabel190)
-                    .addComponent(jLabel191)
-                    .addComponent(jLabel192)
-                    .addComponent(jLabel193)
-                    .addComponent(jLabel194))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel50Layout.createSequentialGroup()
-                        .addComponent(retractLengthMatText, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel195)
-                        .addGap(29, 29, 29))
+                    .addGroup(jPanel50Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel50Layout.createSequentialGroup()
+                                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(retractLiftZMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(retractSpeedMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(extraLengthOnRestartMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(retractMinTravelMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel196)
+                                    .addComponent(jLabel197)
+                                    .addComponent(jLabel198)
+                                    .addComponent(jLabel199)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel50Layout.createSequentialGroup()
+                                .addComponent(retractLengthMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel195)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel50Layout.createSequentialGroup()
                         .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel50Layout.createSequentialGroup()
-                                .addComponent(retractLiftZMatText, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel196))
-                            .addGroup(jPanel50Layout.createSequentialGroup()
-                                .addComponent(retractSpeedMatSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel197))
-                            .addGroup(jPanel50Layout.createSequentialGroup()
-                                .addComponent(retractExtraLengthMatText, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel198))
-                            .addGroup(jPanel50Layout.createSequentialGroup()
-                                .addComponent(retractMinTravelMatText, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel199))
-                            .addComponent(jCheckBox20)
-                            .addComponent(retractWipeMatCheckBox))
-                        .addContainerGap())))
+                            .addComponent(wipeWhileRetractingMaterialCheckBox)
+                            .addComponent(retractOnLayerChangeCheckBox))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel50Layout.setVerticalGroup(
             jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2534,35 +2540,35 @@ public class SuperMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel188)
-                    .addComponent(retractLengthMatText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(retractLengthMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel195))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel189)
-                    .addComponent(retractLiftZMatText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(retractLiftZMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel196))
                 .addGap(9, 9, 9)
                 .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel190)
-                    .addComponent(retractSpeedMatSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(retractSpeedMaterialSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel197))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel191)
-                    .addComponent(retractExtraLengthMatText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(extraLengthOnRestartMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel198))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel192)
-                    .addComponent(retractMinTravelMatText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(retractMinTravelMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel199))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox20)
+                    .addComponent(retractOnLayerChangeCheckBox)
                     .addComponent(jLabel193))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(retractWipeMatCheckBox)
+                    .addComponent(wipeWhileRetractingMaterialCheckBox)
                     .addComponent(jLabel194))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
@@ -2591,16 +2597,16 @@ public class SuperMenu extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel51Layout.createSequentialGroup()
                                 .addComponent(jLabel201)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(toolDisableLengthMatText, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(retractionWhenToolIsDisabledLengthMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel51Layout.createSequentialGroup()
                                 .addComponent(jLabel202)
                                 .addGap(73, 73, 73)
-                                .addComponent(toolDisabledExtraLengthRestartMatText, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(extraLengthOnRestartWhenToolIsDisabledMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel203)
                             .addComponent(jLabel204))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(274, Short.MAX_VALUE))
         );
         jPanel51Layout.setVerticalGroup(
             jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2610,13 +2616,13 @@ public class SuperMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel201)
-                    .addComponent(toolDisableLengthMatText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(retractionWhenToolIsDisabledLengthMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel203))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel202)
                     .addGroup(jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(toolDisabledExtraLengthRestartMatText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(extraLengthOnRestartWhenToolIsDisabledMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel204)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -2631,7 +2637,7 @@ public class SuperMenu extends javax.swing.JFrame {
                     .addComponent(jPanel51, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel49, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel48, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel48, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
                     .addComponent(jPanel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -2644,8 +2650,8 @@ public class SuperMenu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2658,67 +2664,72 @@ public class SuperMenu extends javax.swing.JFrame {
         jPanel44.setLayout(jPanel44Layout);
         jPanel44Layout.setHorizontalGroup(
             jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel45, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel44Layout.createSequentialGroup()
+                .addComponent(jPanel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel44Layout.setVerticalGroup(
             jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel44Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel45, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jPanel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         jScrollPane10.setViewportView(jPanel44);
+
+        loadMaterialButton.setText("Load");
 
         javax.swing.GroupLayout jPanel43Layout = new javax.swing.GroupLayout(jPanel43);
         jPanel43.setLayout(jPanel43Layout);
         jPanel43Layout.setHorizontalGroup(
             jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGroup(jPanel43Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel43Layout.createSequentialGroup()
+                        .addComponent(newMaterialButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(saveMaterialButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(loadMaterialButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(deleteMaterialButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel43Layout.createSequentialGroup()
+                        .addComponent(jLabel158, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nameMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel43Layout.createSequentialGroup()
+                .addGap(171, 171, 171)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel43Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel43Layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel158, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(newMatBttn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel43Layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(nameMatText)
-                                    .addGap(44, 44, 44))
-                                .addGroup(jPanel43Layout.createSequentialGroup()
-                                    .addGap(66, 66, 66)
-                                    .addComponent(saveMatBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(deleteMatBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(jPanel43Layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                            .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap()))
+                    .addContainerGap(673, Short.MAX_VALUE)))
         );
         jPanel43Layout.setVerticalGroup(
             jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel43Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newMaterialButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saveMaterialButton)
+                    .addComponent(loadMaterialButton)
+                    .addComponent(deleteMaterialButton))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel158)
+                    .addComponent(nameMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel43Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(newMatBttn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(saveMatBttn)
-                            .addComponent(deleteMatBttn)))
-                    .addGap(18, 18, 18)
-                    .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel158)
-                        .addComponent(nameMatText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane9)
-                        .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
+                    .addGap(83, 83, 83)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -2727,14 +2738,14 @@ public class SuperMenu extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel43, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jPanel43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 113, Short.MAX_VALUE)
-                .addComponent(jPanel43, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jPanel43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Materials", jPanel5);
@@ -3112,7 +3123,7 @@ public class SuperMenu extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 762, Short.MAX_VALUE)
+            .addGap(0, 870, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -3121,7 +3132,7 @@ public class SuperMenu extends javax.swing.JFrame {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 413, Short.MAX_VALUE)
+            .addGap(0, 456, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -3238,7 +3249,7 @@ public class SuperMenu extends javax.swing.JFrame {
                         .addComponent(jLabel13)
                         .addGap(18, 18, 18)
                         .addComponent(zOffsetPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addContainerGap(277, Short.MAX_VALUE))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3397,7 +3408,7 @@ public class SuperMenu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
                     .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -3440,7 +3451,7 @@ public class SuperMenu extends javax.swing.JFrame {
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE))
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel14Layout.createSequentialGroup()
@@ -3472,7 +3483,7 @@ public class SuperMenu extends javax.swing.JFrame {
                     .addComponent(namePrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                    .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -3503,7 +3514,7 @@ public class SuperMenu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
         );
 
         pack();
@@ -3556,14 +3567,6 @@ public class SuperMenu extends javax.swing.JFrame {
     private void qualityPCCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qualityPCCheckBox4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_qualityPCCheckBox4ActionPerformed
-
-    private void diameterMatTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diameterMatTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_diameterMatTextActionPerformed
-
-    private void extrusionMultiMatTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extrusionMultiMatTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_extrusionMultiMatTextActionPerformed
 
     private void newSubsectionBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newSubsectionBttnActionPerformed
 
@@ -3743,6 +3746,36 @@ public class SuperMenu extends javax.swing.JFrame {
         this.endGCodePrinterTextArea.setText(varList.get(12));
     }//GEN-LAST:event_loadPrinterButtonMouseReleased
 
+    private void saveMaterialButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMaterialButtonMouseReleased
+       ArrayList<String> varList = new ArrayList<>();
+        varList.add(this.nameMaterialText.getText());
+        varList.add(this.filimentDiameterMaterialText.getText());
+        varList.add(this.extrusionMultiplierMaterialText.getText());
+        varList.add(this.firstLayerTemperatureMaterialSpinner.getValue().toString());
+        varList.add(this.extruderTemperatureMaterialSpinner.getValue().toString());
+        varList.add(this.retractLengthMaterialText.getText());
+        varList.add(this.retractLiftZMaterialText.getText());
+        varList.add(this.retractSpeedMaterialSpinner.getValue().toString());
+        varList.add(this.extraLengthOnRestartMaterialText.getText());
+        varList.add(this.retractMinTravelMaterialText.getText());
+        varList.add(this.retractOnLayerChangeCheckBox.getText().toString());
+        varList.add(this.wipeWhileRetractingMaterialCheckBox.getText());
+        
+        try{
+            materialController.saveMaterialConfiguration(varList);
+            this.printerListPrinter.setModel(new javax.swing.AbstractListModel() {
+                    private final MaterialController  controller = new MaterialController();
+                    @Override
+                    public int getSize() { return controller.getMaterialConfigurations().size(); }
+                    @Override
+                    public Object getElementAt(int i) { return controller.getMaterialConfigurations().get(i); }
+                }
+            );
+        }catch(BadFieldException e){
+            JOptionPane.showMessageDialog(null, e.getMessage() , "InfoBox: " + "Bad Field Data",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_saveMaterialButtonMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -3793,40 +3826,39 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JCheckBox advancedInfillPCCheckBox1;
     private javax.swing.JCheckBox advancedInfillPCCheckBox2;
     private javax.swing.JCheckBox advancedPCCheckBox2;
-    private javax.swing.JSpinner bed1stLayerMatSpinner;
-    private javax.swing.JSpinner bedOtherMatSpinner;
+    private javax.swing.JSpinner bed1stLayerMaterialSpinner;
+    private javax.swing.JSpinner bedOtherMaterialSpinner;
     private javax.swing.JTextField bedXPrinterText;
     private javax.swing.JTextField bedYPrinterText;
-    private javax.swing.JSpinner bridgeSpeedMatSpinner;
+    private javax.swing.JSpinner bridgeSpeedMaterialSpinner;
     private javax.swing.JTextField brimPCText;
     private javax.swing.JSpinner combineInfillPCSpinner;
-    private javax.swing.JSpinner coolingThresholdMatSpinner2;
-    private javax.swing.JSpinner coolingThresholdsMatSpinner1;
-    private javax.swing.JSpinner coolingThresholdsMatSpinner3;
     private javax.swing.JButton deleteExtrudBttn;
     private javax.swing.JButton deleteImportButton;
-    private javax.swing.JButton deleteMatBttn;
+    private javax.swing.JButton deleteMaterialButton;
     private javax.swing.JButton deletePJBttn;
     private javax.swing.JButton deletePriinterButton;
-    private javax.swing.JTextField diameterMatText;
-    private javax.swing.JSpinner disableFanMatSpinner;
+    private javax.swing.JSpinner disableFanMaterialSpinner;
     private javax.swing.JTextField distanceObjectPCText;
+    private javax.swing.JCheckBox enableAutoCoolingMaterialCheckBox;
+    private javax.swing.JSpinner enableFanIfLayerPrintTimeBelowMaterialSpinner;
     private javax.swing.JTextArea endGCodePrinterTextArea;
     private javax.swing.JSpinner enforceSupportPCSpinner;
+    private javax.swing.JTextField extraLengthOnRestartMaterialText;
+    private javax.swing.JTextField extraLengthOnRestartWhenToolIsDisabledMaterialText;
     private javax.swing.JTextField extrudeClearHeightPCText;
     private javax.swing.JTextField extrudeClearRadiusPCText;
-    private javax.swing.JSpinner extruder1stLayerMatSpinner;
-    private javax.swing.JSpinner extruderOtherMatSpinner;
-    private javax.swing.JTextField extrusionMultiMatText;
-    private javax.swing.JCheckBox fanSettingsMatCheckBox1;
-    private javax.swing.JCheckBox fanSettingsMatCheckBox2;
-    private javax.swing.JSpinner fanSpeedMinMatSpinner;
-    private javax.swing.JSpinner fanSpinnerMaxMatSpinner;
+    private javax.swing.JSpinner extruderTemperatureMaterialSpinner;
+    private javax.swing.JTextField extrusionMultiplierMaterialText;
+    private javax.swing.JSpinner fanSpeedMinMaterialSpinner;
+    private javax.swing.JSpinner fanSpinnerMaxMaterialSpinner;
+    private javax.swing.JTextField filimentDiameterMaterialText;
     private javax.swing.JSpinner fillAnglePCSpinner;
     private javax.swing.JTextField fillDensityPCText;
     private javax.swing.JComboBox fillPatternPCCombo;
     private javax.swing.JComboBox firmwareRetractionPrinterCombo;
     private javax.swing.JTextField firstLayerHeightPCText;
+    private javax.swing.JSpinner firstLayerTemperatureMaterialSpinner;
     private javax.swing.JComboBox gCodeFlavorPrinterCombo;
     private javax.swing.JButton importImportButton;
     private javax.swing.JCheckBox infillNeededPCCheckBox;
@@ -3836,7 +3868,6 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox12;
-    private javax.swing.JCheckBox jCheckBox20;
     private javax.swing.JComboBox jComboBox8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -4117,14 +4148,17 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField91;
     private javax.swing.JTextField jTextField92;
+    private javax.swing.JCheckBox keepFanAlwaysOnMaterialCheckBox;
     private javax.swing.JTextField layerHeightPCText;
+    private javax.swing.JButton loadMaterialButton;
     private javax.swing.JButton loadPrinterButton;
     private javax.swing.JTextField minExtrusionLengthPCText;
-    private javax.swing.JTextField nameMatText;
+    private javax.swing.JSpinner minPrintSpeedMaterialSpinner;
+    private javax.swing.JTextField nameMaterialText;
     private javax.swing.JTextField namePCField;
     private javax.swing.JTextField namePrinterText;
     private javax.swing.JButton newExtrudBttn;
-    private javax.swing.JButton newMatBttn;
+    private javax.swing.JButton newMaterialButton;
     private javax.swing.JButton newPCBttn;
     private javax.swing.JButton newPJBttn;
     private javax.swing.JButton newPrinterButton;
@@ -4152,24 +4186,25 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JSpinner raftPCSpinner;
     private javax.swing.JComboBox relativeEDistancePrinterCombo;
     private javax.swing.JTextField retractExtraLengthExtrudText;
-    private javax.swing.JTextField retractExtraLengthMatText;
     private javax.swing.JCheckBox retractLayerChangeExtrudCheckBox;
     private javax.swing.JTextField retractLengthExtrudeText;
-    private javax.swing.JTextField retractLengthMatText;
+    private javax.swing.JTextField retractLengthMaterialText;
     private javax.swing.JTextField retractLiftZExtrudeText;
-    private javax.swing.JTextField retractLiftZMatText;
-    private javax.swing.JTextField retractMinTravelMatText;
+    private javax.swing.JTextField retractLiftZMaterialText;
+    private javax.swing.JTextField retractMinTravelMaterialText;
+    private javax.swing.JCheckBox retractOnLayerChangeCheckBox;
     private javax.swing.JSpinner retractSpeedExtrudSpinner;
-    private javax.swing.JSpinner retractSpeedMatSpinner;
+    private javax.swing.JSpinner retractSpeedMaterialSpinner;
     private javax.swing.JCheckBox retractWipeExtrudCheckBox;
-    private javax.swing.JCheckBox retractWipeMatCheckBox;
+    private javax.swing.JTextField retractionWhenToolIsDisabledLengthMaterialText;
     private javax.swing.JButton saveExtrudeBttn;
-    private javax.swing.JButton saveMatBttn;
+    private javax.swing.JButton saveMaterialButton;
     private javax.swing.JButton savePJBttn;
     private javax.swing.JButton savePrinterButton;
     private javax.swing.JPanel sectionPane;
     private javax.swing.JSpinner skirtHeightPCSpinner;
     private javax.swing.JSpinner skirtLoopsPCSpinner;
+    private javax.swing.JSpinner slowDownIfLayerPrintTimeBelowMaterialSpinner;
     private javax.swing.JSpinner solidInfillPCSpinner;
     private javax.swing.JSpinner solidLayersBottomPCSpinner;
     private javax.swing.JSpinner solidLayersTopPCSpinner;
@@ -4190,11 +4225,10 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JButton startPrintBttn;
     private javax.swing.JPanel staticSection;
     private javax.swing.JCheckBox supportMaterialPCCheckBox;
-    private javax.swing.JTextField toolDisableLengthMatText;
-    private javax.swing.JTextField toolDisabledExtraLengthRestartMatText;
     private javax.swing.JComboBox topBottomPCCombo;
     private javax.swing.JCheckBox verboseGCodePCCheckBox;
     private javax.swing.JTextField vibrationPrinterText;
+    private javax.swing.JCheckBox wipeWhileRetractingMaterialCheckBox;
     private javax.swing.JTextField zOffsetPrinterText;
     // End of variables declaration//GEN-END:variables
     

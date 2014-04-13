@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<material>
+    <bridgeFanSpeedPercent>100</bridgeFanSpeedPercent>
+    <disableFanForFirstNLayers>1</disableFanForFirstNLayers>
+    <enableAutoCooling>true</enableAutoCooling>
+    <enableFanTimeThreshold>60</enableFanTimeThreshold>
+    <extraLengthAfterRetraction>1.0</extraLengthAfterRetraction>
+    <extraLengthOnToolReenable>0.0</extraLengthOnToolReenable>
+    <extrusionMultiplier>1.0</extrusionMultiplier>
+    <extrusionTemperature>110</extrusionTemperature>
+    <fanAlwaysOn>false</fanAlwaysOn>
+    <filamentDiameter>1.2</filamentDiameter>
+    <firstLayerExtrusionTemperature>100</firstLayerExtrusionTemperature>
+    <maxFanSpeed>100</maxFanSpeed>
+    <minFanSpeed>35</minFanSpeed>
+    <minPrintSpeed>10</minPrintSpeed>
+    <minimumTravelAfterRetraction>1.0</minimumTravelAfterRetraction>
+    <name>dan</name>
+    <retractOnLayerChange>false</retractOnLayerChange>
+    <retractionLength>1.0</retractionLength>
+    <retractionLengthBeforeToolChange>10.0</retractionLengthBeforeToolChange>
+    <retractionLiftZ>1.0</retractionLiftZ>
+    <retractionSpeed>0</retractionSpeed>
+    <slowDownTimeTreshold>30</slowDownTimeTreshold>
+    <wipeBeforeRetract>false</wipeBeforeRetract>
+</material>

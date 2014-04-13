@@ -6,7 +6,6 @@
 
 package ink3d.UserInterface.Import;
 
-import static ink3d.UserInterface.MainMenu.SuperMenu.importController;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
