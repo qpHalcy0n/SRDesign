@@ -24,11 +24,13 @@ public class PrinterController {
         return db.getPrinterConfigurations();
     }
     
-    public Boolean deletePrinterConfiguration(String name){
+    public Boolean deletePrinterConfiguration(String name) throws BadFieldException{
+        if(name == null || name =="")throw new BadFieldException("Please select a file to delete");
         return db.deletePrinterConfiguration(name);
     }
     
-    public ArrayList<String> loadPrinterConfiguration(String name){
+    public ArrayList<String> loadPrinterConfiguration(String name) throws BadFieldException{
+        if(name == null || name =="")throw new BadFieldException("Please select a file to delete");
         PrinterConfiguration printer;
         printer = db.getPrinterConfiguration(name);
         ArrayList<String> varList = new ArrayList<>();
@@ -104,7 +106,7 @@ public class PrinterController {
                 throw new BadFieldException("Vibration Limit must be a double precision value greater than or equal to  0.");
             }
 
-            config.setUseFirmwareRetraction(new Boolean(vars.get(10)));
+            config.setUseFirmwareRetraction(Boolean.parseBoolean(vars.get(10)));
             config.setStartGCode(vars.get(11));
             config.setEndGCode(vars.get(12));
 

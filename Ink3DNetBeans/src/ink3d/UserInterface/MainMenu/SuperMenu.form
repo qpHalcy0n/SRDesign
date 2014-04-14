@@ -29,7 +29,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jTabbedPane1" pref="808" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" pref="440" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -61,7 +61,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="459" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="91" max="32767" attributes="0"/>
                       <Component id="jPanel54" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -415,7 +415,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="748" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="380" max="32767" attributes="0"/>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -523,7 +523,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="480" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="112" max="32767" attributes="0"/>
                       <Component id="jPanel20" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -2903,7 +2903,7 @@
                               <Component id="nameMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                          <Component id="jScrollPane10" pref="662" max="32767" attributes="0"/>
+                          <Component id="jScrollPane10" pref="294" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
@@ -3016,17 +3016,17 @@
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jPanel51" alignment="1" max="32767" attributes="0"/>
                                           <Component id="jPanel50" alignment="1" max="32767" attributes="0"/>
                                           <Component id="jPanel49" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jPanel48" alignment="1" min="-2" pref="651" max="-2" attributes="0"/>
+                                          <Component id="jPanel48" alignment="1" pref="651" max="32767" attributes="0"/>
                                           <Component id="jPanel47" alignment="1" max="32767" attributes="0"/>
                                           <Component id="jPanel46" alignment="1" max="32767" attributes="0"/>
                                           <Component id="jPanel52" alignment="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -3146,38 +3146,17 @@
                                                   <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
-                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="jLabel165" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace max="32767" attributes="0"/>
-                                                          <Component id="jLabel167" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="jLabel164" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace max="32767" attributes="0"/>
-                                                          <Component id="jLabel166" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
+                                                  <Component id="jLabel164" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <Component id="jLabel166" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="bed1stLayerMaterialText" min="-2" pref="63" max="-2" attributes="0"/>
-                                              <Component id="firstLayerTemperatureMaterialText" min="-2" pref="63" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="firstLayerTemperatureMaterialText" min="-2" pref="63" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jLabel169" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="bedOtherMaterialText" max="32767" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jLabel168" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="extruderTemperatureMaterialText" min="-2" pref="63" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
+                                          <Component id="jLabel168" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="extrusionTemperatureMaterialText" min="-2" pref="63" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -3193,17 +3172,9 @@
                                               <Component id="jLabel166" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel168" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="firstLayerTemperatureMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="extruderTemperatureMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="extrusionTemperatureMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="jLabel165" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel167" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel169" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="bed1stLayerMaterialText" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="bedOtherMaterialText" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                          <EmptySpace pref="37" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -3222,17 +3193,7 @@
                                     <Property name="text" type="java.lang.String" value="Extruder:"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JLabel" name="jLabel165">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" value="Bed:"/>
-                                  </Properties>
-                                </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel166">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" value="First Layer:"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JLabel" name="jLabel167">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="First Layer:"/>
                                   </Properties>
@@ -3242,26 +3203,9 @@
                                     <Property name="text" type="java.lang.String" value="Other Layers:"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JLabel" name="jLabel169">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" value="Other Layers:"/>
-                                  </Properties>
-                                </Component>
                                 <Component class="javax.swing.JTextField" name="firstLayerTemperatureMaterialText">
                                 </Component>
-                                <Component class="javax.swing.JTextField" name="bed1stLayerMaterialText">
-                                  <Properties>
-                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[6, 20]"/>
-                                    </Property>
-                                  </Properties>
-                                  <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bed1stLayerMaterialTextActionPerformed"/>
-                                  </Events>
-                                </Component>
-                                <Component class="javax.swing.JTextField" name="extruderTemperatureMaterialText">
-                                </Component>
-                                <Component class="javax.swing.JTextField" name="bedOtherMaterialText">
+                                <Component class="javax.swing.JTextField" name="extrusionTemperatureMaterialText">
                                 </Component>
                               </SubComponents>
                             </Container>
@@ -3291,18 +3235,18 @@
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Group type="102" attributes="0">
-                                                          <Component id="fanAlwaysOnMaterialCheckBox" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="fanAlwaysOnMaterialComboBox" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                           <Component id="jLabel172" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                          <Component id="enableAutoCoolingMaterialCheckBox" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="enableAutoCoolingMaterialComboBox" min="-2" max="-2" attributes="0"/>
                                                       </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="fanSpeedMinMaterialText1" min="-2" pref="63" max="-2" attributes="0"/>
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="minFanSpeedMaterialText" min="-2" pref="63" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
                                                           <Component id="jLabel176" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="fanSpinnerMaxMaterialText" min="-2" pref="63" max="-2" attributes="0"/>
+                                                          <Component id="maxFanSpeedMaterialText" min="-2" pref="63" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                               </Group>
@@ -3313,8 +3257,8 @@
                                                   </Group>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Component id="bridgeSpeedMaterialText" pref="63" max="32767" attributes="0"/>
-                                                      <Component id="disableFanMaterialText" max="32767" attributes="0"/>
+                                                      <Component id="bridgeFanSpeedPercentMaterialText" pref="63" max="32767" attributes="0"/>
+                                                      <Component id="disableFanForFirstNLayersMaterialText" max="32767" attributes="0"/>
                                                   </Group>
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Group type="102" alignment="0" attributes="0">
@@ -3328,7 +3272,7 @@
                                                   </Group>
                                               </Group>
                                           </Group>
-                                          <EmptySpace pref="370" max="32767" attributes="0"/>
+                                          <EmptySpace pref="317" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -3338,35 +3282,33 @@
                                           <Component id="jLabel170" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="enableAutoCoolingMaterialCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel171" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel174" min="-2" max="-2" attributes="0"/>
-                                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                                          <Component id="jLabel173" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="fanSpeedMinMaterialText1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jLabel176" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="fanSpinnerMaxMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="jLabel175" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="bridgeSpeedMaterialText" alignment="3" max="-2" attributes="0"/>
-                                                      <Component id="jLabel179" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
+                                              <Component id="jLabel171" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                                  <Component id="fanAlwaysOnMaterialComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel172" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="enableAutoCoolingMaterialComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="fanAlwaysOnMaterialCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel172" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel174" min="-2" max="-2" attributes="0"/>
+                                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                                  <Component id="jLabel173" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="minFanSpeedMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel176" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="maxFanSpeedMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="jLabel175" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="bridgeFanSpeedPercentMaterialText" alignment="3" max="-2" attributes="0"/>
+                                              <Component id="jLabel179" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="jLabel177" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="disableFanMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="disableFanForFirstNLayersMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel178" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
@@ -3413,10 +3355,6 @@
                                     <Property name="text" type="java.lang.String" value="Max:"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JCheckBox" name="fanAlwaysOnMaterialCheckBox">
-                                </Component>
-                                <Component class="javax.swing.JCheckBox" name="enableAutoCoolingMaterialCheckBox">
-                                </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel177">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="Disable fan for the first:"/>
@@ -3432,13 +3370,33 @@
                                     <Property name="text" type="java.lang.String" value="%"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JTextField" name="fanSpinnerMaxMaterialText">
+                                <Component class="javax.swing.JTextField" name="maxFanSpeedMaterialText">
                                 </Component>
-                                <Component class="javax.swing.JTextField" name="bridgeSpeedMaterialText">
+                                <Component class="javax.swing.JTextField" name="bridgeFanSpeedPercentMaterialText">
                                 </Component>
-                                <Component class="javax.swing.JTextField" name="disableFanMaterialText">
+                                <Component class="javax.swing.JTextField" name="disableFanForFirstNLayersMaterialText">
                                 </Component>
-                                <Component class="javax.swing.JTextField" name="fanSpeedMinMaterialText1">
+                                <Component class="javax.swing.JTextField" name="minFanSpeedMaterialText">
+                                </Component>
+                                <Component class="javax.swing.JComboBox" name="fanAlwaysOnMaterialComboBox">
+                                  <Properties>
+                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                      <StringArray count="2">
+                                        <StringItem index="0" value="true"/>
+                                        <StringItem index="1" value="false"/>
+                                      </StringArray>
+                                    </Property>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JComboBox" name="enableAutoCoolingMaterialComboBox">
+                                  <Properties>
+                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                      <StringArray count="2">
+                                        <StringItem index="0" value="true"/>
+                                        <StringItem index="1" value="false"/>
+                                      </StringArray>
+                                    </Property>
+                                  </Properties>
                                 </Component>
                               </SubComponents>
                             </Container>
@@ -3458,7 +3416,7 @@
                                                   </Group>
                                                   <EmptySpace max="32767" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="slowDownIfLayerPrintTimeBelowMaterialText" alignment="1" min="-2" pref="63" max="-2" attributes="0"/>
+                                                      <Component id="slowDownTimeTresholdMaterialText" alignment="1" min="-2" pref="63" max="-2" attributes="0"/>
                                                       <Component id="minPrintSpeedMaterialText" alignment="1" min="-2" pref="63" max="-2" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace max="-2" attributes="0"/>
@@ -3470,7 +3428,7 @@
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel181" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="enableFanIfLayerPrintTimeBelowMaterialText" min="-2" pref="63" max="-2" attributes="0"/>
+                                                  <Component id="enableFanTimeThresholdMaterialText" min="-2" pref="63" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jLabel182" min="-2" max="-2" attributes="0"/>
                                               </Group>
@@ -3488,13 +3446,13 @@
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="jLabel181" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel182" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="enableFanIfLayerPrintTimeBelowMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="enableFanTimeThresholdMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="jLabel183" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel184" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="slowDownIfLayerPrintTimeBelowMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="slowDownTimeTresholdMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
@@ -3548,9 +3506,9 @@
                                     <Property name="text" type="java.lang.String" value="mm/s"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JTextField" name="enableFanIfLayerPrintTimeBelowMaterialText">
+                                <Component class="javax.swing.JTextField" name="enableFanTimeThresholdMaterialText">
                                 </Component>
-                                <Component class="javax.swing.JTextField" name="slowDownIfLayerPrintTimeBelowMaterialText">
+                                <Component class="javax.swing.JTextField" name="slowDownTimeTresholdMaterialText">
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="minPrintSpeedMaterialText">
                                 </Component>
@@ -3574,48 +3532,44 @@
                                               <Component id="jLabel193" alignment="0" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                                          <Component id="retractLengthMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
-                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                          <Component id="jLabel195" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Group type="102" alignment="1" attributes="0">
-                                                                  <EmptySpace max="-2" attributes="0"/>
-                                                                  <Component id="retractSpeedMaterialText" min="-2" pref="63" max="-2" attributes="0"/>
-                                                              </Group>
-                                                              <Group type="102" attributes="0">
-                                                                  <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
-                                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                                      <Component id="retractLiftZMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
-                                                                      <Component id="extraLengthOnRestartMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
-                                                                      <Component id="retractMinTravelMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
-                                                                  </Group>
-                                                              </Group>
-                                                          </Group>
-                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="jLabel196" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                              <Component id="jLabel197" min="-2" max="-2" attributes="0"/>
-                                                              <Component id="jLabel198" min="-2" max="-2" attributes="0"/>
-                                                              <Component id="jLabel199" min="-2" max="-2" attributes="0"/>
-                                                          </Group>
-                                                      </Group>
-                                                  </Group>
-                                                  <EmptySpace max="32767" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                                                  <Component id="retractionLengthMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="jLabel195" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Group type="102" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="wipeWhileRetractingMaterialCheckBox" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="retractOnLayerChangeCheckBox" min="-2" max="-2" attributes="0"/>
+                                                      <Group type="102" alignment="1" attributes="0">
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="retractionSpeedMaterialText" min="-2" pref="63" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" attributes="0">
+                                                          <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Component id="retractionLiftZMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
+                                                              <Component id="extraLengthAfterRetractionMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
+                                                              <Component id="minimumTravelAfterRetractionMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
                                                   </Group>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel196" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel197" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel198" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel199" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Component id="wipeBeforeRetractMaterialComboBox" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="retractOnLayerChangeComboBox" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                           </Group>
+                                          <EmptySpace max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -3627,13 +3581,13 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="jLabel188" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="retractLengthMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="retractionLengthMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel195" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="jLabel189" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="retractLiftZMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="retractionLiftZMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel196" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="103" groupAlignment="0" attributes="0">
@@ -3646,32 +3600,35 @@
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="retractSpeedMaterialText" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="retractionSpeedMaterialText" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="jLabel191" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="extraLengthOnRestartMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="extraLengthAfterRetractionMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel198" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="jLabel192" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="retractMinTravelMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="minimumTravelAfterRetractionMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel199" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="retractOnLayerChangeCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel193" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jLabel193" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                                                  <Component id="jLabel194" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="retractOnLayerChangeComboBox" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="wipeBeforeRetractMaterialComboBox" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="wipeWhileRetractingMaterialCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel194" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace pref="14" max="32767" attributes="0"/>
+                                          <EmptySpace pref="12" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -3720,17 +3677,13 @@
                                     <Property name="text" type="java.lang.String" value="Wipe while retracting:"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JTextField" name="retractLengthMaterialText">
+                                <Component class="javax.swing.JTextField" name="retractionLengthMaterialText">
                                 </Component>
-                                <Component class="javax.swing.JCheckBox" name="retractOnLayerChangeCheckBox">
+                                <Component class="javax.swing.JTextField" name="retractionLiftZMaterialText">
                                 </Component>
-                                <Component class="javax.swing.JCheckBox" name="wipeWhileRetractingMaterialCheckBox">
+                                <Component class="javax.swing.JTextField" name="extraLengthAfterRetractionMaterialText">
                                 </Component>
-                                <Component class="javax.swing.JTextField" name="retractLiftZMaterialText">
-                                </Component>
-                                <Component class="javax.swing.JTextField" name="extraLengthOnRestartMaterialText">
-                                </Component>
-                                <Component class="javax.swing.JTextField" name="retractMinTravelMaterialText">
+                                <Component class="javax.swing.JTextField" name="minimumTravelAfterRetractionMaterialText">
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel195">
                                   <Properties>
@@ -3757,7 +3710,27 @@
                                     <Property name="text" type="java.lang.String" value="mm"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JTextField" name="retractSpeedMaterialText">
+                                <Component class="javax.swing.JTextField" name="retractionSpeedMaterialText">
+                                </Component>
+                                <Component class="javax.swing.JComboBox" name="retractOnLayerChangeComboBox">
+                                  <Properties>
+                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                      <StringArray count="2">
+                                        <StringItem index="0" value="true"/>
+                                        <StringItem index="1" value="false"/>
+                                      </StringArray>
+                                    </Property>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JComboBox" name="wipeBeforeRetractMaterialComboBox">
+                                  <Properties>
+                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                      <StringArray count="2">
+                                        <StringItem index="0" value="true"/>
+                                        <StringItem index="1" value="false"/>
+                                      </StringArray>
+                                    </Property>
+                                  </Properties>
                                 </Component>
                               </SubComponents>
                             </Container>
@@ -3780,7 +3753,7 @@
                                                       <Group type="102" alignment="0" attributes="0">
                                                           <Component id="jLabel202" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
-                                                          <Component id="extraLengthOnRestartWhenToolIsDisabledMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
+                                                          <Component id="extraLengthOnToolReenableMaterialText" min="-2" pref="59" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                                   <EmptySpace max="-2" attributes="0"/>
@@ -3809,7 +3782,7 @@
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jLabel202" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                                  <Component id="extraLengthOnRestartWhenToolIsDisabledMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="extraLengthOnToolReenableMaterialText" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel204" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
@@ -3839,7 +3812,7 @@
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="retractionLengthBeforeToolChangeMaterialText">
                                 </Component>
-                                <Component class="javax.swing.JTextField" name="extraLengthOnRestartWhenToolIsDisabledMaterialText">
+                                <Component class="javax.swing.JTextField" name="extraLengthOnToolReenableMaterialText">
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel203">
                                   <Properties>
@@ -3979,7 +3952,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="780" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="412" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -4695,7 +4668,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane12" pref="682" max="32767" attributes="0"/>
+                              <Component id="jScrollPane12" pref="314" max="32767" attributes="0"/>
                               <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -4764,7 +4737,7 @@
                                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="jPanel19" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="jPanel16" alignment="1" pref="670" max="32767" attributes="0"/>
+                                      <Component id="jPanel16" alignment="1" pref="653" max="32767" attributes="0"/>
                                       <Component id="jPanel17" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -4830,7 +4803,7 @@
                                               <Component id="zOffsetPrinterText" min="-2" pref="88" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace pref="314" max="32767" attributes="0"/>
+                                      <EmptySpace pref="297" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -5022,8 +4995,8 @@
                               <Properties>
                                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                                   <StringArray count="2">
-                                    <StringItem index="0" value="True"/>
-                                    <StringItem index="1" value="False"/>
+                                    <StringItem index="0" value="true"/>
+                                    <StringItem index="1" value="false"/>
                                   </StringArray>
                                 </Property>
                               </Properties>
@@ -5051,8 +5024,8 @@
                               <Properties>
                                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                                   <StringArray count="2">
-                                    <StringItem index="0" value="True"/>
-                                    <StringItem index="1" value="False"/>
+                                    <StringItem index="0" value="true"/>
+                                    <StringItem index="1" value="false"/>
                                   </StringArray>
                                 </Property>
                               </Properties>

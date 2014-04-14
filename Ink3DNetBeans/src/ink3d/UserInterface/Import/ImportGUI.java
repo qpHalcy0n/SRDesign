@@ -6,8 +6,11 @@
 
 package ink3d.UserInterface.Import;
 
+import ink3d.UserInterface.MainMenu.BadFieldException;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
@@ -157,9 +160,13 @@ public class ImportGUI extends javax.swing.JPanel {
 
     private void DeleteButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteButtonMouseReleased
         String fileName = (String)StlList.getSelectedValue();
-        if(!importController.deleteStl(fileName)){
-            System.out.println(fileName);
-            JOptionPane.showMessageDialog(null, "File Delete Error", "InfoBox: " + "Unable to delete file", JOptionPane.INFORMATION_MESSAGE);
+        try {
+            if(!importController.deleteStl(fileName)){
+                System.out.println(fileName);
+                JOptionPane.showMessageDialog(null, "File Delete Error", "InfoBox: " + "Unable to delete file", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (BadFieldException ex) {
+            Logger.getLogger(ImportGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.StlList.setModel(new javax.swing.AbstractListModel() {
             private final ImportController  controller = new ImportController();

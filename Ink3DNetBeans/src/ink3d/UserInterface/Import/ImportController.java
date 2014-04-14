@@ -7,6 +7,7 @@
 package ink3d.UserInterface.Import;
 
 import ink3d.UserInterface.Database.PersistenceFramework;
+import ink3d.UserInterface.MainMenu.BadFieldException;
 import java.util.ArrayList;
 
 /**
@@ -23,7 +24,8 @@ public class ImportController {
         return db.importStlFile(Path);
     }
     
-    public Boolean deleteStl(String name){
+    public Boolean deleteStl(String name) throws BadFieldException{
+        if(name == null || name =="")throw new BadFieldException("Please select a file to delete");
         return db.deleteStlFile(name);
     }
 }

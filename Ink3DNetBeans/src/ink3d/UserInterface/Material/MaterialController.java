@@ -22,7 +22,8 @@ public class MaterialController {
         return db.getMaterialConfigurations();
     }
     
-    public Boolean deleteMaterialConfiguration(String name){
+    public Boolean deleteMaterialConfiguration(String name) throws BadFieldException{
+        if(name == null || name =="")throw new BadFieldException("Please select a file to delete");
         return db.deleteMaterialConfiguration(name);
     }
     
@@ -34,26 +35,33 @@ public class MaterialController {
         varList.add(name);
         varList.add(Double.toString(material.getFilamentDiameter()));
         varList.add(Double.toString(material.getExtrusionMultiplier()));
+        
         varList.add(Integer.toString(material.getFirstLayerExtrusionTemperature()));
         varList.add(Integer.toString(material.getExtrusionTemperature()));
-        varList.add(Double.toString(material.getRetractionLength()));
-        varList.add(Double.toString(material.getRetractionLiftZ()));
-        varList.add(material.getRetractionSpeed()== 0 ? "true":"false");
-        varList.add(Double.toString(material.getExtraLengthAfterRetraction()));
-        varList.add(Double.toString(material.getMinimumTravelAfterRetraction()));
-        varList.add(Boolean.toString(material.isRetractOnLayerChange()));
-        varList.add(Boolean.toString(material.isWipeBeforeRetract()));
-        varList.add(Double.toString(material.getRetractionLengthBeforeToolChange()));
-        varList.add(Double.toString(material.getExtraLengthOnToolReenable()));
+        
         varList.add(Boolean.toString(material.isFanAlwaysOn()));
         varList.add(Boolean.toString(material.isEnableAutoCooling()));
         varList.add(Integer.toString(material.getMinFanSpeed()));
         varList.add(Integer.toString(material.getMaxFanSpeed()));
         varList.add(Integer.toString(material.getBridgeFanSpeedPercent()));
         varList.add(Integer.toString(material.getDisableFanForFirstNLayers()));
+        
         varList.add(Integer.toString(material.getEnableFanTimeThreshold()));
         varList.add(Integer.toString(material.getSlowDownTimeTreshold()));
         varList.add(Integer.toString(material.getMinPrintSpeed()));
+        
+        varList.add(Double.toString(material.getRetractionLength()));
+        varList.add(Double.toString(material.getRetractionLiftZ()));
+        varList.add(Integer.toString(material.getRetractionSpeed()));
+        varList.add(Double.toString(material.getExtraLengthAfterRetraction()));
+        varList.add(Double.toString(material.getMinimumTravelAfterRetraction()));
+        varList.add(Boolean.toString(material.isRetractOnLayerChange()));
+        varList.add(Boolean.toString(material.isWipeBeforeRetract()));
+        
+        varList.add(Double.toString(material.getRetractionLengthBeforeToolChange()));
+        varList.add(Double.toString(material.getExtraLengthOnToolReenable()));
+        
+        
         varList.add(material.getgCodeStart());
         varList.add(material.getgCodeEnd());
         
@@ -87,57 +95,11 @@ public class MaterialController {
             
             i = new Integer(vars.get(4));
             config.setExtrusionTemperature(i);
+            config.setFanAlwaysOn(Boolean.parseBoolean(vars.get(5)));
+            config.setEnableAutoCooling(Boolean.parseBoolean(vars.get(6)));
             
-            d = new Double(vars.get(5));
-            if(d>=0)config.setRetractionLength(d);
-            else {
-                throw new BadFieldException("Retraction Length must be a double precision value greater than or equal to 0.");
-            }
-     
-            d = new Double(vars.get(6));
-            if(d>=0)config.setRetractionLiftZ(d);
-            else{
-                throw new BadFieldException("Retraction Length must be a double precision value greater than or equal to 0.");
-            }
-            
-            i = new Integer(vars.get(7));
-            if(i>=0)config.setRetractionSpeed(i);
-            else{
-                throw new BadFieldException("Retraction Speed must be an integer greater than 0");
-            }
-            
-            d = new Double(vars.get(8));
-            if(d>=0)config.setExtraLengthAfterRetraction(d);
-            else{
-                throw new BadFieldException("Extra Length After Retraction must be a double precision value greater then or equal to 0.");
-            }
-            
-            d = new Double(vars.get(9));
-            if(d>=0)config.setMinimumTravelAfterRetraction(d);
-            else{
-                throw new BadFieldException("Minimum Travel After Retraction must be a double precision value greater then or equal to 0.");
-            }
-            
-            config.setRetractOnLayerChange(Boolean.getBoolean(vars.get(10)));
-            config.setWipeBeforeRetract(Boolean.getBoolean(vars.get(11)));
-            
-            d = new Double(vars.get(12));
-            if(d>=0)config.setRetractionLengthBeforeToolChange(d);
-            else{
-                throw new BadFieldException("Retraction Legth Before Tool Change must be a double precision value greater then or equal to 0.");
-            }
-            
-            d = new Double(vars.get(13));
-            if(d>=0)config.setExtraLengthOnToolReenable(d);
-            else{
-                throw new BadFieldException("Extra Length on Tool Reenable must bea double precision value greater then or equal to 0.");
-            }
-            
-            config.setFanAlwaysOn(Boolean.getBoolean(vars.get(14)));
-            config.setEnableAutoCooling(Boolean.getBoolean(vars.get(15)));
-            
-            int minFan = new Integer(vars.get(16));
-            int maxFan = new Integer(vars.get(17));
+            int minFan = new Integer(vars.get(7));
+            int maxFan = new Integer(vars.get(8));
             if(minFan>=0 && minFan <=maxFan) config.setMinFanSpeed(minFan);
             else{
                 if(minFan > maxFan)throw new BadFieldException("Minimum Fan Speed must be an integer that is less than maximum fan speed.");
@@ -150,39 +112,86 @@ public class MaterialController {
                 throw new BadFieldException("Maximum Fan Speed must be an integer that is less than or equal to 100");
             }
             
-            i = new Integer(vars.get(18));
+            i = new Integer(vars.get(9));
             if(i>=0 && i<=100)config.setBridgeFanSpeedPercent(i);
             else{
                 throw new BadFieldException("Bridge Fan Speed Percent must be an integer value between 0 and 100");
             }
             
-            i = new Integer(vars.get(19));
+            i = new Integer(vars.get(10));
             if(i>=0)config.setDisableFanForFirstNLayers(i);
             else{
                 throw new BadFieldException("Disable Fan for First N Layers must be an integer greater than or equal to 0.");
             }
             
-            i = new Integer(vars.get(20));
+            i = new Integer(vars.get(11));
             if(i>=0)config.setEnableFanTimeThreshold(i);
             else{
                 throw new BadFieldException("Enable Fan Time Threshold must be an integer greater than or equal to 0.");
             }
             
-            i = new Integer(vars.get(21));
+            i = new Integer(vars.get(12));
             if(i>=0)config.setSlowDownTimeTreshold(i);
             else {
                 throw new BadFieldException("Slow Down Time Threshold must be an integer greater than or equal to 0.");
             }
             
-            i = new Integer(vars.get(22));
+            i = new Integer(vars.get(13));
             if(i>=0)config.setMinPrintSpeed(i);
             else {
                 throw new BadFieldException("Minimum Print Speed must be an integer greater than 0.");
             }
             
+            
+            d = new Double(vars.get(14));
+            if(d>=0)config.setRetractionLength(15);
+            else {
+                throw new BadFieldException("Retraction Length must be a double precision value greater than or equal to 0.");
+            }
+     
+            d = new Double(vars.get(15));
+            if(d>=0)config.setRetractionLiftZ(d);
+            else{
+                throw new BadFieldException("Retraction Length must be a double precision value greater than or equal to 0.");
+            }
+            
+            i = new Integer(vars.get(16));
+            if(i>=0)config.setRetractionSpeed(i);
+            else{
+                throw new BadFieldException("Retraction Speed must be an integer greater than 0");
+            }
+            
+            d = new Double(vars.get(17));
+            if(d>=0)config.setExtraLengthAfterRetraction(d);
+            else{
+                throw new BadFieldException("Extra Length After Retraction must be a double precision value greater then or equal to 0.");
+            }
+            
+            d = new Double(vars.get(18));
+            if(d>=0)config.setMinimumTravelAfterRetraction(d);
+            else{
+                throw new BadFieldException("Minimum Travel After Retraction must be a double precision value greater then or equal to 0.");
+            }
+            
+            config.setRetractOnLayerChange(Boolean.parseBoolean(vars.get(19)));
+            config.setWipeBeforeRetract(Boolean.parseBoolean(vars.get(20)));
+            
+            d = new Double(vars.get(21));
+            if(d>=0)config.setRetractionLengthBeforeToolChange(d);
+            else{
+                throw new BadFieldException("Retraction Legth Before Tool Change must be a double precision value greater then or equal to 0.");
+            }
+            
+            d = new Double(vars.get(22));
+            if(d>=0)config.setExtraLengthOnToolReenable(d);
+            else{
+                throw new BadFieldException("Extra Length on Tool Reenable must bea double precision value greater then or equal to 0.");
+            }
+                    
             config.setgCodeStart(vars.get(23));
             config.setgCodeEnd(vars.get(24));
         }catch(NumberFormatException e){
+            e.printStackTrace();
             throw new BadFieldException("All Fields need to be filed out to save a Printer");
         }
         return db.saveMaterialConfiguration(config);
