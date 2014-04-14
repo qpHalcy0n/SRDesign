@@ -21,16 +21,16 @@ import java.io.*;
  */
 public class TXRXImpl implements TXRX 
 {
-//    private static ArrayList<byte[]> printerFeedback    = new ArrayList<byte[]>();  // Printer feedback data
-    private static boolean isOutBufEmpty                = false;                    // flag for output (to printer) buffer being empty
-    private static SerialPortList serialPortList;                                   // Port listing
-    private static SerialPort serialPort;                                           // serial port object
-    private static String feedbackString                = new String("begin:");
-    private static String ackString                     = new String(" ");
-    private static boolean handshakeReceived            = false;
-    private static String lastGcodeSent                 = new String();
-    private static boolean ackSent                      = false;
-    private static boolean initCodesSent                = false;
+    private static boolean isOutBufEmpty                        = false;                        // flag for output (to printer) buffer being empty
+    private static SerialPortList serialPortList;                                               // Port listing
+    private static SerialPort serialPort;                                                       // serial port object
+    private static String feedbackString                        = new String("begin:");
+    private static String ackString                             = new String(" ");
+    private static boolean handshakeReceived                    = false;
+    private static String lastGcodeSent                         = new String();
+    private static ArrayList<String> lastGcodesSent             = new ArrayList<String>();
+    private static boolean ackSent                              = false;
+    private static boolean initCodesSent                        = false;
     
     
     TXRXImpl()
@@ -58,16 +58,71 @@ public class TXRXImpl implements TXRX
      * @return ArrayList<byte[]> An array list packed with byte buffers of the latest data received from 
      * the printer
      */
-    public String getPrinterFeedback()
+    public ArrayList<FeedbackObject> getPrinterFeedback()
     {
         // Check that feedback buffer is packed
         if(!isPrinterFeedbackReady())
             return null;
         
+        ArrayList<FeedbackObject> feedbackArray = new ArrayList<FeedbackObject>();
+        
         // Copy printer feedback data and clear the current feedback string
         String pfRet = new String(feedbackString);
         feedbackString = "";
-        return pfRet;
+        
+        deserialize(pfRet);
+        
+        String[] feedbackLines = pfRet.split("\n");
+        for(int i = 0; i < feedbackLines.length; ++i)
+        {
+            FeedbackObject obj = new FeedbackObject();
+            String[] lineObjects = feedbackLines[i].split(" ");
+            for(int j = 0; j < lineObjects.length; ++j)
+            {
+                if(lineObjects[j].contains("ok"))
+                    obj.isACK = true;
+                else if(lineObjects[j].contains("!!"))
+                    obj.isFault = true;
+                else if(lineObjects[j].contains("rs"))
+                    obj.isResend = true;
+                else if(lineObjects[j].contains(":"))
+                {
+                    // find colon //
+                    int colonPos = lineObjects[j].indexOf(':');
+                    String toolName = lineObjects[j].substring(0, colonPos);
+                    String curTempStr, desiredTempStr;
+                    if(lineObjects[j].contains("/"))
+                    {
+                        curTempStr = lineObjects[j].substring(colonPos + 1, lineObjects[j].indexOf('/'));
+                        desiredTempStr = lineObjects[j].substring(lineObjects[j].indexOf('/') + 1, lineObjects[j].length());
+                    }
+                    else
+                    {
+                        curTempStr = lineObjects[j].substring(colonPos + 1, lineObjects[j].length());
+                        desiredTempStr = "0";
+                    }
+                   
+                    float curTemp = Float.parseFloat(curTempStr);
+                    float desiredTemp = Float.parseFloat(desiredTempStr);
+                    TemperatureObject temp = new TemperatureObject();
+                    temp.tool = toolName;
+                    temp.curTemp = curTemp;
+                    temp.desiredTemp = desiredTemp;
+                    
+                    obj.toolTemps.add(temp);
+                }
+                else 
+                {
+                    // Look for resend line //
+                    int resend = Integer.parseInt(lineObjects[j]);
+                    obj.resendLine = resend;
+                }
+            }
+            
+            feedbackArray.add(obj);
+        }
+        
+        return feedbackArray;
     }
     
     /**
@@ -152,10 +207,10 @@ public class TXRXImpl implements TXRX
         return true;
     }
     
-    public boolean ackReceived()
-    {
-        return false;
-    }
+//    public boolean ackReceived()
+//    {
+//        return false;
+//    }
     
     
     /**
@@ -182,8 +237,10 @@ public class TXRXImpl implements TXRX
             while(ackString.contains("ok") == false){}
             ackSent = true;
             lastGcodeSent = gCode;
+            lastGcodesSent.add(gCode);
             
             // Sleep: otherwise we end up clobbering the buffer and garbling g-codes
+            // The OK message from the device is supposed to prevent this, but this proves to not be the case.
             try
             {
                 Thread.sleep(50);
@@ -198,11 +255,15 @@ public class TXRXImpl implements TXRX
         {
             System.out.println(ex);
         }
-        
-        
-        lastGcodeSent = gCode;
 
         return true;
+    }
+    
+    public ArrayList<String> getLastGcodesSent()
+    {
+        ArrayList<String> gCodeList = new ArrayList<String>(lastGcodesSent);
+        lastGcodesSent.clear();
+        return gCodeList;
     }
     
     /**
@@ -231,10 +292,11 @@ public class TXRXImpl implements TXRX
      * Does nothing for marlin as of yet.
      * @return boolean - success or failure of method
      */
-    public boolean deserialize(byte[] byteStream)
+    public boolean deserialize(String str)
     {
         return true;
     }
+
     
     /**
      * SerialPortReader defines the actions to be taken when the receive buffer becomes full
