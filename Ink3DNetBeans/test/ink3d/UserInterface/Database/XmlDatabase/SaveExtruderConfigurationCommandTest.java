@@ -58,7 +58,7 @@ public class SaveExtruderConfigurationCommandTest {
         expected = null;
         System.gc();
         file = new File("./Database/Extruders/SaveTest.xml");
-        file.delete();
+        //file.delete();
     }
 
     /**

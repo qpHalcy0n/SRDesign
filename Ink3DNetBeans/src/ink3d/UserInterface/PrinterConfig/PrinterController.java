@@ -6,6 +6,7 @@
 
 package ink3d.UserInterface.PrinterConfig;
 
+import ink3d.ConfigurationObjects.ExtruderConfiguration;
 import ink3d.ConfigurationObjects.HardwareConfiguration;
 import ink3d.ConfigurationObjects.PrinterConfiguration;
 import ink3d.UserInterface.Database.PersistenceFramework;
@@ -27,6 +28,20 @@ public class PrinterController {
     public Boolean deletePrinterConfiguration(String name) throws BadFieldException{
         if(name == null || name =="")throw new BadFieldException("Please select a file to delete");
         return db.deletePrinterConfiguration(name);
+    }
+    
+    public ArrayList<String> loadExtruderList(){
+        return db.getExtruderConfigurations();
+    }
+    
+    public ArrayList<String> loadMyExtruders(String name){
+        ArrayList<String> extruderList = new ArrayList<String>();
+        if(name == null || name =="")return extruderList;
+        PrinterConfiguration printer = db.getPrinterConfiguration(name);
+        for(ExtruderConfiguration extruder: printer.getExtruderList()){
+            extruderList.add(extruder.getName());
+        }
+        return extruderList;
     }
     
     public ArrayList<String> loadPrinterConfiguration(String name) throws BadFieldException{
@@ -51,7 +66,7 @@ public class PrinterController {
         return varList;
     }
     
-    public Boolean savePrinterConfiguratoin(ArrayList<String> vars) throws BadFieldException{
+    public Boolean savePrinterConfiguratoin(ArrayList<String> vars, ArrayList<String> extruderList) throws BadFieldException{
         Double d;
         Integer i;
         PrinterConfiguration config = new PrinterConfiguration();
@@ -119,7 +134,12 @@ public class PrinterController {
                 throw new BadFieldException("Baud rate must be between 0 and 250,000");
             }
             config.getHardware().setLineEnd(new Integer(vars.get(15)));
-            */  
+            */
+            ArrayList<ExtruderConfiguration> extruders = new ArrayList<>();
+            for(String name: extruderList){
+                extruders.add(db.getExtruderConfiguration(name));
+            }
+            config.setExtruderList(extruders);
         }catch(NumberFormatException e){
             throw new BadFieldException("All Fields need to be filed out to save a Printer");
         }

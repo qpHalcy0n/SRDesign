@@ -1188,27 +1188,41 @@ public class XmlPersistenceFrameworkTest {
         printer.setVibrationLimit(1.1);
         printer.setgCodeFlavor("rep-rap");
         printer.setzOffset(1.34);
+        printer.setExtruderList(new ArrayList<ExtruderConfiguration>());
+        printer.getExtruderList().add(new ExtruderConfiguration());
         
         String expResult ="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                             "<printer>\n" +
-                            "    <bedX>150.0</bedX>\n" +
-                            "    <bedY>100.0</bedY>\n" +
-                            "    <endGCode></endGCode>\n" +
                             "    <hardware>\n" +
                             "        <baudRate>115200</baudRate>\n" +
                             "        <comPort>COM1</comPort>\n" +
                             "        <lineEnd>3</lineEnd>\n" +
                             "    </hardware>\n" +
                             "    <name>SaveTest</name>\n" +
-                            "    <numExtruders>5</numExtruders>\n" +
+                            "    <bedX>150.0</bedX>\n" +
+                            "    <bedY>100.0</bedY>\n" +
                             "    <printCenterX>75.0</printCenterX>\n" +
                             "    <printCenterY>50.0</printCenterY>\n" +
-                            "    <startGCode></startGCode>\n" +
-                            "    <useFirmwareRetraction>false</useFirmwareRetraction>\n" +
-                            "    <useRelativeEDistances>true</useRelativeEDistances>\n" +
-                            "    <vibrationLimit>1.1</vibrationLimit>\n" +
-                            "    <gCodeFlavor>rep-rap</gCodeFlavor>\n" +
                             "    <zOffset>1.34</zOffset>\n" +
+                            "    <gCodeFlavor>rep-rap</gCodeFlavor>\n" +
+                            "    <useRelativeEDistances>true</useRelativeEDistances>\n" +
+                            "    <numExtruders>5</numExtruders>\n" +
+                            "    <vibrationLimit>1.1</vibrationLimit>\n" +
+                            "    <useFirmwareRetraction>false</useFirmwareRetraction>\n" +
+                            "    <startGCode></startGCode>\n" +
+                            "    <endGCode></endGCode>\n" +
+                            "    <extruderList>\n" +
+                            "        <name>Default</name>\n" +
+                            "        <extruderType></extruderType>\n" +
+                            "        <nozzleDiameter>0.5</nozzleDiameter>\n" +
+                            "        <xDimension>0.0</xDimension>\n" +
+                            "        <yDimension>0.0</yDimension>\n" +
+                            "        <xOffset>0.0</xOffset>\n" +
+                            "        <yOffset>0.0</yOffset>\n" +
+                            "        <zOffset>0.0</zOffset>\n" +
+                            "        <startGCode></startGCode>\n" +
+                            "        <endGCode></endGCode>\n" +
+                            "    </extruderList>\n" +
                             "</printer>";
         
         System.out.println("savePrinterConfiguration");
@@ -1254,18 +1268,18 @@ public class XmlPersistenceFrameworkTest {
         config.setzOffset(0);
         
         String expResult ="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                    "<extruder>\n" +
-                    "    <endGCode></endGCode>\n" +
-                    "    <extruderType>ABS</extruderType>\n" +
-                    "    <name>SaveTest</name>\n" +
-                    "    <nozzleDiameter>2.0</nozzleDiameter>\n" +
-                    "    <startGCode></startGCode>\n" +
-                    "    <xDimension>0.0</xDimension>\n" +
-                    "    <xOffset>0.0</xOffset>\n" +
-                    "    <yDimension>0.0</yDimension>\n" +
-                    "    <yOffset>0.0</yOffset>\n" +
-                    "    <zOffset>0.0</zOffset>\n" +
-                    "</extruder>";
+                        "<extruder>\n" +
+                        "    <name>SaveTest</name>\n" +
+                        "    <extruderType>ABS</extruderType>\n" +
+                        "    <nozzleDiameter>2.0</nozzleDiameter>\n" +
+                        "    <xDimension>0.0</xDimension>\n" +
+                        "    <yDimension>0.0</yDimension>\n" +
+                        "    <xOffset>0.0</xOffset>\n" +
+                        "    <yOffset>0.0</yOffset>\n" +
+                        "    <zOffset>0.0</zOffset>\n" +
+                        "    <startGCode></startGCode>\n" +
+                        "    <endGCode></endGCode>\n" +
+                        "</extruder>";
         
         System.out.println("saveExtruderConfiguration");
         XmlPersistenceFramework instance = new XmlPersistenceFramework();
@@ -1287,7 +1301,7 @@ public class XmlPersistenceFrameworkTest {
         extruder = null;
         System.gc();
         file = new File("./Database/Extruders/SaveTest.xml");
-        file.delete();
+        //file.delete();
         
     }
 

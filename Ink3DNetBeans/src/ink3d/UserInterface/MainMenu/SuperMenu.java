@@ -14,6 +14,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,6 +27,7 @@ public class SuperMenu extends javax.swing.JFrame {
     private static final ImportController importController = new ImportController();
     private static final PrinterController printerController = new PrinterController();
     private static final MaterialController materialController = new MaterialController();
+    private static ArrayList<String> extruderListArrayListForPrinter = new ArrayList<>();
     /**
      * Creates new form SuperMenu
      */
@@ -452,6 +454,11 @@ public class SuperMenu extends javax.swing.JFrame {
         gCodeFlavorPrinterCombo = new javax.swing.JComboBox();
         jLabel206 = new javax.swing.JLabel();
         firmwareRetractionPrinterCombo = new javax.swing.JComboBox();
+        jScrollPane18 = new javax.swing.JScrollPane();
+        extruderListPrinter = new javax.swing.JList();
+        addExtruderToPrinterButton = new javax.swing.JButton();
+        addExtruderToPrinterButton1 = new javax.swing.JButton();
+        extruderSelectionPrinterComboBox = new javax.swing.JComboBox();
         jPanel19 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
@@ -652,7 +659,7 @@ public class SuperMenu extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 91, Short.MAX_VALUE)
+                .addGap(0, 461, Short.MAX_VALUE)
                 .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -723,7 +730,7 @@ public class SuperMenu extends javax.swing.JFrame {
         );
         ImportPanelLayout.setVerticalGroup(
             ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
+            .addGap(0, 750, Short.MAX_VALUE)
             .addGroup(ImportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ImportPanelLayout.createSequentialGroup()
                     .addGap(20, 20, 20)
@@ -2137,7 +2144,7 @@ public class SuperMenu extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 112, Short.MAX_VALUE)
+                .addGap(0, 482, Short.MAX_VALUE)
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -2773,7 +2780,7 @@ public class SuperMenu extends javax.swing.JFrame {
                     .addComponent(jLabel158)
                     .addComponent(nameMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel43Layout.createSequentialGroup()
@@ -3182,7 +3189,7 @@ public class SuperMenu extends javax.swing.JFrame {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 412, Short.MAX_VALUE)
+            .addGap(0, 782, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -3196,11 +3203,6 @@ public class SuperMenu extends javax.swing.JFrame {
         newPrinterButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 newPrinterButtonMouseReleased(evt);
-            }
-        });
-        newPrinterButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newPrinterButtonActionPerformed(evt);
             }
         });
 
@@ -3299,7 +3301,7 @@ public class SuperMenu extends javax.swing.JFrame {
                         .addComponent(jLabel13)
                         .addGap(18, 18, 18)
                         .addComponent(zOffsetPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(297, Short.MAX_VALUE))
+                .addContainerGap(314, Short.MAX_VALUE))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3351,6 +3353,36 @@ public class SuperMenu extends javax.swing.JFrame {
 
         firmwareRetractionPrinterCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "true", "false" }));
 
+        extruderListPrinter.setModel(new javax.swing.AbstractListModel() {
+            @Override
+            public int getSize() { return SuperMenu.extruderListArrayListForPrinter.size(); }
+            @Override
+            public Object getElementAt(int i) { return SuperMenu.extruderListArrayListForPrinter.get(i); }
+        });
+        extruderListPrinter.setToolTipText("");
+        jScrollPane18.setViewportView(extruderListPrinter);
+
+        addExtruderToPrinterButton.setText("Add Extruder");
+        addExtruderToPrinterButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                addExtruderToPrinterButtonMouseReleased(evt);
+            }
+        });
+
+        addExtruderToPrinterButton1.setText("Remove Extruder");
+        addExtruderToPrinterButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                addExtruderToPrinterButton1MouseReleased(evt);
+            }
+        });
+        addExtruderToPrinterButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addExtruderToPrinterButton1ActionPerformed(evt);
+            }
+        });
+
+        extruderSelectionPrinterComboBox.setModel(new DefaultComboBoxModel(SuperMenu.printerController.loadExtruderList().toArray()));
+
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
@@ -3378,23 +3410,33 @@ public class SuperMenu extends javax.swing.JFrame {
                         .addComponent(jLabel206, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(firmwareRetractionPrinterCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(addExtruderToPrinterButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                    .addComponent(addExtruderToPrinterButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(extruderSelectionPrinterComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(17, 17, 17)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(gCodeFlavorPrinterCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(gCodeFlavorPrinterCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(extruderSelectionPrinterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(relativeEDistancePrinterCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(relativeEDistancePrinterCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addExtruderToPrinterButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(numExtrudersPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(numExtrudersPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addExtruderToPrinterButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
@@ -3404,6 +3446,10 @@ public class SuperMenu extends javax.swing.JFrame {
                     .addComponent(jLabel206)
                     .addComponent(firmwareRetractionPrinterCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(12, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jLabel25.setText("Custom Gcode:");
@@ -3458,7 +3504,7 @@ public class SuperMenu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
+                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
                     .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -3533,7 +3579,7 @@ public class SuperMenu extends javax.swing.JFrame {
                     .addComponent(namePrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                    .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -3565,8 +3611,8 @@ public class SuperMenu extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -3575,10 +3621,6 @@ public class SuperMenu extends javax.swing.JFrame {
     private void nozzDiameterExtrudTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nozzDiameterExtrudTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nozzDiameterExtrudTextActionPerformed
-
-    private void newPrinterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newPrinterButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_newPrinterButtonActionPerformed
 
     private void bedXPrinterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedXPrinterTextActionPerformed
         // TODO add your handling code here:
@@ -3740,8 +3782,12 @@ public class SuperMenu extends javax.swing.JFrame {
         varList.add(this.firmwareRetractionPrinterCombo.getSelectedItem().toString());
         varList.add(this.startGCodePrinterTextArea.getText());
         varList.add(this.endGCodePrinterTextArea.getText());
+        ArrayList<String> extruderList = new ArrayList<>();
+        for (String extruderName : SuperMenu.extruderListArrayListForPrinter){
+            extruderList.add(extruderName);
+        }
         try{
-            printerController.savePrinterConfiguratoin(varList);
+            printerController.savePrinterConfiguratoin(varList, extruderList);
             this.printerListPrinter.setModel(new javax.swing.AbstractListModel() {
                     private final PrinterController  controller = new PrinterController();
                     @Override
@@ -3769,6 +3815,13 @@ public class SuperMenu extends javax.swing.JFrame {
         this.firmwareRetractionPrinterCombo.setSelectedItem(0);
         this.startGCodePrinterTextArea.setText(null);
         this.endGCodePrinterTextArea.setText(null);
+        SuperMenu.extruderListArrayListForPrinter = new ArrayList<>();
+        this.extruderListPrinter.setModel(new javax.swing.AbstractListModel() {
+                    @Override
+                    public int getSize() { return SuperMenu.extruderListArrayListForPrinter.size(); }
+                    @Override
+                    public Object getElementAt(int i) { return SuperMenu.extruderListArrayListForPrinter.get(i); }
+                });
     }//GEN-LAST:event_newPrinterButtonMouseReleased
 
     private void deletePriinterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePriinterButtonActionPerformed
@@ -3813,6 +3866,13 @@ public class SuperMenu extends javax.swing.JFrame {
         this.firmwareRetractionPrinterCombo.setSelectedItem(varList.get(10));
         this.startGCodePrinterTextArea.setText(varList.get(11));
         this.endGCodePrinterTextArea.setText(varList.get(12));
+        SuperMenu.extruderListArrayListForPrinter = printerController.loadMyExtruders(varList.get(0));
+        this.extruderListPrinter.setModel(new javax.swing.AbstractListModel() {
+                    @Override
+                    public int getSize() { return SuperMenu.extruderListArrayListForPrinter.size(); }
+                    @Override
+                    public Object getElementAt(int i) { return SuperMenu.extruderListArrayListForPrinter.get(i); }
+                });
     }//GEN-LAST:event_loadPrinterButtonMouseReleased
 
     private void saveMaterialButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMaterialButtonMouseReleased
@@ -3959,6 +4019,24 @@ public class SuperMenu extends javax.swing.JFrame {
             );
     }//GEN-LAST:event_deleteMaterialButtonMouseReleased
 
+    private void addExtruderToPrinterButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addExtruderToPrinterButtonMouseReleased
+        SuperMenu.extruderListArrayListForPrinter.add(this.extruderSelectionPrinterComboBox.getSelectedItem().toString());
+        this.extruderListPrinter.setModel(new javax.swing.AbstractListModel() {
+                    @Override
+                    public int getSize() { return SuperMenu.extruderListArrayListForPrinter.size(); }
+                    @Override
+                    public Object getElementAt(int i) { return SuperMenu.extruderListArrayListForPrinter.get(i); }
+                });
+    }//GEN-LAST:event_addExtruderToPrinterButtonMouseReleased
+
+    private void addExtruderToPrinterButton1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addExtruderToPrinterButton1MouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addExtruderToPrinterButton1MouseReleased
+
+    private void addExtruderToPrinterButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addExtruderToPrinterButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addExtruderToPrinterButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4006,6 +4084,8 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JTextField accelPCText3;
     private javax.swing.JTextField accelPCText4;
     private javax.swing.JTextField accelPCText5;
+    private javax.swing.JButton addExtruderToPrinterButton;
+    private javax.swing.JButton addExtruderToPrinterButton1;
     private javax.swing.JCheckBox advancedInfillPCCheckBox1;
     private javax.swing.JCheckBox advancedInfillPCCheckBox2;
     private javax.swing.JCheckBox advancedPCCheckBox2;
@@ -4030,6 +4110,8 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JTextField extraLengthOnToolReenableMaterialText;
     private javax.swing.JTextField extrudeClearHeightPCText;
     private javax.swing.JTextField extrudeClearRadiusPCText;
+    private javax.swing.JList extruderListPrinter;
+    private javax.swing.JComboBox extruderSelectionPrinterComboBox;
     private javax.swing.JTextField extrusionMultiplierMaterialText;
     private javax.swing.JTextField extrusionTemperatureMaterialText;
     private javax.swing.JComboBox fanAlwaysOnMaterialComboBox;
@@ -4317,6 +4399,7 @@ public class SuperMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane17;
+    private javax.swing.JScrollPane jScrollPane18;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;

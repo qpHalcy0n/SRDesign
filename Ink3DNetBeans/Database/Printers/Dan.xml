@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<printer>
+    <hardware>
+        <baudRate>115200</baudRate>
+        <comPort>COM1</comPort>
+        <lineEnd>3</lineEnd>
+    </hardware>
+    <name>Dan</name>
+    <bedX>100.0</bedX>
+    <bedY>100.0</bedY>
+    <printCenterX>50.0</printCenterX>
+    <printCenterY>50.0</printCenterY>
+    <zOffset>1.2</zOffset>
+    <gCodeFlavor>reprap</gCodeFlavor>
+    <useRelativeEDistances>true</useRelativeEDistances>
+    <numExtruders>3</numExtruders>
+    <vibrationLimit>1.2</vibrationLimit>
+    <useFirmwareRetraction>true</useFirmwareRetraction>
+    <startGCode>haha</startGCode>
+    <endGCode>lol</endGCode>
+</printer>

@@ -6,9 +6,11 @@
 
 package ink3d.UserInterface.Database.XmlDatabase;
 
+import ink3d.ConfigurationObjects.ExtruderConfiguration;
 import ink3d.ConfigurationObjects.PrinterConfiguration;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -36,27 +38,41 @@ public class SavePrinterConfigurationCommandTest {
         printer.setVibrationLimit(1.1);
         printer.setgCodeFlavor("rep-rap");
         printer.setzOffset(1.34);
+        printer.setExtruderList(new ArrayList<ExtruderConfiguration>());
+        printer.getExtruderList().add(new ExtruderConfiguration());
         
         expected ="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                     "<printer>\n" +
-                    "    <bedX>150.0</bedX>\n" +
-                    "    <bedY>100.0</bedY>\n" +
-                    "    <endGCode></endGCode>\n" +
                     "    <hardware>\n" +
                     "        <baudRate>115200</baudRate>\n" +
                     "        <comPort>COM1</comPort>\n" +
                     "        <lineEnd>3</lineEnd>\n" +
                     "    </hardware>\n" +
                     "    <name>SaveTest</name>\n" +
-                    "    <numExtruders>5</numExtruders>\n" +
+                    "    <bedX>150.0</bedX>\n" +
+                    "    <bedY>100.0</bedY>\n" +
                     "    <printCenterX>75.0</printCenterX>\n" +
                     "    <printCenterY>50.0</printCenterY>\n" +
-                    "    <startGCode></startGCode>\n" +
-                    "    <useFirmwareRetraction>false</useFirmwareRetraction>\n" +
-                    "    <useRelativeEDistances>true</useRelativeEDistances>\n" +
-                    "    <vibrationLimit>1.1</vibrationLimit>\n" +
-                    "    <gCodeFlavor>rep-rap</gCodeFlavor>\n" +
                     "    <zOffset>1.34</zOffset>\n" +
+                    "    <gCodeFlavor>rep-rap</gCodeFlavor>\n" +
+                    "    <useRelativeEDistances>true</useRelativeEDistances>\n" +
+                    "    <numExtruders>5</numExtruders>\n" +
+                    "    <vibrationLimit>1.1</vibrationLimit>\n" +
+                    "    <useFirmwareRetraction>false</useFirmwareRetraction>\n" +
+                    "    <startGCode></startGCode>\n" +
+                    "    <endGCode></endGCode>\n" +
+                    "    <extruderList>\n" +
+                    "        <name>Default</name>\n" +
+                    "        <extruderType></extruderType>\n" +
+                    "        <nozzleDiameter>0.5</nozzleDiameter>\n" +
+                    "        <xDimension>0.0</xDimension>\n" +
+                    "        <yDimension>0.0</yDimension>\n" +
+                    "        <xOffset>0.0</xOffset>\n" +
+                    "        <yOffset>0.0</yOffset>\n" +
+                    "        <zOffset>0.0</zOffset>\n" +
+                    "        <startGCode></startGCode>\n" +
+                    "        <endGCode></endGCode>\n" +
+                    "    </extruderList>\n" +
                     "</printer>";
     }
     
@@ -65,7 +81,7 @@ public class SavePrinterConfigurationCommandTest {
         printer = null;
         System.gc();
         File file = new File("./Database/Printers/SaveTest.xml");
-        file.delete();
+        //file.delete();
     }
 
     /**
