@@ -27,7 +27,7 @@ public interface TXRX
     public String[] getSerialPortNames();
     
     // Get printer feedback information
-    public String getPrinterFeedback();
+    public ArrayList<FeedbackObject> getPrinterFeedback();
     
     // Initialize connection to printer
     public boolean connectToPrinter(PrintJobConfiguration pjc);
@@ -38,14 +38,43 @@ public interface TXRX
     // Query whether printer feedback buffer has data
     public boolean isPrinterFeedbackReady();
     
-    public boolean ackReceived();
-    
-    // Pass G-Codes from into communications
-//    public boolean addGcode(ArrayList<String> ppGcode);
+    public ArrayList<String> getLastGcodesSent();
     
     // Serialize data (do processing on g-codes)
     public boolean serialize(PrintJobConfiguration pjc, String gCodeLine);
     
     // Deserialize data (process byte stream from printer)
-    public boolean deserialize(byte[] byteStream);
+    public boolean deserialize(String str);
+    
+    class TemperatureObject
+    {
+        public TemperatureObject()
+        {
+            tool        = new String("");
+            curTemp     = 0.0f;
+            desiredTemp = 0.0f;
+        }
+        
+        String tool;
+        float  curTemp;
+        float  desiredTemp;
+    }
+        
+    class FeedbackObject
+    {
+        public FeedbackObject()
+        {
+            resendLine      = 0;
+            toolTemps       = new ArrayList<TemperatureObject>();
+            isFault         = false;
+            isResend        = false;
+            isACK           = false;
+        }
+        
+        int                 resendLine;
+        ArrayList<TemperatureObject> toolTemps;
+        public boolean      isFault;
+        public boolean      isResend;
+        public boolean      isACK;
+    }
 }
