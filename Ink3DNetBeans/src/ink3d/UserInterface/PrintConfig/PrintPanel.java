@@ -20,12 +20,12 @@ import javax.swing.JOptionPane;
  *
  * @author Tim
  */
-public class PrintGUI extends javax.swing.JPanel {
+public class PrintPanel extends javax.swing.JPanel {
     private ExtruderController controller;
     /**
      * Creates new form ExtruderGUI
      */
-    public PrintGUI() {
+    public PrintPanel() {
         this.controller = new ExtruderController();
         initComponents();
         loadExtruderConfigurationList();

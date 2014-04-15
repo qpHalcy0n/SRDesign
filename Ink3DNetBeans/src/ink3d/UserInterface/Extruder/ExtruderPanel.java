@@ -7,26 +7,41 @@
 package ink3d.UserInterface.Extruder;
 
 import ink3d.ConfigurationObjects.ExtruderConfiguration;
+import ink3d.UserInterface.Database.PersistenceFramework;
 import ink3d.UserInterface.MainMenu.BadFieldException;
 import ink3d.Util.InputValidationUtility;
+import java.awt.BorderLayout;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
 
 /**
  *
  * @author Tim
  */
-public class ExtruderGUI extends javax.swing.JPanel {
+public class ExtruderPanel extends javax.swing.JPanel {
     private ExtruderController controller;
+    private DefaultListModel listModel;
+    private PersistenceFramework db = PersistenceFramework.getDB();
+    private static ArrayList<String> extruderNameList = new ArrayList<>();
     /**
      * Creates new form ExtruderGUI
      */
-    public ExtruderGUI() {
+    public ExtruderPanel() {
+        db = PersistenceFramework.getDB();
+        this.listModel = new DefaultListModel();
         this.controller = new ExtruderController();
+        List<String> extruders = controller.loadExtruderConfigurationList();// db.getExtruderConfigurations();
+        for(String name : extruders) {
+            this.listModel.addElement(name);
+        }
         initComponents();
-        loadExtruderConfigurationList();
     }
 
     /**
@@ -166,6 +181,7 @@ public class ExtruderGUI extends javax.swing.JPanel {
         selectionScrollPane.setMaximumSize(new java.awt.Dimension(32767, 33));
         selectionScrollPane.setPreferredSize(new java.awt.Dimension(200, 132));
 
+        extrudList.setModel(this.listModel);
         extrudList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         selectionScrollPane.setViewportView(extrudList);
 
@@ -527,7 +543,7 @@ public class ExtruderGUI extends javax.swing.JPanel {
             loadExtruderConfigurationList();
         } catch (BadFieldException ex) {
             JOptionPane.showMessageDialog(null,ex.getMessage(), ex.getMessage(), JOptionPane.INFORMATION_MESSAGE);
-            Logger.getLogger(ExtruderGUI.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExtruderPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_saveBtnActionPerformed
 
@@ -650,23 +666,52 @@ public class ExtruderGUI extends javax.swing.JPanel {
     }
 
     private void loadExtruderConfigurationList() {
+        DefaultListModel model = (DefaultListModel) this.extrudList.getModel();
+        model.removeAllElements();
+
+        List<String> extruders;
+        if (this.controller != null) {
+            extruders = this.controller.loadExtruderConfigurationList();
+            model.ensureCapacity(extruders.size());
+            for(String extruder : extruders) {
+                model.addElement(extruder);
+            }
+        }
+        /*
         this.extrudList.setModel(new AbstractListModel() {
             private final ExtruderController eController = new ExtruderController();
 
             @Override
             public int getSize() {
+                ExtruderController c = new ExtruderController();
+                return c.loadExtruderConfigurationList().size();
                 // TODO:  Why is loadExtruderConfigurations returning null???
                 // return this.eController.loadExtruderConfigurationList().size();
 
                 // hardcode to make the supermenu load
-                return 0;
+                //return 0;
             }
 
             @Override
             public Object getElementAt(int index) {
-                return this.eController.loadExtruderConfigurationList().get(index);
+                ExtruderController c = new ExtruderController();
+                return c.loadExtruderConfigurationList().get(index);
+                //return this.eController.loadExtruderConfigurationList().get(index);
             }
         });
+        */
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame();
+        
+        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.addTab("Extruders", new ExtruderPanel());
+        tabbedPane.addTab("Extruders2", new ExtruderPanel());
+        frame.setLayout(new BorderLayout());
+        frame.add(tabbedPane);
+
+        frame.setVisible(true);
     }
 
 }
