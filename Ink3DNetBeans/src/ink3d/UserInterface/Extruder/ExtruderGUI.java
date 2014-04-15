@@ -651,16 +651,20 @@ public class ExtruderGUI extends javax.swing.JPanel {
 
     private void loadExtruderConfigurationList() {
         this.extrudList.setModel(new AbstractListModel() {
-            private final ExtruderController controller = new ExtruderController();
+            private final ExtruderController eController = new ExtruderController();
 
             @Override
             public int getSize() {
-                return controller.loadExtruderConfigurationList().size();
+                // TODO:  Why is loadExtruderConfigurations returning null???
+                // return this.eController.loadExtruderConfigurationList().size();
+
+                // hardcode to make the supermenu load
+                return 0;
             }
 
             @Override
             public Object getElementAt(int index) {
-                return controller.loadExtruderConfigurationList().get(index);
+                return this.eController.loadExtruderConfigurationList().get(index);
             }
         });
     }
