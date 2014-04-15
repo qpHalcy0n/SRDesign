@@ -20,6 +20,7 @@ public class PrintJobConfiguration {
     private String name;
     private PrinterConfiguration printerConfiguration;
     private HardwareConfiguration hardwareConfiguration;
+    private PrinterStatusObject printerStatusObject;
     private List <SubsetConfiguration> subsetConfigurationList;
     private boolean completeIndividualObjects;
     private boolean oozePrevention;
@@ -41,6 +42,7 @@ public class PrintJobConfiguration {
         this.name = DEFAULT_NAME;
         this.printerConfiguration = new PrinterConfiguration();
         this.hardwareConfiguration = new HardwareConfiguration();
+        this.printerStatusObject = new PrinterStatusObject();
         this.subsetConfigurationList = new ArrayList<SubsetConfiguration>();
         this.extruderMaterials = new ArrayList<MaterialConfiguration>();
         this.completeIndividualObjects = DEFAULT_COMPLETE_INDIVIDUAL_OBJECTS;
@@ -63,6 +65,11 @@ public class PrintJobConfiguration {
     {
         return hardwareConfiguration;
     }
+    
+    public PrinterStatusObject getPrinterStatusObject()
+    {
+        return printerStatusObject;
+    }
 
     public void setPrinterConfiguration(PrinterConfiguration printerConfiguration) {
         this.printerConfiguration = printerConfiguration;
@@ -71,6 +78,11 @@ public class PrintJobConfiguration {
     public void setHardwareConfiguration(HardwareConfiguration hardwareConfiguration)
     {
         this.hardwareConfiguration = hardwareConfiguration;
+    }
+    
+    public void setPrinterStatusObject(PrinterStatusObject pso)
+    {
+        this.printerStatusObject = pso;
     }
 
     public List<SubsetConfiguration> getSubsetConfigurationList() {

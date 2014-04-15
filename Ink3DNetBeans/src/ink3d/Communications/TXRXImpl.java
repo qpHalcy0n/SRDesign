@@ -21,6 +21,10 @@ import java.io.*;
  */
 public class TXRXImpl implements TXRX 
 {
+    private static String initFileName           = "init.gcode";
+    private static int BAUD                      = 250000;
+    private static String comPort                = "COM1";
+    
     private static boolean isOutBufEmpty                        = false;                        // flag for output (to printer) buffer being empty
     private static SerialPortList serialPortList;                                               // Port listing
     private static SerialPort serialPort;                                                       // serial port object
@@ -72,10 +76,13 @@ public class TXRXImpl implements TXRX
         
         deserialize(pfRet);
         
+        // Split feedback into individual messages //
         String[] feedbackLines = pfRet.split("\n");
         for(int i = 0; i < feedbackLines.length; ++i)
         {
             FeedbackObject obj = new FeedbackObject();
+
+            // Split message into tokens //
             String[] lineObjects = feedbackLines[i].split(" ");
             for(int j = 0; j < lineObjects.length; ++j)
             {
@@ -85,6 +92,9 @@ public class TXRXImpl implements TXRX
                     obj.isFault = true;
                 else if(lineObjects[j].contains("rs"))
                     obj.isResend = true;
+                
+                // The only message with a colon are temperature feedback messages //
+                // They follow the form   "toolName:actualTemp/setTemp"
                 else if(lineObjects[j].contains(":"))
                 {
                     // find colon //
@@ -111,6 +121,8 @@ public class TXRXImpl implements TXRX
                     
                     obj.toolTemps.add(temp);
                 }
+                
+                // miscellaneous data is assumed to be resend line information //
                 else 
                 {
                     // Look for resend line //
@@ -143,7 +155,10 @@ public class TXRXImpl implements TXRX
      * @return boolean indicating whether the operation succeeded or failed
      */
     public boolean connectToPrinter(PrintJobConfiguration pjc)
-    {
+    {  
+        comPort = pjc.getHardwareConfiguration().getComPort();
+        BAUD = pjc.getHardwareConfiguration().getBaudRate();
+        
         // Make new serial port object and attempt to open
         serialPort = new SerialPort(comPort);
         try
@@ -206,11 +221,7 @@ public class TXRXImpl implements TXRX
         
         return true;
     }
-    
-//    public boolean ackReceived()
-//    {
-//        return false;
-//    }
+
     
     
     /**
