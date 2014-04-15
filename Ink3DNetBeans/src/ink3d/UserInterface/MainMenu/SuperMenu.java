@@ -3339,6 +3339,7 @@ public class SuperMenu extends javax.swing.JFrame {
             }
         });
 
+        numExtrudersPrinterText.setEnabled(false);
         numExtrudersPrinterText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 numExtrudersPrinterTextActionPerformed(evt);
@@ -3373,11 +3374,6 @@ public class SuperMenu extends javax.swing.JFrame {
         addExtruderToPrinterButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 addExtruderToPrinterButton1MouseReleased(evt);
-            }
-        });
-        addExtruderToPrinterButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addExtruderToPrinterButton1ActionPerformed(evt);
             }
         });
 
@@ -3810,7 +3806,7 @@ public class SuperMenu extends javax.swing.JFrame {
         this.zOffsetPrinterText.setText(null);
         this.gCodeFlavorPrinterCombo.setSelectedIndex(0);
         this.relativeEDistancePrinterCombo.setSelectedIndex(0);
-        this.numExtrudersPrinterText.setText(null);
+        this.numExtrudersPrinterText.setText("0");
         this.vibrationPrinterText.setText(null);
         this.firmwareRetractionPrinterCombo.setSelectedItem(0);
         this.startGCodePrinterTextArea.setText(null);
@@ -4021,6 +4017,9 @@ public class SuperMenu extends javax.swing.JFrame {
 
     private void addExtruderToPrinterButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addExtruderToPrinterButtonMouseReleased
         SuperMenu.extruderListArrayListForPrinter.add(this.extruderSelectionPrinterComboBox.getSelectedItem().toString());
+        int currentNumExtruders;
+        currentNumExtruders = 1 + Integer.parseInt(this.numExtrudersPrinterText.getText());
+        this.numExtrudersPrinterText.setText(Integer.toString(currentNumExtruders));
         this.extruderListPrinter.setModel(new javax.swing.AbstractListModel() {
                     @Override
                     public int getSize() { return SuperMenu.extruderListArrayListForPrinter.size(); }
@@ -4030,12 +4029,18 @@ public class SuperMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_addExtruderToPrinterButtonMouseReleased
 
     private void addExtruderToPrinterButton1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addExtruderToPrinterButton1MouseReleased
-        // TODO add your handling code here:
+        if(this.extruderListPrinter.getSelectedIndex() == -1)return;
+        SuperMenu.extruderListArrayListForPrinter.remove(this.extruderListPrinter.getSelectedIndex());
+        int currentNumExtruders;
+        currentNumExtruders = Integer.parseInt(this.numExtrudersPrinterText.getText()) - 1;
+        this.numExtrudersPrinterText.setText(Integer.toString(currentNumExtruders));
+        this.extruderListPrinter.setModel(new javax.swing.AbstractListModel() {
+                    @Override
+                    public int getSize() { return SuperMenu.extruderListArrayListForPrinter.size(); }
+                    @Override
+                    public Object getElementAt(int i) { return SuperMenu.extruderListArrayListForPrinter.get(i); }
+                });
     }//GEN-LAST:event_addExtruderToPrinterButton1MouseReleased
-
-    private void addExtruderToPrinterButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addExtruderToPrinterButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addExtruderToPrinterButton1ActionPerformed
 
     /**
      * @param args the command line arguments

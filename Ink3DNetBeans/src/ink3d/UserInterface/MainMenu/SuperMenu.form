@@ -5002,6 +5002,9 @@
                               </Events>
                             </Component>
                             <Component class="javax.swing.JTextField" name="numExtrudersPrinterText">
+                              <Properties>
+                                <Property name="enabled" type="boolean" value="false"/>
+                              </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="numExtrudersPrinterTextActionPerformed"/>
                               </Events>
@@ -5076,7 +5079,6 @@
                               </Properties>
                               <Events>
                                 <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="addExtruderToPrinterButton1MouseReleased"/>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addExtruderToPrinterButton1ActionPerformed"/>
                               </Events>
                             </Component>
                             <Component class="javax.swing.JComboBox" name="extruderSelectionPrinterComboBox">
