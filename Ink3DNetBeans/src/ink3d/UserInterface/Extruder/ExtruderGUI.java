@@ -6,17 +6,27 @@
 
 package ink3d.UserInterface.Extruder;
 
+import ink3d.ConfigurationObjects.ExtruderConfiguration;
+import ink3d.UserInterface.MainMenu.BadFieldException;
+import ink3d.Util.InputValidationUtility;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractListModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Tim
  */
 public class ExtruderGUI extends javax.swing.JPanel {
-
+    private ExtruderController controller;
     /**
      * Creates new form ExtruderGUI
      */
     public ExtruderGUI() {
+        this.controller = new ExtruderController();
         initComponents();
+        loadExtruderConfigurationList();
     }
 
     /**
@@ -39,14 +49,14 @@ public class ExtruderGUI extends javax.swing.JPanel {
         nameTxt = new javax.swing.JTextField();
         selectionPanel = new javax.swing.JPanel();
         selectionScrollPane = new javax.swing.JScrollPane();
-        ExtrudList = new javax.swing.JList();
+        extrudList = new javax.swing.JList();
         configPanel = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jPanel19 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        nozzDiameterExtrudText2 = new javax.swing.JTextField();
+        nozzDiameterExtrudText = new javax.swing.JTextField();
         jLabel67 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -56,6 +66,14 @@ public class ExtruderGUI extends javax.swing.JPanel {
         offsetYExtrudText = new javax.swing.JTextField();
         offsetXExtrudText = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        customGCodeLbl = new javax.swing.JLabel();
+        startGCodeLbl = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        startGCodeTxtArea = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        endGCodeTxtArea = new javax.swing.JTextArea();
         jPanel12 = new javax.swing.JPanel();
         jLabel48 = new javax.swing.JLabel();
         jLabel49 = new javax.swing.JLabel();
@@ -95,9 +113,19 @@ public class ExtruderGUI extends javax.swing.JPanel {
         commandPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         newBtn.setText("New");
+        newBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newBtnActionPerformed(evt);
+            }
+        });
         commandPanel.add(newBtn);
 
         saveBtn.setText("Save");
+        saveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveBtnActionPerformed(evt);
+            }
+        });
         commandPanel.add(saveBtn);
 
         loadBtn.setText("Load");
@@ -109,6 +137,11 @@ public class ExtruderGUI extends javax.swing.JPanel {
         commandPanel.add(loadBtn);
 
         deleteBtn.setText("Delete");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
         commandPanel.add(deleteBtn);
 
         headerPanel.add(commandPanel);
@@ -133,12 +166,8 @@ public class ExtruderGUI extends javax.swing.JPanel {
         selectionScrollPane.setMaximumSize(new java.awt.Dimension(32767, 33));
         selectionScrollPane.setPreferredSize(new java.awt.Dimension(200, 132));
 
-        ExtrudList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        selectionScrollPane.setViewportView(ExtrudList);
+        extrudList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        selectionScrollPane.setViewportView(extrudList);
 
         selectionPanel.add(selectionScrollPane, java.awt.BorderLayout.CENTER);
 
@@ -152,7 +181,6 @@ public class ExtruderGUI extends javax.swing.JPanel {
         jScrollPane4.setPreferredSize(new java.awt.Dimension(600, 400));
 
         jPanel19.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel19.setAlignmentX(0.5F);
         jPanel19.setFocusTraversalPolicyProvider(true);
         jPanel19.setMinimumSize(new java.awt.Dimension(0, 0));
         jPanel19.setPreferredSize(new java.awt.Dimension(400, 551));
@@ -166,12 +194,6 @@ public class ExtruderGUI extends javax.swing.JPanel {
 
         jLabel7.setText("Nozzle diameter:");
 
-        nozzDiameterExtrudText2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nozzDiameterExtrudTextActionPerformed(evt);
-            }
-        });
-
         jLabel67.setText("mm");
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
@@ -184,7 +206,7 @@ public class ExtruderGUI extends javax.swing.JPanel {
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(54, 54, 54)
-                        .addComponent(nozzDiameterExtrudText2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nozzDiameterExtrudText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel67))
                     .addComponent(jLabel22))
@@ -198,7 +220,7 @@ public class ExtruderGUI extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(nozzDiameterExtrudText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nozzDiameterExtrudText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel67))
                 .addGap(37, 37, 37))
         );
@@ -258,6 +280,56 @@ public class ExtruderGUI extends javax.swing.JPanel {
         );
 
         jPanel19.add(jPanel11);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 10));
+        jPanel1.setPreferredSize(new java.awt.Dimension(826, 800));
+
+        customGCodeLbl.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        customGCodeLbl.setText("Custom G-Code");
+
+        startGCodeLbl.setText("Start G-Code");
+
+        startGCodeTxtArea.setColumns(20);
+        startGCodeTxtArea.setRows(5);
+        jScrollPane1.setViewportView(startGCodeTxtArea);
+
+        jLabel1.setText("End G-Code");
+
+        endGCodeTxtArea.setColumns(20);
+        endGCodeTxtArea.setRows(5);
+        jScrollPane2.setViewportView(endGCodeTxtArea);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
+                    .addComponent(startGCodeLbl)
+                    .addComponent(customGCodeLbl)
+                    .addComponent(jLabel1))
+                .addContainerGap(410, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(customGCodeLbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(startGCodeLbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel19.add(jPanel1);
 
         jPanel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 10));
         jPanel12.setPreferredSize(new java.awt.Dimension(400, 298));
@@ -369,7 +441,7 @@ public class ExtruderGUI extends javax.swing.JPanel {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(retractWipeExtrudCheckBox)
                     .addComponent(jLabel55))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel19.add(jPanel12);
@@ -442,19 +514,45 @@ public class ExtruderGUI extends javax.swing.JPanel {
 
     private void loadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBtnActionPerformed
         // TODO add your handling code here:
+        String extruderName = (String) extrudList.getSelectedValue();
+        ExtruderConfiguration extruder = controller.loadExtruderConfiguration(extruderName);
+        loadExtruder(extruder);
     }//GEN-LAST:event_loadBtnActionPerformed
 
-    private void nozzDiameterExtrudTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nozzDiameterExtrudTextActionPerformed
+    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
+        try {
+            // TODO add your handling code here:
+            ExtruderConfiguration extruder = getExtruderConfiguration();
+            controller.saveExtruderConfiguration(extruder);
+            loadExtruderConfigurationList();
+        } catch (BadFieldException ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage(), ex.getMessage(), JOptionPane.INFORMATION_MESSAGE);
+            Logger.getLogger(ExtruderGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_saveBtnActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nozzDiameterExtrudTextActionPerformed
+        String extruderName = (String) extrudList.getSelectedValue();
+        controller.deleteExtruderConfiguration(extruderName);
+        loadExtruderConfigurationList();
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBtnActionPerformed
+        // TODO add your handling code here:
+        loadExtruder(new ExtruderConfiguration());
+    }//GEN-LAST:event_newBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList ExtrudList;
     private javax.swing.JPanel commandPanel;
     private javax.swing.JPanel configPanel;
+    private javax.swing.JLabel customGCodeLbl;
     private javax.swing.JButton deleteBtn;
+    private javax.swing.JTextArea endGCodeTxtArea;
+    private javax.swing.JList extrudList;
     private javax.swing.JPanel headerPanel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
@@ -481,11 +579,14 @@ public class ExtruderGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel19;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
@@ -494,7 +595,7 @@ public class ExtruderGUI extends javax.swing.JPanel {
     private javax.swing.JPanel namePanel;
     private javax.swing.JTextField nameTxt;
     private javax.swing.JButton newBtn;
-    private javax.swing.JTextField nozzDiameterExtrudText2;
+    private javax.swing.JTextField nozzDiameterExtrudText;
     private javax.swing.JTextField offsetXExtrudText;
     private javax.swing.JTextField offsetYExtrudText;
     private javax.swing.JTextField retractExtraLengthExtrudText;
@@ -506,5 +607,62 @@ public class ExtruderGUI extends javax.swing.JPanel {
     private javax.swing.JButton saveBtn;
     private javax.swing.JPanel selectionPanel;
     private javax.swing.JScrollPane selectionScrollPane;
+    private javax.swing.JLabel startGCodeLbl;
+    private javax.swing.JTextArea startGCodeTxtArea;
     // End of variables declaration//GEN-END:variables
+
+    public ExtruderConfiguration getExtruderConfiguration() throws BadFieldException {
+        ExtruderConfiguration extruder = new ExtruderConfiguration();
+        
+        String name = nameTxt.getText();
+        if(InputValidationUtility.isStringEmpty(name)) {
+            throw new BadFieldException("The name of the extruder must not be empty.");
+        }
+
+        double nozzleDiameter = InputValidationUtility.parseDouble("Nozzle Diameter", 
+                nozzDiameterExtrudText.getText());
+        extruder.setNozzleDiameter(nozzleDiameter);
+
+        double offsetX = InputValidationUtility.parseDouble("Offset X", 
+                offsetXExtrudText.getText());
+        extruder.setxOffset(offsetX);
+
+        double offsetY = InputValidationUtility.parseDouble("Offset Y", 
+                offsetXExtrudText.getText());
+        extruder.setxOffset(offsetY);
+
+        // Does not matter if start/end G-Code is empty/null
+        String startGCode = startGCodeTxtArea.getText();
+        extruder.setStartGCode(startGCode);
+        String endGCode = endGCodeTxtArea.getText();
+        extruder.setEndGCode(endGCode);
+
+        return extruder;
+    }
+
+    private void loadExtruder(ExtruderConfiguration extruder) {
+        nameTxt.setText(extruder.getName());
+        nozzDiameterExtrudText.setText(String.valueOf(extruder.getNozzleDiameter()));
+        offsetXExtrudText.setText(String.valueOf(extruder.getxOffset()));
+        offsetYExtrudText.setText(String.valueOf(extruder.getyOffset()));
+        startGCodeTxtArea.setText(String.valueOf(extruder.getStartGCode()));
+        endGCodeTxtArea.setText(String.valueOf(extruder.getEndGCode()));
+    }
+
+    private void loadExtruderConfigurationList() {
+        this.extrudList.setModel(new AbstractListModel() {
+            private final ExtruderController controller = new ExtruderController();
+
+            @Override
+            public int getSize() {
+                return controller.loadExtruderConfigurationList().size();
+            }
+
+            @Override
+            public Object getElementAt(int index) {
+                return controller.loadExtruderConfigurationList().get(index);
+            }
+        });
+    }
+
 }
