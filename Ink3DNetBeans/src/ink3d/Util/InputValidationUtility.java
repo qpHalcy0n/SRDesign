@@ -54,6 +54,20 @@ public class InputValidationUtility {
         }
     }
 
+    public static boolean parseBoolean(String property, String str) throws BadFieldException {
+        if(isStringEmpty(str)) {
+            String message = property + " must have a value.";
+            throw new BadFieldException(message);
+        }
+        try {
+            return Boolean.parseBoolean(str);
+        }
+        catch(Exception ex) {
+            String message = property + " must be a true or false value.";
+            throw new BadFieldException(message);
+        }
+    }
+
     public static void checkIfInRange(String property, double value, double min, double max) throws BadFieldException {
         if(value < min) {
             String message = property + " must be greater or equal to " + min + ".";
