@@ -3,9 +3,13 @@ package ink3d.ConfigurationObjects;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name = "printerConfiguration")
+@XmlAccessorType (XmlAccessType.FIELD)
 public class PrinterConfiguration {
     public static final String DEFAULT_NAME = "Default";
     public static final double DEFAULT_BED_X = 200.0;
@@ -38,64 +42,22 @@ public class PrinterConfiguration {
     }
     private HardwareConfiguration hardware;
     private String name;
-    /**
-     * The max x of the bed.
-     */
     private double bedX;
-
-    /**
-     * The max y of the bed.
-     */
     private double bedY;
-
-    /**
-     * The x of the center of the print.
-     */
     private double printCenterX;
-
-    /**
-     * The y of the center of the print.
-     */
     private double printCenterY;
-
-    /**
-     * The zOffset of the print bed surfaces.  Used if the bed does not
-     * sit exactly at z = 0.
-     */
     private double zOffset;
-
-    /**
-     * The G-Code flavor to output.
-     */
     private String gCodeFlavor;
-
-    /**
-     * When true, uses relative E values (required by some firmwares).
-     */
     private boolean useRelativeEDistances;
-
-    /**
-     * The number of extruders on the printer.
-     */
     private int numExtruders;
-
-    /**
-     * The limit of vibrations (in Hz) where movements will be slowed.
-     * If a move hits the specified vibration frequency, the extruder
-     * will slow.
-     */
     private double vibrationLimit;
-
     private boolean useFirmwareRetraction;
     private String startGCode;
     private String endGCode;
-
-    /**
-     * List of the extruders on the printer.  In order of where they
-     * are on the printer (i.e. extruderList[0] is T0).
-     */
+   
+    @XmlElement(name = "extruderList")
     private List<ExtruderConfiguration> extruderList;
-
+    
     public double getBedX() {
         return bedX;
     }
