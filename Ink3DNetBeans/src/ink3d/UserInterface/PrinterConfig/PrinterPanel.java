@@ -25,6 +25,9 @@ public class PrinterPanel extends javax.swing.JPanel {
         this.printerController = new PrinterController();
         initComponents();
     }
+    public javax.swing.JComboBox getExtruderCombo(){
+        return this.extruderSelectionPrinterComboBox;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,6 +63,7 @@ public class PrinterPanel extends javax.swing.JPanel {
         jLabel17 = new javax.swing.JLabel();
         vibrationPrinterText = new javax.swing.JTextField();
         numExtrudersPrinterText = new javax.swing.JTextField();
+        numExtrudersPrinterText.setText("0");
         relativeEDistancePrinterCombo = new javax.swing.JComboBox();
         gCodeFlavorPrinterCombo = new javax.swing.JComboBox();
         jLabel206 = new javax.swing.JLabel();
@@ -383,7 +387,7 @@ public class PrinterPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
+                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
                     .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );

@@ -9,6 +9,8 @@ package ink3d.UserInterface.Extruder;
 import ink3d.ConfigurationObjects.ExtruderConfiguration;
 import ink3d.UserInterface.Database.PersistenceFramework;
 import ink3d.UserInterface.MainMenu.BadFieldException;
+import ink3d.UserInterface.MainMenu.MainWindow;
+import ink3d.UserInterface.PrinterConfig.PrinterController;
 import ink3d.Util.InputValidationUtility;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -545,6 +548,8 @@ public class ExtruderPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,ex.getMessage(), ex.getMessage(), JOptionPane.INFORMATION_MESSAGE);
             Logger.getLogger(ExtruderPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        PrinterController printerController = new PrinterController();
+        MainWindow.printerPanel.getExtruderCombo().setModel(new DefaultComboBoxModel(printerController.loadExtruderList().toArray()));
     }//GEN-LAST:event_saveBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed

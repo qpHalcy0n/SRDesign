@@ -137,7 +137,7 @@ public class PrinterController {
             */
             ArrayList<ExtruderConfiguration> extruders = new ArrayList<>();
             for(String name: extruderList){
-                extruders.add(db.getExtruderConfiguration(name));
+                  extruders.add(db.getExtruderConfiguration(name));
             }
             config.setExtruderList(extruders);
         }catch(NumberFormatException e){

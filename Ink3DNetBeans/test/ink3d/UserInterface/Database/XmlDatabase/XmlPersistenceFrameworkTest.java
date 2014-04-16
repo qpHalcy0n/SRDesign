@@ -1301,7 +1301,7 @@ public class XmlPersistenceFrameworkTest {
         extruder = null;
         System.gc();
         file = new File("./Database/Extruders/SaveTest.xml");
-        //file.delete();
+        file.delete();
         
     }
 
