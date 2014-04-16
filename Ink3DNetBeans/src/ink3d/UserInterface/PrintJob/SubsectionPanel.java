@@ -9,6 +9,7 @@ package ink3d.UserInterface.PrintJob;
 import ink3d.UserInterface.MainMenu.MainWindow;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -39,6 +40,8 @@ public class SubsectionPanel extends javax.swing.JPanel {
      * Creates new form SubsectionPanel
      */
     public SubsectionPanel() {
+        fileList = new ArrayList<>();
+        extruderList = new ArrayList<>();
         printJobController = new PrintJobController();
         initComponents();
     }
@@ -59,11 +62,11 @@ public class SubsectionPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        fileListSubsection = new javax.swing.JList();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList();
-        jComboBox2 = new javax.swing.JComboBox();
-        jComboBox3 = new javax.swing.JComboBox();
+        extruderMaterialListSubsecion = new javax.swing.JList();
+        fileSeletionSubsectoinComboBox = new javax.swing.JComboBox();
+        extruderMaterailSubsectionComboBox = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
         addFileSubsection = new javax.swing.JButton();
         removeFileSubsection = new javax.swing.JButton();
@@ -73,14 +76,14 @@ public class SubsectionPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Subsection from:");
 
-        startSubsectionPrintJob.setText("Start");
+        startSubsectionPrintJob.setText("0");
         startSubsectionPrintJob.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 startSubsectionPrintJobActionPerformed(evt);
             }
         });
 
-        finishSubsectionPrintJob.setText("Finish");
+        finishSubsectionPrintJob.setText("0");
 
         removeSubsectionButton.setText("Remove");
         removeSubsectionButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -93,21 +96,26 @@ public class SubsectionPanel extends javax.swing.JPanel {
 
         jComboBox1.setModel(new DefaultComboBoxModel(this.printJobController.loadAvailablePrints().toArray()));
 
-        jList1.setModel(new PrintJobListModel(fileList));
-        jScrollPane2.setViewportView(jList1);
+        fileListSubsection.setModel(new PrintJobListModel(fileList));
+        jScrollPane2.setViewportView(fileListSubsection);
 
-        jList2.setModel(new PrintJobListModel(extruderList));
-        jScrollPane3.setViewportView(jList2);
+        extruderMaterialListSubsecion.setModel(new PrintJobListModel(extruderList));
+        jScrollPane3.setViewportView(extruderMaterialListSubsecion);
 
-        jComboBox2.setModel(new DefaultComboBoxModel(this.printJobController.loadAvailableFiles().toArray()));
+        fileSeletionSubsectoinComboBox.setModel(new DefaultComboBoxModel(this.printJobController.loadAvailableFiles().toArray()));
 
-        jComboBox3.setModel(new MaterialFileMatchingComboBoxModel());
-        jComboBox3.setSelectedItem(1);
+        extruderMaterailSubsectionComboBox.setModel(new MaterialFileMatchingComboBoxModel());
+        extruderMaterailSubsectionComboBox.setSelectedItem(1);
 
         jLabel4.setText("Associated Extruder");
 
         addFileSubsection.setText("Add File");
         addFileSubsection.setToolTipText("");
+        addFileSubsection.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                addFileSubsectionMouseReleased(evt);
+            }
+        });
         addFileSubsection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addFileSubsectionActionPerformed(evt);
@@ -116,6 +124,11 @@ public class SubsectionPanel extends javax.swing.JPanel {
 
         removeFileSubsection.setText("Remove File");
         removeFileSubsection.setToolTipText("");
+        removeFileSubsection.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                removeFileSubsectionMouseReleased(evt);
+            }
+        });
         removeFileSubsection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeFileSubsectionActionPerformed(evt);
@@ -153,19 +166,20 @@ public class SubsectionPanel extends javax.swing.JPanel {
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(10, 10, 10))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(addFileSubsection, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(addFileSubsection, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(removeFileSubsection)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addComponent(removeFileSubsection, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(fileSeletionSubsectoinComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(10, 10, 10)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane3)
+                            .addComponent(extruderMaterailSubsectionComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -216,8 +230,8 @@ public class SubsectionPanel extends javax.swing.JPanel {
                     .addComponent(removeExtruderSubsection))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fileSeletionSubsectoinComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(extruderMaterailSubsectionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
@@ -230,20 +244,24 @@ public class SubsectionPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_startSubsectionPrintJobActionPerformed
 
-    private void addFileSubsectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFileSubsectionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addFileSubsectionActionPerformed
-
     private void removeFileSubsectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeFileSubsectionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_removeFileSubsectionActionPerformed
 
     private void addExtruderSubsectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addExtruderSubsectionActionPerformed
-        // TODO add your handling code here:
+        extruderList.add((String)this.extruderMaterailSubsectionComboBox.getSelectedItem());
+        this.extruderMaterialListSubsecion.setModel(new PrintJobListModel(this.extruderList));
+        updateUI();
     }//GEN-LAST:event_addExtruderSubsectionActionPerformed
 
     private void removeExtruderSubsectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeExtruderSubsectionActionPerformed
-        // TODO add your handling code here:
+        if(this.extruderMaterialListSubsecion.getSelectedIndex() ==-1){
+            JOptionPane.showMessageDialog(null, "Please select an item to remove." , "InfoBox: " + "Invalid Remove",JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        this.extruderList.remove(this.extruderMaterialListSubsecion.getSelectedIndex());
+        this.extruderMaterialListSubsecion.setModel(new PrintJobListModel(this.extruderList));
+        this.updateUI();
     }//GEN-LAST:event_removeExtruderSubsectionActionPerformed
 
     private void removeSubsectionButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeSubsectionButtonMouseReleased
@@ -251,20 +269,44 @@ public class SubsectionPanel extends javax.swing.JPanel {
         MainWindow.printJobPanel.updateUI();
     }//GEN-LAST:event_removeSubsectionButtonMouseReleased
 
+    private void addFileSubsectionMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addFileSubsectionMouseReleased
+        if(fileList.contains((String)fileSeletionSubsectoinComboBox.getSelectedItem())){
+            JOptionPane.showMessageDialog(null, "There can be only one instance of a file per subsection." , "InfoBox: " + "Invalid Add",JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        fileList.add((String)fileSeletionSubsectoinComboBox.getSelectedItem());
+        fileListSubsection.setModel(new PrintJobListModel(this.fileList));
+        updateUI();
+    }//GEN-LAST:event_addFileSubsectionMouseReleased
+
+    private void removeFileSubsectionMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeFileSubsectionMouseReleased
+        if(this.fileListSubsection.getSelectedIndex() ==-1){
+            JOptionPane.showMessageDialog(null, "Please select an item to remove." , "InfoBox: " + "Invalid Remove",JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        this.fileList.remove(this.fileListSubsection.getSelectedIndex());
+        this.fileListSubsection.setModel(new PrintJobListModel(this.fileList));
+        this.updateUI();
+    }//GEN-LAST:event_removeFileSubsectionMouseReleased
+
+    private void addFileSubsectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFileSubsectionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addFileSubsectionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addExtruderSubsection;
     private javax.swing.JButton addFileSubsection;
+    private javax.swing.JComboBox extruderMaterailSubsectionComboBox;
+    private javax.swing.JList extruderMaterialListSubsecion;
+    private javax.swing.JList fileListSubsection;
+    private javax.swing.JComboBox fileSeletionSubsectoinComboBox;
     private javax.swing.JTextField finishSubsectionPrintJob;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JList jList1;
-    private javax.swing.JList jList2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton removeExtruderSubsection;

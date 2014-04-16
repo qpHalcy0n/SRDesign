@@ -221,6 +221,7 @@ public class PrintJobPanel extends javax.swing.JPanel {
 
     private void newPrintJobButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newPrintJobButtonMouseReleased
         ((MasterSubsectionPane)this.masterSubsectionPane).removeAllSubsections();
+        PrintJobPanel.extruderMaterialArrayListForPrintJob = new ArrayList<>();
         this.namePrintJobText.setText(null);
         this.updateUI();
     }//GEN-LAST:event_newPrintJobButtonMouseReleased
