@@ -6,7 +6,10 @@
 
 package ink3d.UserInterface.PrintJob;
 
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 /**
@@ -15,25 +18,31 @@ import javax.swing.JScrollPane;
  */
 public class MasterSubsectionPane extends JScrollPane{
     ArrayList<SubsectionPanel> panels;
-    
+    JPanel master;
     public ArrayList<SubsectionPanel> getPanels(){
         return panels;
     }
     
-    public void removeSubsection(int id){
-        panels.remove(id);
+    public void removeSubsection(SubsectionPanel panel){
+        panels.remove(panel);
+        master.remove(panel);
     }
     
-    public void addSubsectionPanel(SubsectionPanel panel){
-        panels.add(panel);
+    public void addNewSubsectionPanel(){
+        SubsectionPanel newPanel =new SubsectionPanel();
+        panels.add(newPanel);
+        master.add(newPanel);
     }
     
     MasterSubsectionPane(){
+        master = new JPanel();
+        master.setLayout(new GridLayout(0,1));
         panels = new ArrayList<>();
         panels.add(new SubsectionPanel());
         for(SubsectionPanel panel: panels){
-            this.add(panel);
+            master.add(panel);
         }
+        this.setViewportView(master);
     }
     
 }
