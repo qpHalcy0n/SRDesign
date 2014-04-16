@@ -16,7 +16,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-43,0,0,4,26"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,11,39,0,0,4,73"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -141,7 +141,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JList" name="extrudList">
+            <Component class="javax.swing.JList" name="printConfigList">
               <Properties>
                 <Property name="selectionMode" type="int" value="0"/>
               </Properties>
@@ -386,8 +386,8 @@
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="spiralVasePCCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="perimetersPCSpinner" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
+                                          <Component id="spiralVasePCCheckBox" min="-2" max="-2" attributes="0"/>
+                                          <Component id="perimetersText" min="-2" pref="60" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -403,7 +403,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel33" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="perimetersPCSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="perimetersText" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -434,9 +434,9 @@
                         <Property name="text" type="java.lang.String" value="Spiral vase:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JSpinner" name="perimetersPCSpinner">
-                    </Component>
                     <Component class="javax.swing.JCheckBox" name="spiralVasePCCheckBox">
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="perimetersText">
                     </Component>
                   </SubComponents>
                 </Container>
@@ -448,7 +448,6 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel35" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
@@ -458,12 +457,16 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="solidLayersBottomPCSpinner" alignment="0" min="-2" pref="42" max="-2" attributes="0"/>
-                                          <Component id="solidLayersTopPCSpinner" alignment="0" min="-2" pref="42" max="-2" attributes="0"/>
+                                          <Component id="solidBottomLayersText" max="32767" attributes="0"/>
+                                          <Component id="solidTopLayersText" min="-2" pref="60" max="-2" attributes="0"/>
                                       </Group>
+                                      <EmptySpace pref="597" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="597" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -476,14 +479,14 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel37" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="solidLayersTopPCSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="solidTopLayersText" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel38" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="solidLayersBottomPCSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="solidBottomLayersText" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="19" max="32767" attributes="0"/>
+                              <EmptySpace pref="21" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -512,9 +515,9 @@
                         <Property name="text" type="java.lang.String" value="Bottom:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JSpinner" name="solidLayersTopPCSpinner">
+                    <Component class="javax.swing.JTextField" name="solidTopLayersText">
                     </Component>
-                    <Component class="javax.swing.JSpinner" name="solidLayersBottomPCSpinner">
+                    <Component class="javax.swing.JTextField" name="solidBottomLayersText">
                     </Component>
                   </SubComponents>
                 </Container>
@@ -534,8 +537,8 @@
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="qualityPCCheckBox1" max="32767" attributes="0"/>
-                                          <Component id="qualityPCCheckBox2" max="32767" attributes="0"/>
+                                          <Component id="generateExtraPerimetersCheckBox" max="32767" attributes="0"/>
+                                          <Component id="avoidCrossingPerimetersCheckBox" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -548,20 +551,20 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="qualityPCCheckBox6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="qualityPCCheckBox5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="detectBridgesCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="detectThinWallsCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="qualityPCCheckBox3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="concavePointsCheckBox" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="qualityPCCheckBox4" min="-2" max="-2" attributes="0"/>
+                                              <Component id="nonOverhangsCheckBox" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="423" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -577,27 +580,27 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
-                                          <Component id="qualityPCCheckBox2" min="-2" pref="12" max="-2" attributes="0"/>
+                                          <Component id="avoidCrossingPerimetersCheckBox" min="-2" pref="12" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace pref="9" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel42" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="qualityPCCheckBox3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="qualityPCCheckBox4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="concavePointsCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nonOverhangsCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel43" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="qualityPCCheckBox5" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="detectThinWallsCheckBox" alignment="1" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel44" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="qualityPCCheckBox6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="detectBridgesCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" attributes="0">
-                                      <Component id="qualityPCCheckBox1" min="-2" pref="13" max="-2" attributes="0"/>
+                                      <Component id="generateExtraPerimetersCheckBox" min="-2" pref="13" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
@@ -640,25 +643,25 @@
                         <Property name="text" type="java.lang.String" value="Detect bridging perimeters:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JCheckBox" name="qualityPCCheckBox1">
+                    <Component class="javax.swing.JCheckBox" name="generateExtraPerimetersCheckBox">
                     </Component>
-                    <Component class="javax.swing.JCheckBox" name="qualityPCCheckBox2">
+                    <Component class="javax.swing.JCheckBox" name="avoidCrossingPerimetersCheckBox">
                     </Component>
-                    <Component class="javax.swing.JCheckBox" name="qualityPCCheckBox5">
+                    <Component class="javax.swing.JCheckBox" name="detectThinWallsCheckBox">
                     </Component>
-                    <Component class="javax.swing.JCheckBox" name="qualityPCCheckBox6">
+                    <Component class="javax.swing.JCheckBox" name="detectBridgesCheckBox">
                     </Component>
-                    <Component class="javax.swing.JCheckBox" name="qualityPCCheckBox3">
+                    <Component class="javax.swing.JCheckBox" name="concavePointsCheckBox">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Concave points"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JCheckBox" name="qualityPCCheckBox4">
+                    <Component class="javax.swing.JCheckBox" name="nonOverhangsCheckBox">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Non-overhang points"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="qualityPCCheckBox4ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nonOverhangsCheckBoxActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -677,8 +680,8 @@
                               </Group>
                               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="advancedPCCheckBox2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jCheckBox12" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="externalPerimetersFirstCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="randomizeStartingPointsCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -698,9 +701,9 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                      <Component id="jCheckBox12" min="-2" max="-2" attributes="0"/>
+                                      <Component id="randomizeStartingPointsCheckBox" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="advancedPCCheckBox2" min="-2" pref="21" max="-2" attributes="0"/>
+                                      <Component id="externalPerimetersFirstCheckBox" min="-2" pref="21" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace pref="25" max="32767" attributes="0"/>
@@ -727,9 +730,9 @@
                         <Property name="text" type="java.lang.String" value="External perimeters first:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JCheckBox" name="jCheckBox12">
+                    <Component class="javax.swing.JCheckBox" name="randomizeStartingPointsCheckBox">
                     </Component>
-                    <Component class="javax.swing.JCheckBox" name="advancedPCCheckBox2">
+                    <Component class="javax.swing.JCheckBox" name="externalPerimetersFirstCheckBox">
                     </Component>
                   </SubComponents>
                 </Container>
@@ -814,11 +817,14 @@
                     <Component class="javax.swing.JComboBox" name="fillPatternPCCombo">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="Item 1"/>
-                            <StringItem index="1" value="Item 2"/>
-                            <StringItem index="2" value="Item 3"/>
-                            <StringItem index="3" value="Item 4"/>
+                          <StringArray count="7">
+                            <StringItem index="0" value="rectilinear"/>
+                            <StringItem index="1" value="line"/>
+                            <StringItem index="2" value="concentric"/>
+                            <StringItem index="3" value="honeycomb"/>
+                            <StringItem index="4" value="hilbertcurve"/>
+                            <StringItem index="5" value="archimedeanchords"/>
+                            <StringItem index="6" value="octagramspiral"/>
                           </StringArray>
                         </Property>
                       </Properties>
@@ -826,11 +832,12 @@
                     <Component class="javax.swing.JComboBox" name="topBottomPCCombo">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="Item 1"/>
-                            <StringItem index="1" value="Item 2"/>
-                            <StringItem index="2" value="Item 3"/>
-                            <StringItem index="3" value="Item 4"/>
+                          <StringArray count="5">
+                            <StringItem index="0" value="rectilinear"/>
+                            <StringItem index="1" value="concentric"/>
+                            <StringItem index="2" value="hilbertcurve"/>
+                            <StringItem index="3" value="archimedeanchords"/>
+                            <StringItem index="4" value="octagramspiral"/>
                           </StringArray>
                         </Property>
                       </Properties>
@@ -851,14 +858,14 @@
                                           <Component id="jLabel74" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel75" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="infillNeededPCCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="combineInfillPCSpinner" min="-2" pref="57" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Component id="combineInfillEveryNLayersText" min="-2" pref="38" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="jLabel76" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                          <Component id="infillNeededPCCheckBox" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -872,15 +879,19 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel73" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel74" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="combineInfillPCSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel76" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel75" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="infillNeededPCCheckBox" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jLabel74" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel75" min="-2" max="-2" attributes="0"/>
+                                          <Component id="infillNeededPCCheckBox" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="combineInfillEveryNLayersText" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                                      <Component id="jLabel76" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace pref="28" max="32767" attributes="0"/>
                           </Group>
@@ -908,12 +919,12 @@
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="infillNeededPCCheckBox">
                     </Component>
-                    <Component class="javax.swing.JSpinner" name="combineInfillPCSpinner">
-                    </Component>
                     <Component class="javax.swing.JLabel" name="jLabel76">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="layers"/>
                       </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="combineInfillEveryNLayersText">
                     </Component>
                   </SubComponents>
                 </Container>
@@ -927,22 +938,23 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel77" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel80" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel78" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                          </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="jLabel79" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="fillAnglePCSpinner" min="-2" pref="51" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
                                           </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel80" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="solidThresholdPCText" min="-2" pref="63" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel78" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
-                                              <Component id="solidInfillPCSpinner" min="-2" pref="51" max="-2" attributes="0"/>
-                                          </Group>
+                                      </Group>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="solidThresholdPCText" pref="63" max="32767" attributes="0"/>
+                                          <Component id="solidInfillEveryNLayersText" max="32767" attributes="0"/>
+                                          <Component id="fillAngleText" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -957,8 +969,8 @@
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="advancedInfillPCCheckBox1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="advancedInfillPCCheckBox2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="onlyRetractInfillWhenCrossingPerimetersCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="infillBeforePerimetersCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -974,13 +986,13 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel78" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="solidInfillPCSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel81" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="solidInfillEveryNLayersText" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel79" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="fillAnglePCSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fillAngleText" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -996,9 +1008,9 @@
                                       <Component id="jLabel84" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="advancedInfillPCCheckBox1" min="-2" pref="21" max="-2" attributes="0"/>
+                                      <Component id="onlyRetractInfillWhenCrossingPerimetersCheckBox" min="-2" pref="21" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="advancedInfillPCCheckBox2" min="-2" pref="21" max="-2" attributes="0"/>
+                                      <Component id="infillBeforePerimetersCheckBox" min="-2" pref="21" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -1020,8 +1032,6 @@
                         <Property name="text" type="java.lang.String" value="Solid infill every:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JSpinner" name="solidInfillPCSpinner">
-                    </Component>
                     <Component class="javax.swing.JLabel" name="jLabel79">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Fill angle:"/>
@@ -1033,8 +1043,6 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="solidThresholdPCText">
-                    </Component>
-                    <Component class="javax.swing.JSpinner" name="fillAnglePCSpinner">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel81">
                       <Properties>
@@ -1048,7 +1056,7 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel83">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Only retract when crossing parameters:"/>
+                        <Property name="text" type="java.lang.String" value="Only retract when crossing perimeters:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel84">
@@ -1056,9 +1064,16 @@
                         <Property name="text" type="java.lang.String" value="Infill before perimeters:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JCheckBox" name="advancedInfillPCCheckBox1">
+                    <Component class="javax.swing.JCheckBox" name="onlyRetractInfillWhenCrossingPerimetersCheckBox">
                     </Component>
-                    <Component class="javax.swing.JCheckBox" name="advancedInfillPCCheckBox2">
+                    <Component class="javax.swing.JCheckBox" name="infillBeforePerimetersCheckBox">
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="solidInfillEveryNLayersText">
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="solidInfillEveryNLayersTextActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="fillAngleText">
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1086,47 +1101,47 @@
                                       <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="speedPrintMovesPCText9" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <Component id="gapFillSpeedText" min="-2" pref="63" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel103" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="speedPrintMovesPCText8" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <Component id="bridgesSpeedText" min="-2" pref="63" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel102" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="speedPrintMovesPCText7" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <Component id="supportMaterialSpeedText" min="-2" pref="63" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel101" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="speedPrintMovesPCText6" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <Component id="topSolidInfillSpeedText" min="-2" pref="63" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel100" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="speedPrintMovesPCText5" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <Component id="solidInfillSpeedText" min="-2" pref="63" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel99" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="speedPrintMovesPCText4" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <Component id="infillSpeedText" min="-2" pref="63" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel98" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="speedPrintMovesPCText3" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <Component id="externalPerimetersSpeedText" min="-2" pref="63" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel97" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="speedPrintMovesPCText2" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <Component id="smallPerimetersSpeedText" min="-2" pref="63" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel96" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="speedPrintMovesPCText1" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <Component id="perimetersSpeedText" min="-2" pref="63" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel95" min="-2" max="-2" attributes="0"/>
                                           </Group>
@@ -1145,55 +1160,55 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel86" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="speedPrintMovesPCText1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="perimetersSpeedText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel95" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel87" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="speedPrintMovesPCText2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="smallPerimetersSpeedText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel96" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel88" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="speedPrintMovesPCText3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="externalPerimetersSpeedText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel97" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel89" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="speedPrintMovesPCText4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="infillSpeedText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel98" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel90" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="speedPrintMovesPCText5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="solidInfillSpeedText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel99" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel91" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="speedPrintMovesPCText6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="topSolidInfillSpeedText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel100" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel92" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="speedPrintMovesPCText7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="supportMaterialSpeedText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel101" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel93" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="speedPrintMovesPCText8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="bridgesSpeedText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel102" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel94" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="speedPrintMovesPCText9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="gapFillSpeedText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel103" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -1255,26 +1270,26 @@
                         <Property name="text" type="java.lang.String" value="Gap fill:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="speedPrintMovesPCText1">
+                    <Component class="javax.swing.JTextField" name="perimetersSpeedText">
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="speedPrintMovesPCText1ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="perimetersSpeedTextActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="speedPrintMovesPCText2">
+                    <Component class="javax.swing.JTextField" name="smallPerimetersSpeedText">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="speedPrintMovesPCText3">
+                    <Component class="javax.swing.JTextField" name="externalPerimetersSpeedText">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="speedPrintMovesPCText4">
+                    <Component class="javax.swing.JTextField" name="infillSpeedText">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="speedPrintMovesPCText5">
+                    <Component class="javax.swing.JTextField" name="solidInfillSpeedText">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="speedPrintMovesPCText6">
+                    <Component class="javax.swing.JTextField" name="topSolidInfillSpeedText">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="speedPrintMovesPCText7">
+                    <Component class="javax.swing.JTextField" name="supportMaterialSpeedText">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="speedPrintMovesPCText8">
+                    <Component class="javax.swing.JTextField" name="bridgesSpeedText">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="speedPrintMovesPCText9">
+                    <Component class="javax.swing.JTextField" name="gapFillSpeedText">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel95">
                       <Properties>
@@ -1283,12 +1298,12 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel96">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="mm/s or %"/>
+                        <Property name="text" type="java.lang.String" value="mm/s"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel97">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="mm/s or %"/>
+                        <Property name="text" type="java.lang.String" value="mm/s"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel98">
@@ -1298,12 +1313,12 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel99">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="mm/s or %"/>
+                        <Property name="text" type="java.lang.String" value="mm/s"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel100">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="mm/s or %"/>
+                        <Property name="text" type="java.lang.String" value="mm/s"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel101">
@@ -1335,7 +1350,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel105" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
-                                      <Component id="speedNonPrintPCText" min="-2" pref="63" max="-2" attributes="0"/>
+                                      <Component id="travelSpeedText" min="-2" pref="63" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel106" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -1352,7 +1367,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel105" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="speedNonPrintPCText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="travelSpeedText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel106" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="19" max="32767" attributes="0"/>
@@ -1374,7 +1389,7 @@
                         <Property name="text" type="java.lang.String" value="Travel:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="speedNonPrintPCText">
+                    <Component class="javax.swing.JTextField" name="travelSpeedText">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel106">
                       <Properties>
@@ -1395,7 +1410,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel108" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                                      <Component id="speedModifiersPCText" min="-2" pref="63" max="-2" attributes="0"/>
+                                      <Component id="firstLayerSpeedText" min="-2" pref="63" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel109" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -1412,7 +1427,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel108" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="speedModifiersPCText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="firstLayerSpeedText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel109" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -1434,7 +1449,7 @@
                         <Property name="text" type="java.lang.String" value="First layer speed:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="speedModifiersPCText">
+                    <Component class="javax.swing.JTextField" name="firstLayerSpeedText">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel109">
                       <Properties>
@@ -1463,27 +1478,27 @@
                                       <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="accelPCText5" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <Component id="defaultAccelerationText" min="-2" pref="63" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel120" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="accelPCText4" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <Component id="firstLayerAccelerationText" min="-2" pref="63" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel119" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="accelPCText3" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <Component id="bridgeSpeedAccerlerationText" min="-2" pref="63" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel118" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="accelPCText2" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <Component id="infillAccelerationText" min="-2" pref="63" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel117" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="accelPCText1" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <Component id="perimetersAccelerationText" min="-2" pref="63" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel116" min="-2" max="-2" attributes="0"/>
                                           </Group>
@@ -1502,31 +1517,31 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel111" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="accelPCText1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="perimetersAccelerationText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel116" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel112" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="accelPCText2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="infillAccelerationText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel117" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel113" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="accelPCText3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="bridgeSpeedAccerlerationText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel118" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel114" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="accelPCText4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="firstLayerAccelerationText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel119" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel115" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="accelPCText5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="defaultAccelerationText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel120" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="35" max="32767" attributes="0"/>
@@ -1568,15 +1583,15 @@
                         <Property name="text" type="java.lang.String" value="Default:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="accelPCText1">
+                    <Component class="javax.swing.JTextField" name="perimetersAccelerationText">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="accelPCText2">
+                    <Component class="javax.swing.JTextField" name="infillAccelerationText">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="accelPCText3">
+                    <Component class="javax.swing.JTextField" name="bridgeSpeedAccerlerationText">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="accelPCText4">
+                    <Component class="javax.swing.JTextField" name="firstLayerAccelerationText">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="accelPCText5">
+                    <Component class="javax.swing.JTextField" name="defaultAccelerationText">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel116">
                       <Properties>
@@ -1624,15 +1639,15 @@
                                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="minExtrusionLengthPCText" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <Component id="skirtMinExtrusionLengthText" min="-2" pref="63" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel127" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="skirtHeightPCSpinner" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="distanceObjectPCText" alignment="0" pref="63" max="32767" attributes="0"/>
-                                                  <Component id="skirtLoopsPCSpinner" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="skirtLoopsText" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="skirtDistanceFromObjectText" alignment="0" pref="63" max="32767" attributes="0"/>
+                                                  <Component id="skirtHeightText" max="32767" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
@@ -1652,27 +1667,27 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel121" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel122" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="skirtLoopsPCSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jLabel122" min="-2" max="-2" attributes="0"/>
+                                  <Component id="skirtLoopsText" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel123" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="distanceObjectPCText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="skirtDistanceFromObjectText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel126" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel124" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="skirtHeightPCSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel128" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="skirtHeightText" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel125" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="minExtrusionLengthPCText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="skirtMinExtrusionLengthText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel127" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -1709,9 +1724,9 @@
                         <Property name="text" type="java.lang.String" value="Minimum extrusion length:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="distanceObjectPCText">
+                    <Component class="javax.swing.JTextField" name="skirtDistanceFromObjectText">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="minExtrusionLengthPCText">
+                    <Component class="javax.swing.JTextField" name="skirtMinExtrusionLengthText">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel126">
                       <Properties>
@@ -1723,14 +1738,14 @@
                         <Property name="text" type="java.lang.String" value="mm"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JSpinner" name="skirtHeightPCSpinner">
-                    </Component>
-                    <Component class="javax.swing.JSpinner" name="skirtLoopsPCSpinner">
-                    </Component>
                     <Component class="javax.swing.JLabel" name="jLabel128">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="layers"/>
                       </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="skirtLoopsText">
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="skirtHeightText">
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1746,7 +1761,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel130" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
-                                      <Component id="brimPCText" min="-2" pref="63" max="-2" attributes="0"/>
+                                      <Component id="brimWidthText" min="-2" pref="63" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel131" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -1763,7 +1778,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel130" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="brimPCText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="brimWidthText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel131" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -1785,7 +1800,7 @@
                         <Property name="text" type="java.lang.String" value="Brim width:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="brimPCText">
+                    <Component class="javax.swing.JTextField" name="brimWidthText">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel131">
                       <Properties>
@@ -1803,21 +1818,30 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel132" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel133" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel134" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="supportMaterialPCCheckBox" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="overhangPCSpinner" alignment="1" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jLabel135" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="enforceSupportPCSpinner" min="-2" pref="60" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel133" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel134" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel135" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="enforceSupportForFirstNLayersText" max="32767" attributes="0"/>
+                                              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="generateSupportMaterialCheckBox" min="-2" max="-2" attributes="0"/>
+                                              <Component id="overhangThresholdText" min="-2" pref="60" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1833,21 +1857,21 @@
                               <Component id="jLabel132" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="supportMaterialPCCheckBox" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
+                                  <Component id="generateSupportMaterialCheckBox" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
                                   <Component id="jLabel133" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
+                              <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel134" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="overhangPCSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="overhangThresholdText" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel135" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="enforceSupportPCSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel136" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="enforceSupportForFirstNLayersText" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="12" max="32767" attributes="0"/>
+                              <EmptySpace pref="14" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1866,26 +1890,26 @@
                         <Property name="text" type="java.lang.String" value="Generate support material:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JCheckBox" name="supportMaterialPCCheckBox">
+                    <Component class="javax.swing.JCheckBox" name="generateSupportMaterialCheckBox">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel134">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Overhang threshold:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JSpinner" name="overhangPCSpinner">
-                    </Component>
                     <Component class="javax.swing.JLabel" name="jLabel135">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Enforce support for the first:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JSpinner" name="enforceSupportPCSpinner">
-                    </Component>
                     <Component class="javax.swing.JLabel" name="jLabel136">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="layers"/>
                       </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="overhangThresholdText">
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="enforceSupportForFirstNLayersText">
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1900,8 +1924,8 @@
                                   <Component id="jLabel137" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel138" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
-                                      <Component id="raftPCSpinner" min="-2" pref="60" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
+                                      <Component id="raftLayersText" min="-2" pref="60" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel139" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -1918,10 +1942,10 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel138" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="raftPCSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel139" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="raftLayersText" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="13" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1940,12 +1964,12 @@
                         <Property name="text" type="java.lang.String" value="Raft layers:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JSpinner" name="raftPCSpinner">
-                    </Component>
                     <Component class="javax.swing.JLabel" name="jLabel139">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="layers"/>
                       </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="raftLayersText">
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1960,7 +1984,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel141" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
-                                      <Component id="patternPCComboBox" min="-2" pref="63" max="-2" attributes="0"/>
+                                      <Component id="supportMaterialPatternCombo" min="-2" pref="128" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jLabel140" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
@@ -1968,7 +1992,7 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="jLabel142" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
-                                              <Component id="patternSpacePCText" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <Component id="supportMaterialPatternSpacingText" min="-2" pref="63" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
@@ -1978,9 +2002,12 @@
                                               </Group>
                                               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="interfacePatternSpacePCText" alignment="0" min="-2" pref="63" max="-2" attributes="0"/>
-                                                  <Component id="patternAnglePCSpinner" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="interfaceLayersPCSpinner" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="supportMaterialPatternAngleText" max="32767" attributes="0"/>
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="supportMaterialInterfacePatternSpacingText" min="-2" pref="63" max="-2" attributes="0"/>
+                                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="supportMaterialInterfaceLayersText" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -2004,33 +2031,33 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel141" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="patternPCComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="supportMaterialPatternCombo" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel142" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                      <Component id="patternSpacePCText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="supportMaterialPatternSpacingText" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel147" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel143" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="patternAnglePCSpinner" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel143" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="supportMaterialPatternAngleText" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel144" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                      <Component id="interfaceLayersPCSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel146" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="supportMaterialInterfaceLayersText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel145" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="interfacePatternSpacePCText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="supportMaterialInterfacePatternSpacingText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel148" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -2072,25 +2099,20 @@
                         <Property name="text" type="java.lang.String" value="Interface pattern spacing:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="patternPCComboBox">
+                    <Component class="javax.swing.JComboBox" name="supportMaterialPatternCombo">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="Item 1"/>
-                            <StringItem index="1" value="Item 2"/>
-                            <StringItem index="2" value="Item 3"/>
-                            <StringItem index="3" value="Item 4"/>
+                          <StringArray count="3">
+                            <StringItem index="0" value="rectilinear"/>
+                            <StringItem index="1" value="rectilinear-grid"/>
+                            <StringItem index="2" value="honeycomb"/>
                           </StringArray>
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="patternSpacePCText">
+                    <Component class="javax.swing.JTextField" name="supportMaterialPatternSpacingText">
                     </Component>
-                    <Component class="javax.swing.JSpinner" name="patternAnglePCSpinner">
-                    </Component>
-                    <Component class="javax.swing.JSpinner" name="interfaceLayersPCSpinner">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="interfacePatternSpacePCText">
+                    <Component class="javax.swing.JTextField" name="supportMaterialInterfacePatternSpacingText">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel146">
                       <Properties>
@@ -2106,6 +2128,10 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="mm"/>
                       </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="supportMaterialPatternAngleText">
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="supportMaterialInterfaceLayersText">
                     </Component>
                   </SubComponents>
                 </Container>
@@ -2133,13 +2159,13 @@
                                       </Group>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="extrudeClearRadiusPCText" min="-2" pref="46" max="-2" attributes="0"/>
+                                              <Component id="extruderClearanceRadiusText" min="-2" pref="46" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel153" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="extrudeClearHeightPCText" min="-2" pref="48" max="-2" attributes="0"/>
+                                              <Component id="extruderClearanceHeightText" min="-2" pref="48" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="SeqPrintPCCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="completeIndividualObjectsCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -2162,11 +2188,11 @@
                                           <Component id="jLabel151" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel152" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel153" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="extrudeClearRadiusPCText" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="extrudeClearHeightPCText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="extruderClearanceRadiusText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="extruderClearanceHeightText" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="SeqPrintPCCheckBox" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
+                                  <Component id="completeIndividualObjectsCheckBox" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -2192,7 +2218,7 @@
                         <Property name="text" type="java.lang.String" value="Extruder clearance (mm):"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JCheckBox" name="SeqPrintPCCheckBox">
+                    <Component class="javax.swing.JCheckBox" name="completeIndividualObjectsCheckBox">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel152">
                       <Properties>
@@ -2204,9 +2230,9 @@
                         <Property name="text" type="java.lang.String" value="Height:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="extrudeClearRadiusPCText">
+                    <Component class="javax.swing.JTextField" name="extruderClearanceRadiusText">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="extrudeClearHeightPCText">
+                    <Component class="javax.swing.JTextField" name="extruderClearanceHeightText">
                     </Component>
                   </SubComponents>
                 </Container>
@@ -2222,12 +2248,12 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel156" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                      <Component id="outputFilenamePCCheckBox" min="-2" pref="152" max="-2" attributes="0"/>
+                                      <Component id="outputFilenameText" min="-2" pref="152" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel155" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
-                                      <Component id="verboseGCodePCCheckBox" min="-2" max="-2" attributes="0"/>
+                                      <Component id="verboseGCodeCheckBox" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -2242,12 +2268,12 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="jLabel155" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="verboseGCodePCCheckBox" alignment="1" min="-2" pref="21" max="-2" attributes="0"/>
+                                  <Component id="verboseGCodeCheckBox" alignment="1" min="-2" pref="21" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel156" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="outputFilenamePCCheckBox" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Component id="outputFilenameText" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -2273,9 +2299,9 @@
                         <Property name="text" type="java.lang.String" value="Output filename format:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JCheckBox" name="verboseGCodePCCheckBox">
+                    <Component class="javax.swing.JCheckBox" name="verboseGCodeCheckBox">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="outputFilenamePCCheckBox">
+                    <Component class="javax.swing.JTextField" name="outputFilenameText">
                     </Component>
                   </SubComponents>
                 </Container>
@@ -2322,7 +2348,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTextArea" name="postProcPCTextArea">
+                        <Component class="javax.swing.JTextArea" name="postProcessingScriptsText">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
                             <Property name="rows" type="int" value="5"/>
