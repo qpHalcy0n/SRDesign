@@ -10,6 +10,7 @@ public class InfillConfiguration {
     public static final String DEFAULT_INFILL_PATTERN = "honeycomb";
     public static final String DEFAULT_TOP_BOTTOM_INFILL_PATTERN = "rectilinear";
     public static final int DEFAULT_INFILL_EVERY_N_LAYERS = 1;
+    public static final int DEFAULT_COMBINE_INFILL_EVERY_N_LAYERS = 0;
     public static final boolean DEFAULT_ONLY_INFILL_WHERE_NEEDED = false;
     public static final int DEFAULT_SOLID_INFILL_EVERY_N_LAYERS = 0;
     public static final int DEFAULT_INFILL_ANGLE = 45;
@@ -25,6 +26,7 @@ public class InfillConfiguration {
         infillPattern = DEFAULT_INFILL_PATTERN;
         topBottomInfillPattern = DEFAULT_TOP_BOTTOM_INFILL_PATTERN;
         infillEveryNLayers = DEFAULT_INFILL_EVERY_N_LAYERS;
+        combineInfillEveryNLayers = DEFAULT_COMBINE_INFILL_EVERY_N_LAYERS;
         onlyInfillWhereNeeded = DEFAULT_ONLY_INFILL_WHERE_NEEDED;
         solidInfillEveryNLayers = DEFAULT_SOLID_INFILL_EVERY_N_LAYERS;
         infillAngle = DEFAULT_INFILL_ANGLE;
@@ -54,6 +56,8 @@ public class InfillConfiguration {
      * while infillEveryNLayers = 1 results in infill every layer.
      */
     private int infillEveryNLayers;
+
+    private int combineInfillEveryNLayers;
 
     /**
      * When set to true, infill is treated as support material and only extruded
@@ -233,6 +237,20 @@ public class InfillConfiguration {
     @Override
     public String toString() {
         return "InfillConfiguration{" + "name=" + name + ", infillDensity=" + infillDensity + ", infillPattern=" + infillPattern + ", topBottomInfillPattern=" + topBottomInfillPattern + ", infillEveryNLayers=" + infillEveryNLayers + ", onlyInfillWhereNeeded=" + onlyInfillWhereNeeded + ", solidInfillEveryNLayers=" + solidInfillEveryNLayers + ", infillAngle=" + infillAngle + ", solidInfillThresholdArea=" + solidInfillThresholdArea + ", onlyRetractInfillWhenCrossingPerimeters=" + onlyRetractInfillWhenCrossingPerimeters + ", infillBeforePerimeters=" + infillBeforePerimeters + '}';
+    }
+
+    /**
+     * @return the combineInfillEveryNLayers
+     */
+    public int getCombineInfillEveryNLayers() {
+        return combineInfillEveryNLayers;
+    }
+
+    /**
+     * @param combineInfillEveryNLayers the combineInfillEveryNLayers to set
+     */
+    public void setCombineInfillEveryNLayers(int combineInfillEveryNLayers) {
+        this.combineInfillEveryNLayers = combineInfillEveryNLayers;
     }
     
 }
