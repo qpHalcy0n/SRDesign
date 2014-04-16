@@ -154,7 +154,7 @@
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jPanel19" alignment="1" max="32767" attributes="0"/>
-                              <Component id="jPanel16" alignment="1" pref="638" max="32767" attributes="0"/>
+                              <Component id="jPanel16" alignment="1" pref="639" max="32767" attributes="0"/>
                               <Component id="jPanel17" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -426,6 +426,9 @@
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="numExtrudersPrinterTextActionPerformed"/>
                       </Events>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value=" numExtrudersPrinterText.setText(&quot;0&quot;);&#xd;&#xa;"/>
+                      </AuxValues>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="relativeEDistancePrinterCombo">
                       <Properties>

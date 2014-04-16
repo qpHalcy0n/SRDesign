@@ -10,6 +10,7 @@ import ink3d.UserInterface.Extruder.ExtruderPanel;
 import ink3d.UserInterface.Import.ImportPanel;
 import ink3d.UserInterface.Material.MaterialPanel;
 import ink3d.UserInterface.PrintConfig.PrintPanel;
+import ink3d.UserInterface.PrintJob.PrintJobPanel;
 import ink3d.UserInterface.PrinterConfig.PrinterPanel;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
@@ -21,11 +22,12 @@ import javax.swing.JTabbedPane;
  */
 public class MainWindow extends JFrame {
     private JTabbedPane tabbedPane;
-    private ImportPanel importPanel;
-    private PrintPanel printPanel;
-    private MaterialPanel materialPanel;
-    private ExtruderPanel extruderPanel;
-    private PrinterPanel printerPanel;
+    public static ImportPanel importPanel;
+    public static PrintPanel printPanel;
+    public static MaterialPanel materialPanel;
+    public static ExtruderPanel extruderPanel;
+    public static PrinterPanel printerPanel;
+    public static PrintJobPanel printJobPanel;
 
     public MainWindow() {
         initComponents();
@@ -38,12 +40,14 @@ public class MainWindow extends JFrame {
         materialPanel = new MaterialPanel();
         extruderPanel = new ExtruderPanel();
         printerPanel = new PrinterPanel();
+        printJobPanel = new PrintJobPanel();
 
         tabbedPane.addTab("Import", importPanel);
         tabbedPane.addTab("Print Settings", printPanel);
         tabbedPane.addTab("Materials", materialPanel); 
         tabbedPane.addTab("Extruders", extruderPanel);
         tabbedPane.addTab("Printer", printerPanel);
+        tabbedPane.addTab("Print Job", printJobPanel);
 
         this.setLayout(new BorderLayout());
         this.setSize(800, 600);

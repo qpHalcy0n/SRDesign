@@ -21,6 +21,10 @@ public class PrintJobController {
     PrintJobSelection selection;
     PrintJobConfiguration printJob;
     
+    ArrayList<String> loadAvailableFiles(){
+        return db.getStlFiles();
+    }
+
     PrintJobController(){
         db = new XmlPersistenceFramework();
     }
@@ -33,7 +37,7 @@ public class PrintJobController {
         return db.getPrinterConfigurations();
     }
     
-    ArrayList<String> loadAvailavlePrints(){
+    ArrayList<String> loadAvailablePrints(){
         return db.getPrintConfigurations();
     }
     
