@@ -4,9 +4,10 @@
  * and open the template in the editor.
  */
 
-package PrinterStatus;
+package ink3d.PrinterStatus;
 
 import ink3d.PrinterFeedback.PrinterFeedback;
+import ink3d.Communications.*;
 import java.util.ArrayList;
 
 /**
@@ -15,9 +16,13 @@ import java.util.ArrayList;
  */
 public interface PrinterStatus 
 {
-    public void setGcodes(ArrayList<String> codes);
-    
     public void setFailsafeGcodes(ArrayList<String> failsafe);
     
     public void setDispatchDelay(int delay);
+    
+    public TXRX getCommsObject();
+    
+    public boolean hasCommsObject();
+    
+    public void go();
 }

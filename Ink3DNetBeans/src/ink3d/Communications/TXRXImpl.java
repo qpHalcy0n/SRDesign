@@ -35,11 +35,32 @@ public class TXRXImpl implements TXRX
     private static ArrayList<String> lastGcodesSent             = new ArrayList<String>();
     private static boolean ackSent                              = false;
     private static boolean initCodesSent                        = false;
+    private static PrintJobConfiguration printJobConfig         = null;
+    private static boolean isConnected                          = false;
     
-    
-    TXRXImpl()
+    public TXRXImpl()
     {
         serialPortList = new SerialPortList();
+    }
+    
+    public TXRXImpl(PrintJobConfiguration pjc)
+    {
+        serialPortList = new SerialPortList();
+        
+        printJobConfig = pjc;
+        comPort = printJobConfig.getHardwareConfiguration().getComPort();
+        BAUD = printJobConfig.getHardwareConfiguration().getBaudRate();
+        
+        if(connectToPrinter() == false)
+            System.err.println("TXRX error: Could not connect to printer");
+    }
+    
+    protected void finalize() throws Throwable
+    {
+        if(isConnected())
+            serialPort.closePort();
+        
+        super.finalize();
     }
     
     private boolean initCodesSent()
@@ -148,17 +169,17 @@ public class TXRXImpl implements TXRX
         return false;
     }
     
-    
+    public boolean isConnected()
+    {
+        return isConnected;
+    }
     
     /**
      * 
      * @return boolean indicating whether the operation succeeded or failed
      */
-    public boolean connectToPrinter(PrintJobConfiguration pjc)
+    public boolean connectToPrinter()
     {  
-        comPort = pjc.getHardwareConfiguration().getComPort();
-        BAUD = pjc.getHardwareConfiguration().getBaudRate();
-        
         // Make new serial port object and attempt to open
         serialPort = new SerialPort(comPort);
         try
@@ -193,7 +214,7 @@ public class TXRXImpl implements TXRX
             }
             catch(InterruptedException ex)
             {
-                System.out.println(ex);
+                System.err.println(ex);
             }
             
             // send init gcodes //
@@ -206,7 +227,7 @@ public class TXRXImpl implements TXRX
                 
                 if(line.indexOf(';') != -1)
                     line = line.substring(0, line.indexOf(';') - 1);
-                line = line + pjc.getHardwareConfiguration().getLineEnding();
+                line = line + printJobConfig.getHardwareConfiguration().getLineEnding();
                 
                 serialPort.writeBytes(line.getBytes());
             }
@@ -216,9 +237,10 @@ public class TXRXImpl implements TXRX
         
         catch(Exception ex)
         {
-            System.out.println(ex);
+            System.err.println(ex);
         }
         
+        isConnected = true;
         return true;
     }
 
@@ -228,12 +250,12 @@ public class TXRXImpl implements TXRX
      * 
      * @return boolean indicating whether the object succeeded or failed
      */
-    public boolean sendGcode(PrintJobConfiguration pjc, String gCode)
+    public boolean sendGcode(String gCode)
     {
         if(!handshakeReceived || !initCodesSent)
             return false;
         
-        serialize(pjc, gCode);
+        serialize(gCode);
         
         ackString = "";
         ackSent = false;
@@ -258,13 +280,13 @@ public class TXRXImpl implements TXRX
             }
             catch(InterruptedException ex)
             {
-                System.out.println(ex);
+                System.err.println(ex);
             }
         }
         
         catch(SerialPortException ex)
         {
-            System.out.println(ex);
+            System.err.println(ex);
         }
 
         return true;
@@ -283,7 +305,7 @@ public class TXRXImpl implements TXRX
      * firmware. Therefore it is a function. For marlin nothing needs to happen at this point.
      * @return boolean - success or failure of method
      */
-    public boolean serialize(PrintJobConfiguration pjc, String gCodeLine)
+    public boolean serialize(String gCodeLine)
     {
         // Just bail on comments or empty lines //
         if(gCodeLine.length() <= 0 || gCodeLine.charAt(0) == ';')
@@ -293,7 +315,7 @@ public class TXRXImpl implements TXRX
         if(gCodeLine.indexOf(';') != -1)
             gCodeLine = gCodeLine.substring(0, gCodeLine.indexOf(';') - 1);
         
-        gCodeLine = gCodeLine + pjc.getHardwareConfiguration().getLineEnding();
+        gCodeLine = gCodeLine + printJobConfig.getHardwareConfiguration().getLineEnding();
         
         return true;
     }
@@ -340,7 +362,7 @@ public class TXRXImpl implements TXRX
                 
                 catch(Exception ex)
                 {
-                    System.out.println(ex);
+                    System.err.println(ex);
                 }
             }
         }

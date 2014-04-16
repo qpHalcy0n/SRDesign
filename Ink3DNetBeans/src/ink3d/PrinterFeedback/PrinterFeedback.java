@@ -15,4 +15,10 @@ import ink3d.Communications.TXRX;
 public interface PrinterFeedback 
 {
     public void setUpdateDelay(int delay);
+    
+    public void setCommsObject(TXRX c);
+    
+    public void stopMonitoring();
+    
+    public void beginMonitoring();
 }

@@ -24,6 +24,7 @@ public class PrinterStatusObject
         currentToolTemperatures = new ArrayList<TemperatureObject>();
         lastGcodesExecuted = new ArrayList<String>();
     }
+
     
     public boolean hasCurrentToolTemperatures()
     {

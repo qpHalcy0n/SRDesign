@@ -6,7 +6,10 @@
 
 package ink3d.PrinterFeedback;
 
-import ink3d.Communications.TXRX;
+import ink3d.Communications.*;
+import ink3d.PrinterStatus.*;
+import ink3d.ConfigurationObjects.PrintJobConfiguration;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,11 +17,20 @@ import ink3d.Communications.TXRX;
  */
 public class PrinterFeedbackImpl extends Thread implements PrinterFeedback
 {
-    private static int updateDelay          = 0;
+    private static PrintJobConfiguration pjc        = null;
+    private static int updateDelay                  = 0;
+    private static TXRX commsObject                 = null;
+    private static boolean isMonitoring             = true;
     
     public PrinterFeedbackImpl()
     {
         updateDelay = 100;
+    }
+    
+    public PrinterFeedbackImpl(PrintJobConfiguration printJobConfig)
+    {
+        updateDelay = 100;
+        pjc = printJobConfig;
     }
     
     public PrinterFeedbackImpl(int delay)
@@ -29,6 +41,11 @@ public class PrinterFeedbackImpl extends Thread implements PrinterFeedback
         updateDelay = delay;
     }
     
+    public void setCommsObject(TXRX c)
+    {
+        commsObject = c;
+    }
+    
     public void setUpdateDelay(int delay)
     {
         if(delay <= 0 || delay > 4000)
@@ -37,13 +54,44 @@ public class PrinterFeedbackImpl extends Thread implements PrinterFeedback
         updateDelay = delay;
     }
     
+    public void stopMonitoring()
+    {
+        isMonitoring = false;
+    }
+    
+    public void beginMonitoring()
+    {
+        Thread.currentThread().start();
+    }
+    
     @Override
     public void run()
     {
-        // Need TXRX object instantiation //
-        // Poll TXRX->getPrinterFeedback()
-        // Call TXRX->getLastGcodesSent()
-        // delay the thread by "updateDelay"
-        // Populate PrinterStatusObject
+        while(isMonitoring)
+        {
+            while(commsObject.isPrinterFeedbackReady() == false)
+            {
+                try
+                {
+                    Thread.currentThread().sleep(updateDelay);
+                }
+            
+                catch(InterruptedException ex)
+                {
+                    System.err.println("Error in Printer Feedback: Thread sleep error");
+                }
+            }
+            
+            ArrayList<FeedbackObject> feedback = commsObject.getPrinterFeedback();
+            ArrayList<String> lastGcodes = commsObject.getLastGcodesSent();
+            ArrayList<TemperatureObject> temps = new ArrayList<TemperatureObject>();
+            
+            for(int i = 0; i < feedback.size(); ++i)
+                for(int j = 0; j < feedback.get(i).getToolTemps().size(); ++j)
+                    temps.add(feedback.get(i).getToolTemps().get(j));
+            
+            pjc.getPrinterStatusObject().setCurrentToolTemperatures(temps);
+            pjc.getPrinterStatusObject().setLastGcodesExecuted(lastGcodes);    
+        }
     }
 }

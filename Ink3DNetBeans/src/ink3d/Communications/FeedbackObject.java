@@ -22,6 +22,12 @@ public class FeedbackObject
         isResend        = false;
         isACK           = false;
     }
+    
+    public ArrayList<TemperatureObject> getToolTemps()
+    {
+        return toolTemps;
+    }
+        
         
     int                 resendLine;
     ArrayList<TemperatureObject> toolTemps;

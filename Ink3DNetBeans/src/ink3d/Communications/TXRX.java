@@ -22,19 +22,21 @@ public interface TXRX
     public ArrayList<FeedbackObject> getPrinterFeedback();
     
     // Initialize connection to printer
-    public boolean connectToPrinter(PrintJobConfiguration pjc);
+    public boolean connectToPrinter();
     
     // Send G-Codes to printer to be printed
-    public boolean sendGcode(PrintJobConfiguration pjc, String gCode);
+    public boolean sendGcode(String gCode);
     
     // Query whether printer feedback buffer has data
     public boolean isPrinterFeedbackReady();
+    
+    public boolean isConnected();
     
     // Get the last g-codes sent to the printer successfully. //
     public ArrayList<String> getLastGcodesSent();
     
     // Serialize data (do processing on g-codes)
-    public boolean serialize(PrintJobConfiguration pjc, String gCodeLine);
+    public boolean serialize(String gCodeLine);
     
     // Deserialize data (process byte stream from printer)
     public boolean deserialize(String str); 
