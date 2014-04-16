@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author Tim
  */
 public class PrinterPanel extends javax.swing.JPanel {
-    private static ArrayList<String> extruderListArrayListForPrinter = new ArrayList<>();
+    public static ArrayList<String> extruderListArrayListForPrinter = new ArrayList<>();
     private PrinterController printerController;
     /**
      * Creates new form PrinterPanel

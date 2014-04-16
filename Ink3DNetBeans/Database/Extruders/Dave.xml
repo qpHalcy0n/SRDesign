@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <extruder>
-    <name>Dan</name>
+    <name>Dave</name>
     <extruderType>ABS</extruderType>
     <nozzleDiameter>2.0</nozzleDiameter>
     <xDimension>0.0</xDimension>

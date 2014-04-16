@@ -49,10 +49,7 @@ public class MasterSubsectionPane extends JScrollPane{
         master = new JPanel();
         master.setLayout(new GridLayout(0,1));
         panels = new ArrayList<>();
-        panels.add(new SubsectionPanel());
-        for(SubsectionPanel panel: panels){
-            master.add(panel);
-        }
+        addNewSubsectionPanel();
         this.setViewportView(master);
     }
     

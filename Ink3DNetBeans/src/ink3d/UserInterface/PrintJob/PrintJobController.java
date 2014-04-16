@@ -6,11 +6,14 @@
 
 package ink3d.UserInterface.PrintJob;
 
+import ink3d.ConfigurationObjects.ExtruderConfiguration;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
 import ink3d.ConfigurationObjects.PrintJobSelection;
+import ink3d.ConfigurationObjects.PrinterConfiguration;
 import ink3d.UserInterface.Database.PersistenceFramework;
 import ink3d.UserInterface.Database.XmlDatabase.XmlPersistenceFramework;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -45,6 +48,10 @@ public class PrintJobController {
         return db.getExtruderConfigurations();
     }
     
+    ArrayList<String> loadAvailableMaterials(){
+        return db.getMaterialConfigurations();
+    }
+   
     PrintJobConfiguration loadPrintJobConfiguration(PrintJobSelection selected){
         return db.getPrintJobConfiguration(selected);
     }

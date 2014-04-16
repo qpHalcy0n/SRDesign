@@ -6,14 +6,17 @@
 
 package ink3d.UserInterface.PrintJob;
 
+import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author courtney
  */
 public class PrintJobPanel extends javax.swing.JPanel {
-    public PrintJobController printJobController = new PrintJobController();
+    private PrintJobController printJobController = new PrintJobController();
+    public static ArrayList<String> extruderMaterialArrayListForPrintJob = new ArrayList<>();
 
     /**
      * Creates new form PrintJobPanel
@@ -26,7 +29,7 @@ public class PrintJobPanel extends javax.swing.JPanel {
     }
     
     public javax.swing.JComboBox getPrinterComboBox(){
-        return this.printerSelectionPrintJobComboBox;
+        return this.materialSelectionPrintJobComboBox;
     }
 
     /**
@@ -49,8 +52,14 @@ public class PrintJobPanel extends javax.swing.JPanel {
         addSubsection = new javax.swing.JButton();
         namePrintJobText = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        printerSelectionPrintJobComboBox = new javax.swing.JComboBox();
+        materialSelectionPrintJobComboBox = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        extruderMaterialMapList = new javax.swing.JList();
+        removeMaterialPrintJobButton = new javax.swing.JButton();
+        addMaterialPrintJobButton = new javax.swing.JButton();
+        printerSelectionPrintJobComboBox = new javax.swing.JComboBox();
 
         startPrintPrintJobButton.setText("Start Print");
 
@@ -84,10 +93,39 @@ public class PrintJobPanel extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Name:");
 
-        printerSelectionPrintJobComboBox.setModel(new DefaultComboBoxModel(this.printJobController.loadAvailablePrinters().toArray()));
+        materialSelectionPrintJobComboBox.setModel(new DefaultComboBoxModel(this.printJobController.loadAvailableMaterials().toArray()));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Printer:");
+
+        jLabel5.setText("Extruder - Material");
+
+        extruderMaterialMapList.setModel(new javax.swing.AbstractListModel() {
+            @Override
+            public int getSize() { return PrintJobPanel.extruderMaterialArrayListForPrintJob.size(); }
+            @Override
+            public Object getElementAt(int i) {
+                if(i<10)return "0"+i+"-"+PrintJobPanel.extruderMaterialArrayListForPrintJob.get(i);
+                else return i+"-"+PrintJobPanel.extruderMaterialArrayListForPrintJob.get(i);
+            }
+        });
+        jScrollPane3.setViewportView(extruderMaterialMapList);
+
+        removeMaterialPrintJobButton.setText("Remove Material");
+        removeMaterialPrintJobButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                removeMaterialPrintJobButtonMouseReleased(evt);
+            }
+        });
+
+        addMaterialPrintJobButton.setText("Add Material");
+        addMaterialPrintJobButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                addMaterialPrintJobButtonMouseReleased(evt);
+            }
+        });
+
+        printerSelectionPrintJobComboBox.setModel(new DefaultComboBoxModel(this.printJobController.loadAvailablePrinters().toArray()));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -95,61 +133,83 @@ public class PrintJobPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(masterSubsectionPane, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(printerSelectionPrintJobComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(namePrintJobText))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(addSubsection, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(namePrintJobText)
+                            .addComponent(printerSelectionPrintJobComboBox, 0, 235, Short.MAX_VALUE)))
+                    .addComponent(masterSubsectionPane))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(newPrintJobButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(savePrintJobButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(deletePrintJobButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addContainerGap()))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(startPrintPrintJobButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                                .addComponent(materialSelectionPrintJobComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(removeMaterialPrintJobButton, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addMaterialPrintJobButton, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                    .addComponent(deletePrintJobButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(savePrintJobButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(startPrintPrintJobButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(newPrintJobButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addSubsection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(addSubsection, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(startPrintPrintJobButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(newPrintJobButton))
-                    .addComponent(jLabel6)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(namePrintJobText, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(printerSelectionPrintJobComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(savePrintJobButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deletePrintJobButton)
-                        .addGap(13, 13, 13)
+                        .addComponent(newPrintJobButton)
+                        .addGap(71, 71, 71)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
-                    .addComponent(masterSubsectionPane))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(namePrintJobText, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(materialSelectionPrintJobComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7)
+                                    .addComponent(printerSelectionPrintJobComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(masterSubsectionPane))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(addMaterialPrintJobButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(removeMaterialPrintJobButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(savePrintJobButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(deletePrintJobButton)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane3))))))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -165,19 +225,50 @@ public class PrintJobPanel extends javax.swing.JPanel {
         this.updateUI();
     }//GEN-LAST:event_newPrintJobButtonMouseReleased
 
+    private void addMaterialPrintJobButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMaterialPrintJobButtonMouseReleased
+        int newExtruderNumber = PrintJobPanel.extruderMaterialArrayListForPrintJob.size()+1;
+        if(newExtruderNumber > 99){
+            JOptionPane.showMessageDialog(null, "Too many materials mapped to extruders please remove some before adding more." , "InfoBox: " + "Bad Field Data",JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        PrintJobPanel.extruderMaterialArrayListForPrintJob.add(this.materialSelectionPrintJobComboBox.getSelectedItem().toString());
+        this.extruderMaterialMapList.setModel(new javax.swing.AbstractListModel() {
+                    @Override
+                    public int getSize() { return PrintJobPanel.extruderMaterialArrayListForPrintJob.size(); }
+                    @Override
+                    public Object getElementAt(int i) { 
+                        if(i<10)return "0"+i+"-"+PrintJobPanel.extruderMaterialArrayListForPrintJob.get(i); 
+                        else return i+"-"+PrintJobPanel.extruderMaterialArrayListForPrintJob.get(i); 
+                    }
+                });
+        this.updateUI();
+    }//GEN-LAST:event_addMaterialPrintJobButtonMouseReleased
+
+    private void removeMaterialPrintJobButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeMaterialPrintJobButtonMouseReleased
+        if(this.extruderMaterialMapList.getSelectedIndex() == -1)return;
+        PrintJobPanel.extruderMaterialArrayListForPrintJob.remove(this.extruderMaterialMapList.getSelectedIndex());
+        this.updateUI();
+    }//GEN-LAST:event_removeMaterialPrintJobButtonMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addMaterialPrintJobButton;
     private javax.swing.JButton addSubsection;
     private javax.swing.JButton deletePrintJobButton;
+    private javax.swing.JList extruderMaterialMapList;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane masterSubsectionPane;
+    private javax.swing.JComboBox materialSelectionPrintJobComboBox;
     private javax.swing.JTextField namePrintJobText;
     private javax.swing.JButton newPrintJobButton;
     private javax.swing.JComboBox printerSelectionPrintJobComboBox;
+    private javax.swing.JButton removeMaterialPrintJobButton;
     private javax.swing.JButton savePrintJobButton;
     private javax.swing.JButton startPrintPrintJobButton;
     // End of variables declaration//GEN-END:variables
