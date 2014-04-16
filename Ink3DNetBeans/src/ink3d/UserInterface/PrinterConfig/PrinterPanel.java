@@ -7,6 +7,7 @@
 package ink3d.UserInterface.PrinterConfig;
 
 import ink3d.UserInterface.MainMenu.BadFieldException;
+import ink3d.UserInterface.MainMenu.MainWindow;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -539,6 +540,8 @@ public class PrinterPanel extends javax.swing.JPanel {
         }catch(BadFieldException e){
             JOptionPane.showMessageDialog(null, e.getMessage() , "InfoBox: " + "Bad Field Data",JOptionPane.INFORMATION_MESSAGE);
         }
+        MainWindow.printJobPanel.getPrinterComboBox().setModel(new DefaultComboBoxModel(printerController.getPrinterConfigurations().toArray()));
+        MainWindow.printJobPanel.updateUI();
     }//GEN-LAST:event_savePrinterButtonMouseReleased
 
     private void loadPrinterButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loadPrinterButtonMouseReleased

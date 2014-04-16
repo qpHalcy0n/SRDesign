@@ -7,7 +7,6 @@
 package ink3d.UserInterface.PrintJob;
 
 import ink3d.UserInterface.MainMenu.MainWindow;
-import ink3d.UserInterface.PrinterConfig.PrintJobListModel;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 

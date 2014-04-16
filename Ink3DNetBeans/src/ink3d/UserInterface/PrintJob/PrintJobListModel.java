@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package ink3d.UserInterface.PrinterConfig;
+package ink3d.UserInterface.PrintJob;
 
 import java.util.ArrayList;
 
