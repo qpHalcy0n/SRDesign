@@ -6,6 +6,8 @@
 
 package ink3d.UserInterface.PrintJob;
 
+import ink3d.ConfigurationObjects.FileSelection;
+import ink3d.ConfigurationObjects.SubsetSelection;
 import ink3d.UserInterface.MainMenu.MainWindow;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
@@ -28,12 +30,38 @@ public class SubsectionPanel extends javax.swing.JPanel {
         this.fileList = fileList;
     }
 
+    public String getStartZ(){
+        return this.startSubsectionPrintJob.getText();
+    }    
+    
+    public String getFinishZ(){
+        return this.finishSubsectionPrintJob.getText();
+    }
+    
     public ArrayList<String> getExtruderList() {
         return extruderList;
     }
 
     public void setExtruderList(ArrayList<String> extruderList) {
         this.extruderList = extruderList;
+    }
+    
+    public void updateComboBoxes(){
+        this.fileSeletionSubsectoinComboBox.setModel(new DefaultComboBoxModel(this.printJobController.loadAvailableFiles().toArray()));
+        this.extruderMaterailSubsectionComboBox.setModel(new MaterialFileMatchingComboBoxModel());
+    }
+    
+    public SubsectionPanel(SubsetSelection subset) {
+        fileList = new ArrayList<>();
+        extruderList = new ArrayList<>();
+        printJobController = new PrintJobController();
+        for(FileSelection files : subset.getFileConfigurations()){
+            fileList.add(files.getFile());
+            extruderList.add(files.getExtruder());
+        }
+        initComponents();
+        this.startSubsectionPrintJob.setText(Double.toString(subset.getBottomZ()));
+        this.finishSubsectionPrintJob.setText(Double.toString(subset.getTopZ()));
     }
     
     /**
@@ -106,6 +134,7 @@ public class SubsectionPanel extends javax.swing.JPanel {
 
         extruderMaterailSubsectionComboBox.setModel(new MaterialFileMatchingComboBoxModel());
         extruderMaterailSubsectionComboBox.setSelectedItem(1);
+        extruderMaterailSubsectionComboBox.setToolTipText("");
 
         jLabel4.setText("Associated Extruder");
 
@@ -173,8 +202,7 @@ public class SubsectionPanel extends javax.swing.JPanel {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(addFileSubsection, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(removeFileSubsection, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(removeFileSubsection, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(fileSeletionSubsectoinComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(10, 10, 10)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,6 +277,10 @@ public class SubsectionPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_removeFileSubsectionActionPerformed
 
     private void addExtruderSubsectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addExtruderSubsectionActionPerformed
+        if(this.fileList.size() < (extruderList.size()+1)) {
+            JOptionPane.showMessageDialog(null, "Every material must have a file associated with it(Extruders <= Files)." , "InfoBox: " + "Invalid Add",JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         extruderList.add((String)this.extruderMaterailSubsectionComboBox.getSelectedItem());
         this.extruderMaterialListSubsecion.setModel(new PrintJobListModel(this.extruderList));
         updateUI();

@@ -23,9 +23,18 @@ public class MasterSubsectionPane extends JScrollPane{
         return panels;
     }
     
+    public ArrayList<SubsectionPanel> getSubsectoions(){
+        return panels;
+    }
+    
     public void removeSubsection(SubsectionPanel panel){
         panels.remove(panel);
         master.remove(panel);
+    }
+    
+    public void addNewSubsectionPanel(SubsectionPanel newPanel){
+        panels.add(newPanel);
+        master.add(newPanel);
     }
     
     public void addNewSubsectionPanel(){
@@ -34,11 +43,21 @@ public class MasterSubsectionPane extends JScrollPane{
         master.add(newPanel);
     }
     
-    public void removeAllSubsections(){
+    public void removeAllSubsectionsAndCreateNew(){
         master = new JPanel();
         master.setLayout(new GridLayout(0,1));
         panels = new ArrayList<>();
         panels.add(new SubsectionPanel());
+        for(SubsectionPanel panel: panels){
+            master.add(panel);
+        }
+        this.setViewportView(master);
+    }
+    
+    public void removeAllSubsections(){
+        master = new JPanel();
+        master.setLayout(new GridLayout(0,1));
+        panels = new ArrayList<>();
         for(SubsectionPanel panel: panels){
             master.add(panel);
         }

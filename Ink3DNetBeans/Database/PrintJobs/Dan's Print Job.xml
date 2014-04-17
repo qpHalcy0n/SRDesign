@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<printjob>
+    <name>Dan's Print Job</name>
+    <extruderMarterial>
+        <extruder>SaveTest</extruder>
+        <material>dan</material>
+    </extruderMarterial>
+    <extruderMarterial>
+        <extruder>SaveTest</extruder>
+        <material>dan</material>
+    </extruderMarterial>
+    <extruderMarterial>
+        <extruder>Default</extruder>
+        <material>dan</material>
+    </extruderMarterial>
+    <subsetSelection>
+        <bottomZ>0.0</bottomZ>
+        <topZ>2.0</topZ>
+        <fileSelection>
+            <file>Bosch Robot Pivot Pin</file>
+            <extruder>01-dan</extruder>
+            <material>dan</material>
+        </fileSelection>
+    </subsetSelection>
+    <subsetSelection>
+        <bottomZ>2.0</bottomZ>
+        <topZ>4.0</topZ>
+        <fileSelection>
+            <file>Bosch Robot Pivot Pin</file>
+            <extruder>00-dan</extruder>
+            <material>dan</material>
+        </fileSelection>
+    </subsetSelection>
+</printjob>

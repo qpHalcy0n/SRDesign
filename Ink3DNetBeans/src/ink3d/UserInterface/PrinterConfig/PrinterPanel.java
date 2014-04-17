@@ -130,36 +130,6 @@ public class PrinterPanel extends javax.swing.JPanel {
 
         jLabel13.setText("Z Offset:");
 
-        bedXPrinterText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bedXPrinterTextActionPerformed(evt);
-            }
-        });
-
-        bedYPrinterText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bedYPrinterTextActionPerformed(evt);
-            }
-        });
-
-        zOffsetPrinterText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                zOffsetPrinterTextActionPerformed(evt);
-            }
-        });
-
-        printCenterXPrinterText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                printCenterXPrinterTextActionPerformed(evt);
-            }
-        });
-
-        printCenterYPrinterText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                printCenterYPrinterTextActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
@@ -189,7 +159,7 @@ public class PrinterPanel extends javax.swing.JPanel {
                         .addComponent(jLabel13)
                         .addGap(18, 18, 18)
                         .addComponent(zOffsetPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(282, Short.MAX_VALUE))
+                .addContainerGap(254, Short.MAX_VALUE))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,7 +180,7 @@ public class PrinterPanel extends javax.swing.JPanel {
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(zOffsetPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jLabel14.setText("G Code Flavor:");
@@ -223,16 +193,12 @@ public class PrinterPanel extends javax.swing.JPanel {
 
         vibrationPrinterText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                vibrationPrinterTextActionPerformed(evt);
+                tionPerformed(evt);
             }
         });
 
+        numExtrudersPrinterText.setText(Integer.toString(this.extruderListPrinter.getModel().getSize()));
         numExtrudersPrinterText.setEnabled(false);
-        numExtrudersPrinterText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numExtrudersPrinterTextActionPerformed(evt);
-            }
-        });
 
         relativeEDistancePrinterCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "true", "false" }));
 
@@ -296,7 +262,7 @@ public class PrinterPanel extends javax.swing.JPanel {
                         .addComponent(firmwareRetractionPrinterCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(addExtruderToPrinterButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                    .addComponent(addExtruderToPrinterButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, Short.MAX_VALUE)
                     .addComponent(addExtruderToPrinterButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(extruderSelectionPrinterComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(38, 38, 38)
@@ -329,7 +295,7 @@ public class PrinterPanel extends javax.swing.JPanel {
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel206)
                     .addComponent(firmwareRetractionPrinterCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -388,7 +354,7 @@ public class PrinterPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
+                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
                     .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -463,7 +429,7 @@ public class PrinterPanel extends javax.swing.JPanel {
                     .addComponent(namePrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                    .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -574,33 +540,9 @@ public class PrinterPanel extends javax.swing.JPanel {
         });
     }//GEN-LAST:event_loadPrinterButtonMouseReleased
 
-    private void bedXPrinterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedXPrinterTextActionPerformed
+    private void tionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bedXPrinterTextActionPerformed
-
-    private void bedYPrinterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedYPrinterTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bedYPrinterTextActionPerformed
-
-    private void zOffsetPrinterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zOffsetPrinterTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_zOffsetPrinterTextActionPerformed
-
-    private void printCenterXPrinterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printCenterXPrinterTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_printCenterXPrinterTextActionPerformed
-
-    private void printCenterYPrinterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printCenterYPrinterTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_printCenterYPrinterTextActionPerformed
-
-    private void vibrationPrinterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vibrationPrinterTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_vibrationPrinterTextActionPerformed
-
-    private void numExtrudersPrinterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numExtrudersPrinterTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_numExtrudersPrinterTextActionPerformed
+    }//GEN-LAST:event_tionPerformed
 
     private void addExtruderToPrinterButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addExtruderToPrinterButtonMouseReleased
         PrinterPanel.extruderListArrayListForPrinter.add(this.extruderSelectionPrinterComboBox.getSelectedItem().toString());

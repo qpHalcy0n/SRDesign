@@ -86,7 +86,7 @@
                   </Group>
                   <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane12" alignment="0" pref="374" max="32767" attributes="0"/>
+                      <Component id="jScrollPane12" alignment="0" pref="394" max="32767" attributes="0"/>
                       <Component id="jScrollPane3" alignment="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -154,7 +154,7 @@
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jPanel19" alignment="1" max="32767" attributes="0"/>
-                              <Component id="jPanel16" alignment="1" pref="639" max="32767" attributes="0"/>
+                              <Component id="jPanel16" alignment="1" pref="633" max="32767" attributes="0"/>
                               <Component id="jPanel17" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -220,7 +220,7 @@
                                       <Component id="zOffsetPrinterText" min="-2" pref="88" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="282" max="32767" attributes="0"/>
+                              <EmptySpace pref="254" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -246,7 +246,7 @@
                                   <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="zOffsetPrinterText" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="26" max="32767" attributes="0"/>
+                              <EmptySpace pref="17" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -278,29 +278,14 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="bedXPrinterText">
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bedXPrinterTextActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="bedYPrinterText">
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bedYPrinterTextActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="zOffsetPrinterText">
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="zOffsetPrinterTextActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="printCenterXPrinterText">
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="printCenterXPrinterTextActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="printCenterYPrinterText">
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="printCenterYPrinterTextActionPerformed"/>
-                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -383,7 +368,7 @@
                                   <Component id="jLabel206" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="firmwareRetractionPrinterCombo" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="12" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
@@ -416,16 +401,16 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="vibrationPrinterText">
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="vibrationPrinterTextActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="numExtrudersPrinterText">
                       <Properties>
+                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="Integer.toString(this.extruderListPrinter.getModel().getSize())" type="code"/>
+                        </Property>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="numExtrudersPrinterTextActionPerformed"/>
-                      </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value=" numExtrudersPrinterText.setText(&quot;0&quot;);&#xd;&#xa;"/>
                       </AuxValues>

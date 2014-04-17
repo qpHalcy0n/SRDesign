@@ -13,7 +13,7 @@
     <zOffset>1.2</zOffset>
     <gCodeFlavor>reprap</gCodeFlavor>
     <useRelativeEDistances>true</useRelativeEDistances>
-    <numExtruders>6</numExtruders>
+    <numExtruders>3</numExtruders>
     <vibrationLimit>1.2</vibrationLimit>
     <useFirmwareRetraction>true</useFirmwareRetraction>
     <startGCode>haha</startGCode>
