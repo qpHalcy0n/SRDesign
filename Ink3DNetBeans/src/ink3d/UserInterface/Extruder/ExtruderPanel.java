@@ -330,7 +330,14 @@ public class ExtruderPanel extends javax.swing.JPanel {
 
     private void loadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBtnActionPerformed
         // TODO add your handling code here:
-        String extruderName = (String) extrudList.getSelectedValue();
+        String extruderName;
+        if(extrudList.getSelectedValue() != null) {
+            extruderName = (String) extrudList.getSelectedValue();
+        }
+        else {
+            JOptionPane.showMessageDialog(null,"No Extruder Selected", "Please select an Extruder to load.", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         ExtruderConfiguration extruder = controller.loadExtruderConfiguration(extruderName);
         loadExtruder(extruder);
     }//GEN-LAST:event_loadBtnActionPerformed
@@ -351,7 +358,14 @@ public class ExtruderPanel extends javax.swing.JPanel {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
-        String extruderName = (String) extrudList.getSelectedValue();
+        String extruderName;
+        if(extrudList.getSelectedValue() != null) {
+            extruderName = (String) extrudList.getSelectedValue();
+        }
+        else {
+            JOptionPane.showMessageDialog(null,"No Extruder Selected", "Please select an Extruder to delete.", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         controller.deleteExtruderConfiguration(extruderName);
         loadExtruderConfigurationList();
     }//GEN-LAST:event_deleteBtnActionPerformed
