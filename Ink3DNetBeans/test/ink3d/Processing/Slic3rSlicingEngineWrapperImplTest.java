@@ -66,16 +66,41 @@ public class Slic3rSlicingEngineWrapperImplTest {
         printJobConfiguration.setName(PRINT_JOB_NAME);
         printJobConfiguration.getPrinterConfiguration().getExtruderList().add(new ExtruderConfiguration());
         printJobConfiguration.getPrinterConfiguration().getExtruderList().add(new ExtruderConfiguration());
-        printJobConfiguration.getExtruderMaterials().add(new MaterialConfiguration());
-        printJobConfiguration.getExtruderMaterials().add(new MaterialConfiguration());
+        printJobConfiguration.getPrinterConfiguration().getExtruderList().add(new ExtruderConfiguration());
+        printJobConfiguration.getPrinterConfiguration().getExtruderList().add(new ExtruderConfiguration());
+        printJobConfiguration.getPrinterConfiguration().getExtruderList().add(new ExtruderConfiguration());
+        printJobConfiguration.getPrinterConfiguration().getExtruderList().add(new ExtruderConfiguration());
+
+        MaterialConfiguration emptyMaterial = new MaterialConfiguration();
+        emptyMaterial.setName("None");
+        MaterialConfiguration materialA = new MaterialConfiguration();
+        materialA.setName("Material A");
+        MaterialConfiguration materialB = new MaterialConfiguration();
+        materialA.setName("Material B");
+
+        List<MaterialConfiguration> materials = new ArrayList<>();
+        materials.add(emptyMaterial);
+        materials.add(emptyMaterial);
+        materials.add(emptyMaterial);
+        materials.add(emptyMaterial);
+        materials.add(materialA);
+        materials.add(materialB);
+
+        printJobConfiguration.setExtruderMaterials(materials);
+
+        List<Integer> extrudersNeeded = new ArrayList<>();
+        extrudersNeeded.add(4);
+        extrudersNeeded.add(5);
         
         SubsetConfiguration subset0 = new SubsetConfiguration();
         subset0.setAmfFile(new File(subset0AmfFilename));
         subset0.setBottomZ(0.0);
+        subset0.setExtrudersNeeded(extrudersNeeded);
 
         SubsetConfiguration subset1 = new SubsetConfiguration();
         subset1.setAmfFile(new File(subset1AmfFilename));
         subset1.setBottomZ(7.0);
+        subset1.setExtrudersNeeded(extrudersNeeded);
 
         printJobConfiguration.getSubsetConfigurationList().add(subset0);
         printJobConfiguration.getSubsetConfigurationList().add(subset1);

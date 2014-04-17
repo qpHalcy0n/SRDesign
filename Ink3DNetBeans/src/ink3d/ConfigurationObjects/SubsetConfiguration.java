@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.xml.bind.annotation.XmlRootElement;
 
 public class SubsetConfiguration {
     private double bottomZ;
@@ -13,6 +12,11 @@ public class SubsetConfiguration {
     File gCodeFile;
     private PrintConfiguration printConfiguration;
     private List<FileConfiguration> fileConfigurations;
+
+    // A list of the extruders (by index) that are actually needed
+    // for this subset.  Some subsets may not have all materials in them,
+    // thus not use all extruders.  This information is needed by processing.
+    private List<Integer> extrudersNeeded;
 
     public SubsetConfiguration() {
         this.printConfiguration = new PrintConfiguration();
@@ -113,6 +117,20 @@ public class SubsetConfiguration {
     @Override
     public String toString() {
         return "SubsetConfiguration{" + "bottomZ=" + bottomZ + ", topZ=" + topZ + ", amfFile=" + amfFile + ", gCodeFile=" + gCodeFile + ", printConfiguration=" + printConfiguration + ", fileConfigurations=" + fileConfigurations + '}';
+    }
+
+    /**
+     * @return the extrudersNeeded
+     */
+    public List<Integer> getExtrudersNeeded() {
+        return extrudersNeeded;
+    }
+
+    /**
+     * @param extrudersNeeded the extrudersNeeded to set
+     */
+    public void setExtrudersNeeded(List<Integer> extrudersNeeded) {
+        this.extrudersNeeded = extrudersNeeded;
     }
     
     

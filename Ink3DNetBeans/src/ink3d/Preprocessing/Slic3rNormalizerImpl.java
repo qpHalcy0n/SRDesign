@@ -10,12 +10,15 @@ import ink3d.ConfigurationObjects.FileConfiguration;
 import ink3d.ConfigurationObjects.MaterialConfiguration;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
 import ink3d.ConfigurationObjects.SubsetConfiguration;
+import ink3d.Util.FileConfigurationExtruderNumComparator;
 import ink3d.Util.IndexedSet;
 import ink3d.Util.Vertex;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +33,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.j3d.loaders.stl.STLFileReader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import sun.misc.Sort;
 
 /**
  *
@@ -254,17 +258,37 @@ public class Slic3rNormalizerImpl implements Normalizer {
 
         int subsetNum = 0;
         for(SubsetConfiguration subset : subsets) {
-
-            // TODO: Sort file config list by extruder position 0,1,2...n
-            // or figure out how we're going to do positioning
-
+            
+            List<Integer> extrudersNeeded = new ArrayList<>();
             List<FileConfiguration> fileConfigs = subset.getFileConfigurations();
+
+            // Sort the file configuration based on the extruder that is responsible
+            // for them so that when we add the "extruders needed" for the subset,
+            // the extruders are in the correct order (from lowest to highest).
+            Collections.sort(fileConfigs, new FileConfigurationExtruderNumComparator());
             try {
                 Document doc = docBuilder.newDocument();
                 Element root = doc.createElement(AMF_TAG);
 
                 // Add material data to AMF
-                int materialCount = 1;
+                List<MaterialConfiguration> materials = printJobConfiguration.getExtruderMaterials();
+                int materialCount = 0;
+                for(MaterialConfiguration material : materials) {
+                    Element materialElement = doc.createElement(MATERIAL_TAG);
+
+                    // Materials are defined with the same id as the extruder
+                    // that extrudes them.
+                    materialElement.setAttribute(ID_ATTR, String.valueOf(materialCount));
+                    root.appendChild(materialElement);
+
+                    Element metadataElement = doc.createElement(METADATA_TAG);
+                    metadataElement.setAttribute(TYPE_ATTR, NAME_VALUE);
+                    metadataElement.appendChild(doc.createTextNode(material.getName()));
+                    materialElement.appendChild(metadataElement);
+                    materialCount++;
+                }
+
+                /*
                 for(FileConfiguration fileConfig : fileConfigs) {
                     MaterialConfiguration materialConfig = fileConfig.getMaterialConfiguration();
                     Element materialElement = doc.createElement(MATERIAL_TAG);
@@ -277,6 +301,7 @@ public class Slic3rNormalizerImpl implements Normalizer {
                     materialElement.appendChild(metadataElement);
                     materialCount++;
                 }
+                */
                 
                 // Add geometry data to AMF
                 Element objectElement = doc.createElement(OBJECT_TAG);
@@ -294,10 +319,12 @@ public class Slic3rNormalizerImpl implements Normalizer {
                     File stlFile = fileConfig.getSubsetSTL();
                     STLFileReader reader = new STLFileReader(stlFile);
                     int[] numFacets = reader.getNumOfFacets();
-
                     Element volumeElement = doc.createElement(VOLUME_TAG);
-                    volumeElement.setAttribute(MATERIALID_ATTR, String.valueOf(materialCount));
-                    meshElement.appendChild(volumeElement);
+                    
+                    // Materials in the AMF are defined with the same ID as the
+                    // extruders that will extrude them
+                    int materialId = fileConfig.getExtruderNum();
+                    volumeElement.setAttribute(MATERIALID_ATTR, String.valueOf(materialId));
                     materialCount++;
                     
                     for(int i = 0; i < numFacets[0]; i++) {
@@ -340,7 +367,13 @@ public class Slic3rNormalizerImpl implements Normalizer {
                             vElement.appendChild(doc.createTextNode(String.valueOf(vertexId)));
                         }
                     }
+                    if(volumeElement.getChildNodes().getLength() > 0) {
+                        meshElement.appendChild(volumeElement);
+                        extrudersNeeded.add(fileConfig.getExtruderNum());
+                    }
                 }
+
+                subset.setExtrudersNeeded(extrudersNeeded);
 
                 String baseDir = new File("").getAbsolutePath();
                 String amfFilename = baseDir + File.separator + AMF_DIR 

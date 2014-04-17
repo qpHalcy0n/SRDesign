@@ -9,7 +9,6 @@ package ink3d.Processing;
 import ink3d.ConfigurationObjects.CoolingConfiguration;
 import ink3d.ConfigurationObjects.ExtruderConfiguration;
 import ink3d.ConfigurationObjects.ExtrusionWidthConfiguration;
-import ink3d.ConfigurationObjects.FileConfiguration;
 import ink3d.ConfigurationObjects.InfillConfiguration;
 import ink3d.ConfigurationObjects.LayerAndPerimeterConfiguration;
 import ink3d.ConfigurationObjects.MaterialConfiguration;
@@ -27,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -216,9 +216,6 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
         List<SubsetConfiguration> subsets = printJobConfiguration.getSubsetConfigurationList();
         // Append subset specific options
         for(SubsetConfiguration subset : subsets) {
-            List<FileConfiguration> fileConfigs = subset.getFileConfigurations();
-            List<ExtruderConfiguration> extruders = printerConfiguration.getExtruderList();
-            List<MaterialConfiguration> materials = printJobConfiguration.getExtruderMaterials();
             PrintConfiguration printConfig = subset.getPrintConfiguration();
             InfillConfiguration infill = printConfig.getInfillConfiguration();
             LayerAndPerimeterConfiguration layerAndPerimeters = printConfig.getLayerPerimiterConfiguration();
@@ -227,6 +224,21 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             SupportMaterialConfiguration supportMaterial = printConfig.getSupportMaterialConfiguration();
             ExtrusionWidthConfiguration extrusionWidth = printConfig.getExtrusionWidthConfiguration();
             CoolingConfiguration cooling = printConfig.getCoolingConfiguration();
+
+            // Get the extruder and material configurations that are actually
+            // used in order from lowest to highest.  Slic3r assigns tools to
+            // volumes in the AMF file in sequential order based on what volumes
+            // are defined.  This means that we need to define the properties
+            // for each extruder in the same order.  We also have to do post processing
+            // to replace any T codes with their correct values.
+            List<ExtruderConfiguration> extruders = new ArrayList<>();
+            List<MaterialConfiguration> materials = new ArrayList<>();
+            for(Integer index : subset.getExtrudersNeeded()) {
+                extruders.add(printerConfiguration.getExtruderList().get(index));
+                materials.add(printJobConfiguration.getMaterialForExtruderPosition(index));
+            }
+
+            
 
             // String builder to build config string
             StringBuilder sb = new StringBuilder();
@@ -283,13 +295,13 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, GCODE_FLAVOR, printerConfiguration.getgCodeFlavor());
             appendProperty(sb, USE_RELATIVE_E_DISTANCES, printerConfiguration.isUseRelativeEDistances());
             appendProperty(sb, VIBRATION_LIMIT, printerConfiguration.getVibrationLimit());
-            appendProperty(sb, NOZZLE_DIAMTER, getNozzleDiameters(printerConfiguration.getExtruderList()));
+            appendProperty(sb, NOZZLE_DIAMTER, getNozzleDiameters(extruders));
             appendProperty(sb, USE_FIRMWARE_RETRACTION, printerConfiguration.isUseFirmwareRetraction());
             // Hardcode custom G-Code properties to empty (take care of this in post processing)
             appendProperty(sb, START_GCODE, "");
             appendProperty(sb, END_GCODE, "");
             appendProperty(sb, TOOLCHANGE_GCODE, "");
-            appendProperty(sb, EXTRUDER_OFFSET, getExtruderOffsets(printerConfiguration.getExtruderList()));
+            appendProperty(sb, EXTRUDER_OFFSET, getExtruderOffsets(extruders));
 
             appendProperty(sb, LAYER_GCODE, printConfig.getLayerChangeGCode());
             
@@ -570,7 +582,6 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
         return sb.toString();
     }
 
-    // Assumes FileConfigurations are sorted in order of extruder
     private String getFilamentDiameters(List<MaterialConfiguration> materials) {
         StringBuilder sb = new StringBuilder();
         int i = 0;

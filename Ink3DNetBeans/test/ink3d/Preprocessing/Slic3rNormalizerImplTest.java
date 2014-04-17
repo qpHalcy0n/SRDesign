@@ -167,7 +167,7 @@ public class Slic3rNormalizerImplTest {
 
         String materialA = "Material A";
         String materialB = "Material B";
-
+        
         // Build Print Job Config
         MaterialConfiguration materialConfigA = new MaterialConfiguration();
         materialConfigA.setName(materialA);
@@ -176,24 +176,24 @@ public class Slic3rNormalizerImplTest {
         materialConfigB.setName(materialB);
 
         FileConfiguration fileConfig_A0 = new FileConfiguration();
-        fileConfig_A0.setExtruderNum(0);
+        fileConfig_A0.setExtruderNum(4);
         fileConfig_A0.setSubsetSTL(new File(stlFilePath_A0));
-        fileConfig_A0.setMaterialConfiguration(materialConfigA);
+        //fileConfig_A0.setMaterialConfiguration(materialConfigA);
 
         FileConfiguration fileConfig_A1 = new FileConfiguration();
-        fileConfig_A1.setExtruderNum(0);
+        fileConfig_A1.setExtruderNum(4);
         fileConfig_A1.setSubsetSTL(new File(stlFilePath_A1));
-        fileConfig_A1.setMaterialConfiguration(materialConfigA);
+        //fileConfig_A1.setMaterialConfiguration(materialConfigA);
 
         FileConfiguration fileConfig_B0 = new FileConfiguration();
-        fileConfig_B0.setExtruderNum(1);
+        fileConfig_B0.setExtruderNum(5);
         fileConfig_B0.setSubsetSTL(new File(stlFilePath_B0));
-        fileConfig_B0.setMaterialConfiguration(materialConfigB);
+        //fileConfig_B0.setMaterialConfiguration(materialConfigB);
 
         FileConfiguration fileConfig_B1 = new FileConfiguration();
-        fileConfig_B1.setExtruderNum(1);
+        fileConfig_B1.setExtruderNum(5);
         fileConfig_B1.setSubsetSTL(new File(stlFilePath_B1));
-        fileConfig_B1.setMaterialConfiguration(materialConfigB);
+        //fileConfig_B1.setMaterialConfiguration(materialConfigB);
 
         SubsetConfiguration subset_0 = new SubsetConfiguration();
         subset_0.getFileConfigurations().add(fileConfig_A0);
@@ -202,16 +202,34 @@ public class Slic3rNormalizerImplTest {
         SubsetConfiguration subset_1 = new SubsetConfiguration();
         subset_1.getFileConfigurations().add(fileConfig_A1);
         subset_1.getFileConfigurations().add(fileConfig_B1);
+        
+        PrintJobConfiguration printJobConfig = new PrintJobConfiguration();
+        printJobConfig.setName(PRINT_JOB_NAME);
+        List<MaterialConfiguration> materials = new ArrayList<>();
+        MaterialConfiguration emptyMaterial = new MaterialConfiguration();
+        emptyMaterial.setName("None");
+        materials.add(emptyMaterial);
+        materials.add(emptyMaterial);
+        materials.add(emptyMaterial);
+        materials.add(emptyMaterial);
+        materials.add(materialConfigA);
+        materials.add(materialConfigB);
 
-        this.printJob.getSubsetConfigurationList().add(subset_0);
-        this.printJob.getSubsetConfigurationList().add(subset_1);
+        printJobConfig.setExtruderMaterials(materials);
+
+        printJobConfig.getSubsetConfigurationList().add(subset_0);
+        printJobConfig.getSubsetConfigurationList().add(subset_1);
 
         Slic3rNormalizerImpl normalizer = new Slic3rNormalizerImpl();
-        normalizer.translateFiles(this.printJob);
+        normalizer.translateFiles(printJobConfig);
         
         int count = 0;
-        for(SubsetConfiguration sub : this.printJob.getSubsetConfigurationList()) {
+        for(SubsetConfiguration sub : printJobConfig.getSubsetConfigurationList()) {
             Assert.assertNotNull("AMF file reference must not be null. (Subset " + count + ")", sub.getAmfFile());
+            List<Integer> extrudersNeeded = sub.getExtrudersNeeded();
+            Assert.assertNotNull("extruderNeeded field must be set. (Subset " + count + ")");
+            Assert.assertTrue(extrudersNeeded.get(0) == 4);
+            Assert.assertTrue(extrudersNeeded.get(1) == 5);
             count++;
         }
         

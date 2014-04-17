@@ -6063,6 +6063,14 @@
           </coordinates>
         </vertex>
       </vertices>
+	  <volume materialid="0">
+	  </volume>
+	  <volume materialid="1">
+	  </volume>
+	  <volume materialid="2">
+	  </volume>
+	  <volume materialid="3">
+	  </volume>
       <volume materialid="4">
         <triangle>
           <v1>0</v1>

@@ -40,17 +40,20 @@ public class Slic3rGCodePreparerImplTest {
         PrinterConfiguration printerConfig = new PrinterConfiguration();
         printerConfig.setStartGCode("; printer start code here");
         printerConfig.setEndGCode("; printer end gcode here");
-        
+         
         ExtruderConfiguration extruder0 = new ExtruderConfiguration();
-        extruder0.setStartGCode("; T0 start gcode here");
-        extruder0.setEndGCode("; T0 end gcode here");
+        extruder0.setStartGCode("; T4 start gcode here");
+        extruder0.setEndGCode("; T4 end gcode here");
 
         ExtruderConfiguration extruder1 = new ExtruderConfiguration();
-        extruder1.setStartGCode("; T1 start gcode here");
-        extruder1.setEndGCode("; T1 end gcode here");
+        extruder1.setStartGCode("; T5 start gcode here");
+        extruder1.setEndGCode("; T5 end gcode here");
 
         List<ExtruderConfiguration> extruders = new ArrayList<>();
-
+        extruders.add(new ExtruderConfiguration());
+        extruders.add(new ExtruderConfiguration());
+        extruders.add(new ExtruderConfiguration());
+        extruders.add(new ExtruderConfiguration());
         extruders.add(extruder0);
         extruders.add(extruder1);
 
@@ -63,11 +66,15 @@ public class Slic3rGCodePreparerImplTest {
         File subsetFile1 = new File(BASE_DIR + File.separator + "test-files" 
                 + File.separator + "g-code-preparer" + File.separator 
                 + "gcode" + File.separator + "sub1.gcode");
-
+        List<Integer> extrudersNeeded = new ArrayList<>();
+        extrudersNeeded.add(4);
+        extrudersNeeded.add(5);
         SubsetConfiguration subset0 = new SubsetConfiguration();
         subset0.setgCodeFile(subsetFile0);
+        subset0.setExtrudersNeeded(extrudersNeeded);
         SubsetConfiguration subset1 = new SubsetConfiguration();
         subset1.setgCodeFile(subsetFile1);
+        subset1.setExtrudersNeeded(extrudersNeeded);
 
         List<SubsetConfiguration> subsets = new ArrayList<>();
         subsets.add(subset0);

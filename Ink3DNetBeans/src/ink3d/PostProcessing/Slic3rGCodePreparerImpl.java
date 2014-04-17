@@ -125,8 +125,15 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
                 if(matcher.find()) {
                     writeToolChangeEndGCode(outputFile, this.currentTool);
                     String tCode = matcher.group();
-                    this.currentTool = Integer.parseInt(tCode.substring(1));
+
+                    // We have to lookup the actual extruder that will be used
+                    // because Slic3r uses extruders sequentially.
+                    // Example:  If we are only using extruders 2 and 4,
+                    // Slic3r only sees we are using 2 extruders, so it defines
+                    // them as T0 and T1
+                    this.currentTool = subset.getExtrudersNeeded().get(Integer.parseInt(tCode.substring(1)));
                     writeToolChangeStartGCode(outputFile, this.currentTool);
+                    line = "T" + String.valueOf(this.currentTool);
                 }
                 outputFile.append(line);
                 outputFile.append("\n");

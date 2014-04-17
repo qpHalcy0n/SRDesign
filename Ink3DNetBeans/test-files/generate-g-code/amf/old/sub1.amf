@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <amf>
-  <material id="0">
-    <metadata type="name">None</metadata>
-  </material>
   <material id="1">
-    <metadata type="name">None</metadata>
-  </material>
-  <material id="2">
-    <metadata type="name">None</metadata>
-  </material>
-  <material id="3">
-    <metadata type="name">None</metadata>
-  </material>
-  <material id="4">
     <metadata type="name">Material A</metadata>
   </material>
-  <material id="5">
+  <material id="2">
     <metadata type="name">Material B</metadata>
   </material>
   <object id="0">
@@ -6063,7 +6051,7 @@
           </coordinates>
         </vertex>
       </vertices>
-      <volume materialid="4">
+      <volume materialid="1">
         <triangle>
           <v1>0</v1>
           <v2>1</v2>
@@ -10535,7 +10523,7 @@
           <v3>444</v3>
         </triangle>
       </volume>
-      <volume materialid="5">
+      <volume materialid="2">
         <triangle>
           <v1>20</v1>
           <v2>18</v2>
