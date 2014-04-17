@@ -41,8 +41,13 @@ public class PrintController {
     }
 
     public boolean savePrintConfiguration(PrintConfiguration printConfiguration) {
-        
-        return true;
+        if(validatePrintConfiguration(printConfiguration)) {
+            db.savePrintConfiguration(printConfiguration);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public boolean deletePrintConfiguration(String name) {
