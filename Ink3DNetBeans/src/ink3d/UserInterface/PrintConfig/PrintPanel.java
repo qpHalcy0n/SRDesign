@@ -1652,14 +1652,28 @@ public class PrintPanel extends javax.swing.JPanel {
 
     private void loadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBtnActionPerformed
         // TODO add your handling code here:
-        String name = (String) printConfigList.getSelectedValue();
+        String name;
+        if(printConfigList.getSelectedValue() != null) {
+            name = (String) printConfigList.getSelectedValue();
+        }
+        else {
+            JOptionPane.showMessageDialog(null,"No Print Selected", "Please select a Print to load.", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         PrintConfiguration print = controller.loadPrintConfiguration(name);
         loadPrintConfiguration(print);
     }//GEN-LAST:event_loadBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
-        String name = (String) printConfigList.getSelectedValue();
+        String name;
+        if(printConfigList.getSelectedValue() != null) {
+            name = (String) printConfigList.getSelectedValue();
+        }
+        else {
+            JOptionPane.showMessageDialog(null,"No Print Selected", "Please select a Print to delete.", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         controller.deletePrintConfiguration(name);
         loadPrintConfigurationList();
     }//GEN-LAST:event_deleteBtnActionPerformed
