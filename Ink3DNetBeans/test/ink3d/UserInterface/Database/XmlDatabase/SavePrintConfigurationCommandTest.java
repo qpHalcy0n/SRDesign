@@ -129,6 +129,7 @@ public class SavePrintConfigurationCommandTest {
                     "    </extrusionWidthConfiguration>\n" +
                     "    <firstLayerBedTemperature>0</firstLayerBedTemperature>\n" +
                     "    <infillConfiguration>\n" +
+                    "        <combineInfillEveryNLayers>0</combineInfillEveryNLayers>\n" +
                     "        <infillAngle>12</infillAngle>\n" +
                     "        <infillBeforePerimeters>true</infillBeforePerimeters>\n" +
                     "        <infillDensity>0.4</infillDensity>\n" +

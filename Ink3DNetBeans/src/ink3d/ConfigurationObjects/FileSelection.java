@@ -19,10 +19,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType (XmlAccessType.FIELD)
 public class FileSelection {
     private String file;
+    private int extruderNum;
     private String extruder;
     private String material;
 
     public FileSelection(){
+    }
+
+    public int getExtruderNum() {
+        return extruderNum;
+    }
+
+    public void setExtruderNum(int extruderNum) {
+        this.extruderNum = extruderNum;
     }
     
     public FileSelection(String extruder, String material, String file){

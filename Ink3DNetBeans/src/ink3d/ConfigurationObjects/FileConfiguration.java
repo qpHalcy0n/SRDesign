@@ -65,11 +65,16 @@ public class FileConfiguration {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.name);
+        int hash = 5;
+        hash = 11 * hash + Objects.hashCode(this.name);
+        hash = 11 * hash + Objects.hashCode(this.parentSTLFile);
+        hash = 11 * hash + Objects.hashCode(this.subsetSTL);
+        hash = 11 * hash + this.extruderNum;
+        hash = 11 * hash + Objects.hashCode(this.extruderConfiguration);
+        hash = 11 * hash + Objects.hashCode(this.materialConfiguration);
         return hash;
     }
 
@@ -91,6 +96,9 @@ public class FileConfiguration {
         if (!Objects.equals(this.subsetSTL, other.subsetSTL)) {
             return false;
         }
+        if (this.extruderNum != other.extruderNum) {
+            return false;
+        }
         if (!Objects.equals(this.extruderConfiguration, other.extruderConfiguration)) {
             return false;
         }
@@ -102,8 +110,10 @@ public class FileConfiguration {
 
     @Override
     public String toString() {
-        return "FileConfiguration{" + "name=" + name + ", parentSTLFile=" + parentSTLFile + ", subsetSTL=" + subsetSTL + ", extruderConfiguration=" + extruderConfiguration + ", materialConfiguration=" + materialConfiguration + '}';
+        return "FileConfiguration{" + "name=" + name + ", parentSTLFile=" + parentSTLFile + ", subsetSTL=" + subsetSTL + ", extruderNum=" + extruderNum + ", extruderConfiguration=" + extruderConfiguration + ", materialConfiguration=" + materialConfiguration + '}';
     }
+    
+    
 
     /**
      * @return the extruderNum

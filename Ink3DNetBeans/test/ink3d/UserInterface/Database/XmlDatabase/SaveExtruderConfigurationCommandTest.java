@@ -38,16 +38,16 @@ public class SaveExtruderConfigurationCommandTest {
         
         expected ="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                     "<extruder>\n" +
-                    "    <endGCode></endGCode>\n" +
-                    "    <extruderType>ABS</extruderType>\n" +
                     "    <name>SaveTest</name>\n" +
+                    "    <extruderType>ABS</extruderType>\n" +
                     "    <nozzleDiameter>2.0</nozzleDiameter>\n" +
-                    "    <startGCode></startGCode>\n" +
                     "    <xDimension>0.0</xDimension>\n" +
-                    "    <xOffset>0.0</xOffset>\n" +
                     "    <yDimension>0.0</yDimension>\n" +
+                    "    <xOffset>0.0</xOffset>\n" +
                     "    <yOffset>0.0</yOffset>\n" +
                     "    <zOffset>0.0</zOffset>\n" +
+                    "    <startGCode></startGCode>\n" +
+                    "    <endGCode></endGCode>\n" +
                     "</extruder>";
     }
     
@@ -58,7 +58,7 @@ public class SaveExtruderConfigurationCommandTest {
         expected = null;
         System.gc();
         file = new File("./Database/Extruders/SaveTest.xml");
-        //file.delete();
+        file.delete();
     }
 
     /**

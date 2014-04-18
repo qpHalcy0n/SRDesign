@@ -31,10 +31,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -249,7 +245,7 @@ public class XmlPersistenceFrameworkTest {
     
     public void setupFileSelection(){
         fileSelections = new ArrayList<>();
-        fileSelections.add(new FileSelection(extruder.getName(), material.getName(), files.get(0).getName()));
+        fileSelections.add(new FileSelection("01-"+extruder.getName(), material.getName(), files.get(0).getName()));
     }
         
     private void setupSubsets(){
@@ -492,7 +488,7 @@ public class XmlPersistenceFrameworkTest {
      * Test of getPrintJobSelectionss method, of class XmlPersistenceFramework.
      */
     @Test
-    public void testGetPrintJobSelectionss() {
+    public void testGetPrintJobSelections() {
         PrintWriter writer;
         try {
             writer = new PrintWriter("./Database/PrintJobs/Trash.txt", "UTF-8");
@@ -1420,62 +1416,68 @@ public class XmlPersistenceFrameworkTest {
         config.getSubsetConfigurationList().add(subset2);
         
         String expResult ="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                    "<printjob>\n" +
-                    "    <name>SaveTest</name>\n" +
-                    "    <printerConfiguration>SaveTest.printer</printerConfiguration>\n" +
-                    "    <extruderMarterial>\n" +
-                    "        <extruder>extruder 1</extruder>\n" +
-                    "        <material>material 1</material>\n" +
-                    "    </extruderMarterial>\n" +
-                    "    <extruderMarterial>\n" +
-                    "        <extruder>extruder 2</extruder>\n" +
-                    "        <material>material 1</material>\n" +
-                    "    </extruderMarterial>\n" +
-                    "    <extruderMarterial>\n" +
-                    "        <extruder>extruder 3</extruder>\n" +
-                    "        <material>material 2</material>\n" +
-                    "    </extruderMarterial>\n" +
-                    "    <subsetSelection>\n" +
-                    "        <bottomZ>0.0</bottomZ>\n" +
-                    "        <topZ>1.0</topZ>\n" +
-                    "        <printConfiguration>SaveTest.Sub1.Print</printConfiguration>\n" +
-                    "        <fileSelection>\n" +
-                    "            <file>file1</file>\n" +
-                    "            <extruder>extruder1</extruder>\n" +
-                    "            <material>material1</material>\n" +
-                    "        </fileSelection>\n" +
-                    "        <fileSelection>\n" +
-                    "            <file>file2</file>\n" +
-                    "            <extruder>extruder2</extruder>\n" +
-                    "            <material>material2</material>\n" +
-                    "        </fileSelection>\n" +
-                    "        <fileSelection>\n" +
-                    "            <file>file3</file>\n" +
-                    "            <extruder>extruder3</extruder>\n" +
-                    "            <material>material3</material>\n" +
-                    "        </fileSelection>\n" +
-                    "    </subsetSelection>\n" +
-                    "    <subsetSelection>\n" +
-                    "        <bottomZ>1.0</bottomZ>\n" +
-                    "        <topZ>2.0</topZ>\n" +
-                    "        <printConfiguration>SaveTest.Sub2.Print</printConfiguration>\n" +
-                    "        <fileSelection>\n" +
-                    "            <file>file1</file>\n" +
-                    "            <extruder>extruder2</extruder>\n" +
-                    "            <material>material2</material>\n" +
-                    "        </fileSelection>\n" +
-                    "        <fileSelection>\n" +
-                    "            <file>file2</file>\n" +
-                    "            <extruder>extruder3</extruder>\n" +
-                    "            <material>material3</material>\n" +
-                    "        </fileSelection>\n" +
-                    "        <fileSelection>\n" +
-                    "            <file>file3</file>\n" +
-                    "            <extruder>extruder1</extruder>\n" +
-                    "            <material>material1</material>\n" +
-                    "        </fileSelection>\n" +
-                    "    </subsetSelection>\n" +
-                    "</printjob>";
+                            "<printjob>\n" +
+                            "    <name>SaveTest</name>\n" +
+                            "    <printerConfiguration>SaveTest.printer</printerConfiguration>\n" +
+                            "    <extruderMarterial>\n" +
+                            "        <extruder>extruder 1</extruder>\n" +
+                            "        <material>material 1</material>\n" +
+                            "    </extruderMarterial>\n" +
+                            "    <extruderMarterial>\n" +
+                            "        <extruder>extruder 2</extruder>\n" +
+                            "        <material>material 1</material>\n" +
+                            "    </extruderMarterial>\n" +
+                            "    <extruderMarterial>\n" +
+                            "        <extruder>extruder 3</extruder>\n" +
+                            "        <material>material 2</material>\n" +
+                            "    </extruderMarterial>\n" +
+                            "    <subsetSelection>\n" +
+                            "        <bottomZ>0.0</bottomZ>\n" +
+                            "        <topZ>1.0</topZ>\n" +
+                            "        <printConfiguration>SaveTest.Sub1.Print</printConfiguration>\n" +
+                            "        <fileSelection>\n" +
+                            "            <file>file1</file>\n" +
+                            "            <extruderNum>0</extruderNum>\n" +
+                            "            <extruder>extruder1</extruder>\n" +
+                            "            <material>material1</material>\n" +
+                            "        </fileSelection>\n" +
+                            "        <fileSelection>\n" +
+                            "            <file>file2</file>\n" +
+                            "            <extruderNum>0</extruderNum>\n" +
+                            "            <extruder>extruder2</extruder>\n" +
+                            "            <material>material2</material>\n" +
+                            "        </fileSelection>\n" +
+                            "        <fileSelection>\n" +
+                            "            <file>file3</file>\n" +
+                            "            <extruderNum>0</extruderNum>\n" +
+                            "            <extruder>extruder3</extruder>\n" +
+                            "            <material>material3</material>\n" +
+                            "        </fileSelection>\n" +
+                            "    </subsetSelection>\n" +
+                            "    <subsetSelection>\n" +
+                            "        <bottomZ>1.0</bottomZ>\n" +
+                            "        <topZ>2.0</topZ>\n" +
+                            "        <printConfiguration>SaveTest.Sub2.Print</printConfiguration>\n" +
+                            "        <fileSelection>\n" +
+                            "            <file>file1</file>\n" +
+                            "            <extruderNum>0</extruderNum>\n" +
+                            "            <extruder>extruder2</extruder>\n" +
+                            "            <material>material2</material>\n" +
+                            "        </fileSelection>\n" +
+                            "        <fileSelection>\n" +
+                            "            <file>file2</file>\n" +
+                            "            <extruderNum>0</extruderNum>\n" +
+                            "            <extruder>extruder3</extruder>\n" +
+                            "            <material>material3</material>\n" +
+                            "        </fileSelection>\n" +
+                            "        <fileSelection>\n" +
+                            "            <file>file3</file>\n" +
+                            "            <extruderNum>0</extruderNum>\n" +
+                            "            <extruder>extruder1</extruder>\n" +
+                            "            <material>material1</material>\n" +
+                            "        </fileSelection>\n" +
+                            "    </subsetSelection>\n" +
+                            "</printjob>";
         
         System.out.println("savePrintJobSelection");
         XmlPersistenceFramework instance = new XmlPersistenceFramework();
@@ -1571,106 +1573,107 @@ public class XmlPersistenceFrameworkTest {
         config.setSupportMaterialConfiguration(support);
         
         String expResult ="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                    "<print>\n" +
-                    "    <bedTemperature>0</bedTemperature>\n" +
-                    "    <bridgeFlowRatio>1.0</bridgeFlowRatio>\n" +
-                    "    <coolingConfiguration>\n" +
-                    "        <bridgeFanSpeedPercent>100</bridgeFanSpeedPercent>\n" +
-                    "        <disableFanForFirstNLayers>1</disableFanForFirstNLayers>\n" +
-                    "        <enableAutoCooling>true</enableAutoCooling>\n" +
-                    "        <enableFanTimeThreshold>60</enableFanTimeThreshold>\n" +
-                    "        <fanAlwaysOn>false</fanAlwaysOn>\n" +
-                    "        <maxFanSpeed>100</maxFanSpeed>\n" +
-                    "        <minFanSpeed>35</minFanSpeed>\n" +
-                    "        <minPrintSpeed>10</minPrintSpeed>\n" +
-                    "        <slowDownTimeTreshold>30</slowDownTimeTreshold>\n" +
-                    "    </coolingConfiguration>\n" +
-                    "    <extrusionWidthConfiguration>\n" +
-                    "        <defaultExtrusionWidth>0.0</defaultExtrusionWidth>\n" +
-                    "        <firstLayerExtrusionWidth>0.0</firstLayerExtrusionWidth>\n" +
-                    "        <infillExtrusionWidth>0.0</infillExtrusionWidth>\n" +
-                    "        <perimetersExtrusionWidth>0.0</perimetersExtrusionWidth>\n" +
-                    "        <solidInfillExtrusionWidth>0.0</solidInfillExtrusionWidth>\n" +
-                    "        <supportMaterialExtrusionWidth>0.0</supportMaterialExtrusionWidth>\n" +
-                    "        <topSolidInfillExtrusionWidth>0.0</topSolidInfillExtrusionWidth>\n" +
-                    "    </extrusionWidthConfiguration>\n" +
-                    "    <firstLayerBedTemperature>0</firstLayerBedTemperature>\n" +
-                    "    <infillConfiguration>\n" +
-                    "        <infillAngle>12</infillAngle>\n" +
-                    "        <infillBeforePerimeters>true</infillBeforePerimeters>\n" +
-                    "        <infillDensity>0.4</infillDensity>\n" +
-                    "        <infillEveryNLayers>3</infillEveryNLayers>\n" +
-                    "        <infillPattern>rectilinear</infillPattern>\n" +
-                    "        <name>SaveTest.Infill</name>\n" +
-                    "        <onlyInfillWhereNeeded>false</onlyInfillWhereNeeded>\n" +
-                    "        <onlyRetractInfillWhenCrossingPerimeters>true</onlyRetractInfillWhenCrossingPerimeters>\n" +
-                    "        <solidInfillEveryNLayers>4</solidInfillEveryNLayers>\n" +
-                    "        <solidInfillThresholdArea>7</solidInfillThresholdArea>\n" +
-                    "        <topBottomInfillPattern>circles</topBottomInfillPattern>\n" +
-                    "    </infillConfiguration>\n" +
-                    "    <infillExtruder>0</infillExtruder>\n" +
-                    "    <layerChangeGCode></layerChangeGCode>\n" +
-                    "    <layerPerimiterConfiguration>\n" +
-                    "        <avoidCrossingPerimeters>false</avoidCrossingPerimeters>\n" +
-                    "        <detectBridgingPerimeters>true</detectBridgingPerimeters>\n" +
-                    "        <detectThinWalls>true</detectThinWalls>\n" +
-                    "        <externalPerimetersFirst>false</externalPerimetersFirst>\n" +
-                    "        <firstLayerHeight>0.001</firstLayerHeight>\n" +
-                    "        <generateExtraPerimetersWhenNeeded>true</generateExtraPerimetersWhenNeeded>\n" +
-                    "        <layerHeight>5.0E-4</layerHeight>\n" +
-                    "        <name>SaveTest.Layer</name>\n" +
-                    "        <perimeters>2</perimeters>\n" +
-                    "        <randomizedStartingPoints>true</randomizedStartingPoints>\n" +
-                    "        <solidBottomLayers>2</solidBottomLayers>\n" +
-                    "        <solidTopLayers>3</solidTopLayers>\n" +
-                    "        <spiralVase>false</spiralVase>\n" +
-                    "        <startPerimetersAtConcavePoints>false</startPerimetersAtConcavePoints>\n" +
-                    "        <startPerimetersAtNonOverhangPoints>false</startPerimetersAtNonOverhangPoints>\n" +
-                    "    </layerPerimiterConfiguration>\n" +
-                    "    <name>SaveTest</name>\n" +
-                    "    <perimeterExtruder>0</perimeterExtruder>\n" +
-                    "    <skirtAndBrimConfiguration>\n" +
-                    "        <brimWidth>1.1</brimWidth>\n" +
-                    "        <name>SaveTest.Skirt</name>\n" +
-                    "        <skirtDistanceFromObject>1.2</skirtDistanceFromObject>\n" +
-                    "        <skirtHeight>2</skirtHeight>\n" +
-                    "        <skirtLoops>3</skirtLoops>\n" +
-                    "        <skirtMinimumExtrusionLength>2.2</skirtMinimumExtrusionLength>\n" +
-                    "    </skirtAndBrimConfiguration>\n" +
-                    "    <speedConfiguration>\n" +
-                    "        <bridgeAcceleration>0.02</bridgeAcceleration>\n" +
-                    "        <bridgesSpeed>1.02</bridgesSpeed>\n" +
-                    "        <defaultAcceleration>0.1</defaultAcceleration>\n" +
-                    "        <externalPerimetersSpeed>2.2</externalPerimetersSpeed>\n" +
-                    "        <firstLayerAcceleration>0.0</firstLayerAcceleration>\n" +
-                    "        <firstLayerSpeed>1.3</firstLayerSpeed>\n" +
-                    "        <gapFillSpeed>1.2</gapFillSpeed>\n" +
-                    "        <infillAcceleration>0.3</infillAcceleration>\n" +
-                    "        <infillSpeed>1.5</infillSpeed>\n" +
-                    "        <name>SaveTest.Speed</name>\n" +
-                    "        <nonPrintMovesSpeed>2.2</nonPrintMovesSpeed>\n" +
-                    "        <perimetersAcceleration>0.5</perimetersAcceleration>\n" +
-                    "        <perimetersSpeed>3.4</perimetersSpeed>\n" +
-                    "        <smallPerimetersSpeed>2.1</smallPerimetersSpeed>\n" +
-                    "        <solidInfillSpeed>1.3</solidInfillSpeed>\n" +
-                    "        <supportMaterialSpeed>3.4</supportMaterialSpeed>\n" +
-                    "        <topSolidInfillSpeed>2.63</topSolidInfillSpeed>\n" +
-                    "    </speedConfiguration>\n" +
-                    "    <supportMaterialConfiguration>\n" +
-                    "        <enforceSupportForFirstNLayers>1</enforceSupportForFirstNLayers>\n" +
-                    "        <generateSupportMaterial>false</generateSupportMaterial>\n" +
-                    "        <interfaceLayers>2</interfaceLayers>\n" +
-                    "        <interfacePatternSpacing>1.1</interfacePatternSpacing>\n" +
-                    "        <name>SaveTest.Support</name>\n" +
-                    "        <overhangThreshold>3</overhangThreshold>\n" +
-                    "        <raftLayers>4</raftLayers>\n" +
-                    "        <supportMaterialPattern>rectilinear</supportMaterialPattern>\n" +
-                    "        <supportPatternAngle>10</supportPatternAngle>\n" +
-                    "        <supportPatternSpacing>2.3</supportPatternSpacing>\n" +
-                    "    </supportMaterialConfiguration>\n" +
-                    "    <supportMaterialExtruder>0</supportMaterialExtruder>\n" +
-                    "    <supportMaterialInterfaceExtruder>0</supportMaterialInterfaceExtruder>\n" +
-                    "</print>";
+                            "<print>\n" +
+                            "    <bedTemperature>0</bedTemperature>\n" +
+                            "    <bridgeFlowRatio>1.0</bridgeFlowRatio>\n" +
+                            "    <coolingConfiguration>\n" +
+                            "        <bridgeFanSpeedPercent>100</bridgeFanSpeedPercent>\n" +
+                            "        <disableFanForFirstNLayers>1</disableFanForFirstNLayers>\n" +
+                            "        <enableAutoCooling>true</enableAutoCooling>\n" +
+                            "        <enableFanTimeThreshold>60</enableFanTimeThreshold>\n" +
+                            "        <fanAlwaysOn>false</fanAlwaysOn>\n" +
+                            "        <maxFanSpeed>100</maxFanSpeed>\n" +
+                            "        <minFanSpeed>35</minFanSpeed>\n" +
+                            "        <minPrintSpeed>10</minPrintSpeed>\n" +
+                            "        <slowDownTimeTreshold>30</slowDownTimeTreshold>\n" +
+                            "    </coolingConfiguration>\n" +
+                            "    <extrusionWidthConfiguration>\n" +
+                            "        <defaultExtrusionWidth>0.0</defaultExtrusionWidth>\n" +
+                            "        <firstLayerExtrusionWidth>0.0</firstLayerExtrusionWidth>\n" +
+                            "        <infillExtrusionWidth>0.0</infillExtrusionWidth>\n" +
+                            "        <perimetersExtrusionWidth>0.0</perimetersExtrusionWidth>\n" +
+                            "        <solidInfillExtrusionWidth>0.0</solidInfillExtrusionWidth>\n" +
+                            "        <supportMaterialExtrusionWidth>0.0</supportMaterialExtrusionWidth>\n" +
+                            "        <topSolidInfillExtrusionWidth>0.0</topSolidInfillExtrusionWidth>\n" +
+                            "    </extrusionWidthConfiguration>\n" +
+                            "    <firstLayerBedTemperature>0</firstLayerBedTemperature>\n" +
+                            "    <infillConfiguration>\n" +
+                            "        <combineInfillEveryNLayers>0</combineInfillEveryNLayers>\n" +
+                            "        <infillAngle>12</infillAngle>\n" +
+                            "        <infillBeforePerimeters>true</infillBeforePerimeters>\n" +
+                            "        <infillDensity>0.4</infillDensity>\n" +
+                            "        <infillEveryNLayers>3</infillEveryNLayers>\n" +
+                            "        <infillPattern>rectilinear</infillPattern>\n" +
+                            "        <name>SaveTest.Infill</name>\n" +
+                            "        <onlyInfillWhereNeeded>false</onlyInfillWhereNeeded>\n" +
+                            "        <onlyRetractInfillWhenCrossingPerimeters>true</onlyRetractInfillWhenCrossingPerimeters>\n" +
+                            "        <solidInfillEveryNLayers>4</solidInfillEveryNLayers>\n" +
+                            "        <solidInfillThresholdArea>7</solidInfillThresholdArea>\n" +
+                            "        <topBottomInfillPattern>circles</topBottomInfillPattern>\n" +
+                            "    </infillConfiguration>\n" +
+                            "    <infillExtruder>0</infillExtruder>\n" +
+                            "    <layerChangeGCode></layerChangeGCode>\n" +
+                            "    <layerPerimiterConfiguration>\n" +
+                            "        <avoidCrossingPerimeters>false</avoidCrossingPerimeters>\n" +
+                            "        <detectBridgingPerimeters>true</detectBridgingPerimeters>\n" +
+                            "        <detectThinWalls>true</detectThinWalls>\n" +
+                            "        <externalPerimetersFirst>false</externalPerimetersFirst>\n" +
+                            "        <firstLayerHeight>0.001</firstLayerHeight>\n" +
+                            "        <generateExtraPerimetersWhenNeeded>true</generateExtraPerimetersWhenNeeded>\n" +
+                            "        <layerHeight>5.0E-4</layerHeight>\n" +
+                            "        <name>SaveTest.Layer</name>\n" +
+                            "        <perimeters>2</perimeters>\n" +
+                            "        <randomizedStartingPoints>true</randomizedStartingPoints>\n" +
+                            "        <solidBottomLayers>2</solidBottomLayers>\n" +
+                            "        <solidTopLayers>3</solidTopLayers>\n" +
+                            "        <spiralVase>false</spiralVase>\n" +
+                            "        <startPerimetersAtConcavePoints>false</startPerimetersAtConcavePoints>\n" +
+                            "        <startPerimetersAtNonOverhangPoints>false</startPerimetersAtNonOverhangPoints>\n" +
+                            "    </layerPerimiterConfiguration>\n" +
+                            "    <name>SaveTest</name>\n" +
+                            "    <perimeterExtruder>0</perimeterExtruder>\n" +
+                            "    <skirtAndBrimConfiguration>\n" +
+                            "        <brimWidth>1.1</brimWidth>\n" +
+                            "        <name>SaveTest.Skirt</name>\n" +
+                            "        <skirtDistanceFromObject>1.2</skirtDistanceFromObject>\n" +
+                            "        <skirtHeight>2</skirtHeight>\n" +
+                            "        <skirtLoops>3</skirtLoops>\n" +
+                            "        <skirtMinimumExtrusionLength>2.2</skirtMinimumExtrusionLength>\n" +
+                            "    </skirtAndBrimConfiguration>\n" +
+                            "    <speedConfiguration>\n" +
+                            "        <bridgeAcceleration>0.02</bridgeAcceleration>\n" +
+                            "        <bridgesSpeed>1.02</bridgesSpeed>\n" +
+                            "        <defaultAcceleration>0.1</defaultAcceleration>\n" +
+                            "        <externalPerimetersSpeed>2.2</externalPerimetersSpeed>\n" +
+                            "        <firstLayerAcceleration>0.0</firstLayerAcceleration>\n" +
+                            "        <firstLayerSpeed>1.3</firstLayerSpeed>\n" +
+                            "        <gapFillSpeed>1.2</gapFillSpeed>\n" +
+                            "        <infillAcceleration>0.3</infillAcceleration>\n" +
+                            "        <infillSpeed>1.5</infillSpeed>\n" +
+                            "        <name>SaveTest.Speed</name>\n" +
+                            "        <nonPrintMovesSpeed>2.2</nonPrintMovesSpeed>\n" +
+                            "        <perimetersAcceleration>0.5</perimetersAcceleration>\n" +
+                            "        <perimetersSpeed>3.4</perimetersSpeed>\n" +
+                            "        <smallPerimetersSpeed>2.1</smallPerimetersSpeed>\n" +
+                            "        <solidInfillSpeed>1.3</solidInfillSpeed>\n" +
+                            "        <supportMaterialSpeed>3.4</supportMaterialSpeed>\n" +
+                            "        <topSolidInfillSpeed>2.63</topSolidInfillSpeed>\n" +
+                            "    </speedConfiguration>\n" +
+                            "    <supportMaterialConfiguration>\n" +
+                            "        <enforceSupportForFirstNLayers>1</enforceSupportForFirstNLayers>\n" +
+                            "        <generateSupportMaterial>false</generateSupportMaterial>\n" +
+                            "        <interfaceLayers>2</interfaceLayers>\n" +
+                            "        <interfacePatternSpacing>1.1</interfacePatternSpacing>\n" +
+                            "        <name>SaveTest.Support</name>\n" +
+                            "        <overhangThreshold>3</overhangThreshold>\n" +
+                            "        <raftLayers>4</raftLayers>\n" +
+                            "        <supportMaterialPattern>rectilinear</supportMaterialPattern>\n" +
+                            "        <supportPatternAngle>10</supportPatternAngle>\n" +
+                            "        <supportPatternSpacing>2.3</supportPatternSpacing>\n" +
+                            "    </supportMaterialConfiguration>\n" +
+                            "    <supportMaterialExtruder>0</supportMaterialExtruder>\n" +
+                            "    <supportMaterialInterfaceExtruder>0</supportMaterialInterfaceExtruder>\n" +
+                            "</print>";
         
         System.out.println("savePrintConfiguration");
         XmlPersistenceFramework instance = new XmlPersistenceFramework();

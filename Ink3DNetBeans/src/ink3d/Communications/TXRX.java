@@ -15,6 +15,7 @@ import java.util.ArrayList;
  */
 public interface TXRX
 {
+    public static TXRX  txrx = new TXRXImpl();
     // Get list of COM port identifiers as strings
     public String[] getSerialPortNames();
     

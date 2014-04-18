@@ -6,27 +6,27 @@
 
 package ink3d.UserInterface.PrinterConfig;
 
+import ink3d.Communications.TXRX;
 import ink3d.ConfigurationObjects.ExtruderConfiguration;
 import ink3d.ConfigurationObjects.HardwareConfiguration;
 import ink3d.ConfigurationObjects.PrinterConfiguration;
 import ink3d.UserInterface.Database.PersistenceFramework;
 import ink3d.UserInterface.MainMenu.BadFieldException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Dan
  */
 public class PrinterController {
-    private PersistenceFramework db = PersistenceFramework.getDB();
+    private final PersistenceFramework db = PersistenceFramework.getDB();
     
     public ArrayList<String> getPrinterConfigurations(){
         return db.getPrinterConfigurations();
     }
     
     public Boolean deletePrinterConfiguration(String name) throws BadFieldException{
-        if(name == null || name =="")throw new BadFieldException("Please select a file to delete");
+        if(name == null || "".equals(name))throw new BadFieldException("Please select a file to delete");
         return db.deletePrinterConfiguration(name);
     }
     
@@ -35,8 +35,8 @@ public class PrinterController {
     }
     
     public ArrayList<String> loadMyExtruders(String name){
-        ArrayList<String> extruderList = new ArrayList<String>();
-        if(name == null || name =="")return extruderList;
+        ArrayList<String> extruderList = new ArrayList<>();
+        if(name == null || "".equals(name))return extruderList;
         PrinterConfiguration printer = db.getPrinterConfiguration(name);
         for(ExtruderConfiguration extruder: printer.getExtruderList()){
             extruderList.add(extruder.getName());
@@ -44,8 +44,12 @@ public class PrinterController {
         return extruderList;
     }
     
+    public String[] getSerialPortEnumeration(){
+        return TXRX.txrx.getSerialPortNames();
+    }
+    
     public ArrayList<String> loadPrinterConfiguration(String name) throws BadFieldException{
-        if(name == null || name =="")throw new BadFieldException("Please select a file to delete");
+        if(name == null || "".equals(name))throw new BadFieldException("Please select a file to delete");
         PrinterConfiguration printer;
         printer = db.getPrinterConfiguration(name);
         ArrayList<String> varList = new ArrayList<>();
@@ -62,6 +66,9 @@ public class PrinterController {
         varList.add(Boolean.toString(printer.getUseFirmwareRetraction()));
         varList.add(printer.getStartGCode());
         varList.add(printer.getEndGCode());
+        varList.add(printer.getHardware().getComPort());
+        varList.add(Integer.toString(printer.getHardware().getBaudRate()));
+        varList.add(Integer.toString(printer.getHardware().getLineEnd()));
         
         return varList;
     }
@@ -126,7 +133,7 @@ public class PrinterController {
             config.setEndGCode(vars.get(12));
 
             config.setHardware(new HardwareConfiguration());
-            /*
+            
             config.getHardware().setComPort(vars.get(13));
             i = new Integer(vars.get(14));
             if(i>=0 && i <= 250000)config.getHardware().setBaudRate(i);
@@ -134,7 +141,7 @@ public class PrinterController {
                 throw new BadFieldException("Baud rate must be between 0 and 250,000");
             }
             config.getHardware().setLineEnd(new Integer(vars.get(15)));
-            */
+            
             ArrayList<ExtruderConfiguration> extruders = new ArrayList<>();
             for(String name: extruderList){
                   extruders.add(db.getExtruderConfiguration(name));

@@ -238,7 +238,7 @@ public class GetPrintJobConfigurationCommandTest {
     
     public void setupFileSelection(){
         fileSelections = new ArrayList<>();
-        fileSelections.add(new FileSelection(extruder.getName(), material.getName(), files.get(0).getName()));
+        fileSelections.add(new FileSelection("01-"+extruder.getName(), material.getName(), files.get(0).getName()));
     }
         
     private void setupSubsets(){

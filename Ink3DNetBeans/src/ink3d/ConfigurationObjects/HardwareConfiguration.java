@@ -70,10 +70,11 @@ public class HardwareConfiguration
     public String getLineEnding()
     {
         switch (lineEnd){
-            case 1:return LineEnding.NONE.toString();
-            case 2:return LineEnding.NR.toString();
-            case 3:return LineEnding.RN.toString();
-            default:return LineEnding.N.toString();
+            case 0:return LineEnding.NONE.toString();
+            case 1:return LineEnding.NR.toString();
+            case 2:return LineEnding.RN.toString();
+            case 3:return LineEnding.N.toString();
+            default: return null;
         }
                 
     }
