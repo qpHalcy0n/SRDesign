@@ -123,7 +123,7 @@ public class SavePrintJobSelectionCommandTest {
         printJob = null;
         System.gc();
         File file = new File("./Database/PrintJobs/SaveTest.xml");
-        //file.delete();
+        file.delete();
     }
 
     /**

@@ -21,26 +21,51 @@ import java.io.*;
  */
 public class TXRXImpl implements TXRX 
 {
-//    private static ArrayList&lt;byte[]&gt; printerFeedback    = new ArrayList&lt;byte[]&gt;();  // Printer feedback data
-<span class="nc" id="L25">    private static boolean isOutBufEmpty                = false;                    // flag for output (to printer) buffer being empty</span>
-    private static SerialPortList serialPortList;                                   // Port listing
-    private static SerialPort serialPort;                                           // serial port object
-<span class="nc" id="L28">    private static String feedbackString                = new String(&quot;begin:&quot;);</span>
-<span class="nc" id="L29">    private static String ackString                     = new String(&quot; &quot;);</span>
-<span class="nc" id="L30">    private static boolean handshakeReceived            = false;</span>
-<span class="nc" id="L31">    private static String lastGcodeSent                 = new String();</span>
-<span class="nc" id="L32">    private static boolean ackSent                      = false;</span>
-<span class="nc" id="L33">    private static boolean initCodesSent                = false;</span>
+<span class="nc" id="L24">    private static String initFileName           = &quot;init.gcode&quot;;</span>
+<span class="nc" id="L25">    private static int BAUD                      = 250000;</span>
+<span class="nc" id="L26">    private static String comPort                = &quot;COM1&quot;;</span>
     
+<span class="nc" id="L28">    private static boolean isOutBufEmpty                        = false;                        // flag for output (to printer) buffer being empty</span>
+    private static SerialPortList serialPortList;                                               // Port listing
+    private static SerialPort serialPort;                                                       // serial port object
+<span class="nc" id="L31">    private static String feedbackString                        = new String(&quot;begin:&quot;);</span>
+<span class="nc" id="L32">    private static String ackString                             = new String(&quot; &quot;);</span>
+<span class="nc" id="L33">    private static boolean handshakeReceived                    = false;</span>
+<span class="nc" id="L34">    private static String lastGcodeSent                         = new String();</span>
+<span class="nc" id="L35">    private static ArrayList&lt;String&gt; lastGcodesSent             = new ArrayList&lt;String&gt;();</span>
+<span class="nc" id="L36">    private static boolean ackSent                              = false;</span>
+<span class="nc" id="L37">    private static boolean initCodesSent                        = false;</span>
+<span class="nc" id="L38">    private static PrintJobConfiguration printJobConfig         = null;</span>
+<span class="nc" id="L39">    private static boolean isConnected                          = false;</span>
     
-    TXRXImpl()
-<span class="nc" id="L37">    {</span>
-<span class="nc" id="L38">        serialPortList = new SerialPortList();</span>
-<span class="nc" id="L39">    }</span>
+    public TXRXImpl()
+<span class="nc" id="L42">    {</span>
+<span class="nc" id="L43">        serialPortList = new SerialPortList();</span>
+<span class="nc" id="L44">    }</span>
+    
+    public TXRXImpl(PrintJobConfiguration pjc)
+<span class="nc" id="L47">    {</span>
+<span class="nc" id="L48">        serialPortList = new SerialPortList();</span>
+        
+<span class="nc" id="L50">        printJobConfig = pjc;</span>
+<span class="nc" id="L51">        comPort = printJobConfig.getHardwareConfiguration().getComPort();</span>
+<span class="nc" id="L52">        BAUD = printJobConfig.getHardwareConfiguration().getBaudRate();</span>
+        
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if(connectToPrinter() == false)</span>
+<span class="nc" id="L55">            System.err.println(&quot;TXRX error: Could not connect to printer&quot;);</span>
+<span class="nc" id="L56">    }</span>
+    
+    protected void finalize() throws Throwable
+    {
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if(isConnected())</span>
+<span class="nc" id="L61">            serialPort.closePort();</span>
+        
+<span class="nc" id="L63">        super.finalize();</span>
+<span class="nc" id="L64">    }</span>
     
     private boolean initCodesSent()
     {
-<span class="nc" id="L43">        return initCodesSent;</span>
+<span class="nc" id="L68">        return initCodesSent;</span>
     }
  
     /**
@@ -49,8 +74,8 @@ public class TXRXImpl implements TXRX
      */
     public String[] getSerialPortNames()
     {
-<span class="nc" id="L52">        String[] portNames = serialPortList.getPortNames();</span>
-<span class="nc" id="L53">        return portNames;</span>
+<span class="nc" id="L77">        String[] portNames = serialPortList.getPortNames();</span>
+<span class="nc" id="L78">        return portNames;</span>
     }
     
     /**
@@ -58,16 +83,79 @@ public class TXRXImpl implements TXRX
      * @return ArrayList&lt;byte[]&gt; An array list packed with byte buffers of the latest data received from 
      * the printer
      */
-    public String getPrinterFeedback()
+    public ArrayList&lt;FeedbackObject&gt; getPrinterFeedback()
     {
         // Check that feedback buffer is packed
-<span class="nc bnc" id="L64" title="All 2 branches missed.">        if(!isPrinterFeedbackReady())</span>
-<span class="nc" id="L65">            return null;</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">        if(!isPrinterFeedbackReady())</span>
+<span class="nc" id="L90">            return null;</span>
+        
+<span class="nc" id="L92">        ArrayList&lt;FeedbackObject&gt; feedbackArray = new ArrayList&lt;FeedbackObject&gt;();</span>
         
         // Copy printer feedback data and clear the current feedback string
-<span class="nc" id="L68">        String pfRet = new String(feedbackString);</span>
-<span class="nc" id="L69">        feedbackString = &quot;&quot;;</span>
-<span class="nc" id="L70">        return pfRet;</span>
+<span class="nc" id="L95">        String pfRet = new String(feedbackString);</span>
+<span class="nc" id="L96">        feedbackString = &quot;&quot;;</span>
+        
+<span class="nc" id="L98">        deserialize(pfRet);</span>
+        
+        // Split feedback into individual messages //
+<span class="nc" id="L101">        String[] feedbackLines = pfRet.split(&quot;\n&quot;);</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        for(int i = 0; i &lt; feedbackLines.length; ++i)</span>
+        {
+<span class="nc" id="L104">            FeedbackObject obj = new FeedbackObject();</span>
+
+            // Split message into tokens //
+<span class="nc" id="L107">            String[] lineObjects = feedbackLines[i].split(&quot; &quot;);</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">            for(int j = 0; j &lt; lineObjects.length; ++j)</span>
+            {
+<span class="nc bnc" id="L110" title="All 2 branches missed.">                if(lineObjects[j].contains(&quot;ok&quot;))</span>
+<span class="nc" id="L111">                    obj.isACK = true;</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">                else if(lineObjects[j].contains(&quot;!!&quot;))</span>
+<span class="nc" id="L113">                    obj.isFault = true;</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">                else if(lineObjects[j].contains(&quot;rs&quot;))</span>
+<span class="nc" id="L115">                    obj.isResend = true;</span>
+                
+                // The only message with a colon are temperature feedback messages //
+                // They follow the form   &quot;toolName:actualTemp/setTemp&quot;
+<span class="nc bnc" id="L119" title="All 2 branches missed.">                else if(lineObjects[j].contains(&quot;:&quot;))</span>
+                {
+                    // find colon //
+<span class="nc" id="L122">                    int colonPos = lineObjects[j].indexOf(':');</span>
+<span class="nc" id="L123">                    String toolName = lineObjects[j].substring(0, colonPos);</span>
+                    String curTempStr, desiredTempStr;
+<span class="nc bnc" id="L125" title="All 2 branches missed.">                    if(lineObjects[j].contains(&quot;/&quot;))</span>
+                    {
+<span class="nc" id="L127">                        curTempStr = lineObjects[j].substring(colonPos + 1, lineObjects[j].indexOf('/'));</span>
+<span class="nc" id="L128">                        desiredTempStr = lineObjects[j].substring(lineObjects[j].indexOf('/') + 1, lineObjects[j].length());</span>
+                    }
+                    else
+                    {
+<span class="nc" id="L132">                        curTempStr = lineObjects[j].substring(colonPos + 1, lineObjects[j].length());</span>
+<span class="nc" id="L133">                        desiredTempStr = &quot;0&quot;;</span>
+                    }
+                   
+<span class="nc" id="L136">                    float curTemp = Float.parseFloat(curTempStr);</span>
+<span class="nc" id="L137">                    float desiredTemp = Float.parseFloat(desiredTempStr);</span>
+<span class="nc" id="L138">                    TemperatureObject temp = new TemperatureObject();</span>
+<span class="nc" id="L139">                    temp.tool = toolName;</span>
+<span class="nc" id="L140">                    temp.curTemp = curTemp;</span>
+<span class="nc" id="L141">                    temp.desiredTemp = desiredTemp;</span>
+                    
+<span class="nc" id="L143">                    obj.toolTemps.add(temp);</span>
+<span class="nc" id="L144">                }</span>
+                
+                // miscellaneous data is assumed to be resend line information //
+                else 
+                {
+                    // Look for resend line //
+<span class="nc" id="L150">                    int resend = Integer.parseInt(lineObjects[j]);</span>
+<span class="nc" id="L151">                    obj.resendLine = resend;</span>
+                }
+            }
+            
+<span class="nc" id="L155">            feedbackArray.add(obj);</span>
+        }
+        
+<span class="nc" id="L158">        return feedbackArray;</span>
     }
     
     /**
@@ -76,133 +164,139 @@ public class TXRXImpl implements TXRX
      */
     public boolean isPrinterFeedbackReady()
     {
-<span class="nc bnc" id="L79" title="All 2 branches missed.">        if(feedbackString.length() &gt; 0)</span>
-<span class="nc" id="L80">            return true;</span>
-<span class="nc" id="L81">        return false;</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">        if(feedbackString.length() &gt; 0)</span>
+<span class="nc" id="L168">            return true;</span>
+<span class="nc" id="L169">        return false;</span>
     }
     
-    
+    public boolean isConnected()
+    {
+<span class="nc" id="L174">        return isConnected;</span>
+    }
     
     /**
      * 
      * @return boolean indicating whether the operation succeeded or failed
      */
-    public boolean connectToPrinter(PrintJobConfiguration pjc)
-    {
+    public boolean connectToPrinter()
+    {  
         // Make new serial port object and attempt to open
-<span class="nc" id="L93">        serialPort = new SerialPort(comPort);</span>
+<span class="nc" id="L184">        serialPort = new SerialPort(comPort);</span>
         try
         {
-<span class="nc bnc" id="L96" title="All 2 branches missed.">            if(!serialPort.openPort())</span>
-<span class="nc" id="L97">                return false;</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">            if(!serialPort.openPort())</span>
+<span class="nc" id="L188">                return false;</span>
             
-<span class="nc bnc" id="L99" title="All 2 branches missed.">            if(!serialPort.setParams(BAUD, 8, 1, 0))</span>
-<span class="nc" id="L100">                return false;        </span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">            if(!serialPort.setParams(BAUD, 8, 1, 0))</span>
+<span class="nc" id="L191">                return false;        </span>
         }
         
-<span class="nc" id="L103">        catch(SerialPortException ex)</span>
+<span class="nc" id="L194">        catch(SerialPortException ex)</span>
         {
-<span class="nc" id="L105">            System.out.println(ex);</span>
-<span class="nc" id="L106">            return false;</span>
-<span class="nc" id="L107">        }</span>
+<span class="nc" id="L196">            System.out.println(ex);</span>
+<span class="nc" id="L197">            return false;</span>
+<span class="nc" id="L198">        }</span>
         
-<span class="nc" id="L109">        int mask = SerialPort.MASK_RXFLAG;</span>
+<span class="nc" id="L200">        int mask = SerialPort.MASK_RXFLAG;</span>
         try
         {
-<span class="nc bnc" id="L112" title="All 2 branches missed.">            if(!serialPort.setEventsMask(mask))</span>
-<span class="nc" id="L113">                return false;</span>
+<span class="nc bnc" id="L203" title="All 2 branches missed.">            if(!serialPort.setEventsMask(mask))</span>
+<span class="nc" id="L204">                return false;</span>
             
-<span class="nc" id="L115">            serialPort.addEventListener(new SerialPortReader());</span>
+<span class="nc" id="L206">            serialPort.addEventListener(new SerialPortReader());</span>
             
-<span class="nc bnc" id="L117" title="All 2 branches missed.">            while(!handshakeReceived){}</span>
+<span class="nc bnc" id="L208" title="All 2 branches missed.">            while(!handshakeReceived){}</span>
             
             // FIXME: Sometimes the handshake happens too fast so just sleep for 4 seconds (this only happens once)
             try
             {
-<span class="nc" id="L122">                Thread.sleep(4000);</span>
+<span class="nc" id="L213">                Thread.sleep(4000);</span>
             }
-<span class="nc" id="L124">            catch(InterruptedException ex)</span>
+<span class="nc" id="L215">            catch(InterruptedException ex)</span>
             {
-<span class="nc" id="L126">                System.out.println(ex);</span>
-<span class="nc" id="L127">            }</span>
+<span class="nc" id="L217">                System.err.println(ex);</span>
+<span class="nc" id="L218">            }</span>
             
             // send init gcodes //
-<span class="nc" id="L130">            BufferedReader br = new BufferedReader(new FileReader(initFileName));</span>
+<span class="nc" id="L221">            BufferedReader br = new BufferedReader(new FileReader(initFileName));</span>
             String line;
-<span class="nc bnc" id="L132" title="All 2 branches missed.">            while((line = br.readLine()) != null)</span>
+<span class="nc bnc" id="L223" title="All 2 branches missed.">            while((line = br.readLine()) != null)</span>
             {
-<span class="nc bnc" id="L134" title="All 4 branches missed.">                if(line.length() &lt;= 0 || line.charAt(0) == ';')</span>
-<span class="nc" id="L135">                    continue;</span>
+<span class="nc bnc" id="L225" title="All 4 branches missed.">                if(line.length() &lt;= 0 || line.charAt(0) == ';')</span>
+<span class="nc" id="L226">                    continue;</span>
                 
-<span class="nc bnc" id="L137" title="All 2 branches missed.">                if(line.indexOf(';') != -1)</span>
-<span class="nc" id="L138">                    line = line.substring(0, line.indexOf(';') - 1);</span>
-<span class="nc" id="L139">                line = line + pjc.getHardwareConfiguration().getLineEnding();</span>
+<span class="nc bnc" id="L228" title="All 2 branches missed.">                if(line.indexOf(';') != -1)</span>
+<span class="nc" id="L229">                    line = line.substring(0, line.indexOf(';') - 1);</span>
+<span class="nc" id="L230">                line = line + printJobConfig.getHardwareConfiguration().getLineEnding();</span>
                 
-<span class="nc" id="L141">                serialPort.writeBytes(line.getBytes());</span>
+<span class="nc" id="L232">                serialPort.writeBytes(line.getBytes());</span>
             }
             
-<span class="nc" id="L144">            initCodesSent = true;</span>
+<span class="nc" id="L235">            initCodesSent = true;</span>
         }
         
-<span class="nc" id="L147">        catch(Exception ex)</span>
+<span class="nc" id="L238">        catch(Exception ex)</span>
         {
-<span class="nc" id="L149">            System.out.println(ex);</span>
-<span class="nc" id="L150">        }</span>
+<span class="nc" id="L240">            System.err.println(ex);</span>
+<span class="nc" id="L241">        }</span>
         
-<span class="nc" id="L152">        return true;</span>
+<span class="nc" id="L243">        isConnected = true;</span>
+<span class="nc" id="L244">        return true;</span>
     }
-    
-    public boolean ackReceived()
-    {
-<span class="nc" id="L157">        return false;</span>
-    }
+
     
     
     /**
      * 
      * @return boolean indicating whether the object succeeded or failed
      */
-    public boolean sendGcode(PrintJobConfiguration pjc, String gCode)
+    public boolean sendGcode(String gCode)
     {
-<span class="nc bnc" id="L167" title="All 4 branches missed.">        if(!handshakeReceived || !initCodesSent)</span>
-<span class="nc" id="L168">            return false;</span>
+<span class="nc bnc" id="L255" title="All 4 branches missed.">        if(!handshakeReceived || !initCodesSent)</span>
+<span class="nc" id="L256">            return false;</span>
         
-<span class="nc" id="L170">        serialize(pjc, gCode);</span>
+<span class="nc" id="L258">        serialize(gCode);</span>
         
-<span class="nc" id="L172">        ackString = &quot;&quot;;</span>
-<span class="nc" id="L173">        ackSent = false;</span>
+<span class="nc" id="L260">        ackString = &quot;&quot;;</span>
+<span class="nc" id="L261">        ackSent = false;</span>
         
         try
         {
-<span class="nc" id="L177">            serialPort.writeBytes(gCode.getBytes());</span>
+<span class="nc" id="L265">            serialPort.writeBytes(gCode.getBytes());</span>
             
             // Spin in the loop until the ack is received by the printer
             // Some commands demand waiting (M109, M28, etc...).
             // Move commands usually ack immediately
-<span class="nc bnc" id="L182" title="All 2 branches missed.">            while(ackString.contains(&quot;ok&quot;) == false){}</span>
-<span class="nc" id="L183">            ackSent = true;</span>
-<span class="nc" id="L184">            lastGcodeSent = gCode;</span>
+<span class="nc bnc" id="L270" title="All 2 branches missed.">            while(ackString.contains(&quot;ok&quot;) == false){}</span>
+<span class="nc" id="L271">            ackSent = true;</span>
+<span class="nc" id="L272">            lastGcodeSent = gCode;</span>
+<span class="nc" id="L273">            lastGcodesSent.add(gCode);</span>
             
             // Sleep: otherwise we end up clobbering the buffer and garbling g-codes
+            // The OK message from the device is supposed to prevent this, but this proves to not be the case.
             try
             {
-<span class="nc" id="L189">                Thread.sleep(50);</span>
+<span class="nc" id="L279">                Thread.sleep(50);</span>
             }
-<span class="nc" id="L191">            catch(InterruptedException ex)</span>
+<span class="nc" id="L281">            catch(InterruptedException ex)</span>
             {
-<span class="nc" id="L193">                System.out.println(ex);</span>
-<span class="nc" id="L194">            }</span>
+<span class="nc" id="L283">                System.err.println(ex);</span>
+<span class="nc" id="L284">            }</span>
         }
         
-<span class="nc" id="L197">        catch(SerialPortException ex)</span>
+<span class="nc" id="L287">        catch(SerialPortException ex)</span>
         {
-<span class="nc" id="L199">            System.out.println(ex);</span>
-<span class="nc" id="L200">        }</span>
-        
-        
-<span class="nc" id="L203">        lastGcodeSent = gCode;</span>
+<span class="nc" id="L289">            System.err.println(ex);</span>
+<span class="nc" id="L290">        }</span>
 
-<span class="nc" id="L205">        return true;</span>
+<span class="nc" id="L292">        return true;</span>
+    }
+    
+    public ArrayList&lt;String&gt; getLastGcodesSent()
+    {
+<span class="nc" id="L297">        ArrayList&lt;String&gt; gCodeList = new ArrayList&lt;String&gt;(lastGcodesSent);</span>
+<span class="nc" id="L298">        lastGcodesSent.clear();</span>
+<span class="nc" id="L299">        return gCodeList;</span>
     }
     
     /**
@@ -211,19 +305,19 @@ public class TXRXImpl implements TXRX
      * firmware. Therefore it is a function. For marlin nothing needs to happen at this point.
      * @return boolean - success or failure of method
      */
-    public boolean serialize(PrintJobConfiguration pjc, String gCodeLine)
+    public boolean serialize(String gCodeLine)
     {
         // Just bail on comments or empty lines //
-<span class="nc bnc" id="L217" title="All 4 branches missed.">        if(gCodeLine.length() &lt;= 0 || gCodeLine.charAt(0) == ';')</span>
-<span class="nc" id="L218">            return false;</span>
+<span class="nc bnc" id="L311" title="All 4 branches missed.">        if(gCodeLine.length() &lt;= 0 || gCodeLine.charAt(0) == ';')</span>
+<span class="nc" id="L312">            return false;</span>
         
         // Strip comments after commands //
-<span class="nc bnc" id="L221" title="All 2 branches missed.">        if(gCodeLine.indexOf(';') != -1)</span>
-<span class="nc" id="L222">            gCodeLine = gCodeLine.substring(0, gCodeLine.indexOf(';') - 1);</span>
+<span class="nc bnc" id="L315" title="All 2 branches missed.">        if(gCodeLine.indexOf(';') != -1)</span>
+<span class="nc" id="L316">            gCodeLine = gCodeLine.substring(0, gCodeLine.indexOf(';') - 1);</span>
         
-<span class="nc" id="L224">        gCodeLine = gCodeLine + pjc.getHardwareConfiguration().getLineEnding();</span>
+<span class="nc" id="L318">        gCodeLine = gCodeLine + printJobConfig.getHardwareConfiguration().getLineEnding();</span>
         
-<span class="nc" id="L226">        return true;</span>
+<span class="nc" id="L320">        return true;</span>
     }
     
     /**
@@ -231,10 +325,11 @@ public class TXRXImpl implements TXRX
      * Does nothing for marlin as of yet.
      * @return boolean - success or failure of method
      */
-    public boolean deserialize(byte[] byteStream)
+    public boolean deserialize(String str)
     {
-<span class="nc" id="L236">        return true;</span>
+<span class="nc" id="L330">        return true;</span>
     }
+
     
     /**
      * SerialPortReader defines the actions to be taken when the receive buffer becomes full
@@ -242,35 +337,35 @@ public class TXRXImpl implements TXRX
      * 
      * This is where the sending and receipt of data actually happens
      */
-<span class="nc" id="L245">    class SerialPortReader implements SerialPortEventListener</span>
+<span class="nc" id="L340">    class SerialPortReader implements SerialPortEventListener</span>
     {
         public void serialEvent(SerialPortEvent event)
         {
             // Receive buffer is available //
-<span class="nc bnc" id="L250" title="All 2 branches missed.">            if(event.isRXCHAR())</span>
+<span class="nc bnc" id="L345" title="All 2 branches missed.">            if(event.isRXCHAR())</span>
             {
                 try
                 {
                     // getEventValue returns size of buffer on RXCHAR event //
-<span class="nc" id="L255">                    byte buffer[]   = serialPort.readBytes(event.getEventValue());</span>
-<span class="nc" id="L256">                    String inBuffer = new String(buffer);</span>
+<span class="nc" id="L350">                    byte buffer[]   = serialPort.readBytes(event.getEventValue());</span>
+<span class="nc" id="L351">                    String inBuffer = new String(buffer);</span>
                     
-<span class="nc" id="L258">                    feedbackString += inBuffer;</span>
-<span class="nc" id="L259">                    ackString += inBuffer;</span>
+<span class="nc" id="L353">                    feedbackString += inBuffer;</span>
+<span class="nc" id="L354">                    ackString += inBuffer;</span>
                     
-<span class="nc bnc" id="L261" title="All 2 branches missed.">                    if(feedbackString.contains(&quot;M301&quot;))</span>
-<span class="nc" id="L262">                        handshakeReceived = true;</span>
+<span class="nc bnc" id="L356" title="All 2 branches missed.">                    if(feedbackString.contains(&quot;M301&quot;))</span>
+<span class="nc" id="L357">                        handshakeReceived = true;</span>
                     
                     // Just echo the printer feedback for now
-<span class="nc" id="L265">                    System.out.println(inBuffer);</span>
+<span class="nc" id="L360">                    System.out.println(inBuffer);</span>
                 }
                 
-<span class="nc" id="L268">                catch(Exception ex)</span>
+<span class="nc" id="L363">                catch(Exception ex)</span>
                 {
-<span class="nc" id="L270">                    System.out.println(ex);</span>
-<span class="nc" id="L271">                }</span>
+<span class="nc" id="L365">                    System.err.println(ex);</span>
+<span class="nc" id="L366">                }</span>
             }
-<span class="nc" id="L273">        }</span>
+<span class="nc" id="L368">        }</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

@@ -39,8 +39,9 @@ public class GetMaterialConfigurationCommand extends CommandStructure{
 <span class="fc" id="L39">            result = je1.getValue();</span>
 <span class="nc" id="L40">        }catch (JAXBException ex) {</span>
 <span class="nc" id="L41">            Logger.getLogger(GetMaterialConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);</span>
-<span class="fc" id="L42">        }</span>
-<span class="fc" id="L43">    }</span>
+<span class="nc" id="L42">            result = Boolean.FALSE;</span>
+<span class="fc" id="L43">        }</span>
+<span class="fc" id="L44">    }</span>
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

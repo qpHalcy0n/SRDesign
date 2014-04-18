@@ -31,6 +31,18 @@ public class ExtruderConfiguration {
         startGCode = DEFAULT_START_GCODE;
         endGCode = DEFAULT_END_GCODE;
     }
+    public ExtruderConfiguration(String name) {
+        this.name = name;
+        extruderType = null;
+        nozzleDiameter = 0;
+        xDimension = 0;
+        yDimension = 0;
+        xOffset = 0;
+        yOffset = 0;
+        zOffset = 0;
+        startGCode = "";
+        endGCode = "";
+    }
 
     private String name;
     /**

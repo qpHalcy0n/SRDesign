@@ -372,7 +372,7 @@ public class ExtruderPanel extends javax.swing.JPanel {
 
     private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBtnActionPerformed
         // TODO add your handling code here:
-        loadExtruder(new ExtruderConfiguration());
+        loadExtruder(new ExtruderConfiguration(""));
     }//GEN-LAST:event_newBtnActionPerformed
 
 
@@ -422,7 +422,7 @@ public class ExtruderPanel extends javax.swing.JPanel {
         if(InputValidationUtility.isStringEmpty(name)) {
             throw new BadFieldException("The name of the extruder must not be empty.");
         }
-
+        extruder.setName(name);
         double nozzleDiameter = InputValidationUtility.parseDouble("Nozzle Diameter", 
                 nozzDiameterExtrudText.getText());
         extruder.setNozzleDiameter(nozzleDiameter);

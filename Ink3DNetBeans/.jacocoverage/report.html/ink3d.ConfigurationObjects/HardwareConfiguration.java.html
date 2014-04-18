@@ -69,77 +69,78 @@ public class HardwareConfiguration
     
     public String getLineEnding()
     {
-<span class="nc bnc" id="L72" title="All 4 branches missed.">        switch (lineEnd){</span>
-<span class="nc" id="L73">            case 1:return LineEnding.NONE.toString();</span>
-<span class="nc" id="L74">            case 2:return LineEnding.NR.toString();</span>
-<span class="nc" id="L75">            case 3:return LineEnding.RN.toString();</span>
-<span class="nc" id="L76">            default:return LineEnding.N.toString();</span>
+<span class="nc bnc" id="L72" title="All 5 branches missed.">        switch (lineEnd){</span>
+<span class="nc" id="L73">            case 0:return LineEnding.NONE.toString();</span>
+<span class="nc" id="L74">            case 1:return LineEnding.NR.toString();</span>
+<span class="nc" id="L75">            case 2:return LineEnding.RN.toString();</span>
+<span class="nc" id="L76">            case 3:return LineEnding.N.toString();</span>
+<span class="nc" id="L77">            default: return null;</span>
         }
                 
     }
     
     public String getComPort()
     {
-<span class="fc" id="L83">        return comPort;</span>
+<span class="fc" id="L84">        return comPort;</span>
     }
     
     public int getBaudRate()
     {
-<span class="fc" id="L88">        return baudRate;</span>
+<span class="fc" id="L89">        return baudRate;</span>
     }
     
     public void setLineEnd(int l)
     {
-<span class="fc" id="L93">        this.lineEnd = l;</span>
-<span class="fc" id="L94">    }</span>
+<span class="fc" id="L94">        this.lineEnd = l;</span>
+<span class="fc" id="L95">    }</span>
 
     public int getLineEnd() {
-<span class="fc" id="L97">        return lineEnd;</span>
+<span class="fc" id="L98">        return lineEnd;</span>
     }
     
     public void setComPort(String c)
     {
-<span class="fc" id="L102">        this.comPort = c;</span>
-<span class="fc" id="L103">    }</span>
+<span class="fc" id="L103">        this.comPort = c;</span>
+<span class="fc" id="L104">    }</span>
     
     public void setBaudRate(int b)
     {
-<span class="fc" id="L107">        this.baudRate = b;</span>
-<span class="fc" id="L108">    }</span>
+<span class="fc" id="L108">        this.baudRate = b;</span>
+<span class="fc" id="L109">    }</span>
     
     //TODO: Add Hash
     @Override
     public int hashCode()
     {
-<span class="nc" id="L114">        return 1;</span>
+<span class="nc" id="L115">        return 1;</span>
     }
     
     @Override
     public boolean equals(Object obj)
     {
-<span class="pc bpc" id="L120" title="1 of 2 branches missed.">        if(obj == null)</span>
-<span class="nc" id="L121">            return false;</span>
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">        if(obj == null)</span>
+<span class="nc" id="L122">            return false;</span>
         
-<span class="pc bpc" id="L123" title="1 of 2 branches missed.">        if(getClass() != obj.getClass())</span>
-<span class="nc" id="L124">            return false;</span>
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">        if(getClass() != obj.getClass())</span>
+<span class="nc" id="L125">            return false;</span>
         
-<span class="fc" id="L126">        final HardwareConfiguration other = (HardwareConfiguration)obj;</span>
-<span class="pc bpc" id="L127" title="1 of 2 branches missed.">        if(!Objects.equals(this.lineEnd, other.lineEnd))</span>
-<span class="nc" id="L128">            return false;</span>
+<span class="fc" id="L127">        final HardwareConfiguration other = (HardwareConfiguration)obj;</span>
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">        if(!Objects.equals(this.lineEnd, other.lineEnd))</span>
+<span class="nc" id="L129">            return false;</span>
         
-<span class="pc bpc" id="L130" title="1 of 2 branches missed.">        if(!Objects.equals(this.comPort, other.comPort))</span>
-<span class="nc" id="L131">            return false;</span>
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        if(!Objects.equals(this.comPort, other.comPort))</span>
+<span class="nc" id="L132">            return false;</span>
         
-<span class="pc bpc" id="L133" title="1 of 2 branches missed.">        if(!Objects.equals(this.baudRate, other.baudRate))</span>
-<span class="nc" id="L134">            return false;</span>
+<span class="pc bpc" id="L134" title="1 of 2 branches missed.">        if(!Objects.equals(this.baudRate, other.baudRate))</span>
+<span class="nc" id="L135">            return false;</span>
         
-<span class="fc" id="L136">        return true;</span>
+<span class="fc" id="L137">        return true;</span>
     }
     
     @Override
     public String toString()
     {
-<span class="fc" id="L142">        return &quot;HardwareConfiguration{&quot; + &quot; lineEnding=&quot; + lineEnd + &quot; comPort=&quot; + comPort + &quot; baudRate=&quot; + baudRate+&quot;}&quot;;</span>
+<span class="fc" id="L143">        return &quot;HardwareConfiguration{&quot; + &quot; lineEnding=&quot; + lineEnd + &quot; comPort=&quot; + comPort + &quot; baudRate=&quot; + baudRate+&quot;}&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

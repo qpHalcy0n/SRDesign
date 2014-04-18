@@ -81,7 +81,7 @@ public class SavePrinterConfigurationCommandTest {
         printer = null;
         System.gc();
         File file = new File("./Database/Printers/SaveTest.xml");
-        //file.delete();
+        file.delete();
     }
 
     /**

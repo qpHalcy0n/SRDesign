@@ -43,13 +43,14 @@ public class SaveExtruderConfigurationCommand extends ink3d.UserInterface.Databa
 <span class="fc" id="L43">            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);</span>
 <span class="fc" id="L44">            marshaller.marshal(je, os);</span>
 <span class="fc" id="L45">            file = null;</span>
-<span class="fc" id="L46">            System.gc();</span>
-<span class="fc" id="L47">            result = Boolean.TRUE;</span>
-<span class="nc" id="L48">        } catch (Exception ex) {</span>
-<span class="nc" id="L49">            Logger.getLogger(SaveExtruderConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L46">            os = null;</span>
+<span class="fc" id="L47">            System.gc();</span>
+<span class="fc" id="L48">            result = Boolean.TRUE;</span>
+<span class="nc" id="L49">        } catch (Exception ex) {</span>
+<span class="nc" id="L50">            Logger.getLogger(SaveExtruderConfigurationCommand.class.getName()).log(Level.SEVERE, null, ex);</span>
             
-<span class="fc" id="L51">        }</span>
-<span class="fc" id="L52">    }</span>
+<span class="fc" id="L52">        }</span>
+<span class="fc" id="L53">    }</span>
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

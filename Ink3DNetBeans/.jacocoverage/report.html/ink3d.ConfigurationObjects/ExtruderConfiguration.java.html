@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ExtruderConfiguration.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Ink3DNetBeans&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ink3d.ConfigurationObjects</a> &gt; <span class="el_source">ExtruderConfiguration.java</span></div><h1>ExtruderConfiguration.java</h1><pre class="source lang-java linenums">package ink3d.ConfigurationObjects;
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name = &quot;extruderConfiguratoin&quot;)
+@XmlAccessorType (XmlAccessType.FIELD)
 public class ExtruderConfiguration {
 
     public static final String DEFAULT_NAME = &quot;Default&quot;;
@@ -16,18 +19,18 @@ public class ExtruderConfiguration {
     public static final String DEFAULT_START_GCODE = &quot;&quot;;
     public static final String DEFAULT_END_GCODE = &quot;&quot;;
 
-<span class="fc" id="L19">    public ExtruderConfiguration() {</span>
-<span class="fc" id="L20">        name = DEFAULT_NAME;</span>
-<span class="fc" id="L21">        extruderType = DEFAULT_EXTRUDER_TYPE;</span>
-<span class="fc" id="L22">        nozzleDiameter = DEFAULT_NOZZLE_DIAMETER;</span>
-<span class="fc" id="L23">        xDimension = DEFAULT_X_DIMENSION;</span>
-<span class="fc" id="L24">        yDimension = DEFAULT_Y_DIMENSION;</span>
-<span class="fc" id="L25">        xOffset = DEFAULT_X_OFFSET;</span>
-<span class="fc" id="L26">        yOffset = DEFAULT_Y_OFFSET;</span>
-<span class="fc" id="L27">        zOffset = DEFAULT_Z_OFFSET;</span>
-<span class="fc" id="L28">        startGCode = DEFAULT_START_GCODE;</span>
-<span class="fc" id="L29">        endGCode = DEFAULT_END_GCODE;</span>
-<span class="fc" id="L30">    }</span>
+<span class="fc" id="L22">    public ExtruderConfiguration() {</span>
+<span class="fc" id="L23">        name = DEFAULT_NAME;</span>
+<span class="fc" id="L24">        extruderType = DEFAULT_EXTRUDER_TYPE;</span>
+<span class="fc" id="L25">        nozzleDiameter = DEFAULT_NOZZLE_DIAMETER;</span>
+<span class="fc" id="L26">        xDimension = DEFAULT_X_DIMENSION;</span>
+<span class="fc" id="L27">        yDimension = DEFAULT_Y_DIMENSION;</span>
+<span class="fc" id="L28">        xOffset = DEFAULT_X_OFFSET;</span>
+<span class="fc" id="L29">        yOffset = DEFAULT_Y_OFFSET;</span>
+<span class="fc" id="L30">        zOffset = DEFAULT_Z_OFFSET;</span>
+<span class="fc" id="L31">        startGCode = DEFAULT_START_GCODE;</span>
+<span class="fc" id="L32">        endGCode = DEFAULT_END_GCODE;</span>
+<span class="fc" id="L33">    }</span>
 
     private String name;
     /**
@@ -69,155 +72,155 @@ public class ExtruderConfiguration {
     private String endGCode;
 
     public void setxOffset(double xOffset) {
-<span class="fc" id="L72">        this.xOffset = xOffset;</span>
-<span class="fc" id="L73">    }</span>
+<span class="fc" id="L75">        this.xOffset = xOffset;</span>
+<span class="fc" id="L76">    }</span>
 
     public void setyOffset(double yOffset) {
-<span class="fc" id="L76">        this.yOffset = yOffset;</span>
-<span class="fc" id="L77">    }</span>
+<span class="fc" id="L79">        this.yOffset = yOffset;</span>
+<span class="fc" id="L80">    }</span>
 
     public void setzOffset(double zOffset) {
-<span class="fc" id="L80">        this.zOffset = zOffset;</span>
-<span class="fc" id="L81">    }</span>
+<span class="fc" id="L83">        this.zOffset = zOffset;</span>
+<span class="fc" id="L84">    }</span>
 
     public void setName(String name) {
-<span class="fc" id="L84">        this.name = name;</span>
-<span class="fc" id="L85">    }</span>
+<span class="fc" id="L87">        this.name = name;</span>
+<span class="fc" id="L88">    }</span>
     
     public void setExtruderType(String extruderType) {
-<span class="fc" id="L88">        this.extruderType = extruderType;</span>
-<span class="fc" id="L89">    }</span>
+<span class="fc" id="L91">        this.extruderType = extruderType;</span>
+<span class="fc" id="L92">    }</span>
 
     public void setNozzleDiameter(double nozzleDiameter) {
-<span class="fc" id="L92">        this.nozzleDiameter = nozzleDiameter;</span>
-<span class="fc" id="L93">    }</span>
+<span class="fc" id="L95">        this.nozzleDiameter = nozzleDiameter;</span>
+<span class="fc" id="L96">    }</span>
 
     public double getxOffset() {
-<span class="fc" id="L96">        return xOffset;</span>
+<span class="fc" id="L99">        return xOffset;</span>
     }
 
     public double getyOffset() {
-<span class="fc" id="L100">        return yOffset;</span>
+<span class="fc" id="L103">        return yOffset;</span>
     }
 
     public double getzOffset() {
-<span class="fc" id="L104">        return zOffset;</span>
+<span class="nc" id="L107">        return zOffset;</span>
     }
     
     public String getExtruderType() {
-<span class="fc" id="L108">        return extruderType;</span>
+<span class="nc" id="L111">        return extruderType;</span>
     }
 
     public String getName() {
-<span class="fc" id="L112">        return name;</span>
+<span class="fc" id="L115">        return name;</span>
     }
     
     public double getNozzleDiameter() {
-<span class="fc" id="L116">        return nozzleDiameter;</span>
+<span class="fc" id="L119">        return nozzleDiameter;</span>
     }
     
     @Override
     public int hashCode() {
-<span class="nc" id="L121">        int hash = 7;</span>
-<span class="nc" id="L122">        hash = 41 * hash + Objects.hashCode(this.name);</span>
-<span class="nc" id="L123">        return hash;</span>
+<span class="nc" id="L124">        int hash = 7;</span>
+<span class="nc" id="L125">        hash = 41 * hash + Objects.hashCode(this.name);</span>
+<span class="nc" id="L126">        return hash;</span>
     }
 
     @Override
     public boolean equals(Object obj) {
-<span class="pc bpc" id="L128" title="1 of 2 branches missed.">        if (obj == null) {</span>
-<span class="nc" id="L129">            return false;</span>
-        }
-<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        if (obj == null) {</span>
 <span class="nc" id="L132">            return false;</span>
         }
-<span class="fc" id="L134">        final ExtruderConfiguration other = (ExtruderConfiguration) obj;</span>
-<span class="pc bpc" id="L135" title="1 of 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
-<span class="nc" id="L136">            return false;</span>
+<span class="pc bpc" id="L134" title="1 of 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L135">            return false;</span>
         }
-<span class="pc bpc" id="L138" title="1 of 2 branches missed.">        if (!Objects.equals(this.extruderType, other.extruderType)) {</span>
+<span class="fc" id="L137">        final ExtruderConfiguration other = (ExtruderConfiguration) obj;</span>
+<span class="pc bpc" id="L138" title="1 of 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
 <span class="nc" id="L139">            return false;</span>
         }
-<span class="pc bpc" id="L141" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.nozzleDiameter) != Double.doubleToLongBits(other.nozzleDiameter)) {</span>
+<span class="pc bpc" id="L141" title="1 of 2 branches missed.">        if (!Objects.equals(this.extruderType, other.extruderType)) {</span>
 <span class="nc" id="L142">            return false;</span>
         }
-<span class="pc bpc" id="L144" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.getxDimension()) != Double.doubleToLongBits(other.getxDimension())) {</span>
+<span class="pc bpc" id="L144" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.nozzleDiameter) != Double.doubleToLongBits(other.nozzleDiameter)) {</span>
 <span class="nc" id="L145">            return false;</span>
         }
-<span class="pc bpc" id="L147" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.getyDimension()) != Double.doubleToLongBits(other.getyDimension())) {</span>
+<span class="pc bpc" id="L147" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.getxDimension()) != Double.doubleToLongBits(other.getxDimension())) {</span>
 <span class="nc" id="L148">            return false;</span>
         }
-<span class="pc bpc" id="L150" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.xOffset) != Double.doubleToLongBits(other.xOffset)) {</span>
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.getyDimension()) != Double.doubleToLongBits(other.getyDimension())) {</span>
 <span class="nc" id="L151">            return false;</span>
         }
-<span class="pc bpc" id="L153" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.yOffset) != Double.doubleToLongBits(other.yOffset)) {</span>
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.xOffset) != Double.doubleToLongBits(other.xOffset)) {</span>
 <span class="nc" id="L154">            return false;</span>
         }
-<span class="pc bpc" id="L156" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.zOffset) != Double.doubleToLongBits(other.zOffset)) {</span>
+<span class="pc bpc" id="L156" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.yOffset) != Double.doubleToLongBits(other.yOffset)) {</span>
 <span class="nc" id="L157">            return false;</span>
         }
-<span class="fc" id="L159">        return true;</span>
+<span class="pc bpc" id="L159" title="1 of 2 branches missed.">        if (Double.doubleToLongBits(this.zOffset) != Double.doubleToLongBits(other.zOffset)) {</span>
+<span class="nc" id="L160">            return false;</span>
+        }
+<span class="fc" id="L162">        return true;</span>
     }
 
     @Override
     public String toString() {
-<span class="fc" id="L164">        return &quot;ExtruderConfiguration{&quot; + &quot;name=&quot; + name + &quot;, extruderType=&quot; + extruderType + &quot;, nozzleDiameter=&quot; + nozzleDiameter + &quot;, xDimension=&quot; + getxDimension() + &quot;, yDimension=&quot; + getyDimension() + &quot;, xOffset=&quot; + xOffset + &quot;, yOffset=&quot; + yOffset + &quot;, zOffset=&quot; + zOffset + '}';</span>
+<span class="fc" id="L167">        return &quot;ExtruderConfiguration{&quot; + &quot;name=&quot; + name + &quot;, extruderType=&quot; + extruderType + &quot;, nozzleDiameter=&quot; + nozzleDiameter + &quot;, xDimension=&quot; + getxDimension() + &quot;, yDimension=&quot; + getyDimension() + &quot;, xOffset=&quot; + xOffset + &quot;, yOffset=&quot; + yOffset + &quot;, zOffset=&quot; + zOffset + '}';</span>
     }        
 
     /**
      * @return the xDimension
      */
     public double getxDimension() {
-<span class="fc" id="L171">        return xDimension;</span>
+<span class="fc" id="L174">        return xDimension;</span>
     }
 
     /**
      * @param xDimension the xDimension to set
      */
     public void setxDimension(double xDimension) {
-<span class="fc" id="L178">        this.xDimension = xDimension;</span>
-<span class="fc" id="L179">    }</span>
+<span class="nc" id="L181">        this.xDimension = xDimension;</span>
+<span class="nc" id="L182">    }</span>
 
     /**
      * @return the yDimension
      */
     public double getyDimension() {
-<span class="fc" id="L185">        return yDimension;</span>
+<span class="fc" id="L188">        return yDimension;</span>
     }
 
     /**
      * @param yDimension the yDimension to set
      */
     public void setyDimension(double yDimension) {
-<span class="fc" id="L192">        this.yDimension = yDimension;</span>
-<span class="fc" id="L193">    }</span>
+<span class="nc" id="L195">        this.yDimension = yDimension;</span>
+<span class="nc" id="L196">    }</span>
 
     /**
      * @return the startGCode
      */
     public String getStartGCode() {
-<span class="fc" id="L199">        return startGCode;</span>
+<span class="fc" id="L202">        return startGCode;</span>
     }
 
     /**
      * @param startGCode the startGCode to set
      */
     public void setStartGCode(String startGCode) {
-<span class="fc" id="L206">        this.startGCode = startGCode;</span>
-<span class="fc" id="L207">    }</span>
+<span class="fc" id="L209">        this.startGCode = startGCode;</span>
+<span class="fc" id="L210">    }</span>
 
     /**
      * @return the endGCode
      */
     public String getEndGCode() {
-<span class="fc" id="L213">        return endGCode;</span>
+<span class="fc" id="L216">        return endGCode;</span>
     }
 
     /**
      * @param endGCode the endGCode to set
      */
     public void setEndGCode(String endGCode) {
-<span class="fc" id="L220">        this.endGCode = endGCode;</span>
-<span class="fc" id="L221">    }</span>
+<span class="fc" id="L223">        this.endGCode = endGCode;</span>
+<span class="fc" id="L224">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>
