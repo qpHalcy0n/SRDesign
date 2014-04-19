@@ -1680,7 +1680,7 @@ public class PrintPanel extends javax.swing.JPanel {
 
     private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBtnActionPerformed
         // TODO add your handling code here:
-        loadPrintConfiguration(new PrintConfiguration());
+        this.initComponents();
     }//GEN-LAST:event_newBtnActionPerformed
 
     private void nonOverhangsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nonOverhangsCheckBoxActionPerformed
@@ -2138,6 +2138,7 @@ public class PrintPanel extends javax.swing.JPanel {
     }
 
     private void loadPrintConfiguration(PrintConfiguration print) {
+        this.nameTxt.setText(print.getName());
         LayerAndPerimeterConfiguration lp = print.getLayerPerimiterConfiguration();
         layerHeightPCText.setText(String.valueOf(lp.getLayerHeight()));
         firstLayerHeightPCText.setText(String.valueOf(lp.getFirstLayerHeight()));
