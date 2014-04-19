@@ -12,11 +12,20 @@ import ink3d.ConfigurationObjects.PrintJobConfiguration;
 import ink3d.ConfigurationObjects.PrintJobSelection;
 import ink3d.ConfigurationObjects.PrinterConfiguration;
 import ink3d.ConfigurationObjects.SubsetSelection;
+import ink3d.PostProcessing.PostProcessorException;
+import ink3d.PostProcessing.Slic3rPostProcessorImpl;
+import ink3d.Preprocessing.Normalizer;
+import ink3d.Preprocessing.PreprocessorException;
+import ink3d.Preprocessing.Slic3rNormalizerImpl;
+import ink3d.Processing.ProcessorException;
+import ink3d.Processing.Slic3rSlicingEngineWrapperImpl;
 import ink3d.UserInterface.Database.PersistenceFramework;
 import ink3d.UserInterface.Database.XmlDatabase.XmlPersistenceFramework;
 import ink3d.UserInterface.MainMenu.BadFieldException;
 import ink3d.UserInterface.MainMenu.MainWindow;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -119,7 +128,18 @@ public class PrintJobController {
         return list;
     }
     
-    void startPrint(PrintJobSelection printJob){
-    
+    void startPrint(String name) throws BadFieldException, PreprocessorException, ProcessorException, PostProcessorException{
+        PrintJobSelection job;
+        job = db.getPrintJobSelection(name);
+        
+        PrintJobConfiguration printJob;
+        printJob = db.getPrintJobConfiguration(job);
+        
+        Slic3rNormalizerImpl normalizer = new Slic3rNormalizerImpl();
+        Slic3rSlicingEngineWrapperImpl slicer = new Slic3rSlicingEngineWrapperImpl();
+        Slic3rPostProcessorImpl post = new Slic3rPostProcessorImpl();
+        normalizer.normalize(printJob);
+        slicer.generateGCode(printJob);
+        post.postprocess(printJob);           
     }
 }

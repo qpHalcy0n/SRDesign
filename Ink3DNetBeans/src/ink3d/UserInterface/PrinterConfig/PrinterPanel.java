@@ -306,7 +306,7 @@ public class PrinterPanel extends javax.swing.JPanel {
                         .addComponent(firmwareRetractionPrinterCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(addExtruderToPrinterButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                    .addComponent(addExtruderToPrinterButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, Short.MAX_VALUE)
                     .addComponent(addExtruderToPrinterButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(extruderSelectionPrinterComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(38, 38, 38)
@@ -398,7 +398,7 @@ public class PrinterPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
+                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 674, Short.MAX_VALUE)
                     .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -536,7 +536,8 @@ public class PrinterPanel extends javax.swing.JPanel {
         varList.add(this.firmwareRetractionPrinterCombo.getSelectedItem().toString());
         varList.add(this.startGCodePrinterTextArea.getText());
         varList.add(this.endGCodePrinterTextArea.getText());
-        varList.add(this.printerPortPrinterComboBox.getSelectedItem().toString());
+        if(this.printerPortPrinterComboBox.getSelectedItem() != null) varList.add(this.printerPortPrinterComboBox.getSelectedItem().toString());
+        else varList.add("");
         varList.add(this.baudRatePrinterText.getText());
         varList.add(Integer.toString(this.lineEndjComboBox.getSelectedIndex()));
         ArrayList<String> extruderList = new ArrayList<>();

@@ -145,6 +145,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Start Print"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="startPrintPrintJobButtonMouseReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="newPrintJobButton">
       <Properties>
@@ -271,7 +274,6 @@
       </Properties>
       <Events>
         <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="loadPrintJobButtonMouseReleased"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loadPrintJobButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

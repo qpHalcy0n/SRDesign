@@ -6,6 +6,9 @@
 
 package ink3d.UserInterface.PrintJob;
 
+import ink3d.PostProcessing.PostProcessorException;
+import ink3d.Preprocessing.PreprocessorException;
+import ink3d.Processing.ProcessorException;
 import ink3d.UserInterface.MainMenu.BadFieldException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -73,6 +76,11 @@ public class PrintJobPanel extends javax.swing.JPanel {
         loadPrintJobButton = new javax.swing.JButton();
 
         startPrintPrintJobButton.setText("Start Print");
+        startPrintPrintJobButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                startPrintPrintJobButtonMouseReleased(evt);
+            }
+        });
 
         newPrintJobButton.setText("New");
         newPrintJobButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -149,11 +157,6 @@ public class PrintJobPanel extends javax.swing.JPanel {
                 loadPrintJobButtonMouseReleased(evt);
             }
         });
-        loadPrintJobButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loadPrintJobButtonActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -187,7 +190,6 @@ public class PrintJobPanel extends javax.swing.JPanel {
                             .addComponent(namePrintJobText)
                             .addComponent(printerSelectionPrintJobComboBox, 0, 235, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -324,9 +326,23 @@ public class PrintJobPanel extends javax.swing.JPanel {
         this.updateUI();
     }//GEN-LAST:event_loadPrintJobButtonMouseReleased
 
-    private void loadPrintJobButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadPrintJobButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_loadPrintJobButtonActionPerformed
+    private void startPrintPrintJobButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startPrintPrintJobButtonMouseReleased
+        if(this.printJobLList.getSelectedIndex()==-1){
+            JOptionPane.showMessageDialog(null, "Please save and select a print job before runing." , "InfoBox: " + "Bad Field Data",JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        try {
+            printJobController.startPrint(this.printJobLList.getSelectedValue().toString());
+        } catch (BadFieldException e) {
+             JOptionPane.showMessageDialog(null, e.getMessage() , "InfoBox: " + "Bad Field Data",JOptionPane.INFORMATION_MESSAGE);
+        } catch (PreprocessorException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage() , "InfoBox: " + "Preprocessing error",JOptionPane.INFORMATION_MESSAGE);
+        } catch (ProcessorException e) {
+           JOptionPane.showMessageDialog(null, e.getMessage() , "InfoBox: " + "Processing error",JOptionPane.INFORMATION_MESSAGE);
+        } catch (PostProcessorException e) {
+           JOptionPane.showMessageDialog(null, e.getMessage() , "InfoBox: " + "Post processing error",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_startPrintPrintJobButtonMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
