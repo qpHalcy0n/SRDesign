@@ -135,7 +135,7 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
         Pattern toolSelectionPattern = Pattern.compile("^(T[0-9])");
         try {
             BufferedReader subsetGCode = new BufferedReader(new FileReader(subsetGCodeFile));
-            scanForNextToolSelection(subsetGCode);
+            //scanForNextToolSelection(subsetGCode);
             String line = "";
             while((line = subsetGCode.readLine()) != null) {
                 System.out.println("line = " + line);
@@ -158,8 +158,10 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Slic3rGCodePreparerImpl.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
             return false;
         } catch (IOException ex) {
+            ex.printStackTrace();
             Logger.getLogger(Slic3rGCodePreparerImpl.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
