@@ -6,6 +6,7 @@
 
 package ink3d.UserInterface.Database.XmlDatabase;
 
+import ink3d.ConfigurationObjects.ExtruderMaterialSelection;
 import ink3d.ConfigurationObjects.FileConfiguration;
 import ink3d.ConfigurationObjects.FileSelection;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
@@ -40,6 +41,8 @@ public class GetPrintJobConfigurationCommand extends CommandStructure{
         
         subsetList = new ArrayList<>();
         
+        
+        
         for(SubsetSelection set : selection.getSubsetConfigurationList()){            
             fileList = new ArrayList<>();
             for(FileSelection select : set.getFileConfigurations()){
@@ -63,7 +66,9 @@ public class GetPrintJobConfigurationCommand extends CommandStructure{
         printJob.setName(selection.getName());
         printJob.setPrinterConfiguration(db.getPrinterConfiguration(selection.getPrinterConfiguration()));
         printJob.setSubsetConfigurationList(subsetList);
-        
+        for(ExtruderMaterialSelection extruder: selection.getMaterials()){
+            printJob.getExtruderMaterials().add(db.getMaterialConfiguration(extruder.getMaterial()));
+        }
         this.result = printJob;
     }
     

@@ -11,8 +11,6 @@ import ink3d.Preprocessing.PreprocessorException;
 import ink3d.Processing.ProcessorException;
 import ink3d.UserInterface.MainMenu.BadFieldException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -312,7 +310,6 @@ public class PrintJobPanel extends javax.swing.JPanel {
         }
         ArrayList<String> varList = printJobController.loadPrintJobSelection(this.printJobLList.getSelectedValue().toString());
         this.namePrintJobText.setText(varList.get(0));
-        System.out.println(varList.get(1));
         this.printerSelectionPrintJobComboBox.setSelectedItem(varList.get(1));
         this.extruderMaterialMapList.setModel(new javax.swing.AbstractListModel() {
                     @Override

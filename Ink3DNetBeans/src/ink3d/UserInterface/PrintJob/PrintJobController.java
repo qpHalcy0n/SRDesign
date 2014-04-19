@@ -138,6 +138,7 @@ public class PrintJobController {
         Slic3rNormalizerImpl normalizer = new Slic3rNormalizerImpl();
         Slic3rSlicingEngineWrapperImpl slicer = new Slic3rSlicingEngineWrapperImpl();
         Slic3rPostProcessorImpl post = new Slic3rPostProcessorImpl();
+        
         normalizer.normalize(printJob);
         slicer.generateGCode(printJob);
         post.postprocess(printJob);           
