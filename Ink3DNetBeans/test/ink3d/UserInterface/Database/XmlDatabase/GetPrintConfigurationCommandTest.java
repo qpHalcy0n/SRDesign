@@ -65,6 +65,7 @@ public class GetPrintConfigurationCommandTest {
         infill.setInfillPattern("rectilinear");
         infill.setName(name+".Infill");
         infill.setOnlyInfillWhereNeeded(false);
+        infill.setCombineInfillEveryNLayers(0);
         infill.setOnlyRetractInfillWhenCrossingPerimeters(true);
         infill.setSolidInfillEveryNLayers(4);
         infill.setSolidInfillThresholdArea(7);
@@ -114,6 +115,7 @@ public class GetPrintConfigurationCommandTest {
                     "        <infillBeforePerimeters>true</infillBeforePerimeters>\n" +
                     "        <infillDensity>0.4</infillDensity>\n" +
                     "        <infillEveryNLayers>3</infillEveryNLayers>\n" +
+                    "        <combineInfillEveryNLayers>0</combineInfillEveryNLayers>" +
                     "        <infillPattern>rectilinear</infillPattern>\n" +
                     "        <name>GetPrintConfigurationTest.Infill</name>\n" +
                     "        <onlyInfillWhereNeeded>false</onlyInfillWhereNeeded>\n" +
