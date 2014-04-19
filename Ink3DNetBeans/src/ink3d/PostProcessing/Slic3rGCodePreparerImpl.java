@@ -97,6 +97,8 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
         System.out.println("Completed writing printer end G-Code.");
         // Set the reference for the finalized GCode in the Print Job.
         printJob.setFinalizedGCode(finalizedGCode);
+        
+        System.out.println("File path:  " + finalizedGCode.getAbsolutePath());
 
         return true;
 
