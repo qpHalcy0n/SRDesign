@@ -490,14 +490,15 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             }
             catch(IOException ex) {
                 Logger.getLogger(Slic3rSlicingEngineWrapperImpl.class.getName()).log(Level.SEVERE, null, ex);
-                return false;
+                throw new ProcessorException(ex.getMessage() + "; Subset " + (subsetNum + 1));
             } catch (InterruptedException ex) {
                 Logger.getLogger(Slic3rSlicingEngineWrapperImpl.class.getName()).log(Level.SEVERE, null, ex);
-                return false;
+                throw new ProcessorException(ex.getMessage() + "; Subset " + (subsetNum + 1));
             } catch (Exception ex) {
                 Logger.getLogger(Slic3rSlicingEngineWrapperImpl.class.getName()).log(Level.SEVERE, null, ex);
-                return false;
+                throw new ProcessorException(ex.getMessage() + "; Subset " + (subsetNum + 1));
             }
+            
             try {
                 // calculate new z-offset based on the last z value from the created GCode file
                 zOffset = calculateNextZOffset(subsetGCodeFile);
