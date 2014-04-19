@@ -28,7 +28,7 @@ import javax.swing.JTabbedPane;
  *
  * @author Tim
  */
-public class ExtruderPanel extends javax.swing.JPanel {
+public class ExtruderPanel extends javax.swing.JPanel {//please commit
     private ExtruderController controller;
     private DefaultListModel listModel;
     private PersistenceFramework db = PersistenceFramework.getDB();
