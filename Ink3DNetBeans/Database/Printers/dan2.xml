@@ -5,7 +5,7 @@
         <comPort></comPort>
         <lineEnd>2</lineEnd>
     </hardware>
-    <name>dan</name>
+    <name>dan2</name>
     <bedX>120.0</bedX>
     <bedY>170.0</bedY>
     <printCenterX>50.0</printCenterX>
@@ -16,12 +16,12 @@
     <numExtruders>2</numExtruders>
     <vibrationLimit>1.4</vibrationLimit>
     <useFirmwareRetraction>true</useFirmwareRetraction>
-    <startGCode></startGCode>
-    <endGCode></endGCode>
+    <startGCode>;printer start gcode</startGCode>
+    <endGCode>;printer end gcode</endGCode>
     <extruderList>
-        <name>Dan</name>
+        <name>Dan2</name>
         <extruderType></extruderType>
-        <nozzleDiameter>0.5</nozzleDiameter>
+        <nozzleDiameter>0.2</nozzleDiameter>
         <xDimension>0.0</xDimension>
         <yDimension>0.0</yDimension>
         <xOffset>1.2</xOffset>
@@ -31,9 +31,9 @@
         <endGCode></endGCode>
     </extruderList>
     <extruderList>
-        <name>Dan</name>
+        <name>Dan2</name>
         <extruderType></extruderType>
-        <nozzleDiameter>0.5</nozzleDiameter>
+        <nozzleDiameter>0.2</nozzleDiameter>
         <xDimension>0.0</xDimension>
         <yDimension>0.0</yDimension>
         <xOffset>1.2</xOffset>

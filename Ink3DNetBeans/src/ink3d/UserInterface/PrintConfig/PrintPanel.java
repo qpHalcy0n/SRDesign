@@ -1680,7 +1680,7 @@ public class PrintPanel extends javax.swing.JPanel {
 
     private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBtnActionPerformed
         // TODO add your handling code here:
-        this.initComponents();
+        loadPrintConfiguration(new PrintConfiguration());
     }//GEN-LAST:event_newBtnActionPerformed
 
     private void nonOverhangsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nonOverhangsCheckBoxActionPerformed

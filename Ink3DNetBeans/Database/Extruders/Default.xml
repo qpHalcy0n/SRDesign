@@ -2,7 +2,7 @@
 <extruder>
     <name>Default</name>
     <extruderType></extruderType>
-    <nozzleDiameter>1.5</nozzleDiameter>
+    <nozzleDiameter>0.2</nozzleDiameter>
     <xDimension>0.0</xDimension>
     <yDimension>0.0</yDimension>
     <xOffset>1.2</xOffset>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<printjob>
+    <name>Dan-4</name>
+    <printerConfiguration>dan</printerConfiguration>
+    <extruderMarterial>
+        <extruder>Dan</extruder>
+        <material>Dan2</material>
+    </extruderMarterial>
+    <extruderMarterial>
+        <extruder>Default</extruder>
+        <material>Dan2</material>
+    </extruderMarterial>
+    <subsetSelection>
+        <bottomZ>0.0</bottomZ>
+        <topZ>7.0</topZ>
+        <fileSelection>
+            <file>Feed-Housing</file>
+            <extruderNum>0</extruderNum>
+            <extruder>00-Dan2</extruder>
+            <material>2</material>
+        </fileSelection>
+    </subsetSelection>
+    <subsetSelection>
+        <bottomZ>7.0</bottomZ>
+        <topZ>22.0</topZ>
+        <fileSelection>
+            <file>Feed-Housing</file>
+            <extruderNum>0</extruderNum>
+            <extruder>01-Dan2</extruder>
+            <material>2</material>
+        </fileSelection>
+    </subsetSelection>
+</printjob>

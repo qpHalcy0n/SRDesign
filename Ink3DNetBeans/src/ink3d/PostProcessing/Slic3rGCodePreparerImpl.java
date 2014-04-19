@@ -135,7 +135,10 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
         Pattern toolSelectionPattern = Pattern.compile("^(T[0-9])");
         try {
             BufferedReader subsetGCode = new BufferedReader(new FileReader(subsetGCodeFile));
+            
+            //
             //scanForNextToolSelection(subsetGCode);
+            
             String line = "";
             while((line = subsetGCode.readLine()) != null) {
                 System.out.println("line = " + line);
