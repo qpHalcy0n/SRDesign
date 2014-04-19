@@ -66,20 +66,26 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
             Logger.getLogger(Slic3rGCodePreparerImpl.class.getName()).log(Level.SEVERE, null, ex);
             throw new PostProcessorException("Could not create finalized G-Code file.");
         }
-
+        boolean success = false;
         // Write printer start gcode.
-        writePrinterStartGCode(outFile);
+        if(!writePrinterStartGCode(outFile)) {
+            throw new PostProcessorException("Could not write printer start G-Code.");
+        }
 
         // Write each subset's gcode to the finalized file.
         // This includes custom G-Code for tool changes that happen within
         // each subset.
         List<SubsetConfiguration> subsets = printJob.getSubsetConfigurationList();
         for(SubsetConfiguration subset : subsets) {
-            writeSubsetGCode(outFile, subset);
+            if(!writeSubsetGCode(outFile, subset)) {
+                throw new PostProcessorException("Could not write subset G-Code.");
+            }
         }
 
         // Write printer end gcode.
-        writePrinterEndGCode(outFile);
+        if(!writePrinterEndGCode(outFile)) {
+            throw new PostProcessorException("Could not write printer end G-Code.");
+        }
 
         // Set the reference for the finalized GCode in the Print Job.
         printJob.setFinalizedGCode(finalizedGCode);
