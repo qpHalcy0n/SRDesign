@@ -131,12 +131,14 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
 
     private boolean writeSubsetGCode(BufferedWriter outputFile, SubsetConfiguration subset) {
         File subsetGCodeFile = subset.getgCodeFile();
+        System.out.println("Subset G-Code File:  " + subsetGCodeFile.getAbsolutePath());
         Pattern toolSelectionPattern = Pattern.compile("^(T[0-9])");
         try {
             BufferedReader subsetGCode = new BufferedReader(new FileReader(subsetGCodeFile));
             scanForNextToolSelection(subsetGCode);
             String line = "";
             while((line = subsetGCode.readLine()) != null) {
+                System.out.println("line = " + line);
                 Matcher matcher = toolSelectionPattern.matcher(line);
                 if(matcher.find()) {
                     writeToolChangeEndGCode(outputFile, this.currentTool);
