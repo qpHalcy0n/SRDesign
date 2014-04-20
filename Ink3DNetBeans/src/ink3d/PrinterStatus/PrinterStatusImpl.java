@@ -24,6 +24,8 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
     private static int dispatchDelay;
     private static TXRX commsObject                             = null;
     private static PrinterFeedback feedbackObject               = null;
+    private static boolean isPaused                             = false;
+    
     
     public PrinterStatusImpl(PrintJobConfiguration pjc)
     {
@@ -56,6 +58,22 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
         feedbackObject = new PrinterFeedbackImpl(printJobConfig); 
         feedbackObject.setCommsObject(commsObject);
         feedbackObject.beginMonitoring();
+    }
+    
+    public void pausePrinting()
+    {
+        isPaused = true;
+    }
+    
+    
+    public void resumePrinting()
+    {
+        isPaused = false;
+    }
+    
+    public void cancelPrinting()
+    {
+        Thread.currentThread().interrupt();
     }
     
     public void setFailsafeGcodes(ArrayList<String> failsafe)
@@ -116,6 +134,9 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
                     }
                 }     
             }
+            
+            // Wait here if we're paused //
+            while(isPaused){}
             
             commsObject.sendGcode(gCodes.get(0));
             gCodes.remove(0);

@@ -25,4 +25,10 @@ public interface PrinterStatus
     public boolean hasCommsObject();
     
     public void go();
+    
+    public void pausePrinting();
+    
+    public void resumePrinting();
+    
+    public void cancelPrinting();
 }
