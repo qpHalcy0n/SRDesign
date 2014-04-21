@@ -28,8 +28,8 @@ public class TXRXImpl implements TXRX
     private static boolean isOutBufEmpty                        = false;                        // flag for output (to printer) buffer being empty
     private static SerialPortList serialPortList;                                               // Port listing
     private static SerialPort serialPort;                                                       // serial port object
-    private static String feedbackString                        = new String("begin:");
-    private static String ackString                             = new String(" ");
+    private static String feedbackString                        = new String("");
+    private static String ackString                             = new String("");
     private static boolean handshakeReceived                    = false;
     private static String lastGcodeSent                         = new String();
     private static ArrayList<String> lastGcodesSent             = new ArrayList<String>();
@@ -216,7 +216,7 @@ public class TXRXImpl implements TXRX
             {
                 System.err.println(ex);
             }
-            
+
             // send init gcodes //
             BufferedReader br = new BufferedReader(new FileReader(initFileName));
             String line;

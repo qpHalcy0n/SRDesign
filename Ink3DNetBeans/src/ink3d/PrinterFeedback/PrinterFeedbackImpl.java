@@ -61,7 +61,7 @@ public class PrinterFeedbackImpl extends Thread implements PrinterFeedback
     
     public void beginMonitoring()
     {
-        Thread.currentThread().start();
+        start();
     }
     
     @Override

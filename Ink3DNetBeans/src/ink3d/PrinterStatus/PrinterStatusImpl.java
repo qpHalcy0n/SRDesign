@@ -23,7 +23,7 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
     private static PrintJobConfiguration printJobConfig         = null;
     private static int dispatchDelay;
     private static TXRX commsObject                             = null;
-    private static PrinterFeedback feedbackObject               = null;
+    private static PrinterFeedbackImpl feedbackObject               = null;
     private static boolean isPaused                             = false;
     
     
@@ -34,9 +34,7 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
         failsafeGcodes = new ArrayList<String>();
         printJobConfig = pjc;
         
-        commsObject = new TXRXImpl(printJobConfig);
-        if(commsObject.isConnected() == false)
-            System.out.println("Error in Printer Status: Could not connect to printer");
+        
         
         // Build the G-codes from the file //
         if(printJobConfig.getFinalizedGCode() != null)
@@ -53,11 +51,7 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
             {
                 System.err.println(ex);
             }
-        }
-                         
-        feedbackObject = new PrinterFeedbackImpl(printJobConfig); 
-        feedbackObject.setCommsObject(commsObject);
-        feedbackObject.beginMonitoring();
+        }                   
     }
     
     public void pausePrinting()
@@ -73,7 +67,7 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
     
     public void cancelPrinting()
     {
-        Thread.currentThread().interrupt();
+        interrupt();
     }
     
     public void setFailsafeGcodes(ArrayList<String> failsafe)
@@ -91,7 +85,16 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
     
     public void go()
     {
-        Thread.currentThread().start();
+        commsObject = new TXRXImpl(printJobConfig);
+        if(commsObject.isConnected() == false)
+            System.out.println("Error in Printer Status: Could not connect to printer");
+        
+        feedbackObject = new PrinterFeedbackImpl(printJobConfig); 
+        feedbackObject.setCommsObject(commsObject);
+        feedbackObject.beginMonitoring();
+
+        
+        start();
     }
     
     public boolean hasCommsObject()
@@ -111,35 +114,43 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
     {
         try
         {
-            while(printJobConfig.getPrinterStatusObject().hasCurrentToolTemperatures() == false)
-                Thread.currentThread().sleep(dispatchDelay);
-            
-            ArrayList<TemperatureObject> temps = printJobConfig.getPrinterStatusObject().getCurrentToolTemperatures();
-            for(int i = 0; i < temps.size(); ++i)
+            while(gCodes.size() > 0)
             {
-                if(temps.get(i).getToolName().contentEquals("T"))
+            
+                while(printJobConfig.getPrinterStatusObject().hasCurrentToolTemperatures() == false)
+                    Thread.currentThread().sleep(dispatchDelay);
+            
+                ArrayList<TemperatureObject> temps = printJobConfig.getPrinterStatusObject().getCurrentToolTemperatures();
+                for(int i = 0; i < temps.size(); ++i)
                 {
-                    if(temps.get(i).getCurrentTemperature() > temps.get(i).getDesiredTemp())
+                    if(temps.get(i).getToolName().contentEquals("T"))
                     {
+                        if(temps.get(i).getCurrentTemperature() > temps.get(i).getDesiredTemp())
+                        {
                           // Do we want to execute some failsafe or just wait for the temp to cool off? //
 //                        for(int j = 0; j < failsafeGcodes.size(); ++i)
 //                            commsObject.sendGcode(failsafeGcodes.get(j));
                         
                         // Spin until we cool off
-                        while(temps.get(i).getCurrentTemperature() > temps.get(i).getDesiredTemp())
-                        {   
-                            temps = printJobConfig.getPrinterStatusObject().getCurrentToolTemperatures();
-                            Thread.currentThread().sleep(dispatchDelay);
+                            while(temps.get(i).getCurrentTemperature() > temps.get(i).getDesiredTemp())
+                            {   
+                                temps = printJobConfig.getPrinterStatusObject().getCurrentToolTemperatures();
+                                Thread.currentThread().sleep(dispatchDelay);
+                            }
                         }
-                    }
-                }     
+                    }    
+                }
+            
+            
+                // Wait here if we're paused //
+                while(isPaused)
+                {
+                    sleep(10);
+                }
+            
+                commsObject.sendGcode(gCodes.get(0));
+                gCodes.remove(0);
             }
-            
-            // Wait here if we're paused //
-            while(isPaused){}
-            
-            commsObject.sendGcode(gCodes.get(0));
-            gCodes.remove(0);
         }
         
         catch(InterruptedException ex)

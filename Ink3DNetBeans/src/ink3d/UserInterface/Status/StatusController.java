@@ -82,6 +82,7 @@ public class StatusController implements ActionListener {
                 view.getStartButton().setEnabled(true);
                 view.getPauseResumeButton().setEnabled(false);
                 view.getCancelButton().setEnabled(false);
+                statusMonitor.cancel();
             }
         }
     }
