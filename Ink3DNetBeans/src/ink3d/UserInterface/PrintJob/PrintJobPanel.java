@@ -12,6 +12,7 @@ import ink3d.Processing.ProcessorException;
 import ink3d.UserInterface.MainMenu.BadFieldException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +22,7 @@ import javax.swing.JOptionPane;
 public class PrintJobPanel extends javax.swing.JPanel {
     private PrintJobController printJobController = new PrintJobController();
     public static ArrayList<String> extruderMaterialArrayListForPrintJob = new ArrayList<>();
+    private JFrame parentFrame;
 
     /**
      * Creates new form PrintJobPanel

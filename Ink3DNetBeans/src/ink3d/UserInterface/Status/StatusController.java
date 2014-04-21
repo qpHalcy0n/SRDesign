@@ -13,6 +13,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -41,11 +42,13 @@ public class StatusController implements ActionListener {
     }
 
     public void display() {
-        JFrame frame = new JFrame();
-        frame.setSize(600, 600);
-        frame.setLayout(new BorderLayout());
-        frame.add(view);
-        frame.setVisible(true);
+        JDialog dialog = new JDialog();
+        dialog.setModal(true);
+        dialog.setSize(600, 600);
+        dialog.setLayout(new BorderLayout());
+        dialog.add(view);
+        dialog.setVisible(true);
+
     }
 
     private void start() {
@@ -97,5 +100,7 @@ public class StatusController implements ActionListener {
             view.addGCode(gcode);
         }
     }
+
+    
     
 }

@@ -76,12 +76,17 @@ public class StatusPanel extends JPanel {
         startButton = new JButton(START);
         startButton.addActionListener(controller);
         pauseResumeButton = new JButton(PAUSE);
+        pauseResumeButton.setEnabled(false);
         pauseResumeButton.addActionListener(controller);
         cancelButton = new JButton(CANCEL);
+        cancelButton.setEnabled(false);
         cancelButton.addActionListener(controller);
         actionPanel = new JPanel();
         actionPanel.setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER, BORDER, BORDER));
         actionPanel.setLayout(new BoxLayout(actionPanel, BoxLayout.LINE_AXIS));
+        actionPanel.add(exportButton);
+        actionPanel.add(Box.createRigidArea(new Dimension(15,0)));
+        actionPanel.add(startButton);
         actionPanel.add(Box.createRigidArea(new Dimension(15,0)));
         actionPanel.add(pauseResumeButton);
         actionPanel.add(Box.createRigidArea(new Dimension(15,0)));
@@ -163,9 +168,11 @@ public class StatusPanel extends JPanel {
 
     public void togglePauseResume() {
         if(pauseResumeButton.getText().equals(PAUSE)) {
+            System.out.println("Current state is 'pause', changing to 'resume'");
             pauseResumeButton.setText(RESUME);
         }
         else {
+            System.out.println("Current state is 'resume', changing to 'pause'");
             pauseResumeButton.setText(PAUSE);
         }
     }
