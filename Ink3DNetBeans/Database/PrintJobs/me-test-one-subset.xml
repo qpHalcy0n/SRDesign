@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <printjob>
     <name>me-test-one-subset</name>
-    <printerConfiguration>me-printer</printerConfiguration>
+    <printerConfiguration>dan</printerConfiguration>
     <extruderMarterial>
-        <extruder>PLA-35</extruder>
+        <extruder>Dan</extruder>
         <material>PLA-190C</material>
     </extruderMarterial>
     <subsetSelection>
         <bottomZ>0.0</bottomZ>
         <topZ>2.0</topZ>
+        <printConfiguration>me-test</printConfiguration>
         <fileSelection>
             <file>20mm-Basic-Cube-Solid</file>
             <extruderNum>0</extruderNum>

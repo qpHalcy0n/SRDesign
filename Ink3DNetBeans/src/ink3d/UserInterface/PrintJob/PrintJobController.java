@@ -93,6 +93,7 @@ public class PrintJobController {
                 subset.getFileConfigurations().add(new FileSelection(panels.get(i).getExtruderList().get(j), 
                                 PrintJobPanel.extruderMaterialArrayListForPrintJob.get(j).substring(3),
                         panels.get(i).getFileList().get(j)));
+                subset.setPrintConfiguration( panels.get(i).getPrint());
             }
             try{
                 d = Double.valueOf(panels.get(i).getStartZ());

@@ -58,7 +58,7 @@ public class GetPrintJobConfigurationCommand extends CommandStructure{
             subset = new SubsetConfiguration();
             subset.setBottomZ(set.getBottomZ());
             subset.setTopZ(set.getTopZ());
-            subset.setPrintConfiguration(db.getPrintConfiguration(selection.getPrinterConfiguration()));
+            subset.setPrintConfiguration(db.getPrintConfiguration(set.getPrintConfiguration()));
             subset.setFileConfigurations(fileList);
             subsetList.add(subset);
         }

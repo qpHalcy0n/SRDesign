@@ -29,7 +29,13 @@ public class SubsectionPanel extends javax.swing.JPanel {
     public void setFileList(ArrayList<String> fileList) {
         this.fileList = fileList;
     }
-
+    public String getPrint(){
+        return (String)this.printSelectionComboBox.getSelectedItem();
+    }
+    
+    public void setPrint(String name){
+        this.printSelectionComboBox.setSelectedItem(name);
+    }
     public String getStartZ(){
         return this.startSubsectionPrintJob.getText();
     }    
@@ -60,6 +66,7 @@ public class SubsectionPanel extends javax.swing.JPanel {
             extruderList.add(files.getExtruder());
         }
         initComponents();
+        this.printSelectionComboBox.setSelectedItem(subset.getPrintConfiguration());
         this.startSubsectionPrintJob.setText(Double.toString(subset.getBottomZ()));
         this.finishSubsectionPrintJob.setText(Double.toString(subset.getTopZ()));
     }
@@ -88,7 +95,7 @@ public class SubsectionPanel extends javax.swing.JPanel {
         finishSubsectionPrintJob = new javax.swing.JTextField();
         removeSubsectionButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        printSelectionComboBox = new javax.swing.JComboBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         fileListSubsection = new javax.swing.JList();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -122,7 +129,7 @@ public class SubsectionPanel extends javax.swing.JPanel {
 
         jLabel3.setText("Print Config:");
 
-        jComboBox1.setModel(new DefaultComboBoxModel(this.printJobController.loadAvailablePrints().toArray()));
+        printSelectionComboBox.setModel(new DefaultComboBoxModel(this.printJobController.loadAvailablePrints().toArray()));
 
         fileListSubsection.setModel(new PrintJobListModel(fileList));
         jScrollPane2.setViewportView(fileListSubsection);
@@ -222,7 +229,7 @@ public class SubsectionPanel extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(printSelectionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -245,7 +252,7 @@ public class SubsectionPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(printSelectionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -334,13 +341,13 @@ public class SubsectionPanel extends javax.swing.JPanel {
     private javax.swing.JList fileListSubsection;
     private javax.swing.JComboBox fileSeletionSubsectoinComboBox;
     private javax.swing.JTextField finishSubsectionPrintJob;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JComboBox printSelectionComboBox;
     private javax.swing.JButton removeExtruderSubsection;
     private javax.swing.JButton removeFileSubsection;
     private javax.swing.JButton removeSubsectionButton;
