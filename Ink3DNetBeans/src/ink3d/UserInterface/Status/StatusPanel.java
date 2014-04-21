@@ -31,8 +31,10 @@ import javax.swing.JTextField;
  */
 public class StatusPanel extends JPanel {
     private static final int BORDER = 10;
-    private static final String PAUSE = "Pause";
-    private static final String RESUME = "Resume";
+    private static final String EXPORT = "Export G-Code";
+    private static final String START = "Start";
+    public static final String PAUSE = "Pause";
+    public static final String RESUME = "Resume";
     private static final String CANCEL = "Cancel";
     
     private static final String EXTRUDER = "Extruder:";
@@ -40,6 +42,8 @@ public class StatusPanel extends JPanel {
     private static final String DESIRED_TEMP = "Desired Temperature:";
 
     private JPanel actionPanel;
+    private JButton exportButton;
+    private JButton startButton;
     private JButton pauseResumeButton;
     private JButton cancelButton;
 
@@ -59,15 +63,18 @@ public class StatusPanel extends JPanel {
     private PrintJobConfiguration printJob;
     private StatusController controller;
 
-    public StatusPanel(PrintJobConfiguration printJob) {
+    public StatusPanel(StatusController controller, PrintJobConfiguration printJob) {
+        this.controller = controller;
         this.printJob = printJob;
-        this.controller = new StatusController(this, printJob);
         initComponents();
     }
 
     private void initComponents() {
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-
+        exportButton = new JButton(EXPORT);
+        exportButton.addActionListener(controller);
+        startButton = new JButton(START);
+        startButton.addActionListener(controller);
         pauseResumeButton = new JButton(PAUSE);
         pauseResumeButton.addActionListener(controller);
         cancelButton = new JButton(CANCEL);
@@ -75,6 +82,7 @@ public class StatusPanel extends JPanel {
         actionPanel = new JPanel();
         actionPanel.setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER, BORDER, BORDER));
         actionPanel.setLayout(new BoxLayout(actionPanel, BoxLayout.LINE_AXIS));
+        actionPanel.add(Box.createRigidArea(new Dimension(15,0)));
         actionPanel.add(pauseResumeButton);
         actionPanel.add(Box.createRigidArea(new Dimension(15,0)));
         actionPanel.add(cancelButton);
@@ -133,10 +141,37 @@ public class StatusPanel extends JPanel {
         extruders.add(new ExtruderConfiguration());
         printJob.getPrinterConfiguration().setExtruderList(extruders);
 
-        StatusPanel statusPanel = new StatusPanel(printJob);
+        StatusController controller = new StatusController(printJob);
+
+        StatusPanel statusPanel = new StatusPanel(controller, printJob);
         frame.add(statusPanel);
         frame.setVisible(true);
 
+    }
+
+    public void addGCode(String gcode) {
+        ((DefaultListModel) gCodeList.getModel()).addElement(gcode);
+        System.out.println("Added G-Code:  " + gcode);
+    }
+
+    public void updateTemperatures(int tool, float currentTemp, float desiredTemp) {
+        currentTempTextFields.get(tool).setText(String.valueOf(currentTemp));
+        System.out.println("T" + tool + " current temp set to:  " + currentTemp);
+        desiredTempTextFields.get(tool).setText(String.valueOf(desiredTemp));
+        System.out.println("T" + tool + " desired temp set to:  " + desiredTemp);
+    }
+
+    public void togglePauseResume() {
+        if(pauseResumeButton.getText().equals(PAUSE)) {
+            pauseResumeButton.setText(RESUME);
+        }
+        else {
+            pauseResumeButton.setText(PAUSE);
+        }
+    }
+
+    public void clearGCodeList() {
+        ((DefaultListModel) gCodeList.getModel()).removeAllElements();
     }
 
     /**
@@ -347,6 +382,34 @@ public class StatusPanel extends JPanel {
      */
     public void setController(StatusController controller) {
         this.controller = controller;
+    }
+
+    /**
+     * @return the exportButton
+     */
+    public JButton getExportButton() {
+        return exportButton;
+    }
+
+    /**
+     * @param exportButton the exportButton to set
+     */
+    public void setExportButton(JButton exportButton) {
+        this.exportButton = exportButton;
+    }
+
+    /**
+     * @return the startButton
+     */
+    public JButton getStartButton() {
+        return startButton;
+    }
+
+    /**
+     * @param startButton the startButton to set
+     */
+    public void setStartButton(JButton startButton) {
+        this.startButton = startButton;
     }
 
 }

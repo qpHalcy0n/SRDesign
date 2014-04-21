@@ -23,6 +23,18 @@ public class TemperatureObject
     {
         return tool;
     }
+
+    public int getToolNumber() {
+        String numStr = tool.substring(1);
+        int num;
+        try {
+            num = Integer.parseInt(numStr);
+        }
+        catch(NumberFormatException ex) {
+            num = -1;
+        }
+        return num;
+    }
     
     public float getCurrentTemperature()
     {

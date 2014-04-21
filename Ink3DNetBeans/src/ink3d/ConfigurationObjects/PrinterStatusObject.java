@@ -33,6 +33,13 @@ public class PrinterStatusObject
         
         return true;
     }
+
+    public boolean hasGCodes() {
+        if(lastGcodesExecuted.size() <= 0) {
+            return false;
+        }
+        return true;
+    }
     
     public ArrayList<TemperatureObject> getCurrentToolTemperatures()
     {
