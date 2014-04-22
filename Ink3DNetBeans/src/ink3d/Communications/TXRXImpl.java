@@ -197,9 +197,13 @@ public class TXRXImpl implements TXRX
             return false;
         }
         
-        int mask = SerialPort.MASK_RXFLAG;
+        int mask = SerialPort.MASK_RXFLAG + SerialPort.MASK_TXEMPTY + SerialPort.MASK_CTS + SerialPort.MASK_DSR;
         try
         {
+            System.out.println("Port opened: " + serialPort.openPort());
+            System.out.println("Output buffer bytes: " + serialPort.getOutputBufferBytesCount());
+            System.out.println("Input buffer bytes: " + serialPort.getInputBufferBytesCount());
+            
             if(!serialPort.setEventsMask(mask))
                 return false;
             
@@ -337,7 +341,7 @@ public class TXRXImpl implements TXRX
      * 
      * This is where the sending and receipt of data actually happens
      */
-    class SerialPortReader implements SerialPortEventListener
+    static class SerialPortReader implements SerialPortEventListener
     {
         public void serialEvent(SerialPortEvent event)
         {
