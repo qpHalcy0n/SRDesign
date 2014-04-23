@@ -60,7 +60,7 @@ public class GetPrintConfigurationsCommandTest {
         speed.setBridgesSpeed(1.02);
         speed.setDefaultAcceleration(.1);
         speed.setExternalPerimetersSpeed(2.2);
-        speed.setFirstLayerSpeed(1.3);
+        speed.setFirstLayerSpeed(30);
         speed.setGapFillSpeed(1.2);
         speed.setInfillAcceleration(.3);
         speed.setInfillSpeed(1.5);

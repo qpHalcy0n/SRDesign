@@ -17,7 +17,7 @@ public class SpeedConfiguration {
     public static final double DEFAULT_BRIDGES_SPEED = 60.0;
     public static final double DEFAULT_GAP_FILL_SPEED = 20.0;
     public static final double DEFAULT_TRAVEL_SPEED = 120.0;
-    public static final double DEFAULT_FIRST_LAYER_SPEED = 10.0;
+    public static final int DEFAULT_FIRST_LAYER_SPEED = 30;
     public static final double DEFAULT_PERIMETERS_ACCELERATION = 0.0;
     public static final double DEFAULT_INFILL_ACCELERATION = 0.0;
     public static final double DEFAULT_BRIDGE_ACCELERATION = 0.0;
@@ -98,7 +98,7 @@ public class SpeedConfiguration {
     /**
      * Speed for the first layer (mm/s)
      */
-    private double firstLayerSpeed;
+    private int firstLayerSpeed;
 
     /**
      * Acceleration for perimeters (mm/s^2)
@@ -202,11 +202,11 @@ public class SpeedConfiguration {
         this.nonPrintMovesSpeed = nonPrintMovesSpeed;
     }
 
-    public double getFirstLayerSpeed() {
+    public int getFirstLayerSpeed() {
         return firstLayerSpeed;
     }
 
-    public void setFirstLayerSpeed(double firstLayerSpeed) {
+    public void setFirstLayerSpeed(int firstLayerSpeed) {
         this.firstLayerSpeed = firstLayerSpeed;
     }
 

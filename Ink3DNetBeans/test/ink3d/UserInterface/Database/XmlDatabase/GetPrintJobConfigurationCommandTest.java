@@ -74,7 +74,7 @@ public class GetPrintJobConfigurationCommandTest {
         speed2.setBridgesSpeed(1.02);
         speed2.setDefaultAcceleration(.1);
         speed2.setExternalPerimetersSpeed(2.2);
-        speed2.setFirstLayerSpeed(1.3);
+        speed2.setFirstLayerSpeed(30);
         speed2.setGapFillSpeed(1.2);
         speed2.setInfillAcceleration(.3);
         speed2.setInfillSpeed(1.5);
@@ -127,7 +127,7 @@ public class GetPrintJobConfigurationCommandTest {
         speed.setBridgesSpeed(1.02);
         speed.setDefaultAcceleration(.1);
         speed.setExternalPerimetersSpeed(2.2);
-        speed.setFirstLayerSpeed(1.3);
+        speed.setFirstLayerSpeed(30);
         speed.setGapFillSpeed(1.2);
         speed.setInfillAcceleration(.3);
         speed.setInfillSpeed(1.5);

@@ -72,7 +72,7 @@
         <defaultAcceleration>0.0</defaultAcceleration>
         <externalPerimetersSpeed>7.0</externalPerimetersSpeed>
         <firstLayerAcceleration>0.0</firstLayerAcceleration>
-        <firstLayerSpeed>9.0</firstLayerSpeed>
+        <firstLayerSpeed>30</firstLayerSpeed>
         <gapFillSpeed>10.0</gapFillSpeed>
         <infillAcceleration>0.0</infillAcceleration>
         <infillSpeed>10.0</infillSpeed>

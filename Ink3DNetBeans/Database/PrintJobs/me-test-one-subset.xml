@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <printjob>
     <name>me-test-one-subset</name>
-    <printerConfiguration>dan</printerConfiguration>
+    <printerConfiguration>me-printer</printerConfiguration>
     <extruderMarterial>
-        <extruder>Dan</extruder>
+        <extruder>PLA-35</extruder>
         <material>PLA-190C</material>
     </extruderMarterial>
     <subsetSelection>

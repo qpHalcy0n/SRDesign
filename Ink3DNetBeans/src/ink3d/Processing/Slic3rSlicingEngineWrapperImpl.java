@@ -247,7 +247,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             if(subsetNum == 0) {
                 appendProperty(sb, FIRST_LAYER_TEMPERATURE, getFirstLayerTemperatures(materials));
                 appendProperty(sb, FIRST_LAYER_BED_TEMPERATURE, 0);
-                appendProperty(sb, FIRST_LAYER_SPEED, speed.getFirstLayerSpeed());
+                appendProperty(sb, FIRST_LAYER_SPEED, String.valueOf(speed.getFirstLayerSpeed()) + "%");
                 appendProperty(sb, FIRST_LAYER_ACCELERATION, 0);
                 appendProperty(sb, FIRST_LAYER_HEIGHT, layerAndPerimeters.getFirstLayerHeight());
                 appendProperty(sb, BOTTOM_SOLID_LAYERS, layerAndPerimeters.getSolidBottomLayers());

@@ -81,7 +81,7 @@ public class XmlPersistenceFrameworkTest {
         speed2.setBridgesSpeed(1.02);
         speed2.setDefaultAcceleration(.1);
         speed2.setExternalPerimetersSpeed(2.2);
-        speed2.setFirstLayerSpeed(1.3);
+        speed2.setFirstLayerSpeed(30);
         speed2.setGapFillSpeed(1.2);
         speed2.setInfillAcceleration(.3);
         speed2.setInfillSpeed(1.5);
@@ -134,7 +134,7 @@ public class XmlPersistenceFrameworkTest {
         speed.setBridgesSpeed(1.02);
         speed.setDefaultAcceleration(.1);
         speed.setExternalPerimetersSpeed(2.2);
-        speed.setFirstLayerSpeed(1.3);
+        speed.setFirstLayerSpeed(30);
         speed.setGapFillSpeed(1.2);
         speed.setInfillAcceleration(.3);
         speed.setInfillSpeed(1.5);
@@ -583,7 +583,7 @@ public class XmlPersistenceFrameworkTest {
         speed.setBridgesSpeed(1.02);
         speed.setDefaultAcceleration(.1);
         speed.setExternalPerimetersSpeed(2.2);
-        speed.setFirstLayerSpeed(1.3);
+        speed.setFirstLayerSpeed(30);
         speed.setGapFillSpeed(1.2);
         speed.setInfillAcceleration(.3);
         speed.setInfillSpeed(1.5);
@@ -1021,7 +1021,7 @@ public class XmlPersistenceFrameworkTest {
         speed.setBridgesSpeed(1.02);
         speed.setDefaultAcceleration(.1);
         speed.setExternalPerimetersSpeed(2.2);
-        speed.setFirstLayerSpeed(1.3);
+        speed.setFirstLayerSpeed(30);
         speed.setGapFillSpeed(1.2);
         speed.setInfillAcceleration(.3);
         speed.setInfillSpeed(1.5);
@@ -1123,7 +1123,7 @@ public class XmlPersistenceFrameworkTest {
                     "        <bridgesSpeed>1.02</bridgesSpeed>\n" +
                     "        <defaultAcceleration>0.1</defaultAcceleration>\n" +
                     "        <externalPerimetersSpeed>2.2</externalPerimetersSpeed>\n" +
-                    "        <firstLayerSpeed>1.3</firstLayerSpeed>\n" +
+                    "        <firstLayerSpeed>30</firstLayerSpeed>\n" +
                     "        <gapFillSpeed>1.2</gapFillSpeed>\n" +
                     "        <infillAcceleration>0.3</infillAcceleration>\n" +
                     "        <infillSpeed>1.5</infillSpeed>\n" +
@@ -1509,7 +1509,7 @@ public class XmlPersistenceFrameworkTest {
         speed.setBridgesSpeed(1.02);
         speed.setDefaultAcceleration(.1);
         speed.setExternalPerimetersSpeed(2.2);
-        speed.setFirstLayerSpeed(1.3);
+        speed.setFirstLayerSpeed(30);
         speed.setGapFillSpeed(1.2);
         speed.setInfillAcceleration(.3);
         speed.setInfillSpeed(1.5);
@@ -1646,7 +1646,7 @@ public class XmlPersistenceFrameworkTest {
                             "        <defaultAcceleration>0.1</defaultAcceleration>\n" +
                             "        <externalPerimetersSpeed>2.2</externalPerimetersSpeed>\n" +
                             "        <firstLayerAcceleration>0.0</firstLayerAcceleration>\n" +
-                            "        <firstLayerSpeed>1.3</firstLayerSpeed>\n" +
+                            "        <firstLayerSpeed>30</firstLayerSpeed>\n" +
                             "        <gapFillSpeed>1.2</gapFillSpeed>\n" +
                             "        <infillAcceleration>0.3</infillAcceleration>\n" +
                             "        <infillSpeed>1.5</infillSpeed>\n" +

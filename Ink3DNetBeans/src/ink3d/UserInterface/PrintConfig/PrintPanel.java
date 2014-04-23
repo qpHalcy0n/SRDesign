@@ -235,25 +235,10 @@ public class PrintPanel extends javax.swing.JPanel {
         jLabel148 = new javax.swing.JLabel();
         supportMaterialPatternAngleText = new javax.swing.JTextField();
         supportMaterialInterfaceLayersText = new javax.swing.JTextField();
-        jPanel40 = new javax.swing.JPanel();
-        jLabel149 = new javax.swing.JLabel();
-        jLabel150 = new javax.swing.JLabel();
-        jLabel151 = new javax.swing.JLabel();
-        completeIndividualObjectsCheckBox = new javax.swing.JCheckBox();
-        jLabel152 = new javax.swing.JLabel();
-        jLabel153 = new javax.swing.JLabel();
-        extruderClearanceRadiusText = new javax.swing.JTextField();
-        extruderClearanceHeightText = new javax.swing.JTextField();
         jPanel41 = new javax.swing.JPanel();
         jLabel154 = new javax.swing.JLabel();
         jLabel155 = new javax.swing.JLabel();
-        jLabel156 = new javax.swing.JLabel();
         verboseGCodeCheckBox = new javax.swing.JCheckBox();
-        outputFilenameText = new javax.swing.JTextField();
-        jPanel42 = new javax.swing.JPanel();
-        jLabel157 = new javax.swing.JLabel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        postProcessingScriptsText = new javax.swing.JTextArea();
 
         setPreferredSize(new java.awt.Dimension(800, 600));
         setLayout(new java.awt.BorderLayout());
@@ -584,9 +569,7 @@ public class PrintPanel extends javax.swing.JPanel {
                         .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel44)
                             .addComponent(detectBridgesCheckBox)))
-                    .addGroup(jPanel26Layout.createSequentialGroup()
-                        .addComponent(generateExtraPerimetersCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)))
+                    .addComponent(generateExtraPerimetersCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1501,78 +1484,12 @@ public class PrintPanel extends javax.swing.JPanel {
 
         jPanel22.add(jPanel39);
 
-        jPanel40.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 10));
-
-        jLabel149.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel149.setText("Sequential Printing");
-
-        jLabel150.setText("Complete individual objects:");
-
-        jLabel151.setText("Extruder clearance (mm):");
-
-        jLabel152.setText("Radius:");
-
-        jLabel153.setText("Height:");
-
-        javax.swing.GroupLayout jPanel40Layout = new javax.swing.GroupLayout(jPanel40);
-        jPanel40.setLayout(jPanel40Layout);
-        jPanel40Layout.setHorizontalGroup(
-            jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel40Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel149)
-                    .addGroup(jPanel40Layout.createSequentialGroup()
-                        .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel40Layout.createSequentialGroup()
-                                .addComponent(jLabel150)
-                                .addGap(57, 57, 57))
-                            .addGroup(jPanel40Layout.createSequentialGroup()
-                                .addComponent(jLabel151)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel152)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel40Layout.createSequentialGroup()
-                                .addComponent(extruderClearanceRadiusText, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel153)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(extruderClearanceHeightText, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(completeIndividualObjectsCheckBox))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel40Layout.setVerticalGroup(
-            jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel40Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel149)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel40Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel150)
-                        .addGap(8, 8, 8)
-                        .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel151)
-                            .addComponent(jLabel152)
-                            .addComponent(jLabel153)
-                            .addComponent(extruderClearanceRadiusText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(extruderClearanceHeightText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(completeIndividualObjectsCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14))
-        );
-
-        jPanel22.add(jPanel40);
-
         jPanel41.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 10));
 
         jLabel154.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel154.setText("Output File");
 
         jLabel155.setText("Verbose G-Code:");
-
-        jLabel156.setText("Output filename format:");
 
         javax.swing.GroupLayout jPanel41Layout = new javax.swing.GroupLayout(jPanel41);
         jPanel41.setLayout(jPanel41Layout);
@@ -1583,14 +1500,10 @@ public class PrintPanel extends javax.swing.JPanel {
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel154)
                     .addGroup(jPanel41Layout.createSequentialGroup()
-                        .addComponent(jLabel156)
-                        .addGap(32, 32, 32)
-                        .addComponent(outputFilenameText, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel41Layout.createSequentialGroup()
                         .addComponent(jLabel155)
                         .addGap(108, 108, 108)
                         .addComponent(verboseGCodeCheckBox)))
-                .addContainerGap(246, Short.MAX_VALUE))
+                .addContainerGap(335, Short.MAX_VALUE))
         );
         jPanel41Layout.setVerticalGroup(
             jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1601,47 +1514,10 @@ public class PrintPanel extends javax.swing.JPanel {
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel155)
                     .addComponent(verboseGCodeCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel156)
-                    .addComponent(outputFilenameText, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14))
+                .addGap(37, 37, 37))
         );
 
         jPanel22.add(jPanel41);
-
-        jPanel42.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 10));
-
-        jLabel157.setText("Post Processing Scripts");
-
-        postProcessingScriptsText.setColumns(20);
-        postProcessingScriptsText.setRows(5);
-        jScrollPane8.setViewportView(postProcessingScriptsText);
-
-        javax.swing.GroupLayout jPanel42Layout = new javax.swing.GroupLayout(jPanel42);
-        jPanel42.setLayout(jPanel42Layout);
-        jPanel42Layout.setHorizontalGroup(
-            jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel42Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel42Layout.createSequentialGroup()
-                        .addComponent(jLabel157)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel42Layout.setVerticalGroup(
-            jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel42Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel157)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
-        );
-
-        jPanel22.add(jPanel42);
 
         jScrollPane7.setViewportView(jPanel22);
 
@@ -1724,7 +1600,6 @@ public class PrintPanel extends javax.swing.JPanel {
     private javax.swing.JTextField brimWidthText;
     private javax.swing.JTextField combineInfillEveryNLayersText;
     private javax.swing.JPanel commandPanel;
-    private javax.swing.JCheckBox completeIndividualObjectsCheckBox;
     private javax.swing.JCheckBox concavePointsCheckBox;
     private javax.swing.JPanel configPanel;
     private javax.swing.JTextField defaultAccelerationText;
@@ -1734,8 +1609,6 @@ public class PrintPanel extends javax.swing.JPanel {
     private javax.swing.JTextField enforceSupportForFirstNLayersText;
     private javax.swing.JCheckBox externalPerimetersFirstCheckBox;
     private javax.swing.JTextField externalPerimetersSpeedText;
-    private javax.swing.JTextField extruderClearanceHeightText;
-    private javax.swing.JTextField extruderClearanceRadiusText;
     private javax.swing.JTextField fillAngleText;
     private javax.swing.JTextField fillDensityPCText;
     private javax.swing.JComboBox fillPatternPCCombo;
@@ -1799,15 +1672,8 @@ public class PrintPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel146;
     private javax.swing.JLabel jLabel147;
     private javax.swing.JLabel jLabel148;
-    private javax.swing.JLabel jLabel149;
-    private javax.swing.JLabel jLabel150;
-    private javax.swing.JLabel jLabel151;
-    private javax.swing.JLabel jLabel152;
-    private javax.swing.JLabel jLabel153;
     private javax.swing.JLabel jLabel154;
     private javax.swing.JLabel jLabel155;
-    private javax.swing.JLabel jLabel156;
-    private javax.swing.JLabel jLabel157;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
@@ -1878,11 +1744,8 @@ public class PrintPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel37;
     private javax.swing.JPanel jPanel38;
     private javax.swing.JPanel jPanel39;
-    private javax.swing.JPanel jPanel40;
     private javax.swing.JPanel jPanel41;
-    private javax.swing.JPanel jPanel42;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTextField layerHeightPCText;
     private javax.swing.JButton loadBtn;
     private javax.swing.JLabel nameLbl;
@@ -1891,12 +1754,10 @@ public class PrintPanel extends javax.swing.JPanel {
     private javax.swing.JButton newBtn;
     private javax.swing.JCheckBox nonOverhangsCheckBox;
     private javax.swing.JCheckBox onlyRetractInfillWhenCrossingPerimetersCheckBox;
-    private javax.swing.JTextField outputFilenameText;
     private javax.swing.JTextField overhangThresholdText;
     private javax.swing.JTextField perimetersAccelerationText;
     private javax.swing.JTextField perimetersSpeedText;
     private javax.swing.JTextField perimetersText;
-    private javax.swing.JTextArea postProcessingScriptsText;
     private javax.swing.JList printConfigList;
     private javax.swing.JTextField raftLayersText;
     private javax.swing.JCheckBox randomizeStartingPointsCheckBox;
@@ -2046,7 +1907,7 @@ public class PrintPanel extends javax.swing.JPanel {
                 travelSpeedText.getText());
         speed.setNonPrintMovesSpeed(travelSpeed);
 
-        double firstLayerSpeed = InputValidationUtility.parseDouble("First Layer Speed",
+        int firstLayerSpeed = InputValidationUtility.parseInt("First Layer Speed",
                 firstLayerSpeedText.getText());
         speed.setFirstLayerSpeed(firstLayerSpeed);
 

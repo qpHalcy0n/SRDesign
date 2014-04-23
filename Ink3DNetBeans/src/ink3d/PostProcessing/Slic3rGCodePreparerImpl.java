@@ -97,6 +97,12 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
         System.out.println("Completed writing printer end G-Code.");
         // Set the reference for the finalized GCode in the Print Job.
         printJob.setFinalizedGCode(finalizedGCode);
+        try {
+            outFile.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Slic3rGCodePreparerImpl.class.getName()).log(Level.SEVERE, null, ex);
+            throw new PostProcessorException("Could not close final G-Code File.");
+        }
         
         System.out.println("File path:  " + finalizedGCode.getAbsolutePath());
 
@@ -132,8 +138,16 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
     private boolean writeSubsetGCode(BufferedWriter outputFile, SubsetConfiguration subset) {
         File subsetGCodeFile = subset.getgCodeFile();
         System.out.println("Subset G-Code File:  " + subsetGCodeFile.getAbsolutePath());
+
+        
         Pattern toolSelectionPattern = Pattern.compile("^(T[0-9])");
         try {
+            // special case when only one extruder is needed, we must explicitly select it.
+            if(subset.getExtrudersNeeded().size() == 1) {
+                String tCode = "T" + subset.getExtrudersNeeded().get(0) + "\n";
+                outputFile.append(tCode);
+            }
+
             BufferedReader subsetGCode = new BufferedReader(new FileReader(subsetGCodeFile));
             
             //

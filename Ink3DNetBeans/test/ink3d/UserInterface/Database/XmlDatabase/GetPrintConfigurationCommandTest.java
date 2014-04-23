@@ -44,7 +44,7 @@ public class GetPrintConfigurationCommandTest {
         speed.setBridgesSpeed(1.02);
         speed.setDefaultAcceleration(.1);
         speed.setExternalPerimetersSpeed(2.2);
-        speed.setFirstLayerSpeed(1.3);
+        speed.setFirstLayerSpeed(30);
         speed.setGapFillSpeed(1.2);
         speed.setInfillAcceleration(.3);
         speed.setInfillSpeed(1.5);
@@ -148,7 +148,7 @@ public class GetPrintConfigurationCommandTest {
                     "        <bridgesSpeed>1.02</bridgesSpeed>\n" +
                     "        <defaultAcceleration>0.1</defaultAcceleration>\n" +
                     "        <externalPerimetersSpeed>2.2</externalPerimetersSpeed>\n" +
-                    "        <firstLayerSpeed>1.3</firstLayerSpeed>\n" +
+                    "        <firstLayerSpeed>30</firstLayerSpeed>\n" +
                     "        <gapFillSpeed>1.2</gapFillSpeed>\n" +
                     "        <infillAcceleration>0.3</infillAcceleration>\n" +
                     "        <infillSpeed>1.5</infillSpeed>\n" +
