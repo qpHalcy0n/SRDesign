@@ -51,6 +51,10 @@ public class PrintJobController {
     ArrayList<String> loadAvailablePrintJobs(){
         return db.getPrintJobSelectionss();
     }
+        
+    public void deletePrintJobSelection(String name){
+        db.deletePrintJobSelection(name);
+    }
     
     ArrayList<String> loadAvailablePrinters(){
         return db.getPrinterConfigurations();

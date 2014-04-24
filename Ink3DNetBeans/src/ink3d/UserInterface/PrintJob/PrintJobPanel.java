@@ -97,6 +97,11 @@ public class PrintJobPanel extends javax.swing.JPanel {
         });
 
         deletePrintJobButton.setText("Delete");
+        deletePrintJobButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                deletePrintJobButtonMouseReleased(evt);
+            }
+        });
 
         jLabel4.setText("Print Job Configs");
 
@@ -310,6 +315,7 @@ public class PrintJobPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Please select a print job before loading." , "InfoBox: " + "Bad Field Data",JOptionPane.INFORMATION_MESSAGE);
             return;
         }
+        PrintJobPanel.extruderMaterialArrayListForPrintJob = new ArrayList<>();
         ArrayList<String> varList = printJobController.loadPrintJobSelection(this.printJobLList.getSelectedValue().toString());
         this.namePrintJobText.setText(varList.get(0));
         this.printerSelectionPrintJobComboBox.setSelectedItem(varList.get(1));
@@ -342,6 +348,15 @@ public class PrintJobPanel extends javax.swing.JPanel {
            JOptionPane.showMessageDialog(null, e.getMessage() , "InfoBox: " + "Post processing error",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_startPrintPrintJobButtonMouseReleased
+
+    private void deletePrintJobButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deletePrintJobButtonMouseReleased
+        if(this.printJobLList.getSelectedIndex()==-1){
+            JOptionPane.showMessageDialog(null, "Please save and select a print job before runing." , "InfoBox: " + "Bad Field Data",JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        this.printJobController.deletePrintJobSelection(this.printJobLList.getSelectedValue().toString());
+        this.updateUI();
+    }//GEN-LAST:event_deletePrintJobButtonMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
