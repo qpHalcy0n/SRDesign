@@ -6,6 +6,8 @@
 
 package ink3d;
 
+import ink3d.UserInterface.MainMenu.MainWindow;
+
 /**
  *
  * @author daniellain
@@ -16,7 +18,8 @@ public class Ink3DNetBeans {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        MainWindow window = new MainWindow();
+        window.setVisible(true);
     }
     
 }
