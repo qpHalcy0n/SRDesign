@@ -145,13 +145,13 @@ public class PrinterController {
             config.getHardware().setLineEnd(new Integer(vars.get(15)));
             
             i = new Integer(vars.get(16));
-            if(i>0)config.setBedTempFirstLayer(i);
+            if(i>=0)config.setBedTempFirstLayer(i);
             else {
                 throw new BadFieldException("Bed Temp first layer must be a integer value greater than or equal 0.");
             }
             
             i = new Integer(vars.get(17));
-            if(i>0)config.setBedTemp(i);
+            if(i>=0)config.setBedTemp(i);
             else {
                 throw new BadFieldException("Bed Temp must be a integer value greater than or equal 0.");
             }

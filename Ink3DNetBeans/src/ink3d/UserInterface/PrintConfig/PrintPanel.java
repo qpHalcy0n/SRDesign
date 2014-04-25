@@ -1592,7 +1592,7 @@ public class PrintPanel extends javax.swing.JPanel {
             MainWindow.printJobPanel.updateSubsectionPanels();
         } catch (BadFieldException ex) {
             JOptionPane.showMessageDialog(null,ex.getMessage(), ex.getMessage(), JOptionPane.INFORMATION_MESSAGE);
-            Logger.getLogger(ExtruderPanel.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(ExtruderPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_saveBtnActionPerformed
 

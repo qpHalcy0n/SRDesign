@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<material>
+    <bridgeFanSpeedPercent>100</bridgeFanSpeedPercent>
+    <disableFanForFirstNLayers>1</disableFanForFirstNLayers>
+    <enableAutoCooling>true</enableAutoCooling>
+    <enableFanTimeThreshold>60</enableFanTimeThreshold>
+    <extraLengthAfterRetraction>1.0</extraLengthAfterRetraction>
+    <extraLengthOnToolReenable>1.0</extraLengthOnToolReenable>
+    <extrusionMultiplier>1.0</extrusionMultiplier>
+    <extrusionTemperature>190</extrusionTemperature>
+    <fanAlwaysOn>false</fanAlwaysOn>
+    <filamentDiameter>1.75</filamentDiameter>
+    <firstLayerExtrusionTemperature>190</firstLayerExtrusionTemperature>
+    <maxFanSpeed>100</maxFanSpeed>
+    <minFanSpeed>35</minFanSpeed>
+    <minPrintSpeed>10</minPrintSpeed>
+    <minimumTravelAfterRetraction>2.0</minimumTravelAfterRetraction>
+    <name>PLA-190C</name>
+    <retractOnLayerChange>false</retractOnLayerChange>
+    <retractionLength>15.0</retractionLength>
+    <retractionLengthBeforeToolChange>1.0</retractionLengthBeforeToolChange>
+    <retractionLiftZ>1.0</retractionLiftZ>
+    <retractionSpeed>20</retractionSpeed>
+    <slowDownTimeTreshold>30</slowDownTimeTreshold>
+    <wipeBeforeRetract>false</wipeBeforeRetract>
+    <gCodeEnd></gCodeEnd>
+    <gCodeStart></gCodeStart>
+</material>

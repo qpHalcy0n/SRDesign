@@ -40,7 +40,7 @@ public class PrintController {
         return db.getPrintConfiguration(name);
     }
 
-    public boolean savePrintConfiguration(PrintConfiguration printConfiguration) {
+    public boolean savePrintConfiguration(PrintConfiguration printConfiguration) throws BadFieldException {
         if(validatePrintConfiguration(printConfiguration)) {
             db.savePrintConfiguration(printConfiguration);
             return true;
@@ -54,28 +54,22 @@ public class PrintController {
         return db.deletePrintConfiguration(name);
     }
 
-    private boolean validatePrintConfiguration(PrintConfiguration print) {
-        try {
-            validateInfillConfiguration(print.getInfillConfiguration());
-            validateLayerAndPerimeterConfiguration(print.getLayerPerimiterConfiguration());
-            validateSpeedConfiguration(print.getSpeedConfiguration());
-            validateSkirtAndBrimConfiguration(print.getSkirtAndBrimConfiguration());
-            validateSupportMaterialConfiguration(print.getSupportMaterialConfiguration());
-            validateCoolingConfiguration(print.getCoolingConfiguration());
-            validateExtrusionWidthConfiguration(print.getExtrusionWidthConfiguration());
-            InputValidationUtility.checkIfInRange("Bed Temperature", print.getBedTemperature(), 0, Integer.MAX_VALUE);
-            InputValidationUtility.checkIfInRange("First Layer Bed Temperature", print.getFirstLayerBedTemperature(), 0, Integer.MAX_VALUE);
-            InputValidationUtility.checkIfInRange("Bridge Flow Ratio", print.getBridgeFlowRatio(), 0.0, Double.POSITIVE_INFINITY);
-            InputValidationUtility.checkIfInRange("Perimeter Extruder", print.getPerimeterExtruder(), 0, Integer.MAX_VALUE);
-            InputValidationUtility.checkIfInRange("Infill Extruder", print.getInfillExtruder(), 0, Integer.MAX_VALUE);
-            InputValidationUtility.checkIfInRange("Support Material Extruder", print.getSupportMaterialExtruder(), 0, Integer.MAX_VALUE);
-            InputValidationUtility.checkIfInRange("Support Material Interface Extruder", print.getSupportMaterialInterfaceExtruder(), 0, Integer.MAX_VALUE);
-            return true;
-        } catch (BadFieldException ex) {
-            Logger.getLogger(PrintController.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-        
+    private boolean validatePrintConfiguration(PrintConfiguration print) throws BadFieldException {
+        validateInfillConfiguration(print.getInfillConfiguration());
+        validateLayerAndPerimeterConfiguration(print.getLayerPerimiterConfiguration());
+        validateSpeedConfiguration(print.getSpeedConfiguration());
+        validateSkirtAndBrimConfiguration(print.getSkirtAndBrimConfiguration());
+        validateSupportMaterialConfiguration(print.getSupportMaterialConfiguration());
+        validateCoolingConfiguration(print.getCoolingConfiguration());
+        validateExtrusionWidthConfiguration(print.getExtrusionWidthConfiguration());
+        InputValidationUtility.checkIfInRange("Bed Temperature", print.getBedTemperature(), 0, Integer.MAX_VALUE);
+        InputValidationUtility.checkIfInRange("First Layer Bed Temperature", print.getFirstLayerBedTemperature(), 0, Integer.MAX_VALUE);
+        InputValidationUtility.checkIfInRange("Bridge Flow Ratio", print.getBridgeFlowRatio(), 0.0, Double.POSITIVE_INFINITY);
+        InputValidationUtility.checkIfInRange("Perimeter Extruder", print.getPerimeterExtruder(), 0, Integer.MAX_VALUE);
+        InputValidationUtility.checkIfInRange("Infill Extruder", print.getInfillExtruder(), 0, Integer.MAX_VALUE);
+        InputValidationUtility.checkIfInRange("Support Material Extruder", print.getSupportMaterialExtruder(), 0, Integer.MAX_VALUE);
+        InputValidationUtility.checkIfInRange("Support Material Interface Extruder", print.getSupportMaterialInterfaceExtruder(), 0, Integer.MAX_VALUE);
+        return true;
     }
 
     private boolean validateInfillConfiguration(InfillConfiguration infill) throws BadFieldException {
