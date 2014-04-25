@@ -33,13 +33,12 @@ import javax.xml.transform.stream.StreamResult;
 import org.j3d.loaders.stl.STLFileReader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import sun.misc.Sort;
 
 /**
  *
  * @author Tim
  */
-<span class="fc" id="L42">public class Slic3rNormalizerImpl implements Normalizer {</span>
+<span class="fc" id="L41">public class Slic3rNormalizerImpl implements Normalizer {</span>
     private static final String AMF_TAG = &quot;amf&quot;;
     private static final String MATERIAL_TAG = &quot;material&quot;;
     private static final String METADATA_TAG = &quot;metadata&quot;;
@@ -65,7 +64,7 @@ import sun.misc.Sort;
     public static final String STL_DIR = &quot;subset-stl-files&quot;;
     public static final String AMF_DIR = &quot;subset-amf-files&quot;;
     private static final String AMF_EXTENSION = &quot;.amf&quot;;
-<span class="fc" id="L68">    private static final String OPENSCAD_PATH = &quot;third-party&quot; + File.separator</span>
+<span class="fc" id="L67">    private static final String OPENSCAD_PATH = &quot;third-party&quot; + File.separator</span>
             + &quot;openscad&quot; + File.separator + &quot;openscad.exe&quot;;
     
 
@@ -73,220 +72,220 @@ import sun.misc.Sort;
 	public boolean normalize(PrintJobConfiguration printJobConfiguration) throws PreprocessorException {
         // Return false if any operation the process fails.
         // Otherwise return true.
-<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        if(!subsectionFiles(printJobConfiguration)) {</span>
-<span class="nc" id="L77">            return false;</span>
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">        if(!subsectionFiles(printJobConfiguration)) {</span>
+<span class="nc" id="L76">            return false;</span>
         }
-<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if(!translateFiles(printJobConfiguration)) {</span>
-<span class="nc" id="L80">            return false;</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">        if(!translateFiles(printJobConfiguration)) {</span>
+<span class="nc" id="L79">            return false;</span>
         }
-<span class="fc" id="L82">        return true;</span>
+<span class="fc" id="L81">        return true;</span>
 	}
 
     public boolean subsectionFiles(PrintJobConfiguration printJobConfiguration) {
-<span class="fc" id="L86">        List&lt;SubsetConfiguration&gt; subsets = printJobConfiguration.getSubsetConfigurationList();</span>
+<span class="fc" id="L85">        List&lt;SubsetConfiguration&gt; subsets = printJobConfiguration.getSubsetConfigurationList();</span>
 
         // Count used for naming subsection files.
-<span class="fc" id="L89">        int subsetNum = 0;</span>
-<span class="fc bfc" id="L90" title="All 2 branches covered.">        for(SubsetConfiguration subset : subsets) {</span>
-<span class="fc bfc" id="L91" title="All 2 branches covered.">            for(FileConfiguration fileConfig : subset.getFileConfigurations()) {</span>
+<span class="fc" id="L88">        int subsetNum = 0;</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        for(SubsetConfiguration subset : subsets) {</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">            for(FileConfiguration fileConfig : subset.getFileConfigurations()) {</span>
                 try {
-<span class="fc" id="L93">                    File parentStlFile = fileConfig.getParentSTLFile();</span>
-<span class="fc" id="L94">                    File scadFile = buildScadFile(printJobConfiguration.getName(), parentStlFile,</span>
+<span class="fc" id="L92">                    File parentStlFile = fileConfig.getParentSTLFile();</span>
+<span class="fc" id="L93">                    File scadFile = buildScadFile(printJobConfiguration.getName(), parentStlFile,</span>
                             subsetNum, subset.getBottomZ(), subset.getTopZ());
                     
                     // build the name of the subset STL file based on parent STL filename and subset number
                     // &quot;&lt;stlDir&gt;/parentStlFilname-sub#.stl&quot;
-<span class="fc" id="L99">                    String subsetStlFilename = createSubsetStlFilename(printJobConfiguration.getName(), parentStlFile.getName(), subsetNum);</span>
+<span class="fc" id="L98">                    String subsetStlFilename = createSubsetStlFilename(printJobConfiguration.getName(), parentStlFile.getName(), subsetNum);</span>
 
                     // build directory to store subset STL file
-<span class="fc" id="L102">                    File subsetStlDir = new File(subsetStlFilename).getParentFile();</span>
-<span class="fc bfc" id="L103" title="All 2 branches covered.">                    if(!subsetStlDir.exists()) {</span>
-<span class="fc" id="L104">                        boolean success = subsetStlDir.mkdirs();</span>
-<span class="pc bpc" id="L105" title="1 of 2 branches missed.">                        if(!success) {</span>
-<span class="nc" id="L106">                            throw new PreprocessorException(&quot;Could not create directory for STL files.&quot;);</span>
+<span class="fc" id="L101">                    File subsetStlDir = new File(subsetStlFilename).getParentFile();</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">                    if(!subsetStlDir.exists()) {</span>
+<span class="fc" id="L103">                        boolean success = subsetStlDir.mkdirs();</span>
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">                        if(!success) {</span>
+<span class="nc" id="L105">                            throw new PreprocessorException(&quot;Could not create directory for STL files.&quot;);</span>
                         }
                     }
 
                     // execute Open Scad to make subsection
                     try {
-<span class="fc" id="L112">                        String baseDir = new File(&quot;&quot;).getAbsolutePath();</span>
-<span class="fc" id="L113">                        String command = baseDir + File.separator + OPENSCAD_PATH + &quot; -o &quot; + &quot;\&quot;&quot; + subsetStlFilename + &quot;\&quot; \&quot;&quot; + scadFile.getAbsolutePath() + &quot;\&quot;&quot;;</span>
-<span class="fc" id="L114">                        Process openScadProcess = Runtime.getRuntime().exec(command);</span>
+<span class="fc" id="L111">                        String baseDir = new File(&quot;&quot;).getAbsolutePath();</span>
+<span class="fc" id="L112">                        String command = baseDir + File.separator + OPENSCAD_PATH + &quot; -o &quot; + &quot;\&quot;&quot; + subsetStlFilename + &quot;\&quot; \&quot;&quot; + scadFile.getAbsolutePath() + &quot;\&quot;&quot;;</span>
+<span class="fc" id="L113">                        Process openScadProcess = Runtime.getRuntime().exec(command);</span>
                         // TODO:  Read output/error stream from process to find error messages.
                         //        Problems can occur where Open SCAD cannot subset STL files
                         //        properly (try to Feed Housing from 0-10 10-22).
 
                         // wait for open scad to finish processing before continuing
                         // TODO:  May want to optimize this in the future.
-<span class="fc" id="L121">                        openScadProcess.waitFor();</span>
+<span class="fc" id="L120">                        openScadProcess.waitFor();</span>
                     }
-<span class="nc" id="L123">                    catch(Exception ex) {</span>
-<span class="nc" id="L124">                        throw new PreprocessorException(&quot;Unable to subset stl file:  &quot; + subsetStlFilename + &quot;.  Please check the file you are subsetting.&quot;);</span>
-<span class="fc" id="L125">                    }</span>
+<span class="nc" id="L122">                    catch(Exception ex) {</span>
+<span class="nc" id="L123">                        throw new PreprocessorException(&quot;Unable to subset stl file:  &quot; + subsetStlFilename + &quot;.  Please check the file you are subsetting.&quot;);</span>
+<span class="fc" id="L124">                    }</span>
                     
                     // Create reference to file that Open Scad (should have) created
-<span class="fc" id="L128">                    File subsetStlFile = new File(subsetStlFilename);</span>
-<span class="pc bpc" id="L129" title="1 of 2 branches missed.">                    if(subsetStlFile.exists()) {</span>
-<span class="fc" id="L130">                        fileConfig.setSubsetSTL(subsetStlFile);</span>
+<span class="fc" id="L127">                    File subsetStlFile = new File(subsetStlFilename);</span>
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">                    if(subsetStlFile.exists()) {</span>
+<span class="fc" id="L129">                        fileConfig.setSubsetSTL(subsetStlFile);</span>
                     }
                     else {
                         // TODO: Create custom exception?
                         // Open Scad didn't create the subset stl file, throw exception
-<span class="nc" id="L135">                        throw new Exception(&quot;Did not create subsection STL file.&quot;);</span>
+<span class="nc" id="L134">                        throw new Exception(&quot;Did not create subsection STL file.&quot;);</span>
                     }
                 }
-<span class="nc" id="L138">                catch (IOException ex) {</span>
-<span class="nc" id="L139">                    Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);</span>
-<span class="nc" id="L140">                    return false;</span>
+<span class="nc" id="L137">                catch (IOException ex) {</span>
+<span class="nc" id="L138">                    Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);</span>
+<span class="nc" id="L139">                    return false;</span>
                 }
-<span class="nc" id="L142">                catch (Exception ex) {</span>
-<span class="nc" id="L143">                    Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);</span>
-<span class="nc" id="L144">                    return false;</span>
-<span class="fc" id="L145">                }</span>
-<span class="fc" id="L146">            }</span>
+<span class="nc" id="L141">                catch (Exception ex) {</span>
+<span class="nc" id="L142">                    Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);</span>
+<span class="nc" id="L143">                    return false;</span>
+<span class="fc" id="L144">                }</span>
+<span class="fc" id="L145">            }</span>
             // increment the subsection num (for naming open scad and subset stl files)
-<span class="fc" id="L148">            subsetNum++;</span>
-<span class="fc" id="L149">        }</span>
-<span class="fc" id="L150">        return true;</span>
+<span class="fc" id="L147">            subsetNum++;</span>
+<span class="fc" id="L148">        }</span>
+<span class="fc" id="L149">        return true;</span>
     }
 
     private File buildScadFile(String printJobName, File parentStl,
             int subsetNum, double zMin, double zMax) throws Exception {
         // Find the xMin, xMax, yMin, yMax of the parent STL file
         // TODO: Optimize
-<span class="fc" id="L157">        STLFileReader reader = new STLFileReader(parentStl);</span>
-<span class="fc" id="L158">        int[] numFacets = reader.getNumOfFacets();</span>
-<span class="pc bpc" id="L159" title="1 of 2 branches missed.">        if(numFacets[0] &lt; 1) {</span>
+<span class="fc" id="L156">        STLFileReader reader = new STLFileReader(parentStl);</span>
+<span class="fc" id="L157">        int[] numFacets = reader.getNumOfFacets();</span>
+<span class="pc bpc" id="L158" title="1 of 2 branches missed.">        if(numFacets[0] &lt; 1) {</span>
             // TODO:  Make custom Exception
-<span class="nc" id="L161">            throw new Exception(&quot;Cannot create SCAD file for empty STL file.&quot;);</span>
+<span class="nc" id="L160">            throw new Exception(&quot;Cannot create SCAD file for empty STL file.&quot;);</span>
         }
 
-<span class="fc" id="L164">        double xMin = Double.POSITIVE_INFINITY;</span>
-<span class="fc" id="L165">        double xMax = Double.NEGATIVE_INFINITY;</span>
-<span class="fc" id="L166">        double yMin = Double.POSITIVE_INFINITY;</span>
-<span class="fc" id="L167">        double yMax = Double.NEGATIVE_INFINITY;</span>
+<span class="fc" id="L163">        double xMin = Double.POSITIVE_INFINITY;</span>
+<span class="fc" id="L164">        double xMax = Double.NEGATIVE_INFINITY;</span>
+<span class="fc" id="L165">        double yMin = Double.POSITIVE_INFINITY;</span>
+<span class="fc" id="L166">        double yMax = Double.NEGATIVE_INFINITY;</span>
 
-<span class="fc" id="L169">        double[] normal = new double[3];</span>
-<span class="fc" id="L170">        double[][] verticies = new double[3][3];</span>
-<span class="fc bfc" id="L171" title="All 2 branches covered.">        for(int i = 0; i &lt; numFacets[0]; i++) {</span>
-<span class="fc" id="L172">            reader.getNextFacet(normal, verticies);</span>
-<span class="fc bfc" id="L173" title="All 2 branches covered.">            for(int j = 0; j &lt; 3; j++) {</span>
-<span class="fc" id="L174">                double x = verticies[j][0];</span>
-<span class="fc" id="L175">                double y = verticies[j][1];</span>
-<span class="fc bfc" id="L176" title="All 2 branches covered.">                if(x &lt; xMin) {</span>
-<span class="fc" id="L177">                    xMin = x;</span>
+<span class="fc" id="L168">        double[] normal = new double[3];</span>
+<span class="fc" id="L169">        double[][] verticies = new double[3][3];</span>
+<span class="fc bfc" id="L170" title="All 2 branches covered.">        for(int i = 0; i &lt; numFacets[0]; i++) {</span>
+<span class="fc" id="L171">            reader.getNextFacet(normal, verticies);</span>
+<span class="fc bfc" id="L172" title="All 2 branches covered.">            for(int j = 0; j &lt; 3; j++) {</span>
+<span class="fc" id="L173">                double x = verticies[j][0];</span>
+<span class="fc" id="L174">                double y = verticies[j][1];</span>
+<span class="fc bfc" id="L175" title="All 2 branches covered.">                if(x &lt; xMin) {</span>
+<span class="fc" id="L176">                    xMin = x;</span>
                 }
-<span class="fc bfc" id="L179" title="All 2 branches covered.">                else if(x &gt; xMax) {</span>
-<span class="fc" id="L180">                    xMax = x;</span>
+<span class="fc bfc" id="L178" title="All 2 branches covered.">                else if(x &gt; xMax) {</span>
+<span class="fc" id="L179">                    xMax = x;</span>
                 }
-<span class="fc bfc" id="L182" title="All 2 branches covered.">                if(y &lt; yMin) {</span>
-<span class="fc" id="L183">                    yMin = y;</span>
+<span class="fc bfc" id="L181" title="All 2 branches covered.">                if(y &lt; yMin) {</span>
+<span class="fc" id="L182">                    yMin = y;</span>
                 }
-<span class="fc bfc" id="L185" title="All 2 branches covered.">                else if(y &gt; yMax) {</span>
-<span class="fc" id="L186">                    yMax = y;</span>
+<span class="fc bfc" id="L184" title="All 2 branches covered.">                else if(y &gt; yMax) {</span>
+<span class="fc" id="L185">                    yMax = y;</span>
                 }
             }
         }
         
-<span class="fc" id="L191">        File scadFile = new File(createOpenScadFilename(printJobName, parentStl.getName(), subsetNum));</span>
+<span class="fc" id="L190">        File scadFile = new File(createOpenScadFilename(printJobName, parentStl.getName(), subsetNum));</span>
         // Escape the file separators in the filename string so that they will be
         // escaped in open scad.
         // TODO: Currently hardcoded for windows.
         // This needs to be fixed, but Java does some strange regex stuff with &quot;\&quot;
-<span class="fc" id="L196">        String inputFile = parentStl.getAbsolutePath().replaceAll(&quot;\\\\&quot;, &quot;\\\\\\\\&quot;);</span>
-<span class="fc" id="L197">        String scadScript = createOpenScadScriptString(</span>
+<span class="fc" id="L195">        String inputFile = parentStl.getAbsolutePath().replaceAll(&quot;\\\\&quot;, &quot;\\\\\\\\&quot;);</span>
+<span class="fc" id="L196">        String scadScript = createOpenScadScriptString(</span>
                 inputFile, xMin, xMax, yMin, yMax, zMin, zMax);
         
         // Create Open Scad file and directory
-<span class="pc bpc" id="L201" title="1 of 2 branches missed.">        if(!scadFile.exists()) {</span>
-<span class="fc" id="L202">            File scadFileDir = scadFile.getParentFile();</span>
-<span class="fc bfc" id="L203" title="All 2 branches covered.">            if(!scadFileDir.exists()) {</span>
-<span class="fc" id="L204">                boolean success = scadFileDir.mkdirs();</span>
-<span class="pc bpc" id="L205" title="1 of 2 branches missed.">                if(!success) {</span>
-<span class="nc" id="L206">                    throw new Exception(&quot;Could not create Open Scad Files&quot;);</span>
+<span class="pc bpc" id="L200" title="1 of 2 branches missed.">        if(!scadFile.exists()) {</span>
+<span class="fc" id="L201">            File scadFileDir = scadFile.getParentFile();</span>
+<span class="fc bfc" id="L202" title="All 2 branches covered.">            if(!scadFileDir.exists()) {</span>
+<span class="fc" id="L203">                boolean success = scadFileDir.mkdirs();</span>
+<span class="pc bpc" id="L204" title="1 of 2 branches missed.">                if(!success) {</span>
+<span class="nc" id="L205">                    throw new Exception(&quot;Could not create Open Scad Files&quot;);</span>
                 }
             }
-<span class="fc" id="L209">            scadFile.createNewFile();</span>
+<span class="fc" id="L208">            scadFile.createNewFile();</span>
         }
 
-<span class="fc" id="L212">        FileWriter fw = new FileWriter(scadFile);</span>
-<span class="fc" id="L213">        BufferedWriter bw = new BufferedWriter(fw);</span>
-<span class="fc" id="L214">        bw.write(scadScript);</span>
-<span class="fc" id="L215">        bw.close();</span>
+<span class="fc" id="L211">        FileWriter fw = new FileWriter(scadFile);</span>
+<span class="fc" id="L212">        BufferedWriter bw = new BufferedWriter(fw);</span>
+<span class="fc" id="L213">        bw.write(scadScript);</span>
+<span class="fc" id="L214">        bw.close();</span>
 
-<span class="fc" id="L217">        return scadFile;</span>
+<span class="fc" id="L216">        return scadFile;</span>
 
     }
     
     private String createOpenScadFilename(String printJobName, String parentFilename, int subsetNum) {
-<span class="fc" id="L222">        String parentName = parentFilename</span>
+<span class="fc" id="L221">        String parentName = parentFilename</span>
                 .substring(0, parentFilename.length() - STL_EXTENSION.length());
-<span class="fc" id="L224">        String baseDir = new File(&quot;&quot;).getAbsolutePath();</span>
-<span class="fc" id="L225">        return String.format(&quot;%s%s%s%s%s%s%s-sub%d%s&quot;,</span>
+<span class="fc" id="L223">        String baseDir = new File(&quot;&quot;).getAbsolutePath();</span>
+<span class="fc" id="L224">        return String.format(&quot;%s%s%s%s%s%s%s-sub%d%s&quot;,</span>
                 baseDir,File.separator,OPENSCAD_FILES_DIR,File.separator,printJobName,File.separator,parentName,subsetNum,OPENSCAD_EXTENSION);
     }
 
     private String createSubsetStlFilename(String printJobName, String parentFilename, int subsetNum) {
-<span class="fc" id="L230">        String parentName = parentFilename</span>
+<span class="fc" id="L229">        String parentName = parentFilename</span>
                 .substring(0, parentFilename.length() - STL_EXTENSION.length());
-<span class="fc" id="L232">        String baseDir = new File(&quot;&quot;).getAbsolutePath();</span>
-<span class="fc" id="L233">        return String.format(&quot;%s%s%s%s%s%s%s-sub%d%s&quot;,</span>
+<span class="fc" id="L231">        String baseDir = new File(&quot;&quot;).getAbsolutePath();</span>
+<span class="fc" id="L232">        return String.format(&quot;%s%s%s%s%s%s%s-sub%d%s&quot;,</span>
                 baseDir,File.separator,STL_DIR,File.separator,printJobName,File.separator,parentName,subsetNum,STL_EXTENSION);
     }
     
     private String createOpenScadScriptString(String inputFile, double xMin, 
             double xMax, double yMin, double yMax, double zMin, double zMax) {
-<span class="fc" id="L239">        double xDistance = xMax - xMin;</span>
-<span class="fc" id="L240">        double yDistance = yMax - yMin;</span>
-<span class="fc" id="L241">        double height = zMax - zMin;</span>
-<span class="fc" id="L242">        return String.format(OPENSCAD_TEMPLATE,</span>
+<span class="fc" id="L238">        double xDistance = xMax - xMin;</span>
+<span class="fc" id="L239">        double yDistance = yMax - yMin;</span>
+<span class="fc" id="L240">        double height = zMax - zMin;</span>
+<span class="fc" id="L241">        return String.format(OPENSCAD_TEMPLATE,</span>
                 inputFile,xMin,yMin,zMin,xDistance,yDistance,height);
         
     }
 
 	public boolean translateFiles(PrintJobConfiguration printJobConfiguration) {
-<span class="fc" id="L248">        List&lt;SubsetConfiguration&gt; subsets = printJobConfiguration.getSubsetConfigurationList();</span>
+<span class="fc" id="L247">        List&lt;SubsetConfiguration&gt; subsets = printJobConfiguration.getSubsetConfigurationList();</span>
 
-<span class="fc" id="L250">        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();</span>
+<span class="fc" id="L249">        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();</span>
         DocumentBuilder docBuilder;
         try {
-<span class="fc" id="L253">            docBuilder = docFactory.newDocumentBuilder();</span>
-<span class="nc" id="L254">        } catch (ParserConfigurationException ex) {</span>
-<span class="nc" id="L255">            Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, null, ex);</span>
-<span class="nc" id="L256">            return false;</span>
-<span class="fc" id="L257">        }</span>
+<span class="fc" id="L252">            docBuilder = docFactory.newDocumentBuilder();</span>
+<span class="nc" id="L253">        } catch (ParserConfigurationException ex) {</span>
+<span class="nc" id="L254">            Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L255">            return false;</span>
+<span class="fc" id="L256">        }</span>
 
-<span class="fc" id="L259">        int subsetNum = 0;</span>
-<span class="fc bfc" id="L260" title="All 2 branches covered.">        for(SubsetConfiguration subset : subsets) {</span>
+<span class="fc" id="L258">        int subsetNum = 0;</span>
+<span class="fc bfc" id="L259" title="All 2 branches covered.">        for(SubsetConfiguration subset : subsets) {</span>
             
-<span class="fc" id="L262">            List&lt;Integer&gt; extrudersNeeded = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L263">            List&lt;FileConfiguration&gt; fileConfigs = subset.getFileConfigurations();</span>
+<span class="fc" id="L261">            List&lt;Integer&gt; extrudersNeeded = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L262">            List&lt;FileConfiguration&gt; fileConfigs = subset.getFileConfigurations();</span>
 
             // Sort the file configuration based on the extruder that is responsible
             // for them so that when we add the &quot;extruders needed&quot; for the subset,
             // the extruders are in the correct order (from lowest to highest).
-<span class="fc" id="L268">            Collections.sort(fileConfigs, new FileConfigurationExtruderNumComparator());</span>
+<span class="fc" id="L267">            Collections.sort(fileConfigs, new FileConfigurationExtruderNumComparator());</span>
             try {
-<span class="fc" id="L270">                Document doc = docBuilder.newDocument();</span>
-<span class="fc" id="L271">                Element root = doc.createElement(AMF_TAG);</span>
+<span class="fc" id="L269">                Document doc = docBuilder.newDocument();</span>
+<span class="fc" id="L270">                Element root = doc.createElement(AMF_TAG);</span>
 
                 // Add material data to AMF
-<span class="fc" id="L274">                List&lt;MaterialConfiguration&gt; materials = printJobConfiguration.getExtruderMaterials();</span>
-<span class="fc" id="L275">                int materialCount = 0;</span>
-<span class="fc bfc" id="L276" title="All 2 branches covered.">                for(MaterialConfiguration material : materials) {</span>
-<span class="fc" id="L277">                    Element materialElement = doc.createElement(MATERIAL_TAG);</span>
+<span class="fc" id="L273">                List&lt;MaterialConfiguration&gt; materials = printJobConfiguration.getExtruderMaterials();</span>
+<span class="fc" id="L274">                int materialCount = 0;</span>
+<span class="fc bfc" id="L275" title="All 2 branches covered.">                for(MaterialConfiguration material : materials) {</span>
+<span class="fc" id="L276">                    Element materialElement = doc.createElement(MATERIAL_TAG);</span>
 
                     // Materials are defined with the same id as the extruder
                     // that extrudes them.
-<span class="fc" id="L281">                    materialElement.setAttribute(ID_ATTR, String.valueOf(materialCount));</span>
-<span class="fc" id="L282">                    root.appendChild(materialElement);</span>
+<span class="fc" id="L280">                    materialElement.setAttribute(ID_ATTR, String.valueOf(materialCount));</span>
+<span class="fc" id="L281">                    root.appendChild(materialElement);</span>
 
-<span class="fc" id="L284">                    Element metadataElement = doc.createElement(METADATA_TAG);</span>
-<span class="fc" id="L285">                    metadataElement.setAttribute(TYPE_ATTR, NAME_VALUE);</span>
-<span class="fc" id="L286">                    metadataElement.appendChild(doc.createTextNode(material.getName()));</span>
-<span class="fc" id="L287">                    materialElement.appendChild(metadataElement);</span>
-<span class="fc" id="L288">                    materialCount++;</span>
-<span class="fc" id="L289">                }</span>
+<span class="fc" id="L283">                    Element metadataElement = doc.createElement(METADATA_TAG);</span>
+<span class="fc" id="L284">                    metadataElement.setAttribute(TYPE_ATTR, NAME_VALUE);</span>
+<span class="fc" id="L285">                    metadataElement.appendChild(doc.createTextNode(material.getName()));</span>
+<span class="fc" id="L286">                    materialElement.appendChild(metadataElement);</span>
+<span class="fc" id="L287">                    materialCount++;</span>
+<span class="fc" id="L288">                }</span>
 
                 /*
                 for(FileConfiguration fileConfig : fileConfigs) {
@@ -304,116 +303,116 @@ import sun.misc.Sort;
                 */
                 
                 // Add geometry data to AMF
-<span class="fc" id="L307">                Element objectElement = doc.createElement(OBJECT_TAG);</span>
-<span class="fc" id="L308">                Element meshElement = doc.createElement(MESH_TAG);</span>
-<span class="fc" id="L309">                Element verticiesElement = doc.createElement(VERTICES_TAG);</span>
-<span class="fc" id="L310">                doc.appendChild(root);</span>
-<span class="fc" id="L311">                root.appendChild(objectElement);</span>
-<span class="fc" id="L312">                objectElement.appendChild(meshElement);</span>
-<span class="fc" id="L313">                objectElement.setAttribute(ID_ATTR, &quot;0&quot;);</span>
-<span class="fc" id="L314">                meshElement.appendChild(verticiesElement);</span>
+<span class="fc" id="L306">                Element objectElement = doc.createElement(OBJECT_TAG);</span>
+<span class="fc" id="L307">                Element meshElement = doc.createElement(MESH_TAG);</span>
+<span class="fc" id="L308">                Element verticiesElement = doc.createElement(VERTICES_TAG);</span>
+<span class="fc" id="L309">                doc.appendChild(root);</span>
+<span class="fc" id="L310">                root.appendChild(objectElement);</span>
+<span class="fc" id="L311">                objectElement.appendChild(meshElement);</span>
+<span class="fc" id="L312">                objectElement.setAttribute(ID_ATTR, &quot;0&quot;);</span>
+<span class="fc" id="L313">                meshElement.appendChild(verticiesElement);</span>
 
-<span class="fc" id="L316">                IndexedSet&lt;Vertex&gt; vertices = new IndexedSet&lt;&gt;();</span>
-<span class="fc" id="L317">                materialCount = 1;</span>
-<span class="fc bfc" id="L318" title="All 2 branches covered.">                for(FileConfiguration fileConfig : fileConfigs) {</span>
-<span class="fc" id="L319">                    File stlFile = fileConfig.getSubsetSTL();</span>
-<span class="fc" id="L320">                    STLFileReader reader = new STLFileReader(stlFile);</span>
-<span class="fc" id="L321">                    int[] numFacets = reader.getNumOfFacets();</span>
-<span class="fc" id="L322">                    Element volumeElement = doc.createElement(VOLUME_TAG);</span>
+<span class="fc" id="L315">                IndexedSet&lt;Vertex&gt; vertices = new IndexedSet&lt;&gt;();</span>
+<span class="fc" id="L316">                materialCount = 1;</span>
+<span class="fc bfc" id="L317" title="All 2 branches covered.">                for(FileConfiguration fileConfig : fileConfigs) {</span>
+<span class="fc" id="L318">                    File stlFile = fileConfig.getSubsetSTL();</span>
+<span class="fc" id="L319">                    STLFileReader reader = new STLFileReader(stlFile);</span>
+<span class="fc" id="L320">                    int[] numFacets = reader.getNumOfFacets();</span>
+<span class="fc" id="L321">                    Element volumeElement = doc.createElement(VOLUME_TAG);</span>
                     
                     // Materials in the AMF are defined with the same ID as the
                     // extruders that will extrude them
-<span class="fc" id="L326">                    int materialId = fileConfig.getExtruderNum();</span>
-<span class="fc" id="L327">                    volumeElement.setAttribute(MATERIALID_ATTR, String.valueOf(materialId));</span>
-<span class="fc" id="L328">                    materialCount++;</span>
+<span class="fc" id="L325">                    int materialId = fileConfig.getExtruderNum();</span>
+<span class="fc" id="L326">                    volumeElement.setAttribute(MATERIALID_ATTR, String.valueOf(materialId));</span>
+<span class="fc" id="L327">                    materialCount++;</span>
                     
-<span class="fc bfc" id="L330" title="All 2 branches covered.">                    for(int i = 0; i &lt; numFacets[0]; i++) {</span>
-<span class="fc" id="L331">                        Element triangleElement = doc.createElement(TRIANGE_TAG);</span>
-<span class="fc" id="L332">                        volumeElement.appendChild(triangleElement);</span>
-<span class="fc" id="L333">                        double[] normal = new double[3];</span>
-<span class="fc" id="L334">                        double[][] faceVertices = new double[3][3];</span>
-<span class="fc" id="L335">                        reader.getNextFacet(normal, faceVertices);</span>
+<span class="fc bfc" id="L329" title="All 2 branches covered.">                    for(int i = 0; i &lt; numFacets[0]; i++) {</span>
+<span class="fc" id="L330">                        Element triangleElement = doc.createElement(TRIANGE_TAG);</span>
+<span class="fc" id="L331">                        volumeElement.appendChild(triangleElement);</span>
+<span class="fc" id="L332">                        double[] normal = new double[3];</span>
+<span class="fc" id="L333">                        double[][] faceVertices = new double[3][3];</span>
+<span class="fc" id="L334">                        reader.getNextFacet(normal, faceVertices);</span>
 
-<span class="fc bfc" id="L337" title="All 2 branches covered.">                        for(int j = 0; j &lt; 3; j++) {</span>
-<span class="fc" id="L338">                            double x = faceVertices[j][0];</span>
-<span class="fc" id="L339">                            double y = faceVertices[j][1];</span>
-<span class="fc" id="L340">                            double z = faceVertices[j][2];</span>
-<span class="fc" id="L341">                            Vertex vertex = new Vertex(x,y,z);</span>
-<span class="fc bfc" id="L342" title="All 2 branches covered.">                            if(!vertices.contains(vertex)) {</span>
-<span class="fc" id="L343">                                vertices.add(vertex);</span>
+<span class="fc bfc" id="L336" title="All 2 branches covered.">                        for(int j = 0; j &lt; 3; j++) {</span>
+<span class="fc" id="L337">                            double x = faceVertices[j][0];</span>
+<span class="fc" id="L338">                            double y = faceVertices[j][1];</span>
+<span class="fc" id="L339">                            double z = faceVertices[j][2];</span>
+<span class="fc" id="L340">                            Vertex vertex = new Vertex(x,y,z);</span>
+<span class="fc bfc" id="L341" title="All 2 branches covered.">                            if(!vertices.contains(vertex)) {</span>
+<span class="fc" id="L342">                                vertices.add(vertex);</span>
 
                                 // create XML elements for the verticies of the face
-<span class="fc" id="L346">                                Element vertexElement = doc.createElement(VERTEX_TAG);</span>
-<span class="fc" id="L347">                                Element coordsElement = doc.createElement(COORDS_TAG);</span>
-<span class="fc" id="L348">                                Element xElement = doc.createElement(X_TAG);</span>
-<span class="fc" id="L349">                                Element yElement = doc.createElement(Y_TAG);</span>
-<span class="fc" id="L350">                                Element zElement = doc.createElement(Z_TAG);</span>
-<span class="fc" id="L351">                                xElement.appendChild(doc.createTextNode(String.valueOf(x)));</span>
-<span class="fc" id="L352">                                yElement.appendChild(doc.createTextNode(String.valueOf(y)));</span>
-<span class="fc" id="L353">                                zElement.appendChild(doc.createTextNode(String.valueOf(z)));</span>
-<span class="fc" id="L354">                                coordsElement.appendChild(xElement);</span>
-<span class="fc" id="L355">                                coordsElement.appendChild(yElement);</span>
-<span class="fc" id="L356">                                coordsElement.appendChild(zElement);</span>
-<span class="fc" id="L357">                                vertexElement.appendChild(coordsElement);</span>
-<span class="fc" id="L358">                                verticiesElement.appendChild(vertexElement);</span>
+<span class="fc" id="L345">                                Element vertexElement = doc.createElement(VERTEX_TAG);</span>
+<span class="fc" id="L346">                                Element coordsElement = doc.createElement(COORDS_TAG);</span>
+<span class="fc" id="L347">                                Element xElement = doc.createElement(X_TAG);</span>
+<span class="fc" id="L348">                                Element yElement = doc.createElement(Y_TAG);</span>
+<span class="fc" id="L349">                                Element zElement = doc.createElement(Z_TAG);</span>
+<span class="fc" id="L350">                                xElement.appendChild(doc.createTextNode(String.valueOf(x)));</span>
+<span class="fc" id="L351">                                yElement.appendChild(doc.createTextNode(String.valueOf(y)));</span>
+<span class="fc" id="L352">                                zElement.appendChild(doc.createTextNode(String.valueOf(z)));</span>
+<span class="fc" id="L353">                                coordsElement.appendChild(xElement);</span>
+<span class="fc" id="L354">                                coordsElement.appendChild(yElement);</span>
+<span class="fc" id="L355">                                coordsElement.appendChild(zElement);</span>
+<span class="fc" id="L356">                                vertexElement.appendChild(coordsElement);</span>
+<span class="fc" id="L357">                                verticiesElement.appendChild(vertexElement);</span>
                             }
                             // assign the vertex id to the face
-<span class="fc" id="L361">                            int vertexId = vertices.getIndexOf(vertex);</span>
+<span class="fc" id="L360">                            int vertexId = vertices.getIndexOf(vertex);</span>
 
-<span class="fc" id="L363">                            Element vElement = </span>
+<span class="fc" id="L362">                            Element vElement = </span>
                                     doc.createElement(&quot;v&quot; + String.valueOf(j + 1));
 
-<span class="fc" id="L366">                            triangleElement.appendChild(vElement);</span>
-<span class="fc" id="L367">                            vElement.appendChild(doc.createTextNode(String.valueOf(vertexId)));</span>
+<span class="fc" id="L365">                            triangleElement.appendChild(vElement);</span>
+<span class="fc" id="L366">                            vElement.appendChild(doc.createTextNode(String.valueOf(vertexId)));</span>
                         }
                     }
-<span class="pc bpc" id="L370" title="1 of 2 branches missed.">                    if(volumeElement.getChildNodes().getLength() &gt; 0) {</span>
-<span class="fc" id="L371">                        meshElement.appendChild(volumeElement);</span>
-<span class="fc" id="L372">                        extrudersNeeded.add(fileConfig.getExtruderNum());</span>
+<span class="pc bpc" id="L369" title="1 of 2 branches missed.">                    if(volumeElement.getChildNodes().getLength() &gt; 0) {</span>
+<span class="fc" id="L370">                        meshElement.appendChild(volumeElement);</span>
+<span class="fc" id="L371">                        extrudersNeeded.add(fileConfig.getExtruderNum());</span>
                     }
-<span class="fc" id="L374">                }</span>
+<span class="fc" id="L373">                }</span>
 
-<span class="fc" id="L376">                subset.setExtrudersNeeded(extrudersNeeded);</span>
+<span class="fc" id="L375">                subset.setExtrudersNeeded(extrudersNeeded);</span>
 
-<span class="fc" id="L378">                String baseDir = new File(&quot;&quot;).getAbsolutePath();</span>
-<span class="fc" id="L379">                String amfFilename = baseDir + File.separator + AMF_DIR </span>
+<span class="fc" id="L377">                String baseDir = new File(&quot;&quot;).getAbsolutePath();</span>
+<span class="fc" id="L378">                String amfFilename = baseDir + File.separator + AMF_DIR </span>
                         + File.separator  + printJobConfiguration.getName()
                         + File.separator + &quot;sub&quot; + subsetNum + AMF_EXTENSION;
                 
                 // Create AMF file directory if it does not exist
-<span class="fc" id="L384">                File amfFileDir = new File(amfFilename).getParentFile();</span>
-<span class="fc bfc" id="L385" title="All 2 branches covered.">                if(!amfFileDir.exists()) {</span>
-<span class="fc" id="L386">                    boolean success = amfFileDir.mkdirs();</span>
-<span class="pc bpc" id="L387" title="1 of 2 branches missed.">                    if(!success) {</span>
-<span class="nc" id="L388">                        throw new Exception(&quot;Could not create directory for subset AMF files.&quot;);</span>
+<span class="fc" id="L383">                File amfFileDir = new File(amfFilename).getParentFile();</span>
+<span class="fc bfc" id="L384" title="All 2 branches covered.">                if(!amfFileDir.exists()) {</span>
+<span class="fc" id="L385">                    boolean success = amfFileDir.mkdirs();</span>
+<span class="pc bpc" id="L386" title="1 of 2 branches missed.">                    if(!success) {</span>
+<span class="nc" id="L387">                        throw new Exception(&quot;Could not create directory for subset AMF files.&quot;);</span>
                     }
                 }
 
-<span class="fc" id="L392">                File amfFile = new File(amfFilename);</span>
-<span class="fc" id="L393">                StreamResult result = new StreamResult(amfFile);</span>
-<span class="fc" id="L394">                DOMSource source = new DOMSource(doc);</span>
+<span class="fc" id="L391">                File amfFile = new File(amfFilename);</span>
+<span class="fc" id="L392">                StreamResult result = new StreamResult(amfFile);</span>
+<span class="fc" id="L393">                DOMSource source = new DOMSource(doc);</span>
 
-<span class="fc" id="L396">                TransformerFactory transformerFactory = TransformerFactory.newInstance();</span>
-<span class="fc" id="L397">                Transformer transformer = transformerFactory.newTransformer();</span>
-<span class="fc" id="L398">                transformer.setOutputProperty(OutputKeys.INDENT, &quot;yes&quot;);</span>
-<span class="fc" id="L399">                transformer.setOutputProperty(&quot;{http://xml.apache.org/xslt}indent-amount&quot;, &quot;2&quot;);</span>
-<span class="fc" id="L400">                transformer.transform(source, result);</span>
+<span class="fc" id="L395">                TransformerFactory transformerFactory = TransformerFactory.newInstance();</span>
+<span class="fc" id="L396">                Transformer transformer = transformerFactory.newTransformer();</span>
+<span class="fc" id="L397">                transformer.setOutputProperty(OutputKeys.INDENT, &quot;yes&quot;);</span>
+<span class="fc" id="L398">                transformer.setOutputProperty(&quot;{http://xml.apache.org/xslt}indent-amount&quot;, &quot;2&quot;);</span>
+<span class="fc" id="L399">                transformer.transform(source, result);</span>
                 
-<span class="pc bpc" id="L402" title="1 of 2 branches missed.">                if(amfFile.exists()) {</span>
-<span class="fc" id="L403">                    subset.setAmfFile(amfFile);</span>
+<span class="pc bpc" id="L401" title="1 of 2 branches missed.">                if(amfFile.exists()) {</span>
+<span class="fc" id="L402">                    subset.setAmfFile(amfFile);</span>
                 }
                 else {
-<span class="nc" id="L406">                    throw new Exception(&quot;Could not create AMF file.&quot;);</span>
+<span class="nc" id="L405">                    throw new Exception(&quot;Could not create AMF file.&quot;);</span>
                 }
                 
             }
-<span class="nc" id="L410">            catch(Exception ex) {</span>
-<span class="nc" id="L411">                Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, null, ex);</span>
-<span class="nc" id="L412">                return false;</span>
-<span class="fc" id="L413">            }</span>
-<span class="fc" id="L414">            subsetNum++;</span>
-<span class="fc" id="L415">        }</span>
-<span class="fc" id="L416">        return true;</span>
+<span class="nc" id="L409">            catch(Exception ex) {</span>
+<span class="nc" id="L410">                Logger.getLogger(Slic3rNormalizerImpl.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L411">                return false;</span>
+<span class="fc" id="L412">            }</span>
+<span class="fc" id="L413">            subsetNum++;</span>
+<span class="fc" id="L414">        }</span>
+<span class="fc" id="L415">        return true;</span>
 	}
 	
 }

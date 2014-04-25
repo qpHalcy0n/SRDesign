@@ -6,6 +6,7 @@
 
 package ink3d.UserInterface.Database.XmlDatabase;
 
+import ink3d.ConfigurationObjects.ExtruderMaterialSelection;
 import ink3d.ConfigurationObjects.FileConfiguration;
 import ink3d.ConfigurationObjects.FileSelection;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
@@ -29,43 +30,47 @@ public class GetPrintJobConfigurationCommand extends CommandStructure{
     FileConfiguration fileConfig;
     PersistenceFramework db;
     
-<span class="fc" id="L32">    GetPrintJobConfigurationCommand(PrintJobSelection selection){</span>
-<span class="fc" id="L33">        this.selection = selection;</span>
-<span class="fc" id="L34">        printJob = new PrintJobConfiguration();</span>
-<span class="fc" id="L35">    }</span>
+<span class="fc" id="L33">    GetPrintJobConfigurationCommand(PrintJobSelection selection){</span>
+<span class="fc" id="L34">        this.selection = selection;</span>
+<span class="fc" id="L35">        printJob = new PrintJobConfiguration();</span>
+<span class="fc" id="L36">    }</span>
     
     @Override
     public void execute() {
-<span class="fc" id="L39">        db = new XmlPersistenceFramework();</span>
+<span class="fc" id="L40">        db = new XmlPersistenceFramework();</span>
         
-<span class="fc" id="L41">        subsetList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L42">        subsetList = new ArrayList&lt;&gt;();</span>
         
-<span class="fc bfc" id="L43" title="All 2 branches covered.">        for(SubsetSelection set : selection.getSubsetConfigurationList()){            </span>
-<span class="fc" id="L44">            fileList = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L45" title="All 2 branches covered.">            for(FileSelection select : set.getFileConfigurations()){</span>
-<span class="fc" id="L46">                fileConfig = new FileConfiguration();</span>
-<span class="fc" id="L47">                fileConfig.setExtruderNum(Integer.parseInt(select.getExtruder().substring(0, 1)));</span>
-<span class="fc" id="L48">                fileConfig.setExtruderConfiguration(db.getExtruderConfiguration(select.getExtruder().substring(3)));</span>
-<span class="fc" id="L49">                fileConfig.setMaterialConfiguration(db.getMaterialConfiguration(select.getMaterial()));</span>
-<span class="fc" id="L50">                fileConfig.setName(select.getFile());</span>
-<span class="fc" id="L51">                fileConfig.setParentSTLFile(db.getStlFile(select.getFile()));</span>
-<span class="fc" id="L52">                fileList.add(fileConfig);</span>
-<span class="fc" id="L53">            }</span>
+        
+        
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        for(SubsetSelection set : selection.getSubsetConfigurationList()){            </span>
+<span class="fc" id="L47">            fileList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">            for(FileSelection select : set.getFileConfigurations()){</span>
+<span class="fc" id="L49">                fileConfig = new FileConfiguration();</span>
+<span class="fc" id="L50">                fileConfig.setExtruderNum(Integer.parseInt(select.getExtruder().substring(0, 1)));</span>
+                //fileConfig.setExtruderConfiguration(db.getExtruderConfiguration(select.getExtruder().substring(3)));
+                //fileConfig.setMaterialConfiguration(db.getMaterialConfiguration(select.getExtruder().substring(3)));
+<span class="fc" id="L53">                fileConfig.setName(select.getFile());</span>
+<span class="fc" id="L54">                fileConfig.setParentSTLFile(db.getStlFile(select.getFile()));</span>
+<span class="fc" id="L55">                fileList.add(fileConfig);</span>
+<span class="fc" id="L56">            }</span>
             
-<span class="fc" id="L55">            subset = new SubsetConfiguration();</span>
-<span class="fc" id="L56">            subset.setBottomZ(set.getBottomZ());</span>
-<span class="fc" id="L57">            subset.setTopZ(set.getTopZ());</span>
-<span class="fc" id="L58">            subset.setPrintConfiguration(db.getPrintConfiguration(selection.getPrinterConfiguration()));</span>
-<span class="fc" id="L59">            subset.setFileConfigurations(fileList);</span>
-<span class="fc" id="L60">            subsetList.add(subset);</span>
-<span class="fc" id="L61">        }</span>
+<span class="fc" id="L58">            subset = new SubsetConfiguration();</span>
+<span class="fc" id="L59">            subset.setBottomZ(set.getBottomZ());</span>
+<span class="fc" id="L60">            subset.setTopZ(set.getTopZ());</span>
+<span class="fc" id="L61">            subset.setPrintConfiguration(db.getPrintConfiguration(set.getPrintConfiguration()));</span>
+<span class="fc" id="L62">            subset.setFileConfigurations(fileList);</span>
+<span class="fc" id="L63">            subsetList.add(subset);</span>
+<span class="fc" id="L64">        }</span>
         
-<span class="fc" id="L63">        printJob.setName(selection.getName());</span>
-<span class="fc" id="L64">        printJob.setPrinterConfiguration(db.getPrinterConfiguration(selection.getPrinterConfiguration()));</span>
-<span class="fc" id="L65">        printJob.setSubsetConfigurationList(subsetList);</span>
-        
-<span class="fc" id="L67">        this.result = printJob;</span>
-<span class="fc" id="L68">    }</span>
+<span class="fc" id="L66">        printJob.setName(selection.getName());</span>
+<span class="fc" id="L67">        printJob.setPrinterConfiguration(db.getPrinterConfiguration(selection.getPrinterConfiguration()));</span>
+<span class="fc" id="L68">        printJob.setSubsetConfigurationList(subsetList);</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        for(ExtruderMaterialSelection extruder: selection.getMaterials()){</span>
+<span class="fc" id="L70">            printJob.getExtruderMaterials().add(db.getMaterialConfiguration(extruder.getMaterial()));</span>
+<span class="fc" id="L71">        }</span>
+<span class="fc" id="L72">        this.result = printJob;</span>
+<span class="fc" id="L73">    }</span>
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

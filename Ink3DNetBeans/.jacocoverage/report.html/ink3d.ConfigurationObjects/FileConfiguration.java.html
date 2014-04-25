@@ -100,17 +100,17 @@ public class FileConfiguration {
 <span class="nc" id="L100">            return false;</span>
         }
 <span class="pc bpc" id="L102" title="1 of 2 branches missed.">        if (!Objects.equals(this.extruderConfiguration, other.extruderConfiguration)) {</span>
-<span class="nc" id="L103">            return false;</span>
+<span class="fc" id="L103">            return false;</span>
         }
-<span class="pc bpc" id="L105" title="1 of 2 branches missed.">        if (!Objects.equals(this.materialConfiguration, other.materialConfiguration)) {</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (!Objects.equals(this.materialConfiguration, other.materialConfiguration)) {</span>
 <span class="nc" id="L106">            return false;</span>
         }
-<span class="fc" id="L108">        return true;</span>
+<span class="nc" id="L108">        return true;</span>
     }
 
     @Override
     public String toString() {
-<span class="nc" id="L113">        return &quot;FileConfiguration{&quot; + &quot;name=&quot; + name + &quot;, parentSTLFile=&quot; + parentSTLFile + &quot;, subsetSTL=&quot; + subsetSTL + &quot;, extruderNum=&quot; + extruderNum + &quot;, extruderConfiguration=&quot; + extruderConfiguration + &quot;, materialConfiguration=&quot; + materialConfiguration + '}';</span>
+<span class="fc" id="L113">        return &quot;FileConfiguration{&quot; + &quot;name=&quot; + name + &quot;, parentSTLFile=&quot; + parentSTLFile + &quot;, subsetSTL=&quot; + subsetSTL + &quot;, extruderNum=&quot; + extruderNum + &quot;, extruderConfiguration=&quot; + extruderConfiguration + &quot;, materialConfiguration=&quot; + materialConfiguration + '}';</span>
     }
     
     
