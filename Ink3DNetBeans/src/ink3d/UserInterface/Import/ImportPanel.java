@@ -7,6 +7,7 @@
 package ink3d.UserInterface.Import;
 
 import ink3d.UserInterface.MainMenu.BadFieldException;
+import ink3d.UserInterface.MainMenu.MainWindow;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -148,6 +149,7 @@ public class ImportPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "File Read Error", "InfoBox: " + "Unable to read file", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
+            MainWindow.printJobPanel.updateSubsectionPanels();
             this.StlList.setModel(new javax.swing.AbstractListModel() {
                 private final ImportController  controller = new ImportController();
                 @Override
@@ -171,6 +173,7 @@ public class ImportPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,ex.getMessage(),"InfoBox: " + "No Selection" , JOptionPane.INFORMATION_MESSAGE);
             return;
         }
+        MainWindow.printJobPanel.updateSubsectionPanels();
         this.StlList.setModel(new javax.swing.AbstractListModel() {
             private final ImportController  controller = new ImportController();
             @Override

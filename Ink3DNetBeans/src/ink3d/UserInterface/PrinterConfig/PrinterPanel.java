@@ -8,6 +8,7 @@ package ink3d.UserInterface.PrinterConfig;
 
 import ink3d.UserInterface.MainMenu.BadFieldException;
 import ink3d.UserInterface.MainMenu.MainWindow;
+import ink3d.UserInterface.PrintJob.PrintJobController;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -63,6 +64,10 @@ public class PrinterPanel extends javax.swing.JPanel {
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         lineEndjComboBox = new javax.swing.JComboBox();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        bedTempFirstLayerPrinterText = new javax.swing.JTextField();
+        bedTempPrinterText = new javax.swing.JTextField();
         jPanel17 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -146,6 +151,10 @@ public class PrinterPanel extends javax.swing.JPanel {
 
         lineEndjComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "NR", "RN", "N" }));
 
+        jLabel21.setText("Bed Temp First Layer:");
+
+        jLabel22.setText("Bed Temp:");
+
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
@@ -153,28 +162,37 @@ public class PrinterPanel extends javax.swing.JPanel {
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(32, 32, 32)
-                                .addComponent(bedXPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bedYPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel11)))
+                    .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel16Layout.createSequentialGroup()
+                            .addComponent(jLabel7)
+                            .addGap(32, 32, 32)
+                            .addComponent(bedXPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel16Layout.createSequentialGroup()
+                            .addComponent(jLabel8)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bedYPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addGap(18, 18, 18)
                         .addComponent(zOffsetPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(printCenterYPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(printCenterXPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(printCenterYPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(printCenterXPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addComponent(jLabel21)
+                        .addGap(18, 18, 18)
+                        .addComponent(bedTempFirstLayerPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addComponent(jLabel22)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bedTempPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(printerPortPrinterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -208,9 +226,17 @@ public class PrinterPanel extends javax.swing.JPanel {
                             .addComponent(bedYPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(printCenterYPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel13)
+                                .addComponent(zOffsetPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel21)
+                                .addComponent(bedTempFirstLayerPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(zOffsetPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel22)
+                            .addComponent(bedTempPrinterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addGap(7, 7, 7)
                         .addComponent(jLabel18)
@@ -306,7 +332,7 @@ public class PrinterPanel extends javax.swing.JPanel {
                         .addComponent(firmwareRetractionPrinterCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(addExtruderToPrinterButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, Short.MAX_VALUE)
+                    .addComponent(addExtruderToPrinterButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
                     .addComponent(addExtruderToPrinterButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(extruderSelectionPrinterComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(38, 38, 38)
@@ -398,7 +424,7 @@ public class PrinterPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 674, Short.MAX_VALUE)
+                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
                     .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -406,8 +432,8 @@ public class PrinterPanel extends javax.swing.JPanel {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -512,6 +538,8 @@ public class PrinterPanel extends javax.swing.JPanel {
         this.printerPortPrinterComboBox.setSelectedItem(null);
         this.baudRatePrinterText.setText(null);
         this.lineEndjComboBox.setSelectedItem(null);
+        this.bedTempFirstLayerPrinterText.setText(null);
+        this.bedTempPrinterText.setText(null);
         PrinterPanel.extruderListArrayListForPrinter = new ArrayList<>();
         this.extruderListPrinter.setModel(new javax.swing.AbstractListModel() {
             @Override
@@ -540,12 +568,17 @@ public class PrinterPanel extends javax.swing.JPanel {
         else varList.add("");
         varList.add(this.baudRatePrinterText.getText());
         varList.add(Integer.toString(this.lineEndjComboBox.getSelectedIndex()));
+        varList.add(this.bedTempFirstLayerPrinterText.getText());
+        varList.add(this.bedTempPrinterText.getText());
         ArrayList<String> extruderList = new ArrayList<>();
         for (String extruderName : PrinterPanel.extruderListArrayListForPrinter){
             extruderList.add(extruderName);
         }
         try{
             printerController.savePrinterConfiguratoin(varList, extruderList);
+            PrinterController  controller = new PrinterController();
+            MainWindow.printJobPanel.getPrinterComboBox().setModel(new DefaultComboBoxModel(printerController.getPrinterConfigurations().toArray()));
+            MainWindow.printJobPanel.updateUI();
             this.printerListPrinter.setModel(new javax.swing.AbstractListModel() {
                 private final PrinterController  controller = new PrinterController();
                 @Override
@@ -557,8 +590,6 @@ public class PrinterPanel extends javax.swing.JPanel {
         }catch(BadFieldException e){
             JOptionPane.showMessageDialog(null, e.getMessage() , "InfoBox: " + "Bad Field Data",JOptionPane.INFORMATION_MESSAGE);
         }
-        MainWindow.printJobPanel.getPrinterComboBox().setModel(new DefaultComboBoxModel(printerController.getPrinterConfigurations().toArray()));
-        MainWindow.printJobPanel.updateUI();
     }//GEN-LAST:event_savePrinterButtonMouseReleased
 
     private void loadPrinterButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loadPrinterButtonMouseReleased
@@ -585,6 +616,8 @@ public class PrinterPanel extends javax.swing.JPanel {
         this.printerPortPrinterComboBox.setSelectedItem(varList.get(13));
         this.baudRatePrinterText.setText(varList.get(14));
         this.lineEndjComboBox.setSelectedIndex(Integer.parseInt(varList.get(15)));
+        this.bedTempFirstLayerPrinterText.setText(varList.get(16));
+        this.bedTempPrinterText.setText(varList.get(17));
         PrinterPanel.extruderListArrayListForPrinter = printerController.loadMyExtruders(varList.get(0));
         this.extruderListPrinter.setModel(new javax.swing.AbstractListModel() {
             @Override
@@ -636,6 +669,9 @@ public class PrinterPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,ex.getMessage(),"InfoBox: " + "No Selection" , JOptionPane.INFORMATION_MESSAGE);
             return;
         }
+        PrinterController  controller = new PrinterController();
+        MainWindow.printJobPanel.getPrinterComboBox().setModel(new DefaultComboBoxModel(printerController.getPrinterConfigurations().toArray()));
+        MainWindow.printJobPanel.updateUI();
         this.printerListPrinter.setModel(new javax.swing.AbstractListModel() {
             private final PrinterController  controller = new PrinterController();
             @Override
@@ -651,6 +687,8 @@ public class PrinterPanel extends javax.swing.JPanel {
     private javax.swing.JButton addExtruderToPrinterButton;
     private javax.swing.JButton addExtruderToPrinterButton1;
     private javax.swing.JTextField baudRatePrinterText;
+    private javax.swing.JTextField bedTempFirstLayerPrinterText;
+    private javax.swing.JTextField bedTempPrinterText;
     private javax.swing.JTextField bedXPrinterText;
     private javax.swing.JTextField bedYPrinterText;
     private javax.swing.JButton deletePriinterButton;
@@ -670,6 +708,8 @@ public class PrinterPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel206;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;

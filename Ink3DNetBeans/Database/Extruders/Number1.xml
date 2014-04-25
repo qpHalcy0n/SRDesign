@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<extruder>
+    <name>Number1</name>
+    <extruderType></extruderType>
+    <nozzleDiameter>0.5</nozzleDiameter>
+    <xDimension>0.0</xDimension>
+    <yDimension>0.0</yDimension>
+    <xOffset>0.0</xOffset>
+    <yOffset>0.0</yOffset>
+    <zOffset>0.0</zOffset>
+    <startGCode></startGCode>
+    <endGCode></endGCode>
+</extruder>

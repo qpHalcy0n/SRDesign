@@ -53,6 +53,7 @@ public class SubsectionPanel extends javax.swing.JPanel {
     }
     
     public void updateComboBoxes(){
+        this.printSelectionComboBox.setModel(new DefaultComboBoxModel(this.printJobController.loadAvailablePrints().toArray()));
         this.fileSeletionSubsectoinComboBox.setModel(new DefaultComboBoxModel(this.printJobController.loadAvailableFiles().toArray()));
         this.extruderMaterailSubsectionComboBox.setModel(new MaterialFileMatchingComboBoxModel());
     }

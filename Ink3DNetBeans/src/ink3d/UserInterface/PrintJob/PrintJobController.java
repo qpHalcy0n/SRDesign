@@ -44,7 +44,7 @@ public class PrintJobController {
         return db.getStlFiles();
     }
 
-    PrintJobController(){
+    public PrintJobController(){
         db = new XmlPersistenceFramework();
     }
     
@@ -56,27 +56,27 @@ public class PrintJobController {
         db.deletePrintJobSelection(name);
     }
     
-    ArrayList<String> loadAvailablePrinters(){
+    public ArrayList<String> loadAvailablePrinters(){
         return db.getPrinterConfigurations();
     }
     
-    ArrayList<String> loadAvailablePrints(){
+    public ArrayList<String> loadAvailablePrints(){
         return db.getPrintConfigurations();
     }
     
-    ArrayList<String> loadAvailableExtruders(){
+    public ArrayList<String> loadAvailableExtruders(){
         return db.getExtruderConfigurations();
     }
     
-    ArrayList<String> loadAvailableMaterials(){
+    public ArrayList<String> loadAvailableMaterials(){
         return db.getMaterialConfigurations();
     }
    
-    PrintJobConfiguration loadPrintJobConfiguration(PrintJobSelection selected){
+    public PrintJobConfiguration loadPrintJobConfiguration(PrintJobSelection selected){
         return db.getPrintJobConfiguration(selected);
     }
     
-    Boolean savePrintJobConfiguration(String name, String printerName, ArrayList<SubsectionPanel> panels) throws BadFieldException{
+    public Boolean savePrintJobConfiguration(String name, String printerName, ArrayList<SubsectionPanel> panels) throws BadFieldException{
         PrintJobSelection job = new PrintJobSelection();
         PrinterConfiguration printer = db.getPrinterConfiguration(printerName);
         job.setName(name);
@@ -136,7 +136,7 @@ public class PrintJobController {
         return list;
     }
     
-    void startPrint(String name) throws BadFieldException, PreprocessorException, ProcessorException, PostProcessorException{
+    public void startPrint(String name) throws BadFieldException, PreprocessorException, ProcessorException, PostProcessorException{
         PrintJobSelection job;
         job = db.getPrintJobSelection(name);
         

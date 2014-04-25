@@ -34,7 +34,7 @@ public class PrintJobPanel extends javax.swing.JPanel {
         return (MasterSubsectionPane) this.masterSubsectionPane;
     }
     
-    private void updateSubsectionPanels(){
+    public void updateSubsectionPanels(){
         for(SubsectionPanel panel: ((MasterSubsectionPane)this.masterSubsectionPane).getSubsectoions()){
             panel.updateComboBoxes();
             panel.updateUI();
@@ -42,7 +42,7 @@ public class PrintJobPanel extends javax.swing.JPanel {
         this.updateUI();
     }
     public javax.swing.JComboBox getPrinterComboBox(){
-        return this.materialSelectionPrintJobComboBox;
+        return this.printerSelectionPrintJobComboBox;
     }
 
     /**
@@ -308,6 +308,11 @@ public class PrintJobPanel extends javax.swing.JPanel {
         } catch (BadFieldException e) {
              JOptionPane.showMessageDialog(null, e.getMessage() , "InfoBox: " + "Bad Field Data",JOptionPane.INFORMATION_MESSAGE);
         }
+        this.printJobLList.setModel(new javax.swing.AbstractListModel() {
+            private final PrintJobController  controller = new PrintJobController();
+            public int getSize() { return controller.loadAvailablePrintJobs().size(); }
+            public Object getElementAt(int i) { return controller.loadAvailablePrintJobs().get(i); }
+        });
     }//GEN-LAST:event_savePrintJobButtonMouseReleased
 
     private void loadPrintJobButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loadPrintJobButtonMouseReleased

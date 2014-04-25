@@ -23,6 +23,12 @@ public class MasterSubsectionPane extends JScrollPane{
         return panels;
     }
     
+    public void updateSubsectionComboBoxes(){
+        for(SubsectionPanel panel: panels){
+            panel.updateComboBoxes();
+        }
+    }
+    
     public ArrayList<SubsectionPanel> getSubsectoions(){
         return panels;
     }

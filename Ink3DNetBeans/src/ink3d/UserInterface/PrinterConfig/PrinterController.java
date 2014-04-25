@@ -69,6 +69,8 @@ public class PrinterController {
         varList.add(printer.getHardware().getComPort());
         varList.add(Integer.toString(printer.getHardware().getBaudRate()));
         varList.add(Integer.toString(printer.getHardware().getLineEnd()));
+        varList.add(Integer.toString(printer.getBedTempFirstLayer()));
+        varList.add(Integer.toString(printer.getBedTemp()));
         
         return varList;
     }
@@ -141,6 +143,18 @@ public class PrinterController {
                 throw new BadFieldException("Baud rate must be between 0 and 250,000");
             }
             config.getHardware().setLineEnd(new Integer(vars.get(15)));
+            
+            i = new Integer(vars.get(16));
+            if(i>0)config.setBedTempFirstLayer(i);
+            else {
+                throw new BadFieldException("Bed Temp first layer must be a integer value greater than or equal 0.");
+            }
+            
+            i = new Integer(vars.get(17));
+            if(i>0)config.setBedTemp(i);
+            else {
+                throw new BadFieldException("Bed Temp must be a integer value greater than or equal 0.");
+            }
             
             ArrayList<ExtruderConfiguration> extruders = new ArrayList<>();
             for(String name: extruderList){

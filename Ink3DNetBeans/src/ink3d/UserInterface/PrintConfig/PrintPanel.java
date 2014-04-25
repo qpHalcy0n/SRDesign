@@ -15,11 +15,14 @@ import ink3d.ConfigurationObjects.SkirtAndBrimConfiguration;
 import ink3d.ConfigurationObjects.SpeedConfiguration;
 import ink3d.ConfigurationObjects.SupportMaterialConfiguration;
 import ink3d.UserInterface.MainMenu.BadFieldException;
+import ink3d.UserInterface.MainMenu.MainWindow;
+import ink3d.UserInterface.PrinterConfig.PrinterController;
 import ink3d.Util.InputValidationUtility;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -1552,10 +1555,10 @@ public class PrintPanel extends javax.swing.JPanel {
         }
         controller.deletePrintConfiguration(name);
         loadPrintConfigurationList();
+        MainWindow.printJobPanel.updateSubsectionPanels();
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBtnActionPerformed
-        // TODO add your handling code here:
         loadPrintConfiguration(new PrintConfiguration());
     }//GEN-LAST:event_newBtnActionPerformed
 
@@ -1586,6 +1589,7 @@ public class PrintPanel extends javax.swing.JPanel {
             PrintConfiguration print = getPrintConfiguration();
             controller.savePrintConfiguration(print);
             loadPrintConfigurationList();
+            MainWindow.printJobPanel.updateSubsectionPanels();
         } catch (BadFieldException ex) {
             JOptionPane.showMessageDialog(null,ex.getMessage(), ex.getMessage(), JOptionPane.INFORMATION_MESSAGE);
             Logger.getLogger(ExtruderPanel.class.getName()).log(Level.SEVERE, null, ex);
