@@ -22,7 +22,7 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
     private static ArrayList<String> failsafeGcodes;
     private static PrintJobConfiguration printJobConfig         = null;
     private static int dispatchDelay;
-    private static TXRX commsObject                             = null;
+    private static TXRXImpl commsObject                             = null;
     private static PrinterFeedbackImpl feedbackObject               = null;
     private static boolean isPaused                             = false;
     
@@ -85,15 +85,7 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
     
     public void go()
     {
-        commsObject = new TXRXImpl(printJobConfig);
-        if(commsObject.isConnected() == false)
-            System.out.println("Error in Printer Status: Could not connect to printer");
-        
-        feedbackObject = new PrinterFeedbackImpl(printJobConfig); 
-        feedbackObject.setCommsObject(commsObject);
-        feedbackObject.beginMonitoring();
 
-        
         start();
     }
     
@@ -114,6 +106,14 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
     {
         try
         {
+            commsObject = new TXRXImpl(printJobConfig);
+            if(commsObject.isConnected() == false)
+                System.out.println("Error in Printer Status: Could not connect to printer");
+        
+            feedbackObject = new PrinterFeedbackImpl(printJobConfig); 
+            feedbackObject.setCommsObject(commsObject);
+            feedbackObject.beginMonitoring();
+            
             while(gCodes.size() > 0)
             {
             
