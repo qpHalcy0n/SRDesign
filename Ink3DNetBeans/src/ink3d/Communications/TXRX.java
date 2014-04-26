@@ -37,7 +37,7 @@ public interface TXRX
     public ArrayList<String> getLastGcodesSent();
     
     // Serialize data (do processing on g-codes)
-    public boolean serialize(String gCodeLine);
+    public String serialize(String gCodeLine);
     
     // Deserialize data (process byte stream from printer)
     public boolean deserialize(String str); 

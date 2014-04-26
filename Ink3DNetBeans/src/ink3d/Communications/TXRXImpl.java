@@ -32,7 +32,7 @@ public class TXRXImpl implements TXRX
     private static String ackString                             = new String("");
     private static boolean handshakeReceived                    = false;
     private static String lastGcodeSent                         = new String();
-    private static ArrayList<String> lastGcodesSent             = new ArrayList<String>();
+    private static ArrayList<String> lastGcodesSent             = new ArrayList<>();
     private static boolean ackSent                              = false;
     private static boolean initCodesSent                        = false;
     private static PrintJobConfiguration printJobConfig         = null;
@@ -48,20 +48,21 @@ public class TXRXImpl implements TXRX
         serialPortList = new SerialPortList();
         
         printJobConfig = pjc;
-        comPort = printJobConfig.getHardwareConfiguration().getComPort();
-        BAUD = printJobConfig.getHardwareConfiguration().getBaudRate();
+        comPort = printJobConfig.getPrinterConfiguration().getHardware().getComPort();
+        BAUD = printJobConfig.getPrinterConfiguration().getHardware().getBaudRate();
         
         if(connectToPrinter() == false)
             System.err.println("TXRX error: Could not connect to printer");
     }
     
-    protected void finalize() throws Throwable
-    {
-        if(isConnected())
-            serialPort.closePort();
-        
-        super.finalize();
-    }
+ //   @Override
+ //   protected void finalize() throws Throwable
+ //   {
+ //       if(isConnected())
+ //           serialPort.closePort();
+ //       
+ //       super.finalize();
+ //   }
     
     private boolean initCodesSent()
     {
@@ -72,6 +73,7 @@ public class TXRXImpl implements TXRX
      * 
      * @return String[] packed with available serial ports
      */
+    @Override
     public String[] getSerialPortNames()
     {
         String[] portNames = serialPortList.getPortNames();
@@ -83,13 +85,14 @@ public class TXRXImpl implements TXRX
      * @return ArrayList<byte[]> An array list packed with byte buffers of the latest data received from 
      * the printer
      */
+    @Override
     public ArrayList<FeedbackObject> getPrinterFeedback()
     {
         // Check that feedback buffer is packed
         if(!isPrinterFeedbackReady())
             return null;
         
-        ArrayList<FeedbackObject> feedbackArray = new ArrayList<FeedbackObject>();
+        ArrayList<FeedbackObject> feedbackArray = new ArrayList<>();
         
         // Copy printer feedback data and clear the current feedback string
         String pfRet = new String(feedbackString);
@@ -162,6 +165,7 @@ public class TXRXImpl implements TXRX
      * 
      * @return boolean - indicating whether there is feedback data present
      */
+    @Override
     public boolean isPrinterFeedbackReady()
     {
         if(feedbackString.length() > 0)
@@ -169,6 +173,7 @@ public class TXRXImpl implements TXRX
         return false;
     }
     
+    @Override
     public boolean isConnected()
     {
         return isConnected;
@@ -178,6 +183,7 @@ public class TXRXImpl implements TXRX
      * 
      * @return boolean indicating whether the operation succeeded or failed
      */
+    @Override
     public boolean connectToPrinter()
     {  
         // Make new serial port object and attempt to open
@@ -193,7 +199,8 @@ public class TXRXImpl implements TXRX
         
         catch(SerialPortException ex)
         {
-            System.out.println(ex);
+            int lineNo = Thread.currentThread().getStackTrace()[2].getLineNumber();
+            System.out.println("Serial Port Exception in TXRXImpl line: " + lineNo + " " + ex);
             return false;
         }
         
@@ -203,13 +210,19 @@ public class TXRXImpl implements TXRX
             System.out.println("Port opened: " + serialPort.openPort());
             System.out.println("Output buffer bytes: " + serialPort.getOutputBufferBytesCount());
             System.out.println("Input buffer bytes: " + serialPort.getInputBufferBytesCount());
+            System.out.println("Connection opened: " + serialPort.isOpened());
+            System.out.println("Port: " + serialPort.getPortName());
             
             if(!serialPort.setEventsMask(mask))
                 return false;
             
+            System.out.println("Events Mask: " + serialPort.getEventsMask());
             serialPort.addEventListener(new SerialPortReader());
             
+            
+            System.out.println("Waiting for handshake");
             while(!handshakeReceived){}
+            System.out.println("Handshake received");
             
             // FIXME: Sometimes the handshake happens too fast so just sleep for 4 seconds (this only happens once)
             try
@@ -231,7 +244,7 @@ public class TXRXImpl implements TXRX
                 
                 if(line.indexOf(';') != -1)
                     line = line.substring(0, line.indexOf(';') - 1);
-                line = line + printJobConfig.getHardwareConfiguration().getLineEnding();
+                line = line + printJobConfig.getPrinterConfiguration().getHardware().getLineEnding();
                 
                 serialPort.writeBytes(line.getBytes());
             }
@@ -239,9 +252,17 @@ public class TXRXImpl implements TXRX
             initCodesSent = true;
         }
         
-        catch(Exception ex)
+        catch(IOException ex)
         {
+            int lineNo = Thread.currentThread().getStackTrace()[2].getLineNumber();
+            System.err.println("IO Exception: TXRXImpl line: " + lineNo + " " + ex);
             System.err.println(ex);
+        }
+        
+        catch(SerialPortException ex)
+        {
+            int lineNo = Thread.currentThread().getStackTrace()[2].getLineNumber();
+            System.err.println("Serial Port Exception: TXRXImpl line: " + lineNo + " " + ex);
         }
         
         isConnected = true;
@@ -253,28 +274,32 @@ public class TXRXImpl implements TXRX
     /**
      * 
      * @return boolean indicating whether the object succeeded or failed
+     * @param gCode - G-code to be sent to the printer
      */
+    @Override
     public boolean sendGcode(String gCode)
     {
         if(!handshakeReceived || !initCodesSent)
             return false;
         
-        serialize(gCode);
+        String send;
+        if((send = serialize(gCode)) == null)
+            return false;
         
         ackString = "";
         ackSent = false;
         
         try
         {
-            serialPort.writeBytes(gCode.getBytes());
+            serialPort.writeBytes(send.getBytes());
             
             // Spin in the loop until the ack is received by the printer
             // Some commands demand waiting (M109, M28, etc...).
             // Move commands usually ack immediately
             while(ackString.contains("ok") == false){}
             ackSent = true;
-            lastGcodeSent = gCode;
-            lastGcodesSent.add(gCode);
+            lastGcodeSent = send;
+            lastGcodesSent.add(send);
             
             // Sleep: otherwise we end up clobbering the buffer and garbling g-codes
             // The OK message from the device is supposed to prevent this, but this proves to not be the case.
@@ -290,15 +315,21 @@ public class TXRXImpl implements TXRX
         
         catch(SerialPortException ex)
         {
-            System.err.println(ex);
+            int lineNo = Thread.currentThread().getStackTrace()[2].getLineNumber();
+            System.err.println("Serial Port Exception in TXRXImpl line: " + lineNo + " " + ex);
         }
 
         return true;
     }
     
+    /**
+     * 
+     * @return 
+     */
+    @Override
     public ArrayList<String> getLastGcodesSent()
     {
-        ArrayList<String> gCodeList = new ArrayList<String>(lastGcodesSent);
+        ArrayList<String> gCodeList = new ArrayList<>(lastGcodesSent);
         lastGcodesSent.clear();
         return gCodeList;
     }
@@ -308,27 +339,33 @@ public class TXRXImpl implements TXRX
      * and really just allows us to do any processing on g-codes that might need to happen based on the printer
      * firmware. Therefore it is a function. For marlin nothing needs to happen at this point.
      * @return boolean - success or failure of method
+     * @param gCodeLine - string to serialize
      */
-    public boolean serialize(String gCodeLine)
+    @Override
+    public String serialize(String gCodeLine)
     {
         // Just bail on comments or empty lines //
         if(gCodeLine.length() <= 0 || gCodeLine.charAt(0) == ';')
-            return false;
+            return null;
+        
+        String ret = gCodeLine;
         
         // Strip comments after commands //
-        if(gCodeLine.indexOf(';') != -1)
-            gCodeLine = gCodeLine.substring(0, gCodeLine.indexOf(';') - 1);
+        if(ret.indexOf(';') != -1)
+            ret = ret.substring(0, ret.indexOf(';') - 1);
         
-        gCodeLine = gCodeLine + printJobConfig.getHardwareConfiguration().getLineEnding();
+        ret = ret + printJobConfig.getPrinterConfiguration().getHardware().getLineEnding();
         
-        return true;
+        return ret;
     }
     
     /**
      * Same situation as serialize. In reality, this simply allows us to assemble the data into a readable type
      * Does nothing for marlin as of yet.
      * @return boolean - success or failure of method
+     * @param str - string to deserialize
      */
+    @Override
     public boolean deserialize(String str)
     {
         return true;
@@ -343,6 +380,7 @@ public class TXRXImpl implements TXRX
      */
     static class SerialPortReader implements SerialPortEventListener
     {
+        @Override
         public void serialEvent(SerialPortEvent event)
         {
             // Receive buffer is available //
@@ -364,9 +402,10 @@ public class TXRXImpl implements TXRX
                     System.out.println(inBuffer);
                 }
                 
-                catch(Exception ex)
+                catch(SerialPortException ex)
                 {
-                    System.err.println(ex);
+                    int lineNo = Thread.currentThread().getStackTrace()[2].getLineNumber();
+                    System.err.println("Serial Port Exception in TXRXImpl line: " + lineNo + " " + ex);
                 }
             }
         }
