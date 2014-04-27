@@ -895,7 +895,7 @@ public class XmlPersistenceFrameworkTest {
         System.out.println("getPrintJobConfiguration");
         XmlPersistenceFramework instance = new XmlPersistenceFramework();
         PrintJobConfiguration result = instance.getPrintJobConfiguration(printJob);
-//        assertEquals(expResult, result);
+        assertEquals(expResult, result);
         
         this.delete();
     }
@@ -1207,6 +1207,8 @@ public class XmlPersistenceFrameworkTest {
                             "    <useFirmwareRetraction>false</useFirmwareRetraction>\n" +
                             "    <startGCode></startGCode>\n" +
                             "    <endGCode></endGCode>\n" +
+                            "    <bedTempFirstLayer>0</bedTempFirstLayer>\n" +
+                            "    <bedTemp>0</bedTemp>" +
                             "    <extruderList>\n" +
                             "        <name>Default</name>\n" +
                             "        <extruderType></extruderType>\n" +
