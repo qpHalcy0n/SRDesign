@@ -22,8 +22,8 @@ import java.io.*;
 public class TXRXImpl implements TXRX 
 {
     private static String initFileName           = "init.gcode";
-    private static int BAUD                      = 250000;
-    private static String comPort                = "COM1";
+    private static int BAUD                      = 115200;
+    private static String comPort                = "COM3";
     
     private static boolean isOutBufEmpty                        = false;                        // flag for output (to printer) buffer being empty
     private static SerialPortList serialPortList;                                               // Port listing
@@ -55,14 +55,14 @@ public class TXRXImpl implements TXRX
             System.err.println("TXRX error: Could not connect to printer");
     }
     
- //   @Override
- //   protected void finalize() throws Throwable
- //   {
- //       if(isConnected())
- //           serialPort.closePort();
- //       
- //       super.finalize();
- //   }
+    @Override
+    protected void finalize() throws Throwable
+    {
+        if(isConnected())
+            serialPort.closePort();
+        
+        super.finalize();
+    }
     
     private boolean initCodesSent()
     {
@@ -204,10 +204,9 @@ public class TXRXImpl implements TXRX
             return false;
         }
         
-        int mask = SerialPort.MASK_RXFLAG + SerialPort.MASK_TXEMPTY + SerialPort.MASK_CTS + SerialPort.MASK_DSR;
+        int mask = SerialPort.MASK_RXCHAR;
         try
         {
-            System.out.println("Port opened: " + serialPort.openPort());
             System.out.println("Output buffer bytes: " + serialPort.getOutputBufferBytesCount());
             System.out.println("Input buffer bytes: " + serialPort.getInputBufferBytesCount());
             System.out.println("Connection opened: " + serialPort.isOpened());
@@ -216,7 +215,6 @@ public class TXRXImpl implements TXRX
             if(!serialPort.setEventsMask(mask))
                 return false;
             
-            System.out.println("Events Mask: " + serialPort.getEventsMask());
             serialPort.addEventListener(new SerialPortReader());
             
             
