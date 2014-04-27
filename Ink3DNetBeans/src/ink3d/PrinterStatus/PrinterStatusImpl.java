@@ -21,9 +21,9 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
     private static ArrayList<String> gCodes;
     private static ArrayList<String> failsafeGcodes;
     private static PrintJobConfiguration printJobConfig         = null;
-    private static int dispatchDelay;
-    private static TXRXImpl commsObject                             = null;
-    private static PrinterFeedbackImpl feedbackObject               = null;
+    private static int dispatchDelay                            = 20;
+    private static TXRXImpl commsObject                         = null;
+    private static PrinterFeedbackImpl feedbackObject           = null;
     private static boolean isPaused                             = false;
     
     
@@ -118,7 +118,11 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
             {
             
                 while(printJobConfig.getPrinterStatusObject().hasCurrentToolTemperatures() == false)
+                {
+                    // Ask for the current temperatures //
+                    commsObject.sendGcode("M105");
                     Thread.currentThread().sleep(dispatchDelay);
+                }
             
                 ArrayList<TemperatureObject> temps = printJobConfig.getPrinterStatusObject().getCurrentToolTemperatures();
                 for(int i = 0; i < temps.size(); ++i)
@@ -131,7 +135,7 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
 //                        for(int j = 0; j < failsafeGcodes.size(); ++i)
 //                            commsObject.sendGcode(failsafeGcodes.get(j));
                         
-                        // Spin until we cool off
+                            // Spin until we cool off
                             while(temps.get(i).getCurrentTemperature() > temps.get(i).getDesiredTemp())
                             {   
                                 temps = printJobConfig.getPrinterStatusObject().getCurrentToolTemperatures();
@@ -145,7 +149,7 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
                 // Wait here if we're paused //
                 while(isPaused)
                 {
-                    sleep(10);
+                    sleep(dispatchDelay);
                 }
             
                 commsObject.sendGcode(gCodes.get(0));
