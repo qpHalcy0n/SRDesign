@@ -95,10 +95,10 @@ public class TXRXImpl implements TXRX
      * the printer
      */
     @Override
-    public ArrayList<FeedbackObject> getPrinterFeedback()
+    public synchronized ArrayList<FeedbackObject> getPrinterFeedback()
     {
         // Check that feedback buffer is packed
-        if(!isPrinterFeedbackReady())
+        if(feedbackString.length() <= 0)
             return null;
         
         ArrayList<FeedbackObject> feedbackArray = new ArrayList<>();
@@ -184,7 +184,7 @@ public class TXRXImpl implements TXRX
      * @return boolean - indicating whether there is feedback data present
      */
     @Override
-    public boolean isPrinterFeedbackReady()
+    public synchronized boolean isPrinterFeedbackReady()
     {
         if(feedbackString.length() > 0)
             return true;
@@ -293,7 +293,7 @@ public class TXRXImpl implements TXRX
      * @param gCode - G-code to be sent to the printer
      */
     @Override
-    public boolean sendGcode(String gCode)
+    public synchronized boolean sendGcode(String gCode)
     {
         if(!handshakeReceived || !initCodesSent)
             return false;
@@ -319,14 +319,14 @@ public class TXRXImpl implements TXRX
             
             // Sleep: otherwise we end up clobbering the buffer and garbling g-codes
             // The OK message from the device is supposed to prevent this, but this proves to not be the case.
-            try
-            {
-                Thread.sleep(50);
-            }
-            catch(InterruptedException ex)
-            {
-                System.err.println(ex);
-            }
+ //           try
+ //           {
+ //               Thread.sleep(50);
+ //           }
+ //           catch(InterruptedException ex)
+ //           {
+ //               System.err.println(ex);
+ //           }
         }
         
         catch(SerialPortException ex)

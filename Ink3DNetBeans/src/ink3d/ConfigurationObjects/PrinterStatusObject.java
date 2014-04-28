@@ -47,8 +47,7 @@ public class PrinterStatusObject
             return null;
         
         ArrayList<TemperatureObject> ret = new ArrayList<>();
-        for(int i = 0; i < currentToolTemperatures.size(); ++i)
-            ret.add(currentToolTemperatures.get(i));
+        ret.addAll(currentToolTemperatures);
         currentToolTemperatures.clear();
         
         return ret;
@@ -59,7 +58,8 @@ public class PrinterStatusObject
         if(lastGcodesExecuted.size() <= 0)
             return null;
         
-        ArrayList<String> ret = lastGcodesExecuted;
+        ArrayList<String> ret = new ArrayList<>();
+        ret.addAll(lastGcodesExecuted);
         lastGcodesExecuted.clear();
         
         return ret;
@@ -67,12 +67,18 @@ public class PrinterStatusObject
     
     public void setCurrentToolTemperatures(ArrayList<TemperatureObject> temps)
     {
-        currentToolTemperatures = temps;
+        currentToolTemperatures.addAll(temps);
+        int i =0;
+ //       for(int i = 0; i < temps.size(); ++i)
+ //           currentToolTemperatures.add(temps.get(i));
     }
     
     public void setLastGcodesExecuted(ArrayList<String> gCodes)
     {
-        lastGcodesExecuted = gCodes;
+        lastGcodesExecuted.addAll(gCodes);
+        int i = 0;
+//        for(int i = 0; i < gCodes.size(); ++i)
+ //           lastGcodesExecuted.add(gCodes.get(i));
     }
 }
 
