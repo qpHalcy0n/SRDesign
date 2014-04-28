@@ -21,9 +21,9 @@ import java.io.*;
  */
 public class TXRXImpl implements TXRX 
 {
-    private static String initFileName           = "init.gcode";
-    private static int BAUD                      = 115200;
-    private static String comPort                = "COM3";
+    private static String initFileName                          = "init.gcode";
+    private static int BAUD                                     = 115200;
+    private static String comPort                               = "COM3";
     
     private static boolean isOutBufEmpty                        = false;                        // flag for output (to printer) buffer being empty
     private static SerialPortList serialPortList;                                               // Port listing
@@ -64,6 +64,10 @@ public class TXRXImpl implements TXRX
         super.finalize();
     }
     
+    /**
+     * 
+     * @return 'true' if the initialization codes were sent. 'false' otherwise
+     */
     private boolean initCodesSent()
     {
         return initCodesSent;
@@ -82,11 +86,11 @@ public class TXRXImpl implements TXRX
     
     /**
      * 
-     * @return ArrayList<byte[]> An array list packed with byte buffers of the latest data received from 
+     * @return ArrayList<FeedbackObject> An array list packed with byte buffers of the latest data received from 
      * the printer
      */
     @Override
-    public ArrayList<FeedbackObject> getPrinterFeedback()
+    public synchronized ArrayList<FeedbackObject> getPrinterFeedback()
     {
         // Check that feedback buffer is packed
         if(!isPrinterFeedbackReady())
@@ -166,7 +170,7 @@ public class TXRXImpl implements TXRX
      * @return boolean - indicating whether there is feedback data present
      */
     @Override
-    public boolean isPrinterFeedbackReady()
+    public synchronized boolean isPrinterFeedbackReady()
     {
         if(feedbackString.length() > 0)
             return true;
@@ -184,7 +188,7 @@ public class TXRXImpl implements TXRX
      * @return boolean indicating whether the operation succeeded or failed
      */
     @Override
-    public boolean connectToPrinter()
+    public synchronized boolean connectToPrinter()
     {  
         // Make new serial port object and attempt to open
         serialPort = new SerialPort(comPort);
@@ -275,7 +279,7 @@ public class TXRXImpl implements TXRX
      * @param gCode - G-code to be sent to the printer
      */
     @Override
-    public boolean sendGcode(String gCode)
+    public synchronized boolean sendGcode(String gCode)
     {
         if(!handshakeReceived || !initCodesSent)
             return false;
@@ -325,7 +329,7 @@ public class TXRXImpl implements TXRX
      * @return 
      */
     @Override
-    public ArrayList<String> getLastGcodesSent()
+    public synchronized ArrayList<String> getLastGcodesSent()
     {
         ArrayList<String> gCodeList = new ArrayList<>(lastGcodesSent);
         lastGcodesSent.clear();
