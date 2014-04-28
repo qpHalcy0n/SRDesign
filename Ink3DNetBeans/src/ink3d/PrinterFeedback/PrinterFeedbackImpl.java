@@ -18,18 +18,18 @@ import java.util.ArrayList;
 public class PrinterFeedbackImpl extends Thread implements PrinterFeedback
 {
     private static PrintJobConfiguration pjc        = null;
-    private static int updateDelay                  = 20;
+    private static int updateDelay                  = 2000;
     private static TXRX commsObject                 = null;
     private static boolean isMonitoring             = true;
     
     public PrinterFeedbackImpl()
     {
-        updateDelay = 100;
+        updateDelay = 2000;
     }
     
     public PrinterFeedbackImpl(PrintJobConfiguration printJobConfig)
     {
-        updateDelay = 100;
+        updateDelay = 2000;
         pjc = printJobConfig;
     }
     

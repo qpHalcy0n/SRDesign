@@ -84,13 +84,18 @@ public class TXRXImpl implements TXRX
         return portNames;
     }
     
+    public void clearFeedbackString()
+    {
+        feedbackString = "";
+    }
+    
     /**
      * 
      * @return ArrayList<FeedbackObject> An array list packed with byte buffers of the latest data received from 
      * the printer
      */
     @Override
-    public synchronized ArrayList<FeedbackObject> getPrinterFeedback()
+    public ArrayList<FeedbackObject> getPrinterFeedback()
     {
         // Check that feedback buffer is packed
         if(!isPrinterFeedbackReady())
@@ -139,23 +144,32 @@ public class TXRXImpl implements TXRX
                         curTempStr = lineObjects[j].substring(colonPos + 1, lineObjects[j].length());
                         desiredTempStr = "0";
                     }
-                   
-                    float curTemp = Float.parseFloat(curTempStr);
-                    float desiredTemp = Float.parseFloat(desiredTempStr);
-                    TemperatureObject temp = new TemperatureObject();
-                    temp.tool = toolName;
-                    temp.curTemp = curTemp;
-                    temp.desiredTemp = desiredTemp;
                     
-                    obj.toolTemps.add(temp);
+                    try
+                    {
+                        float curTemp = Float.parseFloat(curTempStr);
+                        float desiredTemp = Float.parseFloat(desiredTempStr);
+                        TemperatureObject temp = new TemperatureObject();
+                        temp.tool = toolName;
+                        temp.curTemp = curTemp;
+                        temp.desiredTemp = desiredTemp;
+                        obj.toolTemps.add(temp);
+                    }
+                    
+                    catch(NumberFormatException ex)
+                    {
+                        System.err.println("Error parsing temp");
+                    }
+                    
+                    
                 }
                 
                 // miscellaneous data is assumed to be resend line information //
                 else 
                 {
                     // Look for resend line //
-                    int resend = Integer.parseInt(lineObjects[j]);
-                    obj.resendLine = resend;
+//                    int resend = Integer.parseInt(lineObjects[j]);
+//                    obj.resendLine = resend;
                 }
             }
             
@@ -170,7 +184,7 @@ public class TXRXImpl implements TXRX
      * @return boolean - indicating whether there is feedback data present
      */
     @Override
-    public synchronized boolean isPrinterFeedbackReady()
+    public boolean isPrinterFeedbackReady()
     {
         if(feedbackString.length() > 0)
             return true;
@@ -188,7 +202,7 @@ public class TXRXImpl implements TXRX
      * @return boolean indicating whether the operation succeeded or failed
      */
     @Override
-    public synchronized boolean connectToPrinter()
+    public boolean connectToPrinter()
     {  
         // Make new serial port object and attempt to open
         serialPort = new SerialPort(comPort);
@@ -223,13 +237,13 @@ public class TXRXImpl implements TXRX
             
             
             System.out.println("Waiting for handshake");
-            while(!handshakeReceived){}
+//            while(!handshakeReceived){}
             System.out.println("Handshake received");
             
             // FIXME: Sometimes the handshake happens too fast so just sleep for 4 seconds (this only happens once)
             try
             {
-                Thread.sleep(4000);
+                Thread.sleep(10000);
             }
             catch(InterruptedException ex)
             {
@@ -279,7 +293,7 @@ public class TXRXImpl implements TXRX
      * @param gCode - G-code to be sent to the printer
      */
     @Override
-    public synchronized boolean sendGcode(String gCode)
+    public boolean sendGcode(String gCode)
     {
         if(!handshakeReceived || !initCodesSent)
             return false;
@@ -329,7 +343,7 @@ public class TXRXImpl implements TXRX
      * @return 
      */
     @Override
-    public synchronized ArrayList<String> getLastGcodesSent()
+    public ArrayList<String> getLastGcodesSent()
     {
         ArrayList<String> gCodeList = new ArrayList<>(lastGcodesSent);
         lastGcodesSent.clear();

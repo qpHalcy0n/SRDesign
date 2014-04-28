@@ -8,7 +8,7 @@ package ink3d.PrinterStatus;
 
 import ink3d.PrinterFeedback.*;
 import ink3d.Communications.*;
-import ink3d.ConfigurationObjects.PrintJobConfiguration;
+import ink3d.ConfigurationObjects.*;
 import java.util.ArrayList;
 import java.io.*;
 
@@ -114,31 +114,43 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
             feedbackObject.setCommsObject(commsObject);
             feedbackObject.beginMonitoring();
             
+            commsObject.clearFeedbackString();
+            boolean once = true;
             while(gCodes.size() > 0)
             {
             
                 while(printJobConfig.getPrinterStatusObject().hasCurrentToolTemperatures() == false)
                 {
                     // Ask for the current temperatures //
+                    if(once)
+                    {
+                        commsObject.clearFeedbackString();
+                        once = false;
+                    }
                     commsObject.sendGcode("M105");
                     Thread.currentThread().sleep(dispatchDelay);
                 }
             
-                ArrayList<TemperatureObject> temps = printJobConfig.getPrinterStatusObject().getCurrentToolTemperatures();
+  //              ArrayList<TemperatureObject> temps = printJobConfig.getPrinterStatusObject().getCurrentToolTemperatures();
+                PrinterStatusObject pso = printJobConfig.getPrinterStatusObject();
+                ArrayList<TemperatureObject> temps = pso.getCurrentToolTemperatures();
                 for(int i = 0; i < temps.size(); ++i)
                 {
                     if(temps.get(i).getToolName().contentEquals("T"))
                     {
-                        if(temps.get(i).getCurrentTemperature() > temps.get(i).getDesiredTemp())
+                        // TODO: FIX THIS: desired temps for initial run
+//                        if(temps.get(i).getCurrentTemperature() > temps.get(i).getDesiredTemp())
+                        if(temps.get(i).getCurrentTemperature() > 210.0)
                         {
                           // Do we want to execute some failsafe or just wait for the temp to cool off? //
 //                        for(int j = 0; j < failsafeGcodes.size(); ++i)
 //                            commsObject.sendGcode(failsafeGcodes.get(j));
                         
                             // Spin until we cool off
-                            while(temps.get(i).getCurrentTemperature() > temps.get(i).getDesiredTemp())
+                            while(temps.get(i).getCurrentTemperature() > 210.0)
                             {   
                                 temps = printJobConfig.getPrinterStatusObject().getCurrentToolTemperatures();
+                                commsObject.sendGcode("M105");
                                 Thread.currentThread().sleep(dispatchDelay);
                             }
                         }

@@ -46,7 +46,9 @@ public class PrinterStatusObject
         if(currentToolTemperatures.size() <= 0)
             return null;
         
-        ArrayList<TemperatureObject> ret = currentToolTemperatures;
+        ArrayList<TemperatureObject> ret = new ArrayList<>();
+        for(int i = 0; i < currentToolTemperatures.size(); ++i)
+            ret.add(currentToolTemperatures.get(i));
         currentToolTemperatures.clear();
         
         return ret;
