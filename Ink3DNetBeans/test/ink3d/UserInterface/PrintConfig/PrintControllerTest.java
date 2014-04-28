@@ -6,10 +6,8 @@
 
 package ink3d.UserInterface.PrintConfig;
 
-import ink3d.ConfigurationObjects.ExtruderConfiguration;
 import ink3d.ConfigurationObjects.PrintConfiguration;
 import ink3d.UserInterface.Database.PersistenceFramework;
-import ink3d.UserInterface.Extruder.ExtruderController;
 import ink3d.UserInterface.MainMenu.BadFieldException;
 import java.io.File;
 import java.util.List;

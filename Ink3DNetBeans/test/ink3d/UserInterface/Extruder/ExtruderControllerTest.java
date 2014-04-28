@@ -71,7 +71,7 @@ public class ExtruderControllerTest {
         ExtruderController ec = new ExtruderController();
         ec.deleteExtruderConfiguration(extruderName);
 
-        File f = new File(EXTRUDER_DIR + extruderName);
+        File f = new File(EXTRUDER_DIR + extruderName + ".xml");
         Assert.assertFalse(f.exists());
     }
 		
