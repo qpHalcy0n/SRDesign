@@ -6,6 +6,7 @@
 
 package ink3d.UserInterface.PrintConfig;
 
+import ink3d.ConfigurationObjects.CoolingConfiguration;
 import ink3d.UserInterface.Extruder.*;
 import ink3d.ConfigurationObjects.ExtruderConfiguration;
 import ink3d.ConfigurationObjects.InfillConfiguration;
@@ -242,6 +243,34 @@ public class PrintPanel extends javax.swing.JPanel {
         jLabel154 = new javax.swing.JLabel();
         jLabel155 = new javax.swing.JLabel();
         verboseGCodeCheckBox = new javax.swing.JCheckBox();
+        jPanel48 = new javax.swing.JPanel();
+        jLabel170 = new javax.swing.JLabel();
+        jLabel171 = new javax.swing.JLabel();
+        jLabel172 = new javax.swing.JLabel();
+        jLabel173 = new javax.swing.JLabel();
+        jLabel174 = new javax.swing.JLabel();
+        jLabel175 = new javax.swing.JLabel();
+        jLabel176 = new javax.swing.JLabel();
+        jLabel177 = new javax.swing.JLabel();
+        jLabel178 = new javax.swing.JLabel();
+        jLabel179 = new javax.swing.JLabel();
+        maxFanSpeedText = new javax.swing.JTextField();
+        bridgeFanSpeedPercentText = new javax.swing.JTextField();
+        disableFanForFirstNLayersText = new javax.swing.JTextField();
+        minFanSpeedText = new javax.swing.JTextField();
+        keepFanAlwaysOnCheckBox = new javax.swing.JCheckBox();
+        enableAutoCoolingCheckBox = new javax.swing.JCheckBox();
+        jPanel49 = new javax.swing.JPanel();
+        jLabel180 = new javax.swing.JLabel();
+        jLabel181 = new javax.swing.JLabel();
+        jLabel182 = new javax.swing.JLabel();
+        jLabel183 = new javax.swing.JLabel();
+        jLabel184 = new javax.swing.JLabel();
+        jLabel185 = new javax.swing.JLabel();
+        jLabel186 = new javax.swing.JLabel();
+        enableFanTimeThresholdText = new javax.swing.JTextField();
+        slowDownTimeTresholdlText = new javax.swing.JTextField();
+        minPrintSpeedText = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(800, 600));
         setLayout(new java.awt.BorderLayout());
@@ -317,10 +346,11 @@ public class PrintPanel extends javax.swing.JPanel {
         configPanel.setLayout(new java.awt.BorderLayout());
 
         jScrollPane7.setBackground(new java.awt.Color(102, 102, 102));
+        jScrollPane7.setPreferredSize(new java.awt.Dimension(404, 3000));
 
         jPanel22.setBackground(new java.awt.Color(153, 153, 153));
         jPanel22.setFocusTraversalPolicyProvider(true);
-        jPanel22.setPreferredSize(new java.awt.Dimension(400, 2732));
+        jPanel22.setPreferredSize(new java.awt.Dimension(400, 3000));
         jPanel22.setLayout(new javax.swing.BoxLayout(jPanel22, javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel23.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 10));
@@ -370,7 +400,7 @@ public class PrintPanel extends javax.swing.JPanel {
                             .addComponent(jLabel66)
                             .addComponent(jLabel67)))
                     .addComponent(jLabel31))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(322, Short.MAX_VALUE))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -417,7 +447,7 @@ public class PrintPanel extends javax.swing.JPanel {
                         .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(spiralVasePCCheckBox)
                             .addComponent(perimetersText, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(362, Short.MAX_VALUE))
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -544,7 +574,7 @@ public class PrintPanel extends javax.swing.JPanel {
                                 .addComponent(concavePointsCheckBox)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(nonOverhangsCheckBox)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(189, Short.MAX_VALUE))
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -601,7 +631,7 @@ public class PrintPanel extends javax.swing.JPanel {
                 .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(externalPerimetersFirstCheckBox)
                     .addComponent(randomizeStartingPointsCheckBox))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(341, Short.MAX_VALUE))
         );
         jPanel27Layout.setVerticalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -657,7 +687,7 @@ public class PrintPanel extends javax.swing.JPanel {
                             .addComponent(topBottomPCCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(fillDensityPCText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(fillPatternPCCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(268, Short.MAX_VALUE))
         );
         jPanel28Layout.setVerticalGroup(
             jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -711,7 +741,7 @@ public class PrintPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel76))
                             .addComponent(infillNeededPCCheckBox))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(324, Short.MAX_VALUE))
         );
         jPanel29Layout.setVerticalGroup(
             jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -793,7 +823,7 @@ public class PrintPanel extends javax.swing.JPanel {
                         .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(onlyRetractInfillWhenCrossingPerimetersCheckBox)
                             .addComponent(infillBeforePerimetersCheckBox))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(292, Short.MAX_VALUE))
         );
         jPanel30Layout.setVerticalGroup(
             jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -933,7 +963,7 @@ public class PrintPanel extends javax.swing.JPanel {
                                 .addComponent(perimetersSpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel95)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(308, Short.MAX_VALUE))
         );
         jPanel31Layout.setVerticalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1013,7 +1043,7 @@ public class PrintPanel extends javax.swing.JPanel {
                         .addComponent(travelSpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel106)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(311, Short.MAX_VALUE))
         );
         jPanel32Layout.setVerticalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1053,7 +1083,7 @@ public class PrintPanel extends javax.swing.JPanel {
                         .addComponent(firstLayerSpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel109)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(285, Short.MAX_VALUE))
         );
         jPanel33Layout.setVerticalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1132,7 +1162,7 @@ public class PrintPanel extends javax.swing.JPanel {
                                 .addComponent(perimetersAccelerationText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel116)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(293, Short.MAX_VALUE))
         );
         jPanel34Layout.setVerticalGroup(
             jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1271,7 +1301,7 @@ public class PrintPanel extends javax.swing.JPanel {
                         .addComponent(brimWidthText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel131)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(317, Short.MAX_VALUE))
         );
         jPanel36Layout.setVerticalGroup(
             jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1327,7 +1357,7 @@ public class PrintPanel extends javax.swing.JPanel {
                                 .addComponent(generateSupportMaterialCheckBox)
                                 .addComponent(overhangThresholdText, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addComponent(jLabel136)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(308, Short.MAX_VALUE))
         );
         jPanel37Layout.setVerticalGroup(
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1375,7 +1405,7 @@ public class PrintPanel extends javax.swing.JPanel {
                         .addComponent(raftLayersText, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel139)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(308, Short.MAX_VALUE))
         );
         jPanel38Layout.setVerticalGroup(
             jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1450,7 +1480,7 @@ public class PrintPanel extends javax.swing.JPanel {
                             .addComponent(jLabel146)
                             .addComponent(jLabel147)
                             .addComponent(jLabel148))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(264, Short.MAX_VALUE))
         );
         jPanel39Layout.setVerticalGroup(
             jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1521,6 +1551,185 @@ public class PrintPanel extends javax.swing.JPanel {
         );
 
         jPanel22.add(jPanel41);
+
+        jPanel48.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 10));
+        jPanel48.setPreferredSize(new java.awt.Dimension(250, 173));
+
+        jLabel170.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel170.setText("Fan Settings");
+
+        jLabel171.setText("Keep Fan Always On:");
+
+        jLabel172.setText("Enable Auto-Cooling:");
+
+        jLabel173.setText("Min:");
+
+        jLabel174.setText("Fan Speed:");
+
+        jLabel175.setText("Bridges fan speed:");
+
+        jLabel176.setText("Max:");
+
+        jLabel177.setText("Disable fan for the first:");
+
+        jLabel178.setText("layers");
+
+        jLabel179.setText("%");
+
+        enableAutoCoolingCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enableAutoCoolingCheckBoxActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel48Layout = new javax.swing.GroupLayout(jPanel48);
+        jPanel48.setLayout(jPanel48Layout);
+        jPanel48Layout.setHorizontalGroup(
+            jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel48Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel170)
+                    .addGroup(jPanel48Layout.createSequentialGroup()
+                        .addComponent(jLabel171)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(keepFanAlwaysOnCheckBox)
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel172)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(enableAutoCoolingCheckBox))
+                    .addGroup(jPanel48Layout.createSequentialGroup()
+                        .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel177)
+                            .addComponent(jLabel175))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(bridgeFanSpeedPercentText, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                            .addComponent(disableFanForFirstNLayersText))
+                        .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel48Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel178, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel48Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel179))))
+                    .addGroup(jPanel48Layout.createSequentialGroup()
+                        .addComponent(jLabel174)
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel173)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(minFanSpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel176)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(maxFanSpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(262, Short.MAX_VALUE))
+        );
+        jPanel48Layout.setVerticalGroup(
+            jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel48Layout.createSequentialGroup()
+                .addComponent(jLabel170)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel171, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(keepFanAlwaysOnCheckBox))
+                    .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel172, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(enableAutoCoolingCheckBox)))
+                .addGap(8, 8, 8)
+                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel174)
+                    .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel173)
+                        .addComponent(minFanSpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel176)
+                        .addComponent(maxFanSpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel175)
+                    .addComponent(bridgeFanSpeedPercentText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel179))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel177)
+                    .addComponent(disableFanForFirstNLayersText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel178))
+                .addGap(58, 58, 58))
+        );
+
+        jPanel22.add(jPanel48);
+
+        jPanel49.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 10));
+
+        jLabel180.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel180.setText("Cooling Thresholds");
+
+        jLabel181.setText("Enable fan if layer print time is below:");
+
+        jLabel182.setText("seconds");
+
+        jLabel183.setText("Slow down if layer print time is below:");
+
+        jLabel184.setText("seconds");
+
+        jLabel185.setText("Min print speed:");
+
+        jLabel186.setText("mm/s");
+
+        javax.swing.GroupLayout jPanel49Layout = new javax.swing.GroupLayout(jPanel49);
+        jPanel49.setLayout(jPanel49Layout);
+        jPanel49Layout.setHorizontalGroup(
+            jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel49Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel180)
+                    .addGroup(jPanel49Layout.createSequentialGroup()
+                        .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel183)
+                            .addComponent(jLabel185))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(slowDownTimeTresholdlText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(minPrintSpeedText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel184, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel186, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(jPanel49Layout.createSequentialGroup()
+                        .addComponent(jLabel181)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(enableFanTimeThresholdText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel182)))
+                .addContainerGap(256, Short.MAX_VALUE))
+        );
+        jPanel49Layout.setVerticalGroup(
+            jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel49Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel180)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel181)
+                    .addComponent(jLabel182)
+                    .addComponent(enableFanTimeThresholdText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel183)
+                    .addComponent(jLabel184)
+                    .addComponent(slowDownTimeTresholdlText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel185)
+                    .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel186)
+                        .addComponent(minPrintSpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15))
+        );
+
+        jPanel22.add(jPanel49);
 
         jScrollPane7.setViewportView(jPanel22);
 
@@ -1596,9 +1805,14 @@ public class PrintPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_saveBtnActionPerformed
 
+    private void enableAutoCoolingCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enableAutoCoolingCheckBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_enableAutoCoolingCheckBoxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox avoidCrossingPerimetersCheckBox;
+    private javax.swing.JTextField bridgeFanSpeedPercentText;
     private javax.swing.JTextField bridgeSpeedAccerlerationText;
     private javax.swing.JTextField bridgesSpeedText;
     private javax.swing.JTextField brimWidthText;
@@ -1610,6 +1824,9 @@ public class PrintPanel extends javax.swing.JPanel {
     private javax.swing.JButton deleteBtn;
     private javax.swing.JCheckBox detectBridgesCheckBox;
     private javax.swing.JCheckBox detectThinWallsCheckBox;
+    private javax.swing.JTextField disableFanForFirstNLayersText;
+    private javax.swing.JCheckBox enableAutoCoolingCheckBox;
+    private javax.swing.JTextField enableFanTimeThresholdText;
     private javax.swing.JTextField enforceSupportForFirstNLayersText;
     private javax.swing.JCheckBox externalPerimetersFirstCheckBox;
     private javax.swing.JTextField externalPerimetersSpeedText;
@@ -1678,6 +1895,23 @@ public class PrintPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel148;
     private javax.swing.JLabel jLabel154;
     private javax.swing.JLabel jLabel155;
+    private javax.swing.JLabel jLabel170;
+    private javax.swing.JLabel jLabel171;
+    private javax.swing.JLabel jLabel172;
+    private javax.swing.JLabel jLabel173;
+    private javax.swing.JLabel jLabel174;
+    private javax.swing.JLabel jLabel175;
+    private javax.swing.JLabel jLabel176;
+    private javax.swing.JLabel jLabel177;
+    private javax.swing.JLabel jLabel178;
+    private javax.swing.JLabel jLabel179;
+    private javax.swing.JLabel jLabel180;
+    private javax.swing.JLabel jLabel181;
+    private javax.swing.JLabel jLabel182;
+    private javax.swing.JLabel jLabel183;
+    private javax.swing.JLabel jLabel184;
+    private javax.swing.JLabel jLabel185;
+    private javax.swing.JLabel jLabel186;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
@@ -1749,9 +1983,15 @@ public class PrintPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel38;
     private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel41;
+    private javax.swing.JPanel jPanel48;
+    private javax.swing.JPanel jPanel49;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JCheckBox keepFanAlwaysOnCheckBox;
     private javax.swing.JTextField layerHeightPCText;
     private javax.swing.JButton loadBtn;
+    private javax.swing.JTextField maxFanSpeedText;
+    private javax.swing.JTextField minFanSpeedText;
+    private javax.swing.JTextField minPrintSpeedText;
     private javax.swing.JLabel nameLbl;
     private javax.swing.JPanel namePanel;
     private javax.swing.JTextField nameTxt;
@@ -1772,6 +2012,7 @@ public class PrintPanel extends javax.swing.JPanel {
     private javax.swing.JTextField skirtHeightText;
     private javax.swing.JTextField skirtLoopsText;
     private javax.swing.JTextField skirtMinExtrusionLengthText;
+    private javax.swing.JTextField slowDownTimeTresholdlText;
     private javax.swing.JTextField smallPerimetersSpeedText;
     private javax.swing.JTextField solidBottomLayersText;
     private javax.swing.JTextField solidInfillEveryNLayersText;
@@ -1999,6 +2240,39 @@ public class PrintPanel extends javax.swing.JPanel {
         
         print.setSupportMaterialConfiguration(support);
 
+        CoolingConfiguration cooling = new CoolingConfiguration();
+        
+        cooling.setFanAlwaysOn(keepFanAlwaysOnCheckBox.isSelected());
+        cooling.setEnableAutoCooling(enableAutoCoolingCheckBox.isSelected());
+        
+        int minFanSpeed = InputValidationUtility.parseInt("Min Fan Speed", minFanSpeedText.getText());
+        cooling.setMinFanSpeed(minFanSpeed);
+
+        int maxFanSpeed = InputValidationUtility.parseInt("Max Fan Speed", maxFanSpeedText.getText());
+        cooling.setMaxFanSpeed(maxFanSpeed);
+
+        int bridgeFanSpeed = InputValidationUtility.parseInt("Bridge Fan Speed Percentage",
+                bridgeFanSpeedPercentText.getText());
+        cooling.setBridgeFanSpeedPercent(bridgeFanSpeed);
+
+        int disableFanForFirstNLayers = InputValidationUtility.parseInt("Disable Fan For First N Layers",
+                disableFanForFirstNLayersText.getText());
+        cooling.setDisableFanForFirstNLayers(disableFanForFirstNLayers);
+        
+        int enableFanTimeThreshold = InputValidationUtility.parseInt("'Enable fan if layer print time is below'",
+                enableFanTimeThresholdText.getText());
+        cooling.setEnableFanTimeThreshold(enableFanTimeThreshold);
+
+        int slowDownTimeThreshold = InputValidationUtility.parseInt("'Slow down if layer print time is below'",
+                slowDownTimeTresholdlText.getText());
+        cooling.setSlowDownTimeTreshold(slowDownTimeThreshold);
+
+        int minPrintSpeed = InputValidationUtility.parseInt("Min Print Speed",
+                minPrintSpeedText.getText());
+        cooling.setMinPrintSpeed(minPrintSpeed);
+
+        print.setCoolingConfiguration(cooling);
+
         return print;
     }
 
@@ -2087,6 +2361,18 @@ public class PrintPanel extends javax.swing.JPanel {
         supportMaterialPatternAngleText.setText(String.valueOf(support.getSupportPatternAngle()));
         supportMaterialInterfaceLayersText.setText(String.valueOf(support.getInterfaceLayers()));
         supportMaterialInterfacePatternSpacingText.setText(String.valueOf(support.getInterfacePatternSpacing()));
+
+        CoolingConfiguration cooling = print.getCoolingConfiguration();
+
+        keepFanAlwaysOnCheckBox.setSelected(cooling.isFanAlwaysOn());
+        enableAutoCoolingCheckBox.setSelected(cooling.isEnableAutoCooling());
+        minFanSpeedText.setText(String.valueOf(cooling.getMinFanSpeed()));
+        maxFanSpeedText.setText(String.valueOf(cooling.getMaxFanSpeed()));
+        bridgeFanSpeedPercentText.setText(String.valueOf(cooling.getBridgeFanSpeedPercent()));
+        disableFanForFirstNLayersText.setText(String.valueOf(cooling.getDisableFanForFirstNLayers()));
+        enableFanTimeThresholdText.setText(String.valueOf(cooling.getEnableFanTimeThreshold()));
+        slowDownTimeTresholdlText.setText(String.valueOf(cooling.getSlowDownTimeTreshold()));
+        minPrintSpeedText.setText(String.valueOf(cooling.getMinPrintSpeed()));
 
     }
 

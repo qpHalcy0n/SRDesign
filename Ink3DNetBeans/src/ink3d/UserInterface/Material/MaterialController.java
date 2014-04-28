@@ -39,17 +39,6 @@ public class MaterialController {
         varList.add(Integer.toString(material.getFirstLayerExtrusionTemperature()));
         varList.add(Integer.toString(material.getExtrusionTemperature()));
         
-        varList.add(Boolean.toString(material.isFanAlwaysOn()));
-        varList.add(Boolean.toString(material.isEnableAutoCooling()));
-        varList.add(Integer.toString(material.getMinFanSpeed()));
-        varList.add(Integer.toString(material.getMaxFanSpeed()));
-        varList.add(Integer.toString(material.getBridgeFanSpeedPercent()));
-        varList.add(Integer.toString(material.getDisableFanForFirstNLayers()));
-        
-        varList.add(Integer.toString(material.getEnableFanTimeThreshold()));
-        varList.add(Integer.toString(material.getSlowDownTimeTreshold()));
-        varList.add(Integer.toString(material.getMinPrintSpeed()));
-        
         varList.add(Double.toString(material.getRetractionLength()));
         varList.add(Double.toString(material.getRetractionLiftZ()));
         varList.add(Integer.toString(material.getRetractionSpeed()));
@@ -114,94 +103,10 @@ public class MaterialController {
                 e.printStackTrace();
                 throw new BadFieldException("Extrustion tempurture must be an integer.");  
             }
-            config.setFanAlwaysOn(Boolean.parseBoolean(vars.get(5)));
-            config.setEnableAutoCooling(Boolean.parseBoolean(vars.get(6)));
             
             try{
-                minFan = new Integer(vars.get(7));
-            }catch(NumberFormatException e){
-                e.printStackTrace();
-                throw new BadFieldException("Minimum Fan Speed must be an integer that is less than maximum fan speed.");  
-            }
-            
-            try{
-                maxFan = new Integer(vars.get(8));
-            }catch(NumberFormatException e){
-                e.printStackTrace();
-                throw new BadFieldException("Minimum Fan Speed must be an integer that is less than maximum fan speed.");  
-            }
-            
-            if(minFan>=0 && minFan <=maxFan) config.setMinFanSpeed(minFan);
-            else{
-                if(minFan > maxFan)throw new BadFieldException("Minimum Fan Speed must be an integer that is less than maximum fan speed.");
-                else{
-                    throw new BadFieldException("Minimum Fan Speed must be an integer that is greater than or equal to 0.");
-                }
-            }
-            
-            if(maxFan<=100)config.setMaxFanSpeed(maxFan);
-            else {
-                throw new BadFieldException("Maximum Fan Speed must be an integer that is less than or equal to 100");
-            }
-            
-            try{
-                i = new Integer(vars.get(9));
-                if(i>=0 && i<=100)config.setBridgeFanSpeedPercent(i);
-                else{
-                    throw new BadFieldException("Bridge Fan Speed Percent must be an integer value between 0 and 100");
-                }
-            }catch(NumberFormatException e){
-                e.printStackTrace();
-                throw new BadFieldException("Bridge Fan Speed Percent must be an integer value between 0 and 100");  
-            }
-            
-            try{
-                i = new Integer(vars.get(10));
-                if(i>=0)config.setDisableFanForFirstNLayers(i);
-                else{
-                    throw new BadFieldException("Disable Fan for First N Layers must be an integer greater than or equal to 0.");
-                }
-            }catch(NumberFormatException e){
-                e.printStackTrace();
-                throw new BadFieldException("Disable Fan for First N Layers must be an integer greater than or equal to 0.");  
-            }   
-            
-            try{
-                i = new Integer(vars.get(11));
-                if(i>=0)config.setEnableFanTimeThreshold(i);
-                else{
-                    throw new BadFieldException("Enable Fan Time Threshold must be an integer greater than or equal to 0.");
-                }
-            }catch(NumberFormatException e){
-                e.printStackTrace();
-                throw new BadFieldException("Enable Fan Time Threshold must be an integer greater than or equal to 0.");  
-            }
-            
-            try{
-                i = new Integer(vars.get(12));
-                if(i>=0)config.setSlowDownTimeTreshold(i);
-                else {
-                    throw new BadFieldException("Slow Down Time Threshold must be an integer greater than or equal to 0.");
-                }
-            }catch(NumberFormatException e){
-                e.printStackTrace();
-                throw new BadFieldException("Slow Down Time Threshold must be an integer greater than or equal to 0.");  
-            }
-            
-            try{
-                i = new Integer(vars.get(13));
-                if(i>=0)config.setMinPrintSpeed(i);
-                else {
-                    throw new BadFieldException("Minimum Print Speed must be an integer greater than 0.");
-                }
-            }catch(NumberFormatException e){
-                e.printStackTrace();
-                throw new BadFieldException("Minimum Print Speed must be an integer greater than 0.");  
-            }
-            
-            try{
-                d = new Double(vars.get(14));
-                if(d>=0)config.setRetractionLength(15);
+                d = new Double(vars.get(5));
+                if(d>=0)config.setRetractionLength(d);
                 else {
                     throw new BadFieldException("Retraction Length must be a double precision value greater than or equal to 0.");
                 }
@@ -211,7 +116,7 @@ public class MaterialController {
             }
             
             try{
-                d = new Double(vars.get(15));
+                d = new Double(vars.get(6));
                 if(d>=0)config.setRetractionLiftZ(d);
                 else{
                     throw new BadFieldException("Retraction lift Z must be a double precision value greater than or equal to 0.");
@@ -222,7 +127,7 @@ public class MaterialController {
             }
             
             try{
-                i = new Integer(vars.get(16));
+                i = new Integer(vars.get(7));
                 if(i>=0)config.setRetractionSpeed(i);
                 else{
                     throw new BadFieldException("Retraction Speed must be an integer greater than 0.");
@@ -233,7 +138,7 @@ public class MaterialController {
             }
             
             try{
-                d = new Double(vars.get(17));
+                d = new Double(vars.get(8));
                 if(d>=0)config.setExtraLengthAfterRetraction(d);
                 else{
                     throw new BadFieldException("Extra Length After Retraction must be a double precision value greater then or equal to 0.");
@@ -244,7 +149,7 @@ public class MaterialController {
             }
             
             try{
-                d = new Double(vars.get(18));
+                d = new Double(vars.get(9));
                 if(d>=0)config.setMinimumTravelAfterRetraction(d);
                 else{
                     throw new BadFieldException("Minimum Travel After Retraction must be a double precision value greater then or equal to 0.");
@@ -254,11 +159,11 @@ public class MaterialController {
                 throw new BadFieldException("Minimum Travel After Retraction must be a double precision value greater then or equal to 0.");  
             }
             
-            config.setRetractOnLayerChange(Boolean.parseBoolean(vars.get(19)));
-            config.setWipeBeforeRetract(Boolean.parseBoolean(vars.get(20)));
+            config.setRetractOnLayerChange(Boolean.parseBoolean(vars.get(10)));
+            config.setWipeBeforeRetract(Boolean.parseBoolean(vars.get(11)));
             
             try{
-                d = new Double(vars.get(21));
+                d = new Double(vars.get(12));
                 if(d>=0)config.setRetractionLengthBeforeToolChange(d);
                 else{
                     throw new BadFieldException("Retraction Legth Before Tool Change must be a double precision value greater then or equal to 0.");
@@ -269,7 +174,7 @@ public class MaterialController {
             }
             
             try{
-                d = new Double(vars.get(22));
+                d = new Double(vars.get(13));
                 if(d>=0)config.setExtraLengthOnToolReenable(d);
                 else{
                     throw new BadFieldException("Extra Length on Tool Reenable must bea double precision value greater then or equal to 0.");
@@ -279,8 +184,8 @@ public class MaterialController {
                 throw new BadFieldException("Extra Length on Tool Reenable must bea double precision value greater then or equal to 0.");  
             }
         
-            config.setgCodeStart(vars.get(23));
-            config.setgCodeEnd(vars.get(24));
+            config.setgCodeStart(vars.get(14));
+            config.setgCodeEnd(vars.get(15));
         }catch(NumberFormatException e){
             e.printStackTrace();
             throw new BadFieldException("All Fields need to be filed out to save a Material");

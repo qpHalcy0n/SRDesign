@@ -61,34 +61,6 @@ public class MaterialPanel extends javax.swing.JPanel {
         jLabel168 = new javax.swing.JLabel();
         firstLayerTemperatureMaterialText = new javax.swing.JTextField();
         extrusionTemperatureMaterialText = new javax.swing.JTextField();
-        jPanel48 = new javax.swing.JPanel();
-        jLabel170 = new javax.swing.JLabel();
-        jLabel171 = new javax.swing.JLabel();
-        jLabel172 = new javax.swing.JLabel();
-        jLabel173 = new javax.swing.JLabel();
-        jLabel174 = new javax.swing.JLabel();
-        jLabel175 = new javax.swing.JLabel();
-        jLabel176 = new javax.swing.JLabel();
-        jLabel177 = new javax.swing.JLabel();
-        jLabel178 = new javax.swing.JLabel();
-        jLabel179 = new javax.swing.JLabel();
-        maxFanSpeedMaterialText = new javax.swing.JTextField();
-        bridgeFanSpeedPercentMaterialText = new javax.swing.JTextField();
-        disableFanForFirstNLayersMaterialText = new javax.swing.JTextField();
-        minFanSpeedMaterialText = new javax.swing.JTextField();
-        fanAlwaysOnMaterialComboBox = new javax.swing.JComboBox();
-        enableAutoCoolingMaterialComboBox = new javax.swing.JComboBox();
-        jPanel49 = new javax.swing.JPanel();
-        jLabel180 = new javax.swing.JLabel();
-        jLabel181 = new javax.swing.JLabel();
-        jLabel182 = new javax.swing.JLabel();
-        jLabel183 = new javax.swing.JLabel();
-        jLabel184 = new javax.swing.JLabel();
-        jLabel185 = new javax.swing.JLabel();
-        jLabel186 = new javax.swing.JLabel();
-        enableFanTimeThresholdMaterialText = new javax.swing.JTextField();
-        slowDownTimeTresholdMaterialText = new javax.swing.JTextField();
-        minPrintSpeedMaterialText = new javax.swing.JTextField();
         jPanel50 = new javax.swing.JPanel();
         jLabel187 = new javax.swing.JLabel();
         jLabel188 = new javax.swing.JLabel();
@@ -244,7 +216,7 @@ public class MaterialPanel extends javax.swing.JPanel {
                 .addComponent(jLabel168)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(extrusionTemperatureMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(208, Short.MAX_VALUE))
         );
         jPanel47Layout.setVerticalGroup(
             jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,178 +231,6 @@ public class MaterialPanel extends javax.swing.JPanel {
                     .addComponent(firstLayerTemperatureMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(extrusionTemperatureMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(37, Short.MAX_VALUE))
-        );
-
-        jPanel48.setPreferredSize(new java.awt.Dimension(250, 173));
-
-        jLabel170.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel170.setText("Fan Settings");
-
-        jLabel171.setText("Keep Fan Always On:");
-
-        jLabel172.setText("Enable Auto-Cooling:");
-
-        jLabel173.setText("Min:");
-
-        jLabel174.setText("Fan Speed:");
-
-        jLabel175.setText("Bridges fan speed:");
-
-        jLabel176.setText("Max:");
-
-        jLabel177.setText("Disable fan for the first:");
-
-        jLabel178.setText("layers");
-
-        jLabel179.setText("%");
-
-        fanAlwaysOnMaterialComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "true", "false" }));
-
-        enableAutoCoolingMaterialComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "true", "false" }));
-
-        javax.swing.GroupLayout jPanel48Layout = new javax.swing.GroupLayout(jPanel48);
-        jPanel48.setLayout(jPanel48Layout);
-        jPanel48Layout.setHorizontalGroup(
-            jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel48Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel170)
-                    .addGroup(jPanel48Layout.createSequentialGroup()
-                        .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel171)
-                            .addGroup(jPanel48Layout.createSequentialGroup()
-                                .addComponent(jLabel174)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel173)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel48Layout.createSequentialGroup()
-                                .addComponent(fanAlwaysOnMaterialComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel172)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(enableAutoCoolingMaterialComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel48Layout.createSequentialGroup()
-                                .addComponent(minFanSpeedMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel176)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(maxFanSpeedMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel48Layout.createSequentialGroup()
-                        .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel177)
-                            .addComponent(jLabel175))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(bridgeFanSpeedPercentMaterialText, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                            .addComponent(disableFanForFirstNLayersMaterialText))
-                        .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel48Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel178, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel48Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel179)))))
-                .addContainerGap(175, Short.MAX_VALUE))
-        );
-        jPanel48Layout.setVerticalGroup(
-            jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel48Layout.createSequentialGroup()
-                .addComponent(jLabel170)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel171)
-                    .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(fanAlwaysOnMaterialComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel172)
-                        .addComponent(enableAutoCoolingMaterialComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(11, 11, 11)
-                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel174)
-                    .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel173)
-                        .addComponent(minFanSpeedMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel176)
-                        .addComponent(maxFanSpeedMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel175)
-                    .addComponent(bridgeFanSpeedPercentMaterialText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel179))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel177)
-                    .addComponent(disableFanForFirstNLayersMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel178))
-                .addGap(58, 58, 58))
-        );
-
-        jLabel180.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel180.setText("Cooling Thresholds");
-
-        jLabel181.setText("Enable fan if layer print time is below:");
-
-        jLabel182.setText("seconds");
-
-        jLabel183.setText("Slow down if layer print time is below:");
-
-        jLabel184.setText("seconds");
-
-        jLabel185.setText("Min print speed:");
-
-        jLabel186.setText("mm/s");
-
-        javax.swing.GroupLayout jPanel49Layout = new javax.swing.GroupLayout(jPanel49);
-        jPanel49.setLayout(jPanel49Layout);
-        jPanel49Layout.setHorizontalGroup(
-            jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel49Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel180)
-                    .addGroup(jPanel49Layout.createSequentialGroup()
-                        .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel183)
-                            .addComponent(jLabel185))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(slowDownTimeTresholdMaterialText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(minPrintSpeedMaterialText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel184, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel186, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(jPanel49Layout.createSequentialGroup()
-                        .addComponent(jLabel181)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(enableFanTimeThresholdMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel182)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel49Layout.setVerticalGroup(
-            jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel49Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel180)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel181)
-                    .addComponent(jLabel182)
-                    .addComponent(enableFanTimeThresholdMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel183)
-                    .addComponent(jLabel184)
-                    .addComponent(slowDownTimeTresholdMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel185)
-                    .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel186)
-                        .addComponent(minPrintSpeedMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jLabel187.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -663,8 +463,6 @@ public class MaterialPanel extends javax.swing.JPanel {
                 .addGroup(jPanel45Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel51, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel50, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel48, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
                     .addComponent(jPanel47, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel46, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel52, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -677,10 +475,6 @@ public class MaterialPanel extends javax.swing.JPanel {
                 .addComponent(jPanel46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -695,7 +489,7 @@ public class MaterialPanel extends javax.swing.JPanel {
             jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel44Layout.createSequentialGroup()
                 .addComponent(jPanel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
         jPanel44Layout.setVerticalGroup(
             jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -733,7 +527,7 @@ public class MaterialPanel extends javax.swing.JPanel {
                         .addComponent(jLabel158, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(80, 80, 80)
                         .addComponent(nameMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(290, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel43Layout.createSequentialGroup()
                 .addGap(171, 171, 171)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -758,7 +552,7 @@ public class MaterialPanel extends javax.swing.JPanel {
                     .addComponent(jLabel158)
                     .addComponent(nameMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                .addComponent(jScrollPane10)
                 .addContainerGap())
             .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel43Layout.createSequentialGroup()
@@ -792,17 +586,6 @@ public class MaterialPanel extends javax.swing.JPanel {
         this.firstLayerTemperatureMaterialText.setText(null);
         this.extrusionTemperatureMaterialText.setText(null);
 
-        this.fanAlwaysOnMaterialComboBox.setSelectedIndex(1);
-        this.enableAutoCoolingMaterialComboBox.setSelectedIndex(1);
-        this.minFanSpeedMaterialText.setText(null);
-        this.maxFanSpeedMaterialText.setText(null);
-        this.bridgeFanSpeedPercentMaterialText.setText(null);
-        this.disableFanForFirstNLayersMaterialText.setText(null);
-
-        this.enableFanTimeThresholdMaterialText.setText(null);
-        this.slowDownTimeTresholdMaterialText.setText(null);
-        this.minPrintSpeedMaterialText.setText(null);
-
         this.retractionLengthMaterialText.setText(null);
         this.retractionLiftZMaterialText.setText(null);
         this.retractionSpeedMaterialText.setText(null);
@@ -826,17 +609,6 @@ public class MaterialPanel extends javax.swing.JPanel {
 
         varList.add(this.firstLayerTemperatureMaterialText.getText());
         varList.add(this.extrusionTemperatureMaterialText.getText());
-
-        varList.add(this.fanAlwaysOnMaterialComboBox.getSelectedItem().toString());
-        varList.add(this.enableAutoCoolingMaterialComboBox.getSelectedItem().toString());
-        varList.add(this.minFanSpeedMaterialText.getText());
-        varList.add(this.maxFanSpeedMaterialText.getText());
-        varList.add(this.bridgeFanSpeedPercentMaterialText.getText());
-        varList.add(this.disableFanForFirstNLayersMaterialText.getText());
-
-        varList.add(this.enableFanTimeThresholdMaterialText.getText());
-        varList.add(this.slowDownTimeTresholdMaterialText.getText());
-        varList.add(this.minPrintSpeedMaterialText.getText());
 
         varList.add(this.retractionLengthMaterialText.getText());
         varList.add(this.retractionLiftZMaterialText.getText());
@@ -902,46 +674,30 @@ public class MaterialPanel extends javax.swing.JPanel {
         this.firstLayerTemperatureMaterialText.setText(varList.get(3));
         this.extrusionTemperatureMaterialText.setText(varList.get(4));
 
-        this.fanAlwaysOnMaterialComboBox.setSelectedItem(varList.get(5));
-        this.enableAutoCoolingMaterialComboBox.setSelectedItem(varList.get(6));
-        this.minFanSpeedMaterialText.setText(varList.get(7));
-        this.maxFanSpeedMaterialText.setText(varList.get(8));
-        this.bridgeFanSpeedPercentMaterialText.setText(varList.get(9));
-        this.disableFanForFirstNLayersMaterialText.setText(varList.get(10));
+        this.retractionLengthMaterialText.setText(varList.get(5));
+        this.retractionLiftZMaterialText.setText(varList.get(6));
+        this.retractionSpeedMaterialText.setText(varList.get(7));
+        this.extraLengthAfterRetractionMaterialText.setText(varList.get(8));
+        this.minimumTravelAfterRetractionMaterialText.setText(varList.get(9));
+        this.retractOnLayerChangeComboBox.setSelectedItem(varList.get(10));
+        this.wipeBeforeRetractMaterialComboBox.setSelectedItem(varList.get(11));
 
-        this.enableFanTimeThresholdMaterialText.setText(varList.get(11));
-        this.slowDownTimeTresholdMaterialText.setText(varList.get(12));
-        this.minPrintSpeedMaterialText.setText(varList.get(13));
+        this.retractionLengthBeforeToolChangeMaterialText.setText(varList.get(12));
+        this.extraLengthOnToolReenableMaterialText.setText(varList.get(13));
 
-        this.retractionLengthMaterialText.setText(varList.get(14));
-        this.retractionLiftZMaterialText.setText(varList.get(15));
-        this.retractionSpeedMaterialText.setText(varList.get(16));
-        this.extraLengthAfterRetractionMaterialText.setText(varList.get(17));
-        this.minimumTravelAfterRetractionMaterialText.setText(varList.get(18));
-        this.retractOnLayerChangeComboBox.setSelectedItem(varList.get(19));
-        this.wipeBeforeRetractMaterialComboBox.setSelectedItem(varList.get(20));
-
-        this.retractionLengthBeforeToolChangeMaterialText.setText(varList.get(21));
-        this.extraLengthOnToolReenableMaterialText.setText(varList.get(22));
-
-        this.startGCodeMaterialTextArea.setText(varList.get(23));
-        this.endGCodeMaterialTextArea.setText(varList.get(24));
+        this.startGCodeMaterialTextArea.setText(varList.get(14));
+        this.endGCodeMaterialTextArea.setText(varList.get(15));
     }//GEN-LAST:event_loadMaterialButtonMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList MaterialList;
-    private javax.swing.JTextField bridgeFanSpeedPercentMaterialText;
     private javax.swing.JButton deleteMaterialButton;
-    private javax.swing.JTextField disableFanForFirstNLayersMaterialText;
-    private javax.swing.JComboBox enableAutoCoolingMaterialComboBox;
-    private javax.swing.JTextField enableFanTimeThresholdMaterialText;
     private javax.swing.JTextArea endGCodeMaterialTextArea;
     private javax.swing.JTextField extraLengthAfterRetractionMaterialText;
     private javax.swing.JTextField extraLengthOnToolReenableMaterialText;
     private javax.swing.JTextField extrusionMultiplierMaterialText;
     private javax.swing.JTextField extrusionTemperatureMaterialText;
-    private javax.swing.JComboBox fanAlwaysOnMaterialComboBox;
     private javax.swing.JTextField filimentDiameterMaterialText;
     private javax.swing.JTextField firstLayerTemperatureMaterialText;
     private javax.swing.JLabel jLabel158;
@@ -953,23 +709,6 @@ public class MaterialPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel164;
     private javax.swing.JLabel jLabel166;
     private javax.swing.JLabel jLabel168;
-    private javax.swing.JLabel jLabel170;
-    private javax.swing.JLabel jLabel171;
-    private javax.swing.JLabel jLabel172;
-    private javax.swing.JLabel jLabel173;
-    private javax.swing.JLabel jLabel174;
-    private javax.swing.JLabel jLabel175;
-    private javax.swing.JLabel jLabel176;
-    private javax.swing.JLabel jLabel177;
-    private javax.swing.JLabel jLabel178;
-    private javax.swing.JLabel jLabel179;
-    private javax.swing.JLabel jLabel180;
-    private javax.swing.JLabel jLabel181;
-    private javax.swing.JLabel jLabel182;
-    private javax.swing.JLabel jLabel183;
-    private javax.swing.JLabel jLabel184;
-    private javax.swing.JLabel jLabel185;
-    private javax.swing.JLabel jLabel186;
     private javax.swing.JLabel jLabel187;
     private javax.swing.JLabel jLabel188;
     private javax.swing.JLabel jLabel189;
@@ -996,8 +735,6 @@ public class MaterialPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel45;
     private javax.swing.JPanel jPanel46;
     private javax.swing.JPanel jPanel47;
-    private javax.swing.JPanel jPanel48;
-    private javax.swing.JPanel jPanel49;
     private javax.swing.JPanel jPanel50;
     private javax.swing.JPanel jPanel51;
     private javax.swing.JPanel jPanel52;
@@ -1006,9 +743,6 @@ public class MaterialPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JButton loadMaterialButton;
-    private javax.swing.JTextField maxFanSpeedMaterialText;
-    private javax.swing.JTextField minFanSpeedMaterialText;
-    private javax.swing.JTextField minPrintSpeedMaterialText;
     private javax.swing.JTextField minimumTravelAfterRetractionMaterialText;
     private javax.swing.JTextField nameMaterialText;
     private javax.swing.JButton newMaterialButton;
@@ -1018,7 +752,6 @@ public class MaterialPanel extends javax.swing.JPanel {
     private javax.swing.JTextField retractionLiftZMaterialText;
     private javax.swing.JTextField retractionSpeedMaterialText;
     private javax.swing.JButton saveMaterialButton;
-    private javax.swing.JTextField slowDownTimeTresholdMaterialText;
     private javax.swing.JTextArea startGCodeMaterialTextArea;
     private javax.swing.JComboBox wipeBeforeRetractMaterialComboBox;
     // End of variables declaration//GEN-END:variables
