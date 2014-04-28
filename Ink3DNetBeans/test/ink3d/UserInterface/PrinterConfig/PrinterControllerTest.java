@@ -6,9 +6,12 @@
 
 package ink3d.UserInterface.PrinterConfig;
 
+import ink3d.Communications.TXRX;
 import ink3d.ConfigurationObjects.ExtruderConfiguration;
 import ink3d.ConfigurationObjects.PrinterConfiguration;
 import ink3d.UserInterface.Database.PersistenceFramework;
+import java.io.File;
+import static java.lang.Thread.sleep;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -24,9 +27,11 @@ import static org.junit.Assert.*;
 public class PrinterControllerTest {
 
     private PersistenceFramework db;
+    private String PRINTER_CONFIG_DIR = (new File("").getAbsolutePath()) + "/Database/Printers/";
     
     @Before
     public void setUp() {
+        db = PersistenceFramework.getDB();
     }
 
     /**
@@ -52,6 +57,10 @@ public class PrinterControllerTest {
         PrinterConfiguration printer = new PrinterConfiguration();
         printer.setName(name);
         db.savePrinterConfiguration(printer);
+
+        // wait for file to delete (probably need to fix this in the database code)
+        Thread.currentThread().sleep(2000);
+
         Boolean result = instance.deletePrinterConfiguration(name);
         assertTrue(result);
     }
@@ -84,6 +93,8 @@ public class PrinterControllerTest {
         ArrayList<ExtruderConfiguration> extruders = new ArrayList<>();
         extruders.add(extruder);
         printer.setExtruderList(extruders);
+        db.savePrinterConfiguration(printer);
+
         ArrayList<String> result = instance.loadMyExtruders(name);
         assertNotNull(result);
 
@@ -99,11 +110,9 @@ public class PrinterControllerTest {
     public void testGetSerialPortEnumeration() {
         System.out.println("getSerialPortEnumeration");
         PrinterController instance = new PrinterController();
-        String[] expResult = null;
+        String[] expResult = TXRX.txrx.getSerialPortNames();
         String[] result = instance.getSerialPortEnumeration();
         assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -112,13 +121,17 @@ public class PrinterControllerTest {
     @Test
     public void testLoadPrinterConfiguration() throws Exception {
         System.out.println("loadPrinterConfiguration");
-        String name = "";
+        String name = "Printer Controller Load Test";
+        PrinterConfiguration printer = new PrinterConfiguration();
+        printer.setName(name);
+        db.savePrinterConfiguration(printer);
         PrinterController instance = new PrinterController();
-        ArrayList<String> expResult = null;
         ArrayList<String> result = instance.loadPrinterConfiguration(name);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(result);
+        assertTrue(result.size() > 0);
+
+        // clean up
+        db.deletePrinterConfiguration(name);
     }
 
     /**
@@ -127,14 +140,42 @@ public class PrinterControllerTest {
     @Test
     public void testSavePrinterConfiguratoin() throws Exception {
         System.out.println("savePrinterConfiguratoin");
-        ArrayList<String> vars = null;
-        ArrayList<String> extruderList = null;
+        String name = "Printer Controller Save Test";
+        PrinterConfiguration printer = new PrinterConfiguration();
+        printer.setName(name);
+        printer.setNumExtruders(1);
+        ExtruderConfiguration extruder = new ExtruderConfiguration();
+        extruder.setName(name);
+        db.saveExtruderConfiguration(extruder);
+        ArrayList<String> extruderList = new ArrayList<>();
+        extruderList.add(name);
+        
+        ArrayList<String> varList = new ArrayList<>();
+        varList.add(name);
+        varList.add(Double.toString(printer.getBedX()));
+        varList.add(Double.toString(printer.getBedY()));
+        varList.add(Double.toString(printer.getPrintCenterX()));
+        varList.add(Double.toString(printer.getPrintCenterY()));
+        varList.add(Double.toString(printer.getzOffset()));
+        varList.add(printer.getgCodeFlavor());
+        varList.add(Boolean.toString(printer.getUseRelativeEDistances()));
+        varList.add(Integer.toString(printer.getNumExtruders()));
+        varList.add(Double.toString(printer.getVibrationLimit()));
+        varList.add(Boolean.toString(printer.getUseFirmwareRetraction()));
+        varList.add(printer.getStartGCode());
+        varList.add(printer.getEndGCode());
+        varList.add(printer.getHardware().getComPort());
+        varList.add(Integer.toString(printer.getHardware().getBaudRate()));
+        varList.add(Integer.toString(printer.getHardware().getLineEnd()));
+        varList.add(Integer.toString(printer.getBedTempFirstLayer()));
+        varList.add(Integer.toString(printer.getBedTemp()));
+
         PrinterController instance = new PrinterController();
-        Boolean expResult = null;
-        Boolean result = instance.savePrinterConfiguratoin(vars, extruderList);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Boolean result = instance.savePrinterConfiguratoin(varList, extruderList);
+        assertTrue(result);
+
+        db.deleteExtruderConfiguration(name);
+        db.deletePrinterConfiguration(name);
     }
     
 }
