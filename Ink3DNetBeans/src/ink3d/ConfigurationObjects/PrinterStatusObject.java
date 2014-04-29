@@ -18,27 +18,35 @@ public class PrinterStatusObject
 {
     public static ArrayList<TemperatureObject>  currentToolTemperatures;
     public static ArrayList<String> lastGcodesExecuted;
+    private Object lock             = new Object();
     
     public PrinterStatusObject()
     {
-        currentToolTemperatures = new ArrayList<TemperatureObject>();
-        lastGcodesExecuted = new ArrayList<String>();
+        currentToolTemperatures = new ArrayList<>();
+        lastGcodesExecuted = new ArrayList<>();
     }
 
     
     public boolean hasCurrentToolTemperatures()
     {
-        if(currentToolTemperatures.size() <= 0)
-            return false;
+        synchronized(lock)
+        {
+            if(currentToolTemperatures.size() <= 0)
+                return false;
         
-        return true;
+            return true;
+        }
     }
 
-    public boolean hasGCodes() {
-        if(lastGcodesExecuted.size() <= 0) {
-            return false;
+    public boolean hasGCodes() 
+    {
+        synchronized(lock)
+        {
+            if(lastGcodesExecuted.size() <= 0) {
+                return false;
+            }
+            return true;
         }
-        return true;
     }
     
     public ArrayList<TemperatureObject> getCurrentToolTemperatures()
@@ -47,9 +55,13 @@ public class PrinterStatusObject
             return null;
         
         ArrayList<TemperatureObject> ret = new ArrayList<>();
-        ret.addAll(currentToolTemperatures);
-        currentToolTemperatures.clear();
         
+        synchronized(lock)
+        {
+            ret.addAll(currentToolTemperatures);
+        }
+        
+        currentToolTemperatures.clear();
         return ret;
     }
     
@@ -59,26 +71,30 @@ public class PrinterStatusObject
             return null;
         
         ArrayList<String> ret = new ArrayList<>();
-        ret.addAll(lastGcodesExecuted);
-        lastGcodesExecuted.clear();
         
+        synchronized(lock)
+        {
+            ret.addAll(lastGcodesExecuted);
+        }
+        
+        lastGcodesExecuted.clear();
         return ret;
     }
     
     public void setCurrentToolTemperatures(ArrayList<TemperatureObject> temps)
     {
-        currentToolTemperatures.addAll(temps);
-        int i =0;
- //       for(int i = 0; i < temps.size(); ++i)
- //           currentToolTemperatures.add(temps.get(i));
+        synchronized(lock)
+        {
+            currentToolTemperatures.addAll(temps);
+        }
     }
     
     public void setLastGcodesExecuted(ArrayList<String> gCodes)
     {
-        lastGcodesExecuted.addAll(gCodes);
-        int i = 0;
-//        for(int i = 0; i < gCodes.size(); ++i)
- //           lastGcodesExecuted.add(gCodes.get(i));
+        synchronized(lock)
+        {
+            lastGcodesExecuted.addAll(gCodes);
+        }
     }
 }
 

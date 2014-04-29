@@ -30,8 +30,8 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
     public PrinterStatusImpl(PrintJobConfiguration pjc)
     {
         dispatchDelay = 10;
-        gCodes = new ArrayList<String>();
-        failsafeGcodes = new ArrayList<String>();
+        gCodes = new ArrayList<>();
+        failsafeGcodes = new ArrayList<>();
         printJobConfig = pjc;
         
         
@@ -47,34 +47,38 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
                     gCodes.add(line);
             }
             
-            catch(Exception ex)
+            catch(IOException ex)
             {
                 System.err.println(ex);
             }
         }                   
     }
     
+    @Override
     public void pausePrinting()
     {
         isPaused = true;
     }
     
-    
+    @Override
     public void resumePrinting()
     {
         isPaused = false;
     }
     
+    @Override
     public void cancelPrinting()
     {
         interrupt();
     }
     
+    @Override
     public void setFailsafeGcodes(ArrayList<String> failsafe)
     {
         failsafeGcodes = failsafe;
     }
     
+    @Override
     public void setDispatchDelay(int delay)
     {
         if(delay <= 0 || delay >= 4000)
@@ -83,12 +87,13 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
             dispatchDelay = delay;
     }
     
+    @Override
     public void go()
     {
-
         start();
     }
     
+    @Override
     public boolean hasCommsObject()
     {
         if(commsObject == null)
@@ -96,12 +101,14 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
         return true;
     }
     
+    @Override
     public TXRX getCommsObject()
     {
         return commsObject;
     }
     
     @Override
+    @SuppressWarnings("SleepWhileInLoop")
     public void run()
     {
         try
@@ -113,13 +120,13 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
             feedbackObject = new PrinterFeedbackImpl(printJobConfig); 
             feedbackObject.setCommsObject(commsObject);
             feedbackObject.beginMonitoring();
+
+            PrinterStatusObject pso = printJobConfig.getPrinterStatusObject();
             
-            commsObject.clearFeedbackString();
             boolean once = true;
             while(gCodes.size() > 0)
             {
-            
-                while(printJobConfig.getPrinterStatusObject().hasCurrentToolTemperatures() == false)
+                while(pso.hasCurrentToolTemperatures() == false)
                 {
                     // Ask for the current temperatures //
                     if(once)
@@ -128,11 +135,9 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
                         once = false;
                     }
                     commsObject.sendGcode("M105");
-                    Thread.currentThread().sleep(dispatchDelay);
+                    sleep(dispatchDelay);
                 }
             
-  //              ArrayList<TemperatureObject> temps = printJobConfig.getPrinterStatusObject().getCurrentToolTemperatures();
-                PrinterStatusObject pso = printJobConfig.getPrinterStatusObject();
                 ArrayList<TemperatureObject> temps = pso.getCurrentToolTemperatures();
                 for(int i = 0; i < temps.size(); ++i)
                 {
@@ -142,16 +147,11 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
 //                        if(temps.get(i).getCurrentTemperature() > temps.get(i).getDesiredTemp())
                         if(temps.get(i).getCurrentTemperature() > 210.0)
                         {
-                          // Do we want to execute some failsafe or just wait for the temp to cool off? //
-//                        for(int j = 0; j < failsafeGcodes.size(); ++i)
-//                            commsObject.sendGcode(failsafeGcodes.get(j));
-                        
-                            // Spin until we cool off
                             while(temps.get(i).getCurrentTemperature() > 210.0)
                             {   
                                 temps = printJobConfig.getPrinterStatusObject().getCurrentToolTemperatures();
                                 commsObject.sendGcode("M105");
-                                Thread.currentThread().sleep(dispatchDelay);
+                                sleep(dispatchDelay);
                             }
                         }
                     }    
@@ -164,6 +164,7 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
                     sleep(dispatchDelay);
                 }
             
+                // Execute next g-code and remove it //
                 commsObject.sendGcode(gCodes.get(0));
                 gCodes.remove(0);
             }

@@ -18,18 +18,17 @@ import java.util.ArrayList;
 public class PrinterFeedbackImpl extends Thread implements PrinterFeedback
 {
     private static PrintJobConfiguration pjc        = null;
-    private static int updateDelay                  = 1000;
+    private static int updateDelay                  = 100;
     private static TXRX commsObject                 = null;
     private static boolean isMonitoring             = true;
     
     public PrinterFeedbackImpl()
     {
-        updateDelay = 1000;
+
     }
     
     public PrinterFeedbackImpl(PrintJobConfiguration printJobConfig)
     {
-        updateDelay = 1000;
         pjc = printJobConfig;
     }
     
@@ -41,11 +40,13 @@ public class PrinterFeedbackImpl extends Thread implements PrinterFeedback
         updateDelay = delay;
     }
     
+    @Override
     public void setCommsObject(TXRX c)
     {
         commsObject = c;
     }
     
+    @Override
     public void setUpdateDelay(int delay)
     {
         if(delay <= 0 || delay > 4000)
@@ -54,11 +55,13 @@ public class PrinterFeedbackImpl extends Thread implements PrinterFeedback
         updateDelay = delay;
     }
     
+    @Override
     public void stopMonitoring()
     {
         isMonitoring = false;
     }
     
+    @Override
     public void beginMonitoring()
     {
         start();
@@ -73,7 +76,7 @@ public class PrinterFeedbackImpl extends Thread implements PrinterFeedback
             {
                 try
                 {
-                    Thread.currentThread().sleep(updateDelay);
+                    sleep(updateDelay);
                 }
             
                 catch(InterruptedException ex)
@@ -84,7 +87,7 @@ public class PrinterFeedbackImpl extends Thread implements PrinterFeedback
             
             ArrayList<FeedbackObject> feedback = commsObject.getPrinterFeedback();
             ArrayList<String> lastGcodes = commsObject.getLastGcodesSent();
-            ArrayList<TemperatureObject> temps = new ArrayList<TemperatureObject>();
+            ArrayList<TemperatureObject> temps = new ArrayList<>();
             
             for(int i = 0; i < feedback.size(); ++i)
                 for(int j = 0; j < feedback.get(i).getToolTemps().size(); ++j)

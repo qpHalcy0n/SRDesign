@@ -31,12 +31,12 @@ public class TXRXImpl implements TXRX
     private static String feedbackString                        = new String("");
     private static String ackString                             = new String("");
     private static boolean handshakeReceived                    = false;
-    private static String lastGcodeSent                         = new String();
     private static ArrayList<String> lastGcodesSent             = new ArrayList<>();
     private static boolean ackSent                              = false;
     private static boolean initCodesSent                        = false;
     private static PrintJobConfiguration printJobConfig         = null;
     private static boolean isConnected                          = false;
+    private Object lock                                         = new Object();
     
     public TXRXImpl()
     {
@@ -95,16 +95,20 @@ public class TXRXImpl implements TXRX
      * the printer
      */
     @Override
-    public synchronized ArrayList<FeedbackObject> getPrinterFeedback()
+    public ArrayList<FeedbackObject> getPrinterFeedback()
     {
+        ArrayList<FeedbackObject> feedbackArray = new ArrayList<>();
+        String pfRet;
+        
         // Check that feedback buffer is packed
         if(feedbackString.length() <= 0)
             return null;
         
-        ArrayList<FeedbackObject> feedbackArray = new ArrayList<>();
-        
-        // Copy printer feedback data and clear the current feedback string
-        String pfRet = new String(feedbackString);
+        synchronized(lock)
+        {
+            // Copy printer feedback data and clear the current feedback string
+            pfRet = new String(feedbackString);
+        }
         feedbackString = "";
         
         deserialize(pfRet);
@@ -184,11 +188,14 @@ public class TXRXImpl implements TXRX
      * @return boolean - indicating whether there is feedback data present
      */
     @Override
-    public synchronized boolean isPrinterFeedbackReady()
+    public boolean isPrinterFeedbackReady()
     {
-        if(feedbackString.length() > 0)
-            return true;
-        return false;
+        synchronized(lock)
+        {
+            if(feedbackString.length() > 0)
+                return true;
+            return false;
+        }
     }
     
     @Override
@@ -293,7 +300,7 @@ public class TXRXImpl implements TXRX
      * @param gCode - G-code to be sent to the printer
      */
     @Override
-    public synchronized boolean sendGcode(String gCode)
+    public boolean sendGcode(String gCode)
     {
         if(!handshakeReceived || !initCodesSent)
             return false;
@@ -314,8 +321,11 @@ public class TXRXImpl implements TXRX
             // Move commands usually ack immediately
             while(ackString.contains("ok") == false){}
             ackSent = true;
-            lastGcodeSent = send;
-            lastGcodesSent.add(send);
+            
+            synchronized(lock)
+            {
+                lastGcodesSent.add(send);
+            }
             
             // Sleep: otherwise we end up clobbering the buffer and garbling g-codes
             // The OK message from the device is supposed to prevent this, but this proves to not be the case.
@@ -345,7 +355,12 @@ public class TXRXImpl implements TXRX
     @Override
     public ArrayList<String> getLastGcodesSent()
     {
-        ArrayList<String> gCodeList = new ArrayList<>(lastGcodesSent);
+        ArrayList<String> gCodeList;
+        
+        synchronized(lock)
+        {
+            gCodeList = new ArrayList<>(lastGcodesSent);
+        }
         lastGcodesSent.clear();
         return gCodeList;
     }
@@ -394,7 +409,7 @@ public class TXRXImpl implements TXRX
      * 
      * This is where the sending and receipt of data actually happens
      */
-    static class SerialPortReader implements SerialPortEventListener
+    class SerialPortReader implements SerialPortEventListener
     {
         @Override
         public void serialEvent(SerialPortEvent event)
@@ -408,11 +423,13 @@ public class TXRXImpl implements TXRX
                     byte buffer[]   = serialPort.readBytes(event.getEventValue());
                     String inBuffer = new String(buffer);
                     
-                    feedbackString += inBuffer;
                     ackString += inBuffer;
-                    
-                    if(feedbackString.contains("M301"))
-                        handshakeReceived = true;
+                    synchronized(lock)
+                    {
+                        feedbackString += inBuffer;
+                        if(feedbackString.contains("M301"))
+                            handshakeReceived = true;
+                    }
                     
                     // Just echo the printer feedback for now
                     System.out.println(inBuffer);
