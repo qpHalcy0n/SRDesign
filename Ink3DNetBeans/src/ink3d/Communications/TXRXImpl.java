@@ -339,14 +339,14 @@ public class TXRXImpl implements TXRX
             
             // Sleep: otherwise we end up clobbering the buffer and garbling g-codes
             // The OK message from the device is supposed to prevent this, but this proves to not be the case.
- //           try
- //           {
- //               Thread.sleep(50);
- //           }
- //           catch(InterruptedException ex)
- //           {
- //               System.err.println(ex);
- //           }
+            try
+            {
+                Thread.sleep(100);
+            }
+            catch(InterruptedException ex)
+            {
+                System.err.println(ex);
+            }
         }
         
         catch(SerialPortException ex)
@@ -442,7 +442,7 @@ public class TXRXImpl implements TXRX
                     }
                     
                     // Just echo the printer feedback for now
-                    System.out.println(inBuffer);
+                    System.err.println(inBuffer);
                 }
                 
                 catch(SerialPortException ex)

@@ -199,6 +199,7 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
             
                 // Execute next g-code and remove it //
                 commsObject.sendGcode(gCodes.get(0));
+                System.err.println("Executing: " + gCodes.get(0));
                 gCodes.remove(0);
             }
         }
