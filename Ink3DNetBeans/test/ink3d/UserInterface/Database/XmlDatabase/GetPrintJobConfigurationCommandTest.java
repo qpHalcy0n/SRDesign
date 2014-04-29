@@ -47,7 +47,7 @@ public class GetPrintJobConfigurationCommandTest {
     SupportMaterialConfiguration support;
     PrinterConfiguration printer;
     SubsetConfiguration subset;
-    ArrayList<ExtruderMaterialConfiguration> extruderMaterials;
+    ArrayList<MaterialConfiguration> extruderMaterials;
     ArrayList<SubsetConfiguration> subsets;
     ArrayList<FileConfiguration> files;
     ArrayList<ExtruderMaterialSelection> materialsSelections;
@@ -118,7 +118,7 @@ public class GetPrintJobConfigurationCommandTest {
     
     private void setupExtruderMaterial(){
         this.extruderMaterials = new ArrayList<>();
-        this.extruderMaterials.add(new ExtruderMaterialConfiguration(extruder, material));
+        this.extruderMaterials.add(material);
     }
     
     private void setupPrint(){
@@ -279,6 +279,7 @@ public class GetPrintJobConfigurationCommandTest {
         expected.setName("GetPrintJobTest");
         expected.setPrinterConfiguration(printer);
         expected.setSubsetConfigurationList(subsets);
+        expected.setExtruderMaterials(this.extruderMaterials);
         
         this.setupMaterialsSelection();
         this.setupSubsetSelection();
