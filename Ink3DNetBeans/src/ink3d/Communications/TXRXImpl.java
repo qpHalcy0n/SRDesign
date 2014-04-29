@@ -6,7 +6,7 @@
 
 package ink3d.Communications;
 
-import ink3d.ConfigurationObjects.PrintJobConfiguration;
+import ink3d.ConfigurationObjects.*;
 import jssc.SerialPort;
 import jssc.SerialPortException;
 import jssc.SerialPortList;
@@ -35,6 +35,7 @@ public class TXRXImpl implements TXRX
     private static boolean ackSent                              = false;
     private static boolean initCodesSent                        = false;
     private static PrintJobConfiguration printJobConfig         = null;
+    private static PrinterStatusObject pso                      = null;
     private static boolean isConnected                          = false;
     private Object lock                                         = new Object();
     
@@ -48,6 +49,7 @@ public class TXRXImpl implements TXRX
         serialPortList = new SerialPortList();
         
         printJobConfig = pjc;
+        pso = pjc.getPrinterStatusObject();
         comPort = printJobConfig.getPrinterConfiguration().getHardware().getComPort();
         BAUD = printJobConfig.getPrinterConfiguration().getHardware().getBaudRate();
         
@@ -98,6 +100,7 @@ public class TXRXImpl implements TXRX
     public ArrayList<FeedbackObject> getPrinterFeedback()
     {
         ArrayList<FeedbackObject> feedbackArray = new ArrayList<>();
+        ArrayList<TemperatureObject> allTemps = new ArrayList<>();
         String pfRet;
         
         // Check that feedback buffer is packed
@@ -158,6 +161,8 @@ public class TXRXImpl implements TXRX
                         temp.curTemp = curTemp;
                         temp.desiredTemp = desiredTemp;
                         obj.toolTemps.add(temp);
+                        
+                        allTemps.add(temp);
                     }
                     
                     catch(NumberFormatException ex)
@@ -179,6 +184,8 @@ public class TXRXImpl implements TXRX
             
             feedbackArray.add(obj);
         }
+        
+        pso.setCurrentToolTemperatures(allTemps);
         
         return feedbackArray;
     }
@@ -304,6 +311,9 @@ public class TXRXImpl implements TXRX
     {
         if(!handshakeReceived || !initCodesSent)
             return false;
+        
+        if(gCode.equals("M105"))
+            feedbackString = "";
         
         String send;
         if((send = serialize(gCode)) == null)

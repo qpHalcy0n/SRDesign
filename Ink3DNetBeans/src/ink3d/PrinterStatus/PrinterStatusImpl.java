@@ -9,8 +9,10 @@ package ink3d.PrinterStatus;
 import ink3d.PrinterFeedback.*;
 import ink3d.Communications.*;
 import ink3d.ConfigurationObjects.*;
+import ink3d.UserInterface.Status.*;
 import java.util.ArrayList;
 import java.io.*;
+
 
 /**
  *
@@ -25,7 +27,7 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
     private static TXRXImpl commsObject                         = null;
     private static PrinterFeedbackImpl feedbackObject           = null;
     private static boolean isPaused                             = false;
-    
+    private static StatusController statusController            = null;
     
     public PrinterStatusImpl(PrintJobConfiguration pjc)
     {
@@ -52,6 +54,35 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
                 System.err.println(ex);
             }
         }                   
+    }
+    
+    public PrinterStatusImpl(PrintJobConfiguration pjc, StatusController sc)
+    {
+        statusController = sc;
+        
+        dispatchDelay = 10;
+        gCodes = new ArrayList<>();
+        failsafeGcodes = new ArrayList<>();
+        printJobConfig = pjc;
+        
+        
+        
+        // Build the G-codes from the file //
+        if(printJobConfig.getFinalizedGCode() != null)
+        {
+            try
+            {
+                BufferedReader br = new BufferedReader(new FileReader(printJobConfig.getFinalizedGCode()));
+                String line;
+                while((line = br.readLine()) != null)
+                    gCodes.add(line);
+            }
+            
+            catch(IOException ex)
+            {
+                System.err.println(ex);
+            }
+        }  
     }
     
     @Override
@@ -117,9 +148,9 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
             if(commsObject.isConnected() == false)
                 System.out.println("Error in Printer Status: Could not connect to printer");
         
-            feedbackObject = new PrinterFeedbackImpl(printJobConfig); 
-            feedbackObject.setCommsObject(commsObject);
-            feedbackObject.beginMonitoring();
+ //           feedbackObject = new PrinterFeedbackImpl(printJobConfig); 
+ //           feedbackObject.setCommsObject(commsObject);
+ //           feedbackObject.beginMonitoring();
 
             PrinterStatusObject pso = printJobConfig.getPrinterStatusObject();
             
@@ -135,10 +166,12 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
                         once = false;
                     }
                     commsObject.sendGcode("M105");
+                    ArrayList<FeedbackObject> fbo = commsObject.getPrinterFeedback();
                     sleep(dispatchDelay);
                 }
             
                 ArrayList<TemperatureObject> temps = pso.getCurrentToolTemperatures();
+                statusController.updateTemperatures(temps);
                 for(int i = 0; i < temps.size(); ++i)
                 {
                     if(temps.get(i).getToolName().contentEquals("T"))

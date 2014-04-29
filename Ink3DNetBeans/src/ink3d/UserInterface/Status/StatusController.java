@@ -40,7 +40,7 @@ public class StatusController implements ActionListener {
             printJob.setPrinterStatusObject(new PrinterStatusObject());
         }
         this.pso = printJob.getPrinterStatusObject();
-        this.status = new PrinterStatusImpl(printJob);
+        this.status = new PrinterStatusImpl(printJob, this);
         this.paused = false;
 
         // redundant
@@ -57,9 +57,9 @@ public class StatusController implements ActionListener {
     }
 
     private void start() {
-        if(status == null) {
-            status = new PrinterStatusImpl(printJob);
-        }
+//        if(status == null) {
+//            status = new PrinterStatusImpl(printJob, this);
+//        }
         status.go();
         // statusMonitor = new StatusMonitor(this, printJob);
         // statusMonitor.start();

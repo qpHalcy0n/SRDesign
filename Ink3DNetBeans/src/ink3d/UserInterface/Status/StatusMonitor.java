@@ -57,7 +57,7 @@ public class StatusMonitor extends Thread {
                 }
                 if(pso.hasGCodes()) {
                     List<String> gCodes = pso.getLastGcodesExecuted();
-                    controller.updateGCodes(gCodes);
+  //                  controller.updateGCodes(gCodes);
                 }
                 sleep(1000);
             }
