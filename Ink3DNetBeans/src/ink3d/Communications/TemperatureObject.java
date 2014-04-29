@@ -25,8 +25,14 @@ public class TemperatureObject
     }
 
     public int getToolNumber() {
+        int num = -1;
+        
+        if(tool.charAt(0) != 'T') {
+            return num;
+        }
+        
         String numStr = tool.substring(1);
-        int num;
+
         try {
             num = Integer.parseInt(numStr);
         }

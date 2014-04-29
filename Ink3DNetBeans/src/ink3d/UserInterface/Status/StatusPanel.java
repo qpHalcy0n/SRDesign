@@ -160,10 +160,12 @@ public class StatusPanel extends JPanel {
     }
 
     public void updateTemperatures(int tool, float currentTemp, float desiredTemp) {
-        currentTempTextFields.get(tool).setText(String.valueOf(currentTemp));
-        System.out.println("T" + tool + " current temp set to:  " + currentTemp);
-        desiredTempTextFields.get(tool).setText(String.valueOf(desiredTemp));
-        System.out.println("T" + tool + " desired temp set to:  " + desiredTemp);
+        if(tool >= 0 && tool < currentTempTextFields.size()) {
+            currentTempTextFields.get(tool).setText(String.valueOf(currentTemp));
+            System.out.println("T" + tool + " current temp set to:  " + currentTemp);
+            desiredTempTextFields.get(tool).setText(String.valueOf(desiredTemp));
+            System.out.println("T" + tool + " desired temp set to:  " + desiredTemp);
+        }
     }
 
     public void togglePauseResume() {
