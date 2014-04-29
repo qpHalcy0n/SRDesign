@@ -89,17 +89,6 @@ public class MaterialControllerTest {
         varList.add(Integer.toString(material.getFirstLayerExtrusionTemperature()));
         varList.add(Integer.toString(material.getExtrusionTemperature()));
         
-        varList.add(Boolean.toString(material.isFanAlwaysOn()));
-        varList.add(Boolean.toString(material.isEnableAutoCooling()));
-        varList.add(Integer.toString(material.getMinFanSpeed()));
-        varList.add(Integer.toString(material.getMaxFanSpeed()));
-        varList.add(Integer.toString(material.getBridgeFanSpeedPercent()));
-        varList.add(Integer.toString(material.getDisableFanForFirstNLayers()));
-        
-        varList.add(Integer.toString(material.getEnableFanTimeThreshold()));
-        varList.add(Integer.toString(material.getSlowDownTimeTreshold()));
-        varList.add(Integer.toString(material.getMinPrintSpeed()));
-        
         varList.add(Double.toString(material.getRetractionLength()));
         varList.add(Double.toString(material.getRetractionLiftZ()));
         varList.add(Integer.toString(material.getRetractionSpeed()));
@@ -110,7 +99,6 @@ public class MaterialControllerTest {
         
         varList.add(Double.toString(material.getRetractionLengthBeforeToolChange()));
         varList.add(Double.toString(material.getExtraLengthOnToolReenable()));
-        
         
         varList.add(material.getgCodeStart());
         varList.add(material.getgCodeEnd());
