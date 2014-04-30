@@ -309,8 +309,8 @@ public class TXRXImpl implements TXRX
     @Override
     public boolean sendGcode(String gCode)
     {
-        if(!handshakeReceived || !initCodesSent)
-            return false;
+//        if(!handshakeReceived || !initCodesSent)
+//            return false;
         
         if(gCode.equals("M105"))
             feedbackString = "";
@@ -319,7 +319,7 @@ public class TXRXImpl implements TXRX
         if((send = serialize(gCode)) == null)
             return false;
         
-        ackString = "";
+        ackString = " ";
         ackSent = false;
         
         try
@@ -329,24 +329,35 @@ public class TXRXImpl implements TXRX
             // Spin in the loop until the ack is received by the printer
             // Some commands demand waiting (M109, M28, etc...).
             // Move commands usually ack immediately
-            while(ackString.contains("ok") == false){}
-            ackSent = true;
             
-            synchronized(lock)
-            {
-                lastGcodesSent.add(send);
-            }
-            
-            // Sleep: otherwise we end up clobbering the buffer and garbling g-codes
-            // The OK message from the device is supposed to prevent this, but this proves to not be the case.
             try
             {
-                Thread.sleep(100);
+                Thread.sleep(33);
             }
             catch(InterruptedException ex)
             {
                 System.err.println(ex);
             }
+            
+            System.err.println("Waiting for ack");
+            System.err.println("Ack string: " + ackString);
+            int counter = 0;
+            while(ackString.contains("ok") == false)
+            {
+                System.err.println("Ack string: " + ackString + " " + counter);
+                ++counter;
+            }
+            ackSent = true;
+            System.err.println("ack received");
+            
+//            synchronized(lock)
+//            {
+                lastGcodesSent.add(send);
+//            }
+            
+            // Sleep: otherwise we end up clobbering the buffer and garbling g-codes
+            // The OK message from the device is supposed to prevent this, but this proves to not be the case.
+
         }
         
         catch(SerialPortException ex)
