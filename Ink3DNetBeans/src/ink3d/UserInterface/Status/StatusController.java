@@ -14,10 +14,16 @@ import ink3d.PrinterStatus.PrinterStatusImpl;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -69,6 +75,17 @@ public class StatusController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(view.getExportButton())) {
             System.out.println("Export button clicked");
+            JFileChooser fc = new JFileChooser();
+            int result = fc.showSaveDialog(view);
+            if(result == JFileChooser.APPROVE_OPTION) {
+                File destFile = fc.getSelectedFile();
+                File sourceFile = printJob.getFinalizedGCode();
+                try {
+                    FileUtils.copyFile(sourceFile, destFile);
+                } catch (IOException ex) {
+                    System.out.println("Unable to export file.");
+                }
+            }
         }
         else if(e.getSource().equals(view.getStartButton())) {
             System.out.println("Start button clicked");

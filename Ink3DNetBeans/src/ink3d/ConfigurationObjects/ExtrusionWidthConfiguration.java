@@ -13,7 +13,7 @@ package ink3d.ConfigurationObjects;
 public class ExtrusionWidthConfiguration {
 
     public static final double DEFAULT_EXTRUSION_WIDTH = 0;
-    public static final double DEFAULT_FIRST_LAYER_EXTRUSION_WIDTH = 0;
+    public static final int DEFAULT_FIRST_LAYER_EXTRUSION_WIDTH = 200;
     public static final double DEFAULT_PERIMETERS_EXTRUSION_WIDTH = 0;
     public static final double DEFAULT_INFILL_EXTRUSION_WIDTH = 0;
     public static final double DEFAULT_SOLID_INFILL_EXTRUSION_WIDTH = 0;
@@ -31,7 +31,7 @@ public class ExtrusionWidthConfiguration {
     }
 
     private double defaultExtrusionWidth;
-    private double firstLayerExtrusionWidth;
+    private int firstLayerExtrusionWidth;
     private double perimetersExtrusionWidth;
     private double infillExtrusionWidth;
     private double solidInfillExtrusionWidth;
@@ -55,14 +55,14 @@ public class ExtrusionWidthConfiguration {
     /**
      * @return the firstLayerExtrusionWidth
      */
-    public double getFirstLayerExtrusionWidth() {
+    public int getFirstLayerExtrusionWidth() {
         return firstLayerExtrusionWidth;
     }
 
     /**
      * @param firstLayerExtrusionWidth the firstLayerExtrusionWidth to set
      */
-    public void setFirstLayerExtrusionWidth(double firstLayerExtrusionWidth) {
+    public void setFirstLayerExtrusionWidth(int firstLayerExtrusionWidth) {
         this.firstLayerExtrusionWidth = firstLayerExtrusionWidth;
     }
 

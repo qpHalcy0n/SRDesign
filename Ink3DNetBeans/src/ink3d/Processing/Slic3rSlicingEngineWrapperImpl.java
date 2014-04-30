@@ -301,7 +301,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             appendProperty(sb, START_GCODE, "");
             appendProperty(sb, END_GCODE, "");
             appendProperty(sb, TOOLCHANGE_GCODE, "");
-            appendProperty(sb, EXTRUDER_OFFSET, getExtruderOffsets(extruders));
+            appendProperty(sb, EXTRUDER_OFFSET, getSimpleExtruderOffsets(extruders));
 
             appendProperty(sb, LAYER_GCODE, printConfig.getLayerChangeGCode());
             
@@ -569,6 +569,26 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
         
         return sb.toString();
 
+    }
+
+    private String getSimpleExtruderOffsets(List<ExtruderConfiguration> extruders) {
+        int numExtruders = extruders.size();
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        while (i < numExtruders - 1) {
+            sb.append(String.valueOf(extruders.get(i).getxOffset()))
+              .append("x")
+              .append(String.valueOf(extruders.get(i).getyOffset()))
+              .append(",");
+            i++;
+        }
+
+        sb.append(String.valueOf(extruders.get(i).getxOffset()))
+          .append("x")
+          .append(String.valueOf(extruders.get(i).getyOffset()));
+        
+        return sb.toString();
+        
     }
 
     private String getNozzleDiameters(List<ExtruderConfiguration> extruders) {

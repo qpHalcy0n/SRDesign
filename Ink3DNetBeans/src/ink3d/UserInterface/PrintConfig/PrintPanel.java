@@ -9,6 +9,7 @@ package ink3d.UserInterface.PrintConfig;
 import ink3d.ConfigurationObjects.CoolingConfiguration;
 import ink3d.UserInterface.Extruder.*;
 import ink3d.ConfigurationObjects.ExtruderConfiguration;
+import ink3d.ConfigurationObjects.ExtrusionWidthConfiguration;
 import ink3d.ConfigurationObjects.InfillConfiguration;
 import ink3d.ConfigurationObjects.LayerAndPerimeterConfiguration;
 import ink3d.ConfigurationObjects.PrintConfiguration;
@@ -271,6 +272,29 @@ public class PrintPanel extends javax.swing.JPanel {
         enableFanTimeThresholdText = new javax.swing.JTextField();
         slowDownTimeTresholdlText = new javax.swing.JTextField();
         minPrintSpeedText = new javax.swing.JTextField();
+        jPanel40 = new javax.swing.JPanel();
+        jLabel149 = new javax.swing.JLabel();
+        jLabel150 = new javax.swing.JLabel();
+        jLabel151 = new javax.swing.JLabel();
+        jLabel152 = new javax.swing.JLabel();
+        jLabel153 = new javax.swing.JLabel();
+        jLabel156 = new javax.swing.JLabel();
+        jLabel157 = new javax.swing.JLabel();
+        jLabel158 = new javax.swing.JLabel();
+        defaultExtrusionWidthText = new javax.swing.JTextField();
+        firstLayerExtrusionWidthPercentText = new javax.swing.JTextField();
+        perimetersExtrusionWidthText = new javax.swing.JTextField();
+        infillExtrusionWidthText = new javax.swing.JTextField();
+        solidInfillExtrusionWidthText = new javax.swing.JTextField();
+        topSolidInfillExtrusionWidthText = new javax.swing.JTextField();
+        supportMaterialExtrusionWidthText = new javax.swing.JTextField();
+        jLabel161 = new javax.swing.JLabel();
+        jLabel162 = new javax.swing.JLabel();
+        jLabel163 = new javax.swing.JLabel();
+        jLabel164 = new javax.swing.JLabel();
+        jLabel165 = new javax.swing.JLabel();
+        jLabel166 = new javax.swing.JLabel();
+        jLabel167 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(800, 600));
         setLayout(new java.awt.BorderLayout());
@@ -350,7 +374,7 @@ public class PrintPanel extends javax.swing.JPanel {
 
         jPanel22.setBackground(new java.awt.Color(153, 153, 153));
         jPanel22.setFocusTraversalPolicyProvider(true);
-        jPanel22.setPreferredSize(new java.awt.Dimension(400, 3000));
+        jPanel22.setPreferredSize(new java.awt.Dimension(400, 3200));
         jPanel22.setLayout(new javax.swing.BoxLayout(jPanel22, javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel23.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 10));
@@ -376,7 +400,7 @@ public class PrintPanel extends javax.swing.JPanel {
 
         jLabel66.setText("mm");
 
-        jLabel67.setText("mm or %");
+        jLabel67.setText("mm");
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
@@ -400,7 +424,7 @@ public class PrintPanel extends javax.swing.JPanel {
                             .addComponent(jLabel66)
                             .addComponent(jLabel67)))
                     .addComponent(jLabel31))
-                .addContainerGap(322, Short.MAX_VALUE))
+                .addContainerGap(349, Short.MAX_VALUE))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1067,7 +1091,7 @@ public class PrintPanel extends javax.swing.JPanel {
 
         jLabel108.setText("First layer speed:");
 
-        jLabel109.setText("mm/s or %");
+        jLabel109.setText("%");
 
         javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
         jPanel33.setLayout(jPanel33Layout);
@@ -1083,7 +1107,7 @@ public class PrintPanel extends javax.swing.JPanel {
                         .addComponent(firstLayerSpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel109)))
-                .addContainerGap(285, Short.MAX_VALUE))
+                .addContainerGap(326, Short.MAX_VALUE))
         );
         jPanel33Layout.setVerticalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1631,20 +1655,18 @@ public class PrintPanel extends javax.swing.JPanel {
                 .addComponent(jLabel170)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel171, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(keepFanAlwaysOnCheckBox))
-                    .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel172, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(enableAutoCoolingCheckBox)))
+                    .addComponent(keepFanAlwaysOnCheckBox)
+                    .addComponent(jLabel171, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel172, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(enableAutoCoolingCheckBox))
                 .addGap(8, 8, 8)
-                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel174)
+                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel173)
                         .addComponent(minFanSpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel176)
-                        .addComponent(maxFanSpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(maxFanSpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel174))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel175)
@@ -1731,6 +1753,139 @@ public class PrintPanel extends javax.swing.JPanel {
 
         jPanel22.add(jPanel49);
 
+        jPanel40.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 10));
+
+        jLabel149.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel149.setText("Extrusion Width");
+
+        jLabel150.setText("Default extrusion width:");
+
+        jLabel151.setText("First layer:");
+
+        jLabel152.setText("Perimeters:");
+
+        jLabel153.setText("Infill:");
+
+        jLabel156.setText("Solid infill:");
+
+        jLabel157.setText("Top solid infill:");
+
+        jLabel158.setText("Support material:");
+
+        defaultExtrusionWidthText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                defaultExtrusionWidthTextActionPerformed(evt);
+            }
+        });
+
+        jLabel161.setText("mm/s");
+
+        jLabel162.setText("%");
+
+        jLabel163.setText("mm/s");
+
+        jLabel164.setText("mm/s");
+
+        jLabel165.setText("mm/s");
+
+        jLabel166.setText("mm/s");
+
+        jLabel167.setText("mm/s");
+
+        javax.swing.GroupLayout jPanel40Layout = new javax.swing.GroupLayout(jPanel40);
+        jPanel40.setLayout(jPanel40Layout);
+        jPanel40Layout.setHorizontalGroup(
+            jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel40Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel149)
+                    .addGroup(jPanel40Layout.createSequentialGroup()
+                        .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel150)
+                            .addComponent(jLabel151)
+                            .addComponent(jLabel152)
+                            .addComponent(jLabel153)
+                            .addComponent(jLabel156)
+                            .addComponent(jLabel157)
+                            .addComponent(jLabel158))
+                        .addGap(48, 48, 48)
+                        .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel40Layout.createSequentialGroup()
+                                .addComponent(supportMaterialExtrusionWidthText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel167))
+                            .addGroup(jPanel40Layout.createSequentialGroup()
+                                .addComponent(topSolidInfillExtrusionWidthText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel166))
+                            .addGroup(jPanel40Layout.createSequentialGroup()
+                                .addComponent(solidInfillExtrusionWidthText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel165))
+                            .addGroup(jPanel40Layout.createSequentialGroup()
+                                .addComponent(infillExtrusionWidthText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel164))
+                            .addGroup(jPanel40Layout.createSequentialGroup()
+                                .addComponent(perimetersExtrusionWidthText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel163))
+                            .addGroup(jPanel40Layout.createSequentialGroup()
+                                .addComponent(firstLayerExtrusionWidthPercentText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel162))
+                            .addGroup(jPanel40Layout.createSequentialGroup()
+                                .addComponent(defaultExtrusionWidthText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel161)))))
+                .addContainerGap(290, Short.MAX_VALUE))
+        );
+        jPanel40Layout.setVerticalGroup(
+            jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel40Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel149)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel150)
+                    .addComponent(defaultExtrusionWidthText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel161))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel151)
+                    .addComponent(firstLayerExtrusionWidthPercentText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel162))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel152)
+                    .addComponent(perimetersExtrusionWidthText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel163))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel153)
+                    .addComponent(infillExtrusionWidthText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel164))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel156)
+                    .addComponent(solidInfillExtrusionWidthText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel165))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel157)
+                    .addComponent(topSolidInfillExtrusionWidthText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel166))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel158)
+                    .addComponent(supportMaterialExtrusionWidthText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel167))
+                .addContainerGap())
+        );
+
+        jPanel22.add(jPanel40);
+
         jScrollPane7.setViewportView(jPanel22);
 
         configPanel.add(jScrollPane7, java.awt.BorderLayout.CENTER);
@@ -1809,6 +1964,10 @@ public class PrintPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_enableAutoCoolingCheckBoxActionPerformed
 
+    private void defaultExtrusionWidthTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_defaultExtrusionWidthTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_defaultExtrusionWidthTextActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox avoidCrossingPerimetersCheckBox;
@@ -1821,6 +1980,7 @@ public class PrintPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox concavePointsCheckBox;
     private javax.swing.JPanel configPanel;
     private javax.swing.JTextField defaultAccelerationText;
+    private javax.swing.JTextField defaultExtrusionWidthText;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JCheckBox detectBridgesCheckBox;
     private javax.swing.JCheckBox detectThinWallsCheckBox;
@@ -1834,6 +1994,7 @@ public class PrintPanel extends javax.swing.JPanel {
     private javax.swing.JTextField fillDensityPCText;
     private javax.swing.JComboBox fillPatternPCCombo;
     private javax.swing.JTextField firstLayerAccelerationText;
+    private javax.swing.JTextField firstLayerExtrusionWidthPercentText;
     private javax.swing.JTextField firstLayerHeightPCText;
     private javax.swing.JTextField firstLayerSpeedText;
     private javax.swing.JTextField gapFillSpeedText;
@@ -1842,6 +2003,7 @@ public class PrintPanel extends javax.swing.JPanel {
     private javax.swing.JPanel headerPanel;
     private javax.swing.JTextField infillAccelerationText;
     private javax.swing.JCheckBox infillBeforePerimetersCheckBox;
+    private javax.swing.JTextField infillExtrusionWidthText;
     private javax.swing.JCheckBox infillNeededPCCheckBox;
     private javax.swing.JTextField infillSpeedText;
     private javax.swing.JLabel jLabel100;
@@ -1893,8 +2055,23 @@ public class PrintPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel146;
     private javax.swing.JLabel jLabel147;
     private javax.swing.JLabel jLabel148;
+    private javax.swing.JLabel jLabel149;
+    private javax.swing.JLabel jLabel150;
+    private javax.swing.JLabel jLabel151;
+    private javax.swing.JLabel jLabel152;
+    private javax.swing.JLabel jLabel153;
     private javax.swing.JLabel jLabel154;
     private javax.swing.JLabel jLabel155;
+    private javax.swing.JLabel jLabel156;
+    private javax.swing.JLabel jLabel157;
+    private javax.swing.JLabel jLabel158;
+    private javax.swing.JLabel jLabel161;
+    private javax.swing.JLabel jLabel162;
+    private javax.swing.JLabel jLabel163;
+    private javax.swing.JLabel jLabel164;
+    private javax.swing.JLabel jLabel165;
+    private javax.swing.JLabel jLabel166;
+    private javax.swing.JLabel jLabel167;
     private javax.swing.JLabel jLabel170;
     private javax.swing.JLabel jLabel171;
     private javax.swing.JLabel jLabel172;
@@ -1982,6 +2159,7 @@ public class PrintPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel37;
     private javax.swing.JPanel jPanel38;
     private javax.swing.JPanel jPanel39;
+    private javax.swing.JPanel jPanel40;
     private javax.swing.JPanel jPanel41;
     private javax.swing.JPanel jPanel48;
     private javax.swing.JPanel jPanel49;
@@ -2000,6 +2178,7 @@ public class PrintPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox onlyRetractInfillWhenCrossingPerimetersCheckBox;
     private javax.swing.JTextField overhangThresholdText;
     private javax.swing.JTextField perimetersAccelerationText;
+    private javax.swing.JTextField perimetersExtrusionWidthText;
     private javax.swing.JTextField perimetersSpeedText;
     private javax.swing.JTextField perimetersText;
     private javax.swing.JList printConfigList;
@@ -2016,10 +2195,12 @@ public class PrintPanel extends javax.swing.JPanel {
     private javax.swing.JTextField smallPerimetersSpeedText;
     private javax.swing.JTextField solidBottomLayersText;
     private javax.swing.JTextField solidInfillEveryNLayersText;
+    private javax.swing.JTextField solidInfillExtrusionWidthText;
     private javax.swing.JTextField solidInfillSpeedText;
     private javax.swing.JTextField solidThresholdPCText;
     private javax.swing.JTextField solidTopLayersText;
     private javax.swing.JCheckBox spiralVasePCCheckBox;
+    private javax.swing.JTextField supportMaterialExtrusionWidthText;
     private javax.swing.JTextField supportMaterialInterfaceLayersText;
     private javax.swing.JTextField supportMaterialInterfacePatternSpacingText;
     private javax.swing.JTextField supportMaterialPatternAngleText;
@@ -2027,6 +2208,7 @@ public class PrintPanel extends javax.swing.JPanel {
     private javax.swing.JTextField supportMaterialPatternSpacingText;
     private javax.swing.JTextField supportMaterialSpeedText;
     private javax.swing.JComboBox topBottomPCCombo;
+    private javax.swing.JTextField topSolidInfillExtrusionWidthText;
     private javax.swing.JTextField topSolidInfillSpeedText;
     private javax.swing.JTextField travelSpeedText;
     private javax.swing.JCheckBox verboseGCodeCheckBox;
@@ -2273,6 +2455,39 @@ public class PrintPanel extends javax.swing.JPanel {
 
         print.setCoolingConfiguration(cooling);
 
+
+        ExtrusionWidthConfiguration ew = new ExtrusionWidthConfiguration();
+
+        double defaultExtrusionWidth = InputValidationUtility.parseDouble("Default Extrusion Width",
+                defaultExtrusionWidthText.getText());
+        ew.setDefaultExtrusionWidth(defaultExtrusionWidth);
+
+        int firstLayerExtrusionWidthPercent = InputValidationUtility.parseInt("First Layer Extrusion Width",
+                firstLayerExtrusionWidthPercentText.getText());
+        ew.setFirstLayerExtrusionWidth(firstLayerExtrusionWidthPercent);
+
+        double perimetersExtrusionWidth = InputValidationUtility.parseDouble("First Layer Extrusion Width",
+                perimetersExtrusionWidthText.getText());
+        ew.setPerimetersExtrusionWidth(perimetersExtrusionWidth);
+
+        double infillExtrusionWidth = InputValidationUtility.parseDouble("Infill Extrusion Width",
+                infillExtrusionWidthText.getText());
+        ew.setInfillExtrusionWidth(infillExtrusionWidth);
+
+        double solidInfillExtrusionWidth = InputValidationUtility.parseDouble("Solid Infill Extrusion Width",
+                solidInfillExtrusionWidthText.getText());
+        ew.setSolidInfillExtrusionWidth(solidInfillExtrusionWidth);
+
+        double topSolidExtrusionWidth = InputValidationUtility.parseDouble("Top Solid Infill Extrusion Width",
+                topSolidInfillExtrusionWidthText.getText());
+        ew.setTopSolidInfillExtrusionWidth(solidInfillExtrusionWidth);
+
+        double supportMaterialExtrusionWidth = InputValidationUtility.parseDouble("Support Material Extrusion Width",
+                supportMaterialExtrusionWidthText.getText());
+        ew.setSupportMaterialExtrusionWidth(supportMaterialExtrusionWidth);
+
+        print.setExtrusionWidthConfiguration(ew);
+
         return print;
     }
 
@@ -2373,6 +2588,16 @@ public class PrintPanel extends javax.swing.JPanel {
         enableFanTimeThresholdText.setText(String.valueOf(cooling.getEnableFanTimeThreshold()));
         slowDownTimeTresholdlText.setText(String.valueOf(cooling.getSlowDownTimeTreshold()));
         minPrintSpeedText.setText(String.valueOf(cooling.getMinPrintSpeed()));
+
+        ExtrusionWidthConfiguration ew = print.getExtrusionWidthConfiguration();
+
+        defaultExtrusionWidthText.setText(String.valueOf(ew.getDefaultExtrusionWidth()));
+        firstLayerExtrusionWidthPercentText.setText(String.valueOf(ew.getFirstLayerExtrusionWidth()));
+        perimetersExtrusionWidthText.setText(String.valueOf(ew.getPerimetersExtrusionWidth()));
+        infillExtrusionWidthText.setText(String.valueOf(ew.getInfillExtrusionWidth()));
+        solidInfillExtrusionWidthText.setText(String.valueOf(ew.getSolidInfillExtrusionWidth()));
+        topSolidInfillExtrusionWidthText.setText(String.valueOf(ew.getTopSolidInfillExtrusionWidth()));
+        supportMaterialExtrusionWidthText.setText(String.valueOf(ew.getSupportMaterialExtrusionWidth()));
 
     }
 
