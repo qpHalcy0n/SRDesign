@@ -51,8 +51,6 @@ public class ExtruderController {
     private boolean validateExtruder(ExtruderConfiguration extruder) {
         try {
             InputValidationUtility.checkIfInRange("Nozzle Diameter", extruder.getNozzleDiameter(), 0.0, Double.POSITIVE_INFINITY);
-            InputValidationUtility.checkIfInRange("X Offset", extruder.getxOffset(), 0.0, Double.POSITIVE_INFINITY);
-            InputValidationUtility.checkIfInRange("Y Offset", extruder.getyOffset(), 0.0, Double.POSITIVE_INFINITY);
             return true;
         } catch (BadFieldException ex) {
             Logger.getLogger(ExtruderController.class.getName()).log(Level.SEVERE, null, ex);

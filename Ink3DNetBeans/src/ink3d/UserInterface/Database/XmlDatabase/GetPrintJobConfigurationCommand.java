@@ -47,7 +47,7 @@ public class GetPrintJobConfigurationCommand extends CommandStructure{
             fileList = new ArrayList<>();
             for(FileSelection select : set.getFileConfigurations()){
                 fileConfig = new FileConfiguration();
-                fileConfig.setExtruderNum(Integer.parseInt(select.getExtruder().substring(0, 1)));
+                fileConfig.setExtruderNum(select.getExtruderNum());
                 //fileConfig.setExtruderConfiguration(db.getExtruderConfiguration(select.getExtruder().substring(3)));
                 //fileConfig.setMaterialConfiguration(db.getMaterialConfiguration(select.getExtruder().substring(3)));
                 fileConfig.setName(select.getFile());

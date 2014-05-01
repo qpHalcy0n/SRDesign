@@ -304,7 +304,7 @@ public class PrintJobPanel extends javax.swing.JPanel {
             return;
         }
         try {
-            printJobController.savePrintJobConfiguration(this.namePrintJobText.getText(),this.printerSelectionPrintJobComboBox.getSelectedItem().toString() ,this.getMasterSubsectionPane().getPanels() );
+            printJobController.savePrintJobConfiguration(this.namePrintJobText.getText(),this.printerSelectionPrintJobComboBox.getSelectedItem().toString() ,this.getMasterSubsectionPane().getPanels() , this.extruderMaterialMapList);
         } catch (BadFieldException e) {
              JOptionPane.showMessageDialog(null, e.getMessage() , "InfoBox: " + "Bad Field Data",JOptionPane.INFORMATION_MESSAGE);
         }

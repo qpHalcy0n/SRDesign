@@ -501,7 +501,8 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
             
             try {
                 // calculate new z-offset based on the last z value from the created GCode file
-                zOffset = calculateNextZOffset(subsetGCodeFile);
+                zOffset = calculateNextZOffset(subsetGCodeFile, printJobConfiguration, subset);
+                System.out.println("Z Offset = " + zOffset);
             } catch (Exception ex) {
                 Logger.getLogger(Slic3rSlicingEngineWrapperImpl.class.getName()).log(Level.SEVERE, null, ex);
                 throw new ProcessorException("Could not properly calculate Z Offset for subset " + (subsetNum + 1));
@@ -513,19 +514,31 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
         return true;
     }
 
-    private double calculateNextZOffset(File gCodeFile) throws FileNotFoundException, IOException, NumberFormatException {
+    private double calculateNextZOffset(File gCodeFile, PrintJobConfiguration printJob, SubsetConfiguration subset) throws FileNotFoundException, IOException, NumberFormatException {
         BufferedReader reader = new BufferedReader(new FileReader(gCodeFile));
         double zOffset = 0.0;
-        Pattern pattern = Pattern.compile("Z[0-9]+.[0-9]+");
+        int lastTool = 0;
+        Pattern zPattern = Pattern.compile("Z[0-9]+.[0-9]+");
+        Pattern toolPattern = Pattern.compile("T[0-9]+");
         String line = "";
         while((line = reader.readLine()) != null) {
-            Matcher matcher = pattern.matcher(line);
-            if(matcher.find()) {
-                String match = matcher.group();
+            Matcher zMatcher = zPattern.matcher(line);
+            Matcher toolMatcher = toolPattern.matcher(line);
+            if(zMatcher.find()) {
+                String match = zMatcher.group();
                 zOffset = Double.parseDouble(match.substring(1));
             }
+            if(toolMatcher.find()) {
+                String match = toolMatcher.group();
+                lastTool = Integer.parseInt(match.substring(1));
+            }
         }
-        return zOffset;
+
+        int actualLastTool = subset.getExtrudersNeeded().get(lastTool);
+        double retractionLiftZ = 
+            printJob.getExtruderMaterials().get(actualLastTool).getRetractionLiftZ();
+        
+        return zOffset - retractionLiftZ;
     }
 
     /**

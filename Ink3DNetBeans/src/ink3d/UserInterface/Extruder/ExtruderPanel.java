@@ -432,8 +432,8 @@ public class ExtruderPanel extends javax.swing.JPanel {//please commit
         extruder.setxOffset(offsetX);
 
         double offsetY = InputValidationUtility.parseDouble("Offset Y", 
-                offsetXExtrudText.getText());
-        extruder.setxOffset(offsetY);
+                offsetYExtrudText.getText());
+        extruder.setyOffset(offsetY);
 
         // Does not matter if start/end G-Code is empty/null
         String startGCode = startGCodeTxtArea.getText();

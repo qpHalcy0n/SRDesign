@@ -29,6 +29,7 @@ import ink3d.UserInterface.Status.StatusController;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JList;
 
 /**
  *
@@ -76,7 +77,7 @@ public class PrintJobController {
         return db.getPrintJobConfiguration(selected);
     }
     
-    public Boolean savePrintJobConfiguration(String name, String printerName, ArrayList<SubsectionPanel> panels) throws BadFieldException{
+    public Boolean savePrintJobConfiguration(String name, String printerName, ArrayList<SubsectionPanel> panels, JList extruderMaterialsMapList) throws BadFieldException{
         PrintJobSelection job = new PrintJobSelection();
         PrinterConfiguration printer = db.getPrinterConfiguration(printerName);
         job.setName(name);
@@ -90,13 +91,34 @@ public class PrintJobController {
         
         job.setSubsetConfigurationList(new ArrayList<SubsetSelection>());
         for(int i=0; i< panels.size(); i++){
+
             SubsetSelection subset = new SubsetSelection();
-            if(panels.get(i).getFileList().size() != panels.get(i).getExtruderList().size())throw new BadFieldException("All files must have a material associated with it.");
+
+            if(panels.get(i).getFileList().size() != panels.get(i).getExtruderList().size()) {
+                throw new BadFieldException("All files must have a material associated with it.");
+            }
+
             subset.setFileConfigurations(new ArrayList<FileSelection>());
+
             for(int j=0; j < panels.get(i).getFileList().size(); j++){
-                subset.getFileConfigurations().add(new FileSelection(panels.get(i).getExtruderList().get(j), 
-                                PrintJobPanel.extruderMaterialArrayListForPrintJob.get(j).substring(3),
-                        panels.get(i).getFileList().get(j)));
+                String extruderName = panels.get(i).getExtruderList().get(j);
+                int extruderNum = Integer.parseInt(extruderName.substring(0, 2));
+                String materialName = PrintJobPanel.extruderMaterialArrayListForPrintJob.get(j).substring(3);
+                String fileName = panels.get(i).getFileList().get(j);
+
+                FileSelection fileSelection = new FileSelection(extruderName, materialName, fileName);
+                fileSelection.setExtruderNum(extruderNum);
+                
+                /*
+                for(int k = 0; k < PrintJobPanel.extruderMaterialArrayListForPrintJob.size(); k++) {
+                    if(PrintJobPanel.extruderMaterialArrayListForPrintJob.get(k).equals(extruderName)) {
+                        fileSelection.setExtruderNum(k);
+                    }
+                }
+                */
+                
+                subset.getFileConfigurations().add(fileSelection);
+
                 subset.setPrintConfiguration( panels.get(i).getPrint());
             }
             try{
