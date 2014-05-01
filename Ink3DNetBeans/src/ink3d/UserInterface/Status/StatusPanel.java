@@ -54,10 +54,8 @@ public class StatusPanel extends JPanel {
     private JPanel temperaturePanel;
     private JLabel extruderLbl;
     private JLabel currentTempLbl;
-    private JLabel desiredTempLbl;
     private List<String> extruderNames;
     private List<JTextField> currentTempTextFields;
-    private List<JTextField> desiredTempTextFields;
 
 
     private PrintJobConfiguration printJob;
@@ -113,20 +111,15 @@ public class StatusPanel extends JPanel {
 
         gridMap[0][0].add(new JLabel(EXTRUDER));
         gridMap[1][0].add(new JLabel(CURRENT_TEMP));
-        gridMap[2][0].add(new JLabel(DESIRED_TEMP));
         
         currentTempTextFields = new ArrayList<>();
-        desiredTempTextFields = new ArrayList<>();
         for(int i = 1; i < 1 + numberOfExtruders; i++) {
             gridMap[0][i].add(new JLabel("T" + String.valueOf(i-1)));
             JTextField currentTempField = new JTextField(6);
-            currentTempField.setEnabled(false);
+            currentTempField.setEnabled(true);
+            currentTempField.setEditable(true);
             currentTempTextFields.add(currentTempField);
             gridMap[1][i].add(currentTempField);
-            JTextField desiredTempField = new JTextField(6);
-            desiredTempField.setEnabled(false);
-            desiredTempTextFields.add(desiredTempField);
-            gridMap[2][i].add(desiredTempField);
         }
 
         this.add(actionPanel);
@@ -159,12 +152,10 @@ public class StatusPanel extends JPanel {
         System.out.println("Added G-Code:  " + gcode);
     }
 
-    public void updateTemperatures(int tool, float currentTemp, float desiredTemp) {
+    public void updateTemperatures(int tool, float currentTemp) {
         if(tool >= 0 && tool < currentTempTextFields.size()) {
             currentTempTextFields.get(tool).setText(String.valueOf(currentTemp));
             System.out.println("T" + tool + " current temp set to:  " + currentTemp);
-            desiredTempTextFields.get(tool).setText(String.valueOf(desiredTemp));
-            System.out.println("T" + tool + " desired temp set to:  " + desiredTemp);
         }
     }
 
@@ -310,20 +301,6 @@ public class StatusPanel extends JPanel {
     }
 
     /**
-     * @return the desiredTempLbl
-     */
-    public JLabel getDesiredTempLbl() {
-        return desiredTempLbl;
-    }
-
-    /**
-     * @param desiredTempLbl the desiredTempLbl to set
-     */
-    public void setDesiredTempLbl(JLabel desiredTempLbl) {
-        this.desiredTempLbl = desiredTempLbl;
-    }
-
-    /**
      * @return the extruderNames
      */
     public List<String> getExtruderNames() {
@@ -349,20 +326,6 @@ public class StatusPanel extends JPanel {
      */
     public void setCurrentTempTextFields(List<JTextField> currentTempTextFields) {
         this.currentTempTextFields = currentTempTextFields;
-    }
-
-    /**
-     * @return the desiredTempTextFields
-     */
-    public List<JTextField> getDesiredTempTextFields() {
-        return desiredTempTextFields;
-    }
-
-    /**
-     * @param desiredTempTextFields the desiredTempTextFields to set
-     */
-    public void setDesiredTempTextFields(List<JTextField> desiredTempTextFields) {
-        this.desiredTempTextFields = desiredTempTextFields;
     }
 
     /**
