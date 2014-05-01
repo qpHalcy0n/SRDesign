@@ -33,6 +33,8 @@ public class ImportStlFileCommand extends CommandStructure{
             sb.append(stlFile.getName().substring(0, stlFile.getName().length() - 4));
             sb.append(".stl");
             Files.copy(stlFile.toPath(), (new File(sb.toString())).toPath(), StandardCopyOption.REPLACE_EXISTING);
+            stlFile = null;
+            System.gc();
             result = Boolean.TRUE;
         } catch (IOException ex) {
             Logger.getLogger(ImportStlFileCommand.class.getName()).log(Level.SEVERE, null, ex);

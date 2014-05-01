@@ -53,7 +53,7 @@ public class ImportControllerTest {
         String Path = "test-files/import/cube.stl";
         ImportController instance = new ImportController();
         Boolean result = instance.importStl(Path);
-        assertTrue(result);
+        assertTrue(result.booleanValue());
         db.deleteStlFile("cube");
     }
 
@@ -67,7 +67,7 @@ public class ImportControllerTest {
         String name = "cube";
         ImportController instance = new ImportController();
         Boolean result = instance.deleteStl(name);
-        assertTrue(result);
+        assertTrue(result.booleanValue());
     }
     
 }

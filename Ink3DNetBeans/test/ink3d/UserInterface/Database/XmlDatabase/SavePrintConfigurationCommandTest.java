@@ -120,7 +120,7 @@ public class SavePrintConfigurationCommandTest {
                     "    </coolingConfiguration>\n" +
                     "    <extrusionWidthConfiguration>\n" +
                     "        <defaultExtrusionWidth>0.0</defaultExtrusionWidth>\n" +
-                    "        <firstLayerExtrusionWidth>0.0</firstLayerExtrusionWidth>\n" +
+                    "        <firstLayerExtrusionWidth>200</firstLayerExtrusionWidth>\n" +
                     "        <infillExtrusionWidth>0.0</infillExtrusionWidth>\n" +
                     "        <perimetersExtrusionWidth>0.0</perimetersExtrusionWidth>\n" +
                     "        <solidInfillExtrusionWidth>0.0</solidInfillExtrusionWidth>\n" +

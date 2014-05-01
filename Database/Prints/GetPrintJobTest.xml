@@ -15,7 +15,7 @@
     </coolingConfiguration>
     <extrusionWidthConfiguration>
         <defaultExtrusionWidth>0.0</defaultExtrusionWidth>
-        <firstLayerExtrusionWidth>0.0</firstLayerExtrusionWidth>
+        <firstLayerExtrusionWidth>200</firstLayerExtrusionWidth>
         <infillExtrusionWidth>0.0</infillExtrusionWidth>
         <perimetersExtrusionWidth>0.0</perimetersExtrusionWidth>
         <solidInfillExtrusionWidth>0.0</solidInfillExtrusionWidth>
