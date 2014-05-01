@@ -20,31 +20,6 @@ public class TXRXImplTest {
     }
 
     /**
-     * Test of finalize method, of class TXRXImpl.
-     */
-    @Test
-    public void testFinalize() throws Exception {
-        System.out.println("finalize");
-        TXRXImpl instance = new TXRXImpl();
-//        instance.finalize();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getSerialPortNames method, of class TXRXImpl.
-     */
-    @Test
-    public void testGetSerialPortNames() {
-        System.out.println("getSerialPortNames");
-        TXRXImpl instance = new TXRXImpl();
-        String[] expResult = new String[0];
-        String[] result = instance.getSerialPortNames();
-        assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail
-    }
-
-    /**
      * Test of getPrinterFeedback method, of class TXRXImpl.
      */
     @Test
@@ -87,35 +62,6 @@ public class TXRXImplTest {
     }
 
     /**
-     * Test of connectToPrinter method, of class TXRXImpl.
-     */
-    @Test
-    public void testConnectToPrinter() {
-        System.out.println("connectToPrinter");
-        TXRXImpl instance = new TXRXImpl();
-        boolean expResult = false;
-        boolean result = instance.connectToPrinter();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of sendGcode method, of class TXRXImpl.
-     */
-    @Test
-    public void testSendGcode() {
-        System.out.println("sendGcode");
-        String gCode = "";
-        TXRXImpl instance = new TXRXImpl();
-        boolean expResult = false;
-        boolean result = instance.sendGcode(gCode);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getLastGcodesSent method, of class TXRXImpl.
      */
     @Test
@@ -124,21 +70,6 @@ public class TXRXImplTest {
         TXRXImpl instance = new TXRXImpl();
         ArrayList<String> expResult = new ArrayList<String>();
         ArrayList<String> result = instance.getLastGcodesSent();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
- //       fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of serialize method, of class TXRXImpl.
-     */
-    @Test
-    public void testSerialize() {
-        System.out.println("serialize");
-        String gCodeLine = "G28 ; home";
-        TXRXImpl instance = new TXRXImpl();
-        String expResult = "G28";
-        String result = instance.serialize(gCodeLine);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
  //       fail("The test case is a prototype.");
