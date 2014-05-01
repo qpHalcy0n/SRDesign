@@ -18,7 +18,7 @@ import java.io.*;
  *
  * @author Shawn Simonson
  */
-public class PrinterStatusImpl implements PrinterStatus
+public class PrinterStatusImpl extends Thread implements PrinterStatus
 {
     private static ArrayList<String> gCodes;
     private static ArrayList<String> failsafeGcodes;
@@ -100,7 +100,7 @@ public class PrinterStatusImpl implements PrinterStatus
     @Override
     public void cancelPrinting()
     {
-       // interrupt();
+        interrupt();
     }
     
     @Override
@@ -121,7 +121,27 @@ public class PrinterStatusImpl implements PrinterStatus
     @Override
     public void go()
     {
-    //    start();
+        start(); 
+    }
+    
+    @Override
+    public boolean hasCommsObject()
+    {
+        if(commsObject == null)
+            return false;
+        return true;
+    }
+    
+    @Override
+    public TXRX getCommsObject()
+    {
+        return commsObject;
+    }
+    
+    @Override
+    @SuppressWarnings("SleepWhileInLoop")
+    public void run()
+    {
         try
         {
             commsObject = new TXRXImpl(printJobConfig);
@@ -177,7 +197,7 @@ public class PrinterStatusImpl implements PrinterStatus
                 // Wait here if we're paused //
                 while(isPaused)
                 {
-//                    sleep(dispatchDelay);
+                    sleep(dispatchDelay);
                 }
             
                 // Execute next g-code and remove it //
@@ -185,8 +205,6 @@ public class PrinterStatusImpl implements PrinterStatus
                 commsObject.sendGcode(gCodes.get(0));
                 System.err.println("Executed: " + gCodes.get(0));
                 gCodes.remove(0);
-                
-   //             sleep(100);
             }
         }
         
@@ -196,93 +214,4 @@ public class PrinterStatusImpl implements PrinterStatus
         }
     }
     
-    @Override
-    public boolean hasCommsObject()
-    {
-        if(commsObject == null)
-            return false;
-        return true;
-    }
-    
-    @Override
-    public TXRX getCommsObject()
-    {
-        return commsObject;
-    }
-    
-   /* 
-    @SuppressWarnings("SleepWhileInLoop")
-    public void run()
-    {
-        try
-        {
-            commsObject = new TXRXImpl(printJobConfig);
-            if(commsObject.isConnected() == false)
-                System.out.println("Error in Printer Status: Could not connect to printer");
-        
- //           feedbackObject = new PrinterFeedbackImpl(printJobConfig); 
- //           feedbackObject.setCommsObject(commsObject);
- //           feedbackObject.beginMonitoring();
-
-            PrinterStatusObject pso = printJobConfig.getPrinterStatusObject();
-            
-            boolean once = true;
-            while(gCodes.size() > 0)
-            {
-                
-/*                while(pso.hasCurrentToolTemperatures() == false)
-                {
-                    // Ask for the current temperatures //
-                    if(once)
-                    {
-                        commsObject.clearFeedbackString();
-                        once = false;
-                    }
-                    commsObject.sendGcode("M105");
-                    ArrayList<FeedbackObject> fbo = commsObject.getPrinterFeedback();
-                    sleep(dispatchDelay);
-                }
-            
-                ArrayList<TemperatureObject> temps = pso.getCurrentToolTemperatures();
-                statusController.updateTemperatures(temps);
-                for(int i = 0; i < temps.size(); ++i)
-                {
-                    if(temps.get(i).getToolName().contentEquals("T"))
-                    {
-                        // TODO: FIX THIS: desired temps for initial run
-//                        if(temps.get(i).getCurrentTemperature() > temps.get(i).getDesiredTemp())
-                        if(temps.get(i).getCurrentTemperature() > 210.0)
-                        {
-                            while(temps.get(i).getCurrentTemperature() > 210.0)
-                            {   
-                                temps = printJobConfig.getPrinterStatusObject().getCurrentToolTemperatures();
-                                commsObject.sendGcode("M105");
-                                sleep(dispatchDelay);
-                            }
-                        }
-                    }    
-                }
-            
-            
-                // Wait here if we're paused //
-                while(isPaused)
-                {
-                    sleep(dispatchDelay);
-                }
-            
-                // Execute next g-code and remove it //
-                System.err.println("Executing: " + gCodes.get(0));
-                commsObject.sendGcode(gCodes.get(0));
-                gCodes.remove(0);
-                
-                sleep(100);
-            }
-        }
-        
-        catch(InterruptedException ex)
-        {
-            System.out.println(ex);
-        }
-    }
-    */
 }

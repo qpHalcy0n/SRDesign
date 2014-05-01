@@ -350,10 +350,10 @@ public class TXRXImpl implements TXRX
             ackSent = true;
             System.err.println("ack received");
             
-//            synchronized(lock)
-//            {
+            synchronized(lock)
+            {
                 lastGcodesSent.add(send);
-//            }
+            }
             
             // Sleep: otherwise we end up clobbering the buffer and garbling g-codes
             // The OK message from the device is supposed to prevent this, but this proves to not be the case.
