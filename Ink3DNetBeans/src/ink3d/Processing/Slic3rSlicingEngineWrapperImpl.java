@@ -266,7 +266,7 @@ public class Slic3rSlicingEngineWrapperImpl implements SlicingEngineWrapper {
                 appendProperty(sb, FIRST_LAYER_ACCELERATION, 0);
                 appendProperty(sb, FIRST_LAYER_HEIGHT, layerAndPerimeters.getLayerHeight());
                 appendProperty(sb, BOTTOM_SOLID_LAYERS, 0);
-                appendProperty(sb, FIRST_LAYER_EXTRUSION_WIDTH, "100%");
+                appendProperty(sb, FIRST_LAYER_EXTRUSION_WIDTH, extrusionWidth.getDefaultExtrusionWidth());
                 appendProperty(sb, DISABLE_FAN_FIRST_LAYERS, 0);
                 appendProperty(sb, SKIRTS, 0);
                 appendProperty(sb, SKIRT_DISTANCE, skirtAndBrim.getSkirtDistanceFromObject());
