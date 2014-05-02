@@ -1,0 +1,19 @@
+c:
+cd \
+cd Ink3D
+md Database
+md gcode
+md openscad-files
+md slic3r-configs
+md stl-files
+md subset-amf-files
+md subset-gcode
+md subset-openscad-files
+md subset-stl-files
+cd database
+md Extruders
+md Files
+md Materials
+md Printers
+md PrintJobs
+md Prints
