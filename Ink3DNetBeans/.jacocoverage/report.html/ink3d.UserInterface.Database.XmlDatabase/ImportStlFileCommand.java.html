@@ -33,12 +33,14 @@ public class ImportStlFileCommand extends CommandStructure{
 <span class="fc" id="L33">            sb.append(stlFile.getName().substring(0, stlFile.getName().length() - 4));</span>
 <span class="fc" id="L34">            sb.append(&quot;.stl&quot;);</span>
 <span class="fc" id="L35">            Files.copy(stlFile.toPath(), (new File(sb.toString())).toPath(), StandardCopyOption.REPLACE_EXISTING);</span>
-<span class="fc" id="L36">            result = Boolean.TRUE;</span>
-<span class="nc" id="L37">        } catch (IOException ex) {</span>
-<span class="nc" id="L38">            Logger.getLogger(ImportStlFileCommand.class.getName()).log(Level.SEVERE, null, ex);</span>
-<span class="nc" id="L39">            result = Boolean.FALSE;</span>
-<span class="fc" id="L40">        }</span>
-<span class="fc" id="L41">    }</span>
+<span class="fc" id="L36">            stlFile = null;</span>
+<span class="fc" id="L37">            System.gc();</span>
+<span class="fc" id="L38">            result = Boolean.TRUE;</span>
+<span class="nc" id="L39">        } catch (IOException ex) {</span>
+<span class="nc" id="L40">            Logger.getLogger(ImportStlFileCommand.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L41">            result = Boolean.FALSE;</span>
+<span class="fc" id="L42">        }</span>
+<span class="fc" id="L43">    }</span>
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>
