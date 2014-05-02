@@ -1,0 +1,1 @@
+intersection(){import("D:\\SRDesign\\Ink3DNetBeans\\test-files\\stl\\Feed-Housing.STL");translate([0.000000,14.000000,0.000000]){cube(size=[19.750000,22.000000,22.000000],center=false);};}
