@@ -7,6 +7,7 @@
 package ink3d.PostProcessing;
 
 import ink3d.ConfigurationObjects.ExtruderConfiguration;
+import ink3d.ConfigurationObjects.MaterialConfiguration;
 import ink3d.ConfigurationObjects.PrintJobConfiguration;
 import ink3d.ConfigurationObjects.SubsetConfiguration;
 import java.io.BufferedReader;
@@ -112,6 +113,22 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
 
     private boolean writePrinterStartGCode(BufferedWriter outputFile) {
         String startGCode = printJob.getPrinterConfiguration().getStartGCode();
+        List<MaterialConfiguration> materials = printJob.getExtruderMaterials();
+        
+        for(int i = 0; i < materials.size(); i++) {
+            MaterialConfiguration material = materials.get(i);
+            String tempString = "M104 S" + material.getExtrusionTemperature() + " T" + i + "\n"
+                    + "M109 S" + material.getExtrusionTemperature() + " T" + i + "\n";
+            try {
+                outputFile.append(tempString);
+            } catch (IOException ex) {
+                Logger.getLogger(Slic3rGCodePreparerImpl.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+           
+            
+        }
+               
         try {
             outputFile.append(startGCode);
             outputFile.append("\n");

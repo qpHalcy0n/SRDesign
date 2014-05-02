@@ -155,6 +155,7 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
             PrinterStatusObject pso = printJobConfig.getPrinterStatusObject();
             
             boolean once = true;
+            boolean T0once = true;
             int iter = 0;
             while(gCodes.size() > 0)
             {
@@ -199,11 +200,46 @@ public class PrinterStatusImpl extends Thread implements PrinterStatus
                 {
                     sleep(dispatchDelay);
                 }
+                
+                
             
                 // Execute next g-code and remove it //
                 System.err.println("Executing: " + gCodes.get(0));
+                if(gCodes.get(0).contains("T0") == true)
+                {
+                    Thread.sleep(6000);
+                }
                 commsObject.sendGcode(gCodes.get(0));
+           /*     
+                if(gCodes.get(0).contains("T0") == true)
+                {
+                    if(!T0once)
+                    {
+                        commsObject.sendGcode("G91");
+                        commsObject.sendGcode("G1 Z1");
+                        commsObject.sendGcode("G1 Y-22");
+                        commsObject.sendGcode("G1 Z-1");
+                        commsObject.sendGcode("G90");
+                    }
+                    
+                    T0once = false;
+                }
+ */
+                /*
+                if(gCodes.get(0).contains("T1") == true)
+                {
+                    commsObject.sendGcode("G91");
+                    commsObject.sendGcode("G1 Z1");
+                    commsObject.sendGcode("G1 Y22");
+                    commsObject.sendGcode("G1 Z-1");
+                    commsObject.sendGcode("G90");
+                }
+    */            
                 System.err.println("Executed: " + gCodes.get(0));
+                
+                
+                
+                statusController.addGCode(gCodes.get(0));
                 gCodes.remove(0);
             }
         }
