@@ -90,14 +90,6 @@ public class MaterialPanel extends javax.swing.JPanel {
         extraLengthOnToolReenableMaterialText = new javax.swing.JTextField();
         jLabel203 = new javax.swing.JLabel();
         jLabel204 = new javax.swing.JLabel();
-        jPanel52 = new javax.swing.JPanel();
-        jLabel207 = new javax.swing.JLabel();
-        jLabel208 = new javax.swing.JLabel();
-        jLabel209 = new javax.swing.JLabel();
-        jScrollPane13 = new javax.swing.JScrollPane();
-        startGCodeMaterialTextArea = new javax.swing.JTextArea();
-        jScrollPane14 = new javax.swing.JScrollPane();
-        endGCodeMaterialTextArea = new javax.swing.JTextArea();
         loadMaterialButton = new javax.swing.JButton();
 
         newMaterialButton.setText("New");
@@ -410,50 +402,6 @@ public class MaterialPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel207.setText("Custom Gcode:");
-
-        jLabel208.setText("Start G Code:");
-
-        jLabel209.setText("End G Code:");
-
-        startGCodeMaterialTextArea.setColumns(20);
-        startGCodeMaterialTextArea.setRows(5);
-        jScrollPane13.setViewportView(startGCodeMaterialTextArea);
-
-        endGCodeMaterialTextArea.setColumns(20);
-        endGCodeMaterialTextArea.setRows(5);
-        jScrollPane14.setViewportView(endGCodeMaterialTextArea);
-
-        javax.swing.GroupLayout jPanel52Layout = new javax.swing.GroupLayout(jPanel52);
-        jPanel52.setLayout(jPanel52Layout);
-        jPanel52Layout.setHorizontalGroup(
-            jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel52Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel207)
-                    .addComponent(jLabel208)
-                    .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
-                    .addComponent(jLabel209)
-                    .addComponent(jScrollPane14))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel52Layout.setVerticalGroup(
-            jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel52Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel207)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel208)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel209)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout jPanel45Layout = new javax.swing.GroupLayout(jPanel45);
         jPanel45.setLayout(jPanel45Layout);
         jPanel45Layout.setHorizontalGroup(
@@ -464,8 +412,7 @@ public class MaterialPanel extends javax.swing.JPanel {
                     .addComponent(jPanel51, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel50, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel47, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel46, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel52, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel46, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel45Layout.setVerticalGroup(
@@ -479,8 +426,7 @@ public class MaterialPanel extends javax.swing.JPanel {
                 .addComponent(jPanel50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(560, 560, 560))
         );
 
         javax.swing.GroupLayout jPanel44Layout = new javax.swing.GroupLayout(jPanel44);
@@ -597,8 +543,6 @@ public class MaterialPanel extends javax.swing.JPanel {
         this.retractionLengthBeforeToolChangeMaterialText.setText(null);
         this.extraLengthOnToolReenableMaterialText.setText(null);
 
-        this.startGCodeMaterialTextArea.setText(null);
-        this.endGCodeMaterialTextArea.setText(null);
     }//GEN-LAST:event_newMaterialButtonMouseReleased
 
     private void saveMaterialButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMaterialButtonMouseReleased
@@ -620,9 +564,6 @@ public class MaterialPanel extends javax.swing.JPanel {
 
         varList.add(this.retractionLengthBeforeToolChangeMaterialText.getText());
         varList.add(this.extraLengthOnToolReenableMaterialText.getText());
-
-        varList.add(this.startGCodeMaterialTextArea.getText());
-        varList.add(this.endGCodeMaterialTextArea.getText());
 
         try{
             materialController.saveMaterialConfiguration(varList);
@@ -685,15 +626,14 @@ public class MaterialPanel extends javax.swing.JPanel {
         this.retractionLengthBeforeToolChangeMaterialText.setText(varList.get(12));
         this.extraLengthOnToolReenableMaterialText.setText(varList.get(13));
 
-        this.startGCodeMaterialTextArea.setText(varList.get(14));
-        this.endGCodeMaterialTextArea.setText(varList.get(15));
+        //this.startGCodeMaterialTextArea.setText(varList.get(14));
+        //this.endGCodeMaterialTextArea.setText(varList.get(15));
     }//GEN-LAST:event_loadMaterialButtonMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList MaterialList;
     private javax.swing.JButton deleteMaterialButton;
-    private javax.swing.JTextArea endGCodeMaterialTextArea;
     private javax.swing.JTextField extraLengthAfterRetractionMaterialText;
     private javax.swing.JTextField extraLengthOnToolReenableMaterialText;
     private javax.swing.JTextField extrusionMultiplierMaterialText;
@@ -727,9 +667,6 @@ public class MaterialPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel202;
     private javax.swing.JLabel jLabel203;
     private javax.swing.JLabel jLabel204;
-    private javax.swing.JLabel jLabel207;
-    private javax.swing.JLabel jLabel208;
-    private javax.swing.JLabel jLabel209;
     private javax.swing.JPanel jPanel43;
     private javax.swing.JPanel jPanel44;
     private javax.swing.JPanel jPanel45;
@@ -737,10 +674,7 @@ public class MaterialPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel47;
     private javax.swing.JPanel jPanel50;
     private javax.swing.JPanel jPanel51;
-    private javax.swing.JPanel jPanel52;
     private javax.swing.JScrollPane jScrollPane10;
-    private javax.swing.JScrollPane jScrollPane13;
-    private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JButton loadMaterialButton;
     private javax.swing.JTextField minimumTravelAfterRetractionMaterialText;
@@ -752,7 +686,6 @@ public class MaterialPanel extends javax.swing.JPanel {
     private javax.swing.JTextField retractionLiftZMaterialText;
     private javax.swing.JTextField retractionSpeedMaterialText;
     private javax.swing.JButton saveMaterialButton;
-    private javax.swing.JTextArea startGCodeMaterialTextArea;
     private javax.swing.JComboBox wipeBeforeRetractMaterialComboBox;
     // End of variables declaration//GEN-END:variables
 

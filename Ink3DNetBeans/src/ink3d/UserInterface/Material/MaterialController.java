@@ -51,8 +51,8 @@ public class MaterialController {
         varList.add(Double.toString(material.getExtraLengthOnToolReenable()));
         
         
-        varList.add(material.getgCodeStart());
-        varList.add(material.getgCodeEnd());
+        //varList.add(material.getgCodeStart());
+        //varList.add(material.getgCodeEnd());
         
         return varList;
     }
@@ -184,8 +184,6 @@ public class MaterialController {
                 throw new BadFieldException("Extra Length on Tool Reenable must bea double precision value greater then or equal to 0.");  
             }
         
-            config.setgCodeStart(vars.get(14));
-            config.setgCodeEnd(vars.get(15));
         }catch(NumberFormatException e){
             e.printStackTrace();
             throw new BadFieldException("All Fields need to be filed out to save a Material");
