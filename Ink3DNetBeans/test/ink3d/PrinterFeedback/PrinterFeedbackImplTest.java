@@ -68,17 +68,5 @@ public class PrinterFeedbackImplTest {
         // TODO review the generated test code and remove the default call to fail.
  //       fail("The test case is a prototype.");
     }
-
-    /**
-     * Test of run method, of class PrinterFeedbackImpl.
-     */
-    @Test
-    public void testRun() {
-        System.out.println("run");
-        PrinterFeedbackImpl instance = new PrinterFeedbackImpl();
-        instance.run();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
     
 }

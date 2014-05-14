@@ -132,8 +132,7 @@ public class StatusController implements ActionListener {
         System.out.println("Tool to update temp: T" + tool);
         if(tool != -1) {
             float currentTemp = temp.getCurrentTemperature();
-            float desiredTemp = temp.getDesiredTemp();
-            view.updateTemperatures(tool, currentTemp, desiredTemp);
+            view.updateTemperatures(tool, currentTemp);
         }
     }
 

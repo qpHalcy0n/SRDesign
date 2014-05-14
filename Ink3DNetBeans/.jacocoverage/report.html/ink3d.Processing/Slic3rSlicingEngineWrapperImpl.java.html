@@ -251,7 +251,7 @@ import java.util.regex.Pattern;
 <span class="fc" id="L251">                appendProperty(sb, FIRST_LAYER_ACCELERATION, 0);</span>
 <span class="fc" id="L252">                appendProperty(sb, FIRST_LAYER_HEIGHT, layerAndPerimeters.getFirstLayerHeight());</span>
 <span class="fc" id="L253">                appendProperty(sb, BOTTOM_SOLID_LAYERS, layerAndPerimeters.getSolidBottomLayers());</span>
-<span class="fc" id="L254">                appendProperty(sb, FIRST_LAYER_EXTRUSION_WIDTH, extrusionWidth.getFirstLayerExtrusionWidth());</span>
+<span class="fc" id="L254">                appendProperty(sb, FIRST_LAYER_EXTRUSION_WIDTH, extrusionWidth.getFirstLayerExtrusionWidth() + &quot;%&quot;);</span>
 <span class="fc" id="L255">                appendProperty(sb, DISABLE_FAN_FIRST_LAYERS, 1);</span>
 <span class="fc" id="L256">                appendProperty(sb, SKIRTS, skirtAndBrim.getSkirtLoops());</span>
 <span class="fc" id="L257">                appendProperty(sb, SKIRT_DISTANCE, skirtAndBrim.getSkirtDistanceFromObject());</span>
@@ -266,7 +266,7 @@ import java.util.regex.Pattern;
 <span class="fc" id="L266">                appendProperty(sb, FIRST_LAYER_ACCELERATION, 0);</span>
 <span class="fc" id="L267">                appendProperty(sb, FIRST_LAYER_HEIGHT, layerAndPerimeters.getLayerHeight());</span>
 <span class="fc" id="L268">                appendProperty(sb, BOTTOM_SOLID_LAYERS, 0);</span>
-<span class="fc" id="L269">                appendProperty(sb, FIRST_LAYER_EXTRUSION_WIDTH, extrusionWidth.getDefaultExtrusionWidth());</span>
+<span class="fc" id="L269">                appendProperty(sb, FIRST_LAYER_EXTRUSION_WIDTH, &quot;100%&quot;);</span>
 <span class="fc" id="L270">                appendProperty(sb, DISABLE_FAN_FIRST_LAYERS, 0);</span>
 <span class="fc" id="L271">                appendProperty(sb, SKIRTS, 0);</span>
 <span class="fc" id="L272">                appendProperty(sb, SKIRT_DISTANCE, skirtAndBrim.getSkirtDistanceFromObject());</span>
@@ -301,7 +301,7 @@ import java.util.regex.Pattern;
 <span class="fc" id="L301">            appendProperty(sb, START_GCODE, &quot;&quot;);</span>
 <span class="fc" id="L302">            appendProperty(sb, END_GCODE, &quot;&quot;);</span>
 <span class="fc" id="L303">            appendProperty(sb, TOOLCHANGE_GCODE, &quot;&quot;);</span>
-<span class="fc" id="L304">            appendProperty(sb, EXTRUDER_OFFSET, getExtruderOffsets(extruders));</span>
+<span class="fc" id="L304">            appendProperty(sb, EXTRUDER_OFFSET, getSimpleExtruderOffsets(extruders));</span>
 
 <span class="fc" id="L306">            appendProperty(sb, LAYER_GCODE, printConfig.getLayerChangeGCode());</span>
             
@@ -501,31 +501,44 @@ import java.util.regex.Pattern;
             
             try {
                 // calculate new z-offset based on the last z value from the created GCode file
-<span class="fc" id="L504">                zOffset = calculateNextZOffset(subsetGCodeFile);</span>
-<span class="nc" id="L505">            } catch (Exception ex) {</span>
-<span class="nc" id="L506">                Logger.getLogger(Slic3rSlicingEngineWrapperImpl.class.getName()).log(Level.SEVERE, null, ex);</span>
-<span class="nc" id="L507">                throw new ProcessorException(&quot;Could not properly calculate Z Offset for subset &quot; + (subsetNum + 1));</span>
-<span class="fc" id="L508">            }</span>
+<span class="fc" id="L504">                zOffset = calculateNextZOffset(subsetGCodeFile, printJobConfiguration, subset);</span>
+<span class="fc" id="L505">                System.out.println(&quot;Z Offset = &quot; + zOffset);</span>
+<span class="nc" id="L506">            } catch (Exception ex) {</span>
+<span class="nc" id="L507">                Logger.getLogger(Slic3rSlicingEngineWrapperImpl.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L508">                throw new ProcessorException(&quot;Could not properly calculate Z Offset for subset &quot; + (subsetNum + 1));</span>
+<span class="fc" id="L509">            }</span>
             
             // increment subset number for naming files
-<span class="fc" id="L511">            subsetNum++;</span>
-<span class="fc" id="L512">        }</span>
-<span class="fc" id="L513">        return true;</span>
+<span class="fc" id="L512">            subsetNum++;</span>
+<span class="fc" id="L513">        }</span>
+<span class="fc" id="L514">        return true;</span>
     }
 
-    private double calculateNextZOffset(File gCodeFile) throws FileNotFoundException, IOException, NumberFormatException {
-<span class="fc" id="L517">        BufferedReader reader = new BufferedReader(new FileReader(gCodeFile));</span>
-<span class="fc" id="L518">        double zOffset = 0.0;</span>
-<span class="fc" id="L519">        Pattern pattern = Pattern.compile(&quot;Z[0-9]+.[0-9]+&quot;);</span>
-<span class="fc" id="L520">        String line = &quot;&quot;;</span>
-<span class="fc bfc" id="L521" title="All 2 branches covered.">        while((line = reader.readLine()) != null) {</span>
-<span class="fc" id="L522">            Matcher matcher = pattern.matcher(line);</span>
-<span class="fc bfc" id="L523" title="All 2 branches covered.">            if(matcher.find()) {</span>
-<span class="fc" id="L524">                String match = matcher.group();</span>
-<span class="fc" id="L525">                zOffset = Double.parseDouble(match.substring(1));</span>
+    private double calculateNextZOffset(File gCodeFile, PrintJobConfiguration printJob, SubsetConfiguration subset) throws FileNotFoundException, IOException, NumberFormatException {
+<span class="fc" id="L518">        BufferedReader reader = new BufferedReader(new FileReader(gCodeFile));</span>
+<span class="fc" id="L519">        double zOffset = 0.0;</span>
+<span class="fc" id="L520">        int lastTool = 0;</span>
+<span class="fc" id="L521">        Pattern zPattern = Pattern.compile(&quot;Z[0-9]+.[0-9]+&quot;);</span>
+<span class="fc" id="L522">        Pattern toolPattern = Pattern.compile(&quot;T[0-9]+&quot;);</span>
+<span class="fc" id="L523">        String line = &quot;&quot;;</span>
+<span class="fc bfc" id="L524" title="All 2 branches covered.">        while((line = reader.readLine()) != null) {</span>
+<span class="fc" id="L525">            Matcher zMatcher = zPattern.matcher(line);</span>
+<span class="fc" id="L526">            Matcher toolMatcher = toolPattern.matcher(line);</span>
+<span class="fc bfc" id="L527" title="All 2 branches covered.">            if(zMatcher.find()) {</span>
+<span class="fc" id="L528">                String match = zMatcher.group();</span>
+<span class="fc" id="L529">                zOffset = Double.parseDouble(match.substring(1));</span>
             }
-<span class="fc" id="L527">        }</span>
-<span class="fc" id="L528">        return zOffset;</span>
+<span class="fc bfc" id="L531" title="All 2 branches covered.">            if(toolMatcher.find()) {</span>
+<span class="fc" id="L532">                String match = toolMatcher.group();</span>
+<span class="fc" id="L533">                lastTool = Integer.parseInt(match.substring(1));</span>
+            }
+<span class="fc" id="L535">        }</span>
+
+<span class="fc" id="L537">        int actualLastTool = subset.getExtrudersNeeded().get(lastTool);</span>
+<span class="fc" id="L538">        double retractionLiftZ = </span>
+            printJob.getExtruderMaterials().get(actualLastTool).getRetractionLiftZ();
+        
+<span class="fc" id="L541">        return zOffset - retractionLiftZ;</span>
     }
 
     /**
@@ -535,240 +548,260 @@ import java.util.regex.Pattern;
      * @return  String of comma separated list of x,y offsets.
      */
     private String getExtruderOffsets(List&lt;ExtruderConfiguration&gt; extruders) {
-<span class="fc" id="L538">        int numExtruders = extruders.size();</span>
-<span class="fc" id="L539">        double[] slic3rXOffsets = new double[numExtruders];</span>
-<span class="fc" id="L540">        double[] slic3rYOffsets = new double[numExtruders];</span>
+<span class="nc" id="L551">        int numExtruders = extruders.size();</span>
+<span class="nc" id="L552">        double[] slic3rXOffsets = new double[numExtruders];</span>
+<span class="nc" id="L553">        double[] slic3rYOffsets = new double[numExtruders];</span>
 
         // The first extruder always has a 0 offset because the rest of
         // the extruder offsets are relative to the first extruder.
-<span class="fc" id="L544">        slic3rXOffsets[0] = 0.0;</span>
-<span class="fc" id="L545">        slic3rYOffsets[0] = 0.0;</span>
+<span class="nc" id="L557">        slic3rXOffsets[0] = 0.0;</span>
+<span class="nc" id="L558">        slic3rYOffsets[0] = 0.0;</span>
         
-<span class="fc" id="L547">        int i = 1;</span>
-<span class="fc bfc" id="L548" title="All 2 branches covered.">        while(i &lt; extruders.size()) {</span>
-<span class="fc" id="L549">            ExtruderConfiguration prevExtruder = extruders.get(i - 1);</span>
-<span class="fc" id="L550">            ExtruderConfiguration currentExtruder = extruders.get(i);</span>
-<span class="fc" id="L551">            double prevSlic3rXOffset = slic3rXOffsets[i-1];</span>
-<span class="fc" id="L552">            slic3rXOffsets[i] = prevExtruder.getxDimension() - prevExtruder.getxOffset() + currentExtruder.getxOffset() + prevSlic3rXOffset;</span>
-<span class="fc" id="L553">            slic3rYOffsets[i] = extruders.get(i).getyOffset() - extruders.get(0).getyOffset();</span>
-<span class="fc" id="L554">            i++;</span>
-<span class="fc" id="L555">        }</span>
+<span class="nc" id="L560">        int i = 1;</span>
+<span class="nc bnc" id="L561" title="All 2 branches missed.">        while(i &lt; extruders.size()) {</span>
+<span class="nc" id="L562">            ExtruderConfiguration prevExtruder = extruders.get(i - 1);</span>
+<span class="nc" id="L563">            ExtruderConfiguration currentExtruder = extruders.get(i);</span>
+<span class="nc" id="L564">            double prevSlic3rXOffset = slic3rXOffsets[i-1];</span>
+<span class="nc" id="L565">            slic3rXOffsets[i] = prevExtruder.getxDimension() - prevExtruder.getxOffset() + currentExtruder.getxOffset() + prevSlic3rXOffset;</span>
+<span class="nc" id="L566">            slic3rYOffsets[i] = extruders.get(i).getyOffset() - extruders.get(0).getyOffset();</span>
+<span class="nc" id="L567">            i++;</span>
+<span class="nc" id="L568">        }</span>
 
-<span class="fc" id="L557">        StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L558">        i = 0;</span>
-<span class="fc bfc" id="L559" title="All 2 branches covered.">        while (i &lt; numExtruders - 1) {</span>
-<span class="fc" id="L560">            sb.append(String.valueOf(slic3rXOffsets[i]))</span>
+<span class="nc" id="L570">        StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L571">        i = 0;</span>
+<span class="nc bnc" id="L572" title="All 2 branches missed.">        while (i &lt; numExtruders - 1) {</span>
+<span class="nc" id="L573">            sb.append(String.valueOf(slic3rXOffsets[i]))</span>
               .append(&quot;x&quot;)
               .append(String.valueOf(slic3rYOffsets[i]))
               .append(&quot;,&quot;);
-<span class="fc" id="L564">            i++;</span>
+<span class="nc" id="L577">            i++;</span>
         }
-<span class="fc" id="L566">        sb.append(String.valueOf(slic3rXOffsets[i]))</span>
+<span class="nc" id="L579">        sb.append(String.valueOf(slic3rXOffsets[i]))</span>
           .append(&quot;x&quot;)
           .append(String.valueOf(slic3rYOffsets[i]));
         
-<span class="fc" id="L570">        return sb.toString();</span>
+<span class="nc" id="L583">        return sb.toString();</span>
 
+    }
+
+    private String getSimpleExtruderOffsets(List&lt;ExtruderConfiguration&gt; extruders) {
+<span class="fc" id="L588">        int numExtruders = extruders.size();</span>
+<span class="fc" id="L589">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L590">        int i = 0;</span>
+<span class="fc bfc" id="L591" title="All 2 branches covered.">        while (i &lt; numExtruders - 1) {</span>
+<span class="fc" id="L592">            sb.append(String.valueOf(extruders.get(i).getxOffset()))</span>
+              .append(&quot;x&quot;)
+              .append(String.valueOf(extruders.get(i).getyOffset()))
+              .append(&quot;,&quot;);
+<span class="fc" id="L596">            i++;</span>
+        }
+
+<span class="fc" id="L599">        sb.append(String.valueOf(extruders.get(i).getxOffset()))</span>
+          .append(&quot;x&quot;)
+          .append(String.valueOf(extruders.get(i).getyOffset()));
+        
+<span class="fc" id="L603">        return sb.toString();</span>
+        
     }
 
     private String getNozzleDiameters(List&lt;ExtruderConfiguration&gt; extruders) {
-<span class="fc" id="L575">        StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L576">        int i = 0;</span>
-<span class="fc bfc" id="L577" title="All 2 branches covered.">        while(i &lt; extruders.size() - 1) {</span>
-<span class="fc" id="L578">            sb.append(extruders.get(i).getNozzleDiameter());</span>
-<span class="fc" id="L579">            sb.append(&quot;,&quot;);</span>
-<span class="fc" id="L580">            i++;</span>
+<span class="fc" id="L608">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L609">        int i = 0;</span>
+<span class="fc bfc" id="L610" title="All 2 branches covered.">        while(i &lt; extruders.size() - 1) {</span>
+<span class="fc" id="L611">            sb.append(extruders.get(i).getNozzleDiameter());</span>
+<span class="fc" id="L612">            sb.append(&quot;,&quot;);</span>
+<span class="fc" id="L613">            i++;</span>
         }
-<span class="fc" id="L582">        sb.append(extruders.get(i).getNozzleDiameter());</span>
-<span class="fc" id="L583">        return sb.toString();</span>
+<span class="fc" id="L615">        sb.append(extruders.get(i).getNozzleDiameter());</span>
+<span class="fc" id="L616">        return sb.toString();</span>
     }
 
     private String getFilamentDiameters(List&lt;MaterialConfiguration&gt; materials) {
-<span class="fc" id="L587">        StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L588">        int i = 0;</span>
-<span class="fc bfc" id="L589" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
-<span class="fc" id="L590">            sb.append(materials.get(i).getFilamentDiameter())</span>
+<span class="fc" id="L620">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L621">        int i = 0;</span>
+<span class="fc bfc" id="L622" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L623">            sb.append(materials.get(i).getFilamentDiameter())</span>
               .append(&quot;,&quot;);
-<span class="fc" id="L592">            i++;</span>
+<span class="fc" id="L625">            i++;</span>
         }
-<span class="fc" id="L594">        sb.append(materials.get(i).getFilamentDiameter());</span>
-<span class="fc" id="L595">        return sb.toString();</span>
+<span class="fc" id="L627">        sb.append(materials.get(i).getFilamentDiameter());</span>
+<span class="fc" id="L628">        return sb.toString();</span>
     }
     
     private String getExtrusionMultipliers(List&lt;MaterialConfiguration&gt; materials) {
-<span class="fc" id="L599">        StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L600">        int i = 0;</span>
-<span class="fc bfc" id="L601" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
-<span class="fc" id="L602">            sb.append(materials.get(i).getExtrusionMultiplier())</span>
+<span class="fc" id="L632">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L633">        int i = 0;</span>
+<span class="fc bfc" id="L634" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L635">            sb.append(materials.get(i).getExtrusionMultiplier())</span>
               .append(&quot;,&quot;);
-<span class="fc" id="L604">            i++;</span>
+<span class="fc" id="L637">            i++;</span>
         }
-<span class="fc" id="L606">        sb.append(materials.get(i).getExtrusionMultiplier());</span>
-<span class="fc" id="L607">        return sb.toString();</span>
+<span class="fc" id="L639">        sb.append(materials.get(i).getExtrusionMultiplier());</span>
+<span class="fc" id="L640">        return sb.toString();</span>
     }
 
     private String getFirstLayerTemperatures(List&lt;MaterialConfiguration&gt; materials) {
-<span class="fc" id="L611">        StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L612">        int i = 0;</span>
-<span class="fc bfc" id="L613" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
-<span class="fc" id="L614">            sb.append(materials.get(i).getFirstLayerExtrusionTemperature())</span>
+<span class="fc" id="L644">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L645">        int i = 0;</span>
+<span class="fc bfc" id="L646" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L647">            sb.append(materials.get(i).getFirstLayerExtrusionTemperature())</span>
               .append(&quot;,&quot;);
-<span class="fc" id="L616">            i++;</span>
+<span class="fc" id="L649">            i++;</span>
         }
-<span class="fc" id="L618">        sb.append(materials.get(i).getFirstLayerExtrusionTemperature());</span>
-<span class="fc" id="L619">        return sb.toString();</span>
+<span class="fc" id="L651">        sb.append(materials.get(i).getFirstLayerExtrusionTemperature());</span>
+<span class="fc" id="L652">        return sb.toString();</span>
     }
 
     private String getExtrusionTemperatures(List&lt;MaterialConfiguration&gt; materials) {
-<span class="fc" id="L623">        StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L624">        int i = 0;</span>
-<span class="fc bfc" id="L625" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
-<span class="fc" id="L626">            sb.append(materials.get(i).getExtrusionTemperature())</span>
+<span class="fc" id="L656">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L657">        int i = 0;</span>
+<span class="fc bfc" id="L658" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L659">            sb.append(materials.get(i).getExtrusionTemperature())</span>
               .append(&quot;,&quot;);
-<span class="fc" id="L628">            i++;</span>
+<span class="fc" id="L661">            i++;</span>
         }
-<span class="fc" id="L630">        sb.append(materials.get(i).getExtrusionTemperature());</span>
-<span class="fc" id="L631">        return sb.toString();</span>
+<span class="fc" id="L663">        sb.append(materials.get(i).getExtrusionTemperature());</span>
+<span class="fc" id="L664">        return sb.toString();</span>
     }
 
     private String getRetractBeforeTravelValues(List&lt;MaterialConfiguration&gt; materials) {
-<span class="fc" id="L635">        StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L636">        int i = 0;</span>
-<span class="fc bfc" id="L637" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
-<span class="fc" id="L638">            sb.append(materials.get(i).getMinimumTravelAfterRetraction())</span>
+<span class="fc" id="L668">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L669">        int i = 0;</span>
+<span class="fc bfc" id="L670" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L671">            sb.append(materials.get(i).getMinimumTravelAfterRetraction())</span>
               .append(&quot;,&quot;);
-<span class="fc" id="L640">            i++;</span>
+<span class="fc" id="L673">            i++;</span>
         }
-<span class="fc" id="L642">        sb.append(materials.get(i).getMinimumTravelAfterRetraction());</span>
-<span class="fc" id="L643">        return sb.toString();</span>
+<span class="fc" id="L675">        sb.append(materials.get(i).getMinimumTravelAfterRetraction());</span>
+<span class="fc" id="L676">        return sb.toString();</span>
     }
 
     private String getRetractOnLayerChangeValues(List&lt;MaterialConfiguration&gt; materials) {
-<span class="fc" id="L647">        StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L648">        int i = 0;</span>
-<span class="fc bfc" id="L649" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
-<span class="pc bpc" id="L650" title="1 of 2 branches missed.">            sb.append(materials.get(i).isRetractOnLayerChange() ? &quot;1&quot; : &quot;0&quot;)</span>
+<span class="fc" id="L680">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L681">        int i = 0;</span>
+<span class="fc bfc" id="L682" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="pc bpc" id="L683" title="1 of 2 branches missed.">            sb.append(materials.get(i).isRetractOnLayerChange() ? &quot;1&quot; : &quot;0&quot;)</span>
               .append(&quot;,&quot;);
-<span class="fc" id="L652">            i++;</span>
+<span class="fc" id="L685">            i++;</span>
         }
-<span class="pc bpc" id="L654" title="1 of 2 branches missed.">        sb.append(materials.get(i).isRetractOnLayerChange() ? &quot;1&quot; : &quot;0&quot;);</span>
-<span class="fc" id="L655">        return sb.toString();</span>
+<span class="pc bpc" id="L687" title="1 of 2 branches missed.">        sb.append(materials.get(i).isRetractOnLayerChange() ? &quot;1&quot; : &quot;0&quot;);</span>
+<span class="fc" id="L688">        return sb.toString();</span>
     }
 
     private String getRetractLengths(List&lt;MaterialConfiguration&gt; materials) {
-<span class="fc" id="L659">        StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L660">        int i = 0;</span>
-<span class="fc bfc" id="L661" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
-<span class="fc" id="L662">            sb.append(materials.get(i).getRetractionLength())</span>
+<span class="fc" id="L692">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L693">        int i = 0;</span>
+<span class="fc bfc" id="L694" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L695">            sb.append(materials.get(i).getRetractionLength())</span>
               .append(&quot;,&quot;);
-<span class="fc" id="L664">            i++;</span>
+<span class="fc" id="L697">            i++;</span>
         }
-<span class="fc" id="L666">        sb.append(materials.get(i).getRetractionLength());</span>
-<span class="fc" id="L667">        return sb.toString();</span>
+<span class="fc" id="L699">        sb.append(materials.get(i).getRetractionLength());</span>
+<span class="fc" id="L700">        return sb.toString();</span>
     }
 
     private String getRetractBeforeToolChange(List&lt;MaterialConfiguration&gt; materials) {
-<span class="fc" id="L671">        StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L672">        int i = 0;</span>
-<span class="fc bfc" id="L673" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
-<span class="fc" id="L674">            sb.append(materials.get(i).getRetractionLengthBeforeToolChange())</span>
+<span class="fc" id="L704">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L705">        int i = 0;</span>
+<span class="fc bfc" id="L706" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L707">            sb.append(materials.get(i).getRetractionLengthBeforeToolChange())</span>
               .append(&quot;,&quot;);
-<span class="fc" id="L676">            i++;</span>
+<span class="fc" id="L709">            i++;</span>
         }
-<span class="fc" id="L678">        sb.append(materials.get(i).getRetractionLengthBeforeToolChange());</span>
-<span class="fc" id="L679">        return sb.toString();</span>
+<span class="fc" id="L711">        sb.append(materials.get(i).getRetractionLengthBeforeToolChange());</span>
+<span class="fc" id="L712">        return sb.toString();</span>
     }
 
     private String getRetractLifts(List&lt;MaterialConfiguration&gt; materials) {
-<span class="fc" id="L683">        StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L684">        int i = 0;</span>
-<span class="fc bfc" id="L685" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
-<span class="fc" id="L686">            sb.append(materials.get(i).getRetractionLiftZ())</span>
+<span class="fc" id="L716">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L717">        int i = 0;</span>
+<span class="fc bfc" id="L718" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L719">            sb.append(materials.get(i).getRetractionLiftZ())</span>
               .append(&quot;,&quot;);
-<span class="fc" id="L688">            i++;</span>
+<span class="fc" id="L721">            i++;</span>
         }
-<span class="fc" id="L690">        sb.append(materials.get(i).getRetractionLiftZ());</span>
-<span class="fc" id="L691">        return sb.toString();</span>
+<span class="fc" id="L723">        sb.append(materials.get(i).getRetractionLiftZ());</span>
+<span class="fc" id="L724">        return sb.toString();</span>
     }
 
     private String getExtraAfterRetracts(List&lt;MaterialConfiguration&gt; materials) {
-<span class="fc" id="L695">        StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L696">        int i = 0;</span>
-<span class="fc bfc" id="L697" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
-<span class="fc" id="L698">            sb.append(materials.get(i).getExtraLengthAfterRetraction())</span>
+<span class="fc" id="L728">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L729">        int i = 0;</span>
+<span class="fc bfc" id="L730" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L731">            sb.append(materials.get(i).getExtraLengthAfterRetraction())</span>
               .append(&quot;,&quot;);
-<span class="fc" id="L700">            i++;</span>
+<span class="fc" id="L733">            i++;</span>
         }
-<span class="fc" id="L702">        sb.append(materials.get(i).getExtraLengthAfterRetraction());</span>
-<span class="fc" id="L703">        return sb.toString();</span>
+<span class="fc" id="L735">        sb.append(materials.get(i).getExtraLengthAfterRetraction());</span>
+<span class="fc" id="L736">        return sb.toString();</span>
     }
 
     private String getExtraAfterRetractToolchange(List&lt;MaterialConfiguration&gt; materials) {
-<span class="fc" id="L707">        StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L708">        int i = 0;</span>
-<span class="fc bfc" id="L709" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
-<span class="fc" id="L710">            sb.append(materials.get(i).getExtraLengthOnToolReenable())</span>
+<span class="fc" id="L740">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L741">        int i = 0;</span>
+<span class="fc bfc" id="L742" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L743">            sb.append(materials.get(i).getExtraLengthOnToolReenable())</span>
               .append(&quot;,&quot;);
-<span class="fc" id="L712">            i++;</span>
+<span class="fc" id="L745">            i++;</span>
         }
-<span class="fc" id="L714">        sb.append(materials.get(i).getExtraLengthOnToolReenable());</span>
-<span class="fc" id="L715">        return sb.toString();</span>
+<span class="fc" id="L747">        sb.append(materials.get(i).getExtraLengthOnToolReenable());</span>
+<span class="fc" id="L748">        return sb.toString();</span>
     }
 
     private String getRetractSpeeds(List&lt;MaterialConfiguration&gt; materials) {
-<span class="fc" id="L719">        StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L720">        int i = 0;</span>
-<span class="fc bfc" id="L721" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
-<span class="fc" id="L722">            sb.append(materials.get(i).getRetractionSpeed())</span>
+<span class="fc" id="L752">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L753">        int i = 0;</span>
+<span class="fc bfc" id="L754" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="fc" id="L755">            sb.append(materials.get(i).getRetractionSpeed())</span>
               .append(&quot;,&quot;);
-<span class="fc" id="L724">            i++;</span>
+<span class="fc" id="L757">            i++;</span>
         }
-<span class="fc" id="L726">        sb.append(materials.get(i).getRetractionSpeed());</span>
-<span class="fc" id="L727">        return sb.toString();</span>
+<span class="fc" id="L759">        sb.append(materials.get(i).getRetractionSpeed());</span>
+<span class="fc" id="L760">        return sb.toString();</span>
     }
 
     private String getWipeBeforeRetract(List&lt;MaterialConfiguration&gt; materials) {
-<span class="fc" id="L731">        StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L732">        int i = 0;</span>
-<span class="fc bfc" id="L733" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
-<span class="pc bpc" id="L734" title="1 of 2 branches missed.">            sb.append(materials.get(i).isWipeBeforeRetract() ? &quot;1&quot; : &quot;0&quot;)</span>
+<span class="fc" id="L764">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L765">        int i = 0;</span>
+<span class="fc bfc" id="L766" title="All 2 branches covered.">        while(i &lt; materials.size() - 1) {</span>
+<span class="pc bpc" id="L767" title="1 of 2 branches missed.">            sb.append(materials.get(i).isWipeBeforeRetract() ? &quot;1&quot; : &quot;0&quot;)</span>
               .append(&quot;,&quot;);
-<span class="fc" id="L736">            i++;</span>
+<span class="fc" id="L769">            i++;</span>
         }
-<span class="pc bpc" id="L738" title="1 of 2 branches missed.">        sb.append(materials.get(i).isWipeBeforeRetract() ? &quot;1&quot; : &quot;0&quot;);</span>
-<span class="fc" id="L739">        return sb.toString();</span>
+<span class="pc bpc" id="L771" title="1 of 2 branches missed.">        sb.append(materials.get(i).isWipeBeforeRetract() ? &quot;1&quot; : &quot;0&quot;);</span>
+<span class="fc" id="L772">        return sb.toString();</span>
     }
 
     private StringBuilder appendProperty(StringBuilder sb, String property, String value) {
-<span class="fc" id="L743">        sb.append(property)</span>
+<span class="fc" id="L776">        sb.append(property)</span>
           .append(&quot; = &quot;)
           .append(value)
           .append(&quot;\n&quot;);
-<span class="fc" id="L747">        return sb;</span>
+<span class="fc" id="L780">        return sb;</span>
     }
 
     private StringBuilder appendProperty(StringBuilder sb, String property, boolean value) {
-<span class="fc bfc" id="L751" title="All 2 branches covered.">        sb.append(property)</span>
+<span class="fc bfc" id="L784" title="All 2 branches covered.">        sb.append(property)</span>
           .append(&quot; = &quot;)
           .append(value ? &quot;1&quot; : &quot;0&quot;)
           .append(&quot;\n&quot;);
-<span class="fc" id="L755">        return sb;</span>
+<span class="fc" id="L788">        return sb;</span>
     }
 
     private StringBuilder appendProperty(StringBuilder sb, String property, int value) {
-<span class="fc" id="L759">        sb.append(property)</span>
+<span class="fc" id="L792">        sb.append(property)</span>
           .append(&quot; = &quot;)
           .append(String.valueOf(value))
           .append(&quot;\n&quot;);
-<span class="fc" id="L763">        return sb;</span>
+<span class="fc" id="L796">        return sb;</span>
     }
 
     private StringBuilder appendProperty(StringBuilder sb, String property, double value) {
-<span class="fc" id="L767">        sb.append(property)</span>
+<span class="fc" id="L800">        sb.append(property)</span>
           .append(&quot; = &quot;)
           .append(String.valueOf(value))
           .append(&quot;\n&quot;);
-<span class="fc" id="L771">        return sb;</span>
+<span class="fc" id="L804">        return sb;</span>
     }
     
 }
