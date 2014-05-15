@@ -160,9 +160,22 @@ public class Slic3rGCodePreparerImpl implements GCodePreparer {
         Pattern toolSelectionPattern = Pattern.compile("^(T[0-9])");
         try {
             // special case when only one extruder is needed, we must explicitly select it.
+            // we must also put in its start/end gcode
             if(subset.getExtrudersNeeded().size() == 1) {
-                String tCode = "T" + subset.getExtrudersNeeded().get(0) + "\n";
+                int oldExtruderNumber = this.currentTool;
+                if(oldExtruderNumber != -1) {
+                    ExtruderConfiguration oldExtruder =
+                        printJob.getPrinterConfiguration().getExtruderList().get(oldExtruderNumber);
+                    outputFile.append(oldExtruder.getEndGCode());
+                }
+
+                int newExtruderNumber = subset.getExtrudersNeeded().get(0);
+                ExtruderConfiguration newExtruder =
+                    printJob.getPrinterConfiguration().getExtruderList().get(newExtruderNumber);
+                outputFile.append(newExtruder.getStartGCode());
+                String tCode = "T" + newExtruderNumber + "\n";
                 outputFile.append(tCode);
+                this.currentTool = newExtruderNumber;
             }
 
             BufferedReader subsetGCode = new BufferedReader(new FileReader(subsetGCodeFile));
